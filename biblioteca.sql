@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 15-09-2025 a las 03:43:07
+-- Tiempo de generación: 17-09-2025 a las 04:44:54
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -97,11 +97,18 @@ CREATE TABLE `libro` (
 --
 
 CREATE TABLE `login` (
-  `id_usuario` int(11) NOT NULL,
+  `id` int(11) NOT NULL,
   `nombre` varchar(50) NOT NULL,
   `correo` varchar(50) NOT NULL,
   `password` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `login`
+--
+
+INSERT INTO `login` (`id`, `nombre`, `correo`, `password`) VALUES
+(1, 'fernando', 'fernando@gmail.com', '12345');
 
 -- --------------------------------------------------------
 
@@ -229,7 +236,7 @@ ALTER TABLE `libro`
 -- Indices de la tabla `login`
 --
 ALTER TABLE `login`
-  ADD PRIMARY KEY (`id_usuario`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indices de la tabla `materia`
@@ -298,7 +305,7 @@ ALTER TABLE `historial_libros`
 -- AUTO_INCREMENT de la tabla `login`
 --
 ALTER TABLE `login`
-  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `materia`
