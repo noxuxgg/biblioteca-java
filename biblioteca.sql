@@ -1,0 +1,393 @@
+-- phpMyAdmin SQL Dump
+-- version 5.2.1
+-- https://www.phpmyadmin.net/
+--
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 17-09-2025 a las 04:44:54
+-- Versión del servidor: 10.4.32-MariaDB
+-- Versión de PHP: 8.2.12
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Base de datos: `biblioteca`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `autores`
+--
+
+CREATE TABLE `autores` (
+  `Id_autor` int(11) NOT NULL,
+  `Nombre` varchar(50) NOT NULL,
+  `Apellido` varchar(50) NOT NULL,
+  `Nacionalidad` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `categoria`
+--
+
+CREATE TABLE `categoria` (
+  `Id_categoria` int(11) NOT NULL,
+  `Categoria` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `editoriales`
+--
+
+CREATE TABLE `editoriales` (
+  `Id_editorial` int(11) NOT NULL,
+  `Nombre` varchar(100) NOT NULL,
+  `Pais` varchar(50) NOT NULL,
+  `Direccion` varchar(150) NOT NULL,
+  `Telefono` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `historial_libros`
+--
+
+CREATE TABLE `historial_libros` (
+  `Id_historial` int(11) NOT NULL,
+  `Id_libro` int(11) NOT NULL,
+  `Accion` varchar(100) NOT NULL,
+  `Fecha` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `libro`
+--
+
+CREATE TABLE `libro` (
+  `Id_libro` int(11) NOT NULL,
+  `Titulo` varchar(150) NOT NULL,
+  `Id_categoria` int(11) NOT NULL,
+  `Id_editorial` int(11) NOT NULL,
+  `Codigo` varchar(30) NOT NULL,
+  `Id_autor` int(11) NOT NULL,
+  `Id_materia` int(11) NOT NULL,
+  `Edicion` varchar(30) NOT NULL,
+  `Estado` varchar(80) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `login`
+--
+
+CREATE TABLE `login` (
+  `id` int(11) NOT NULL,
+  `nombre` varchar(50) NOT NULL,
+  `correo` varchar(50) NOT NULL,
+  `password` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `login`
+--
+
+INSERT INTO `login` (`id`, `nombre`, `correo`, `password`) VALUES
+(1, 'fernando', 'fernando@gmail.com', '12345');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `materia`
+--
+
+CREATE TABLE `materia` (
+  `Id_materia` int(11) NOT NULL,
+  `Nombre` varchar(80) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `multas`
+--
+
+CREATE TABLE `multas` (
+  `Id_multa` int(11) NOT NULL,
+  `Id_prestamo` int(11) NOT NULL,
+  `Dias_retraso` int(11) NOT NULL,
+  `Monto` decimal(8,2) NOT NULL,
+  `Estado` varchar(80) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `prestamos`
+--
+
+CREATE TABLE `prestamos` (
+  `Id_prestamo` int(11) NOT NULL,
+  `Id_usuario` int(11) NOT NULL,
+  `Id_libro` int(11) NOT NULL,
+  `Fecha_prestamo` date NOT NULL,
+  `Fecha_devolucion` date NOT NULL,
+  `Estado` varchar(80) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `sanciones`
+--
+
+CREATE TABLE `sanciones` (
+  `Id_sancion` int(11) NOT NULL,
+  `Id_usuario` int(11) NOT NULL,
+  `Descripcion` text NOT NULL,
+  `Fecha_unicio` date NOT NULL,
+  `Fecha_fin` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tipo_usuario`
+--
+
+CREATE TABLE `tipo_usuario` (
+  `Id_tipo_usuario` int(11) NOT NULL,
+  `Tipo_usuario` varchar(30) NOT NULL,
+  `Carrera` varchar(80) NOT NULL,
+  `Cargo` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `usuario`
+--
+
+CREATE TABLE `usuario` (
+  `Id_usuario` int(11) NOT NULL,
+  `Carnet` varchar(20) NOT NULL,
+  `Nombre` varchar(50) NOT NULL,
+  `Apellido` varchar(50) NOT NULL,
+  `Domicilo` varchar(100) NOT NULL,
+  `Id_tipo_usuario` int(11) NOT NULL,
+  `Telefono` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Índices para tablas volcadas
+--
+
+--
+-- Indices de la tabla `autores`
+--
+ALTER TABLE `autores`
+  ADD PRIMARY KEY (`Id_autor`);
+
+--
+-- Indices de la tabla `categoria`
+--
+ALTER TABLE `categoria`
+  ADD PRIMARY KEY (`Id_categoria`);
+
+--
+-- Indices de la tabla `editoriales`
+--
+ALTER TABLE `editoriales`
+  ADD PRIMARY KEY (`Id_editorial`);
+
+--
+-- Indices de la tabla `historial_libros`
+--
+ALTER TABLE `historial_libros`
+  ADD PRIMARY KEY (`Id_historial`),
+  ADD KEY `FkLibro` (`Id_libro`);
+
+--
+-- Indices de la tabla `libro`
+--
+ALTER TABLE `libro`
+  ADD PRIMARY KEY (`Id_libro`),
+  ADD KEY `Fkcategoria` (`Id_categoria`),
+  ADD KEY `Fkeditorial` (`Id_editorial`),
+  ADD KEY `Fkautor` (`Id_autor`),
+  ADD KEY `Fkmateria` (`Id_materia`);
+
+--
+-- Indices de la tabla `login`
+--
+ALTER TABLE `login`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `materia`
+--
+ALTER TABLE `materia`
+  ADD PRIMARY KEY (`Id_materia`);
+
+--
+-- Indices de la tabla `multas`
+--
+ALTER TABLE `multas`
+  ADD PRIMARY KEY (`Id_multa`),
+  ADD KEY `Fkprestamo` (`Id_prestamo`);
+
+--
+-- Indices de la tabla `prestamos`
+--
+ALTER TABLE `prestamos`
+  ADD PRIMARY KEY (`Id_prestamo`),
+  ADD KEY `FKusuario` (`Id_usuario`),
+  ADD KEY `Fklibro` (`Id_libro`);
+
+--
+-- Indices de la tabla `sanciones`
+--
+ALTER TABLE `sanciones`
+  ADD PRIMARY KEY (`Id_sancion`),
+  ADD KEY `FK` (`Id_usuario`);
+
+--
+-- Indices de la tabla `tipo_usuario`
+--
+ALTER TABLE `tipo_usuario`
+  ADD PRIMARY KEY (`Id_tipo_usuario`);
+
+--
+-- Indices de la tabla `usuario`
+--
+ALTER TABLE `usuario`
+  ADD PRIMARY KEY (`Id_usuario`),
+  ADD KEY `Tipo_usuario` (`Id_tipo_usuario`);
+
+--
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `categoria`
+--
+ALTER TABLE `categoria`
+  MODIFY `Id_categoria` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `editoriales`
+--
+ALTER TABLE `editoriales`
+  MODIFY `Id_editorial` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `historial_libros`
+--
+ALTER TABLE `historial_libros`
+  MODIFY `Id_historial` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `login`
+--
+ALTER TABLE `login`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT de la tabla `materia`
+--
+ALTER TABLE `materia`
+  MODIFY `Id_materia` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `multas`
+--
+ALTER TABLE `multas`
+  MODIFY `Id_multa` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `prestamos`
+--
+ALTER TABLE `prestamos`
+  MODIFY `Id_prestamo` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `sanciones`
+--
+ALTER TABLE `sanciones`
+  MODIFY `Id_sancion` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `tipo_usuario`
+--
+ALTER TABLE `tipo_usuario`
+  MODIFY `Id_tipo_usuario` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `usuario`
+--
+ALTER TABLE `usuario`
+  MODIFY `Id_usuario` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- Restricciones para tablas volcadas
+--
+
+--
+-- Filtros para la tabla `historial_libros`
+--
+ALTER TABLE `historial_libros`
+  ADD CONSTRAINT `historial_libros_ibfk_1` FOREIGN KEY (`Id_libro`) REFERENCES `libro` (`Id_libro`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `libro`
+--
+ALTER TABLE `libro`
+  ADD CONSTRAINT `libro_ibfk_1` FOREIGN KEY (`Id_materia`) REFERENCES `materia` (`Id_materia`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `libro_ibfk_2` FOREIGN KEY (`Id_editorial`) REFERENCES `editoriales` (`Id_editorial`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `libro_ibfk_3` FOREIGN KEY (`Id_categoria`) REFERENCES `categoria` (`Id_categoria`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `libro_ibfk_4` FOREIGN KEY (`Id_autor`) REFERENCES `autores` (`Id_autor`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `multas`
+--
+ALTER TABLE `multas`
+  ADD CONSTRAINT `multas_ibfk_1` FOREIGN KEY (`Id_prestamo`) REFERENCES `prestamos` (`Id_prestamo`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `prestamos`
+--
+ALTER TABLE `prestamos`
+  ADD CONSTRAINT `prestamos_ibfk_1` FOREIGN KEY (`Id_usuario`) REFERENCES `usuario` (`Id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `prestamos_ibfk_2` FOREIGN KEY (`Id_libro`) REFERENCES `libro` (`Id_libro`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `sanciones`
+--
+ALTER TABLE `sanciones`
+  ADD CONSTRAINT `sanciones_ibfk_1` FOREIGN KEY (`Id_usuario`) REFERENCES `prestamos` (`Id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `usuario`
+--
+ALTER TABLE `usuario`
+  ADD CONSTRAINT `usuario_ibfk_1` FOREIGN KEY (`Id_tipo_usuario`) REFERENCES `tipo_usuario` (`Id_tipo_usuario`) ON DELETE CASCADE ON UPDATE CASCADE;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

@@ -1,0 +1,7 @@
+1. Instalar XAMPP
+2. Levantar el servicio de phpmyadmin y MySQL
+3. Ingresar a phpmyadmin y crear una base de datos llamada 'biblioteca'
+4. Ingresar a la base de datos e importar el archivo biblioteca.sql
+5. Abrir el archivo SistemaBiblioteca en NetBeans
+6. Importar la librería mysql-connector-java-8.0.19.jar si es que surge algún error
+7. Abrir una de las vistas de su preferencia, click derecho y RUN FILE
