@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 17-09-2025 a las 04:44:54
+-- Tiempo de generación: 09-10-2025 a las 17:50:42
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -44,6 +44,14 @@ CREATE TABLE `categoria` (
   `Id_categoria` int(11) NOT NULL,
   `Categoria` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `categoria`
+--
+
+INSERT INTO `categoria` (`Id_categoria`, `Categoria`) VALUES
+(1, 'Tesis'),
+(2, 'Proyecto de Grado');
 
 -- --------------------------------------------------------
 
@@ -118,8 +126,17 @@ INSERT INTO `login` (`id`, `nombre`, `correo`, `password`) VALUES
 
 CREATE TABLE `materia` (
   `Id_materia` int(11) NOT NULL,
+  `sigla` varchar(15) NOT NULL,
   `Nombre` varchar(80) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `materia`
+--
+
+INSERT INTO `materia` (`Id_materia`, `sigla`, `Nombre`) VALUES
+(1, 'INF-3510', 'Redes Informáticas I'),
+(3, 'SIS-2520', 'Simulacion de Sistemas');
 
 -- --------------------------------------------------------
 
@@ -134,6 +151,24 @@ CREATE TABLE `multas` (
   `Monto` decimal(8,2) NOT NULL,
   `Estado` varchar(80) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `paises`
+--
+
+CREATE TABLE `paises` (
+  `id_pais` int(11) NOT NULL,
+  `nombre` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `paises`
+--
+
+INSERT INTO `paises` (`id_pais`, `nombre`) VALUES
+(1, 'Bolivia');
 
 -- --------------------------------------------------------
 
@@ -252,6 +287,12 @@ ALTER TABLE `multas`
   ADD KEY `Fkprestamo` (`Id_prestamo`);
 
 --
+-- Indices de la tabla `paises`
+--
+ALTER TABLE `paises`
+  ADD PRIMARY KEY (`id_pais`);
+
+--
 -- Indices de la tabla `prestamos`
 --
 ALTER TABLE `prestamos`
@@ -287,7 +328,7 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `categoria`
 --
 ALTER TABLE `categoria`
-  MODIFY `Id_categoria` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id_categoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `editoriales`
@@ -311,13 +352,19 @@ ALTER TABLE `login`
 -- AUTO_INCREMENT de la tabla `materia`
 --
 ALTER TABLE `materia`
-  MODIFY `Id_materia` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id_materia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `multas`
 --
 ALTER TABLE `multas`
   MODIFY `Id_multa` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `paises`
+--
+ALTER TABLE `paises`
+  MODIFY `id_pais` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `prestamos`
