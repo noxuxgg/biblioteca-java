@@ -8,6 +8,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import javax.swing.JOptionPane;
 import java.sql.SQLException;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 /**
  *
  * @author pc
@@ -16,6 +19,8 @@ public class PaisDAO {
     Conexion cn = new Conexion();
     Connection con;
     PreparedStatement ps;
+    ResultSet rs;
+    
     public boolean registrarPais(Pais pa){
         String sql = "INSERT INTO paises (nombre) VALUES (?)";
         try{
@@ -34,5 +39,25 @@ public class PaisDAO {
                 System.out.println(e.toString());
             }
         }
+    }
+    
+    
+    public List ListarPais(){
+        List<Pais> ListaPais = new ArrayList();
+        String sql = "SELECT * FROM paises";
+        try {
+            con = cn.getConnection();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while(rs.next()){
+                Pais pa = new Pais();
+                pa.setId_pais(rs.getInt("id_pais"));
+                pa.setNombre(rs.getString("nombre"));
+                ListaPais.add(pa);
+            }
+        } catch (SQLException e) {
+            System.out.println("Error"+ e.toString());
+        }
+        return ListaPais;
     }
 }

@@ -7,6 +7,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import javax.swing.JOptionPane;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.sql.ResultSet;
 /**
  *
  * @author pc
@@ -15,6 +18,8 @@ public class MateriaDAO {
     Conexion cn = new Conexion();
     Connection con;
     PreparedStatement ps;
+    ResultSet rs;
+    
     public boolean RegistrarMateria(Materia ma){
         String sql = "INSERT INTO materia (sigla,Nombre) VALUES(?,?)";
         try{
@@ -35,4 +40,25 @@ public class MateriaDAO {
             }
         }
     }
+    
+    public List ListarMateria(){
+        List<Materia> ListaMa = new ArrayList();
+        String sql = "SELECT * FROM materia";
+        try {
+            con = cn.getConnection();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while(rs.next()){
+                Materia ma = new Materia();
+                ma.setId_materia(rs.getInt("id_materia"));
+                ma.setSigla(rs.getString("sigla"));
+                ma.setNombre(rs.getString("nombre"));
+                ListaMa.add(ma);
+            }
+        } catch (SQLException e) {
+            System.out.println("Error"+ e.toString());
+        }
+        return ListaMa;
+    }
+    
 }
