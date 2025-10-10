@@ -10,7 +10,10 @@ import Modelo.Materia;
 import Modelo.MateriaDAO;
 import Modelo.Pais;
 import Modelo.PaisDAO;
+import java.util.List;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -19,7 +22,7 @@ import javax.swing.JOptionPane;
 public class Sistema extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Sistema.class.getName());
-
+    
     /**
      * Creates new form Sistema
      */
@@ -29,9 +32,59 @@ public class Sistema extends javax.swing.JFrame {
     MateriaDAO materia = new MateriaDAO();
     Pais pa = new Pais();
     PaisDAO pais = new PaisDAO();
+    DefaultTableModel modelo = new DefaultTableModel();
     
     public Sistema() {
         initComponents();
+        LimpiarTable();
+    }
+    
+    public void ListarPais(){
+        LimpiarTable();
+        List<Pais> ListarPais = pais.ListarPais();
+        modelo = (DefaultTableModel) TablePais.getModel();
+        Object[] obj = new Object[2];
+        for (int i = 0; i < ListarPais.size(); i++) {
+            obj[0] = ListarPais.get(i).getId_pais();
+            obj[1] = ListarPais.get(i).getNombre();
+            modelo.addRow(obj);
+        }
+        TablePais.setModel(modelo);
+    }
+    
+    public void ListarCategoria(){
+        LimpiarTable();
+        List<Categoria> ListarCategoria = categoria.ListarCategoria();
+        modelo = (DefaultTableModel) TableCategoria.getModel();
+        Object[] obj = new Object[2];
+        for (int i = 0; i < ListarCategoria.size(); i++) {
+            obj[0] = ListarCategoria.get(i).getId_categoria();
+            obj[1] = ListarCategoria.get(i).getCategoria();
+            modelo.addRow(obj);
+        }
+        TableCategoria.setModel(modelo);
+    }
+    
+    public void ListarMateria(){
+        LimpiarTable();
+        List<Materia> ListarMateria = materia.ListarMateria();
+        modelo = (DefaultTableModel) TableMateria.getModel();
+        Object[] obj = new Object[3];
+        for (int i = 0; i < ListarMateria.size(); i++) {
+            obj[0] = ListarMateria.get(i).getId_materia();
+            obj[1] = ListarMateria.get(i).getSigla();
+            obj[2] = ListarMateria.get(i).getNombre();
+            modelo.addRow(obj);
+        }
+        TableMateria.setModel(modelo);
+    }
+    
+    
+    public void LimpiarTable(){
+        for (int i = 0; i < modelo.getRowCount(); i++) {
+            modelo.removeRow(i);
+            i = i - 1;
+        }
     }
 
     /**
@@ -264,7 +317,7 @@ public class Sistema extends javax.swing.JFrame {
         jLabel49 = new javax.swing.JLabel();
         btnGuardarCategoria = new javax.swing.JButton();
         jScrollPane8 = new javax.swing.JScrollPane();
-        jTable8 = new javax.swing.JTable();
+        TableCategoria = new javax.swing.JTable();
         jPanel26 = new javax.swing.JPanel();
         jLabel50 = new javax.swing.JLabel();
         jLabel51 = new javax.swing.JLabel();
@@ -272,7 +325,7 @@ public class Sistema extends javax.swing.JFrame {
         txtSiglaMateria = new javax.swing.JTextField();
         txtNombreMateria = new javax.swing.JTextField();
         jScrollPane9 = new javax.swing.JScrollPane();
-        jTable9 = new javax.swing.JTable();
+        TableMateria = new javax.swing.JTable();
         btnGuardarMateria = new javax.swing.JButton();
         jPanel27 = new javax.swing.JPanel();
         txtNombrePais = new javax.swing.JTextField();
@@ -280,7 +333,7 @@ public class Sistema extends javax.swing.JFrame {
         jLabel56 = new javax.swing.JLabel();
         btnGuardarPais = new javax.swing.JButton();
         jScrollPane10 = new javax.swing.JScrollPane();
-        jTable10 = new javax.swing.JTable();
+        TablePais = new javax.swing.JTable();
         btnAjuste = new javax.swing.JButton();
         btnAnalisis = new javax.swing.JButton();
         btnCerrar = new javax.swing.JButton();
@@ -303,7 +356,7 @@ public class Sistema extends javax.swing.JFrame {
             }
         });
 
-        cboxLibro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Libros", "Autor", "Editorial", "Usuario" }));
+        cboxLibro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Libros", "Autor", "Editorial", "Usuario", "Categoria", "Pais", "Materia" }));
         cboxLibro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cboxLibroActionPerformed(evt);
@@ -2494,22 +2547,19 @@ public class Sistema extends javax.swing.JFrame {
             }
         });
 
-        jTable8.setModel(new javax.swing.table.DefaultTableModel(
+        TableCategoria.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+
             },
             new String [] {
-                "ID", "NOMBRE"
+                "ID", "CATEGORIA"
             }
         ));
-        jScrollPane8.setViewportView(jTable8);
-        if (jTable8.getColumnModel().getColumnCount() > 0) {
-            jTable8.getColumnModel().getColumn(0).setPreferredWidth(100);
-            jTable8.getColumnModel().getColumn(0).setMaxWidth(500);
-            jTable8.getColumnModel().getColumn(1).setPreferredWidth(200);
+        jScrollPane8.setViewportView(TableCategoria);
+        if (TableCategoria.getColumnModel().getColumnCount() > 0) {
+            TableCategoria.getColumnModel().getColumn(0).setPreferredWidth(100);
+            TableCategoria.getColumnModel().getColumn(0).setMaxWidth(500);
+            TableCategoria.getColumnModel().getColumn(1).setPreferredWidth(200);
         }
 
         javax.swing.GroupLayout jPanel24Layout = new javax.swing.GroupLayout(jPanel24);
@@ -2555,23 +2605,20 @@ public class Sistema extends javax.swing.JFrame {
 
         jLabel52.setText("Nombre:");
 
-        jTable9.setModel(new javax.swing.table.DefaultTableModel(
+        TableMateria.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+
             },
             new String [] {
                 "ID", "SIGLA", "MATERIA"
             }
         ));
-        jScrollPane9.setViewportView(jTable9);
-        if (jTable9.getColumnModel().getColumnCount() > 0) {
-            jTable9.getColumnModel().getColumn(0).setPreferredWidth(100);
-            jTable9.getColumnModel().getColumn(0).setMaxWidth(50);
-            jTable9.getColumnModel().getColumn(1).setPreferredWidth(200);
-            jTable9.getColumnModel().getColumn(2).setPreferredWidth(500);
+        jScrollPane9.setViewportView(TableMateria);
+        if (TableMateria.getColumnModel().getColumnCount() > 0) {
+            TableMateria.getColumnModel().getColumn(0).setPreferredWidth(100);
+            TableMateria.getColumnModel().getColumn(0).setMaxWidth(50);
+            TableMateria.getColumnModel().getColumn(1).setPreferredWidth(200);
+            TableMateria.getColumnModel().getColumn(2).setPreferredWidth(500);
         }
 
         btnGuardarMateria.setText("Guardar");
@@ -2643,22 +2690,19 @@ public class Sistema extends javax.swing.JFrame {
             }
         });
 
-        jTable10.setModel(new javax.swing.table.DefaultTableModel(
+        TablePais.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+
             },
             new String [] {
                 "ID", "NOMBRE"
             }
         ));
-        jScrollPane10.setViewportView(jTable10);
-        if (jTable10.getColumnModel().getColumnCount() > 0) {
-            jTable10.getColumnModel().getColumn(0).setPreferredWidth(100);
-            jTable10.getColumnModel().getColumn(0).setMaxWidth(500);
-            jTable10.getColumnModel().getColumn(1).setPreferredWidth(200);
+        jScrollPane10.setViewportView(TablePais);
+        if (TablePais.getColumnModel().getColumnCount() > 0) {
+            TablePais.getColumnModel().getColumn(0).setPreferredWidth(100);
+            TablePais.getColumnModel().getColumn(0).setMaxWidth(500);
+            TablePais.getColumnModel().getColumn(1).setPreferredWidth(200);
         }
 
         javax.swing.GroupLayout jPanel27Layout = new javax.swing.GroupLayout(jPanel27);
@@ -2746,8 +2790,9 @@ public class Sistema extends javax.swing.JFrame {
                     .addComponent(btnAnalisis))
                 .addGap(29, 29, 29)
                 .addComponent(btnAjuste)
-                .addGap(77, 77, 77)
-                .addComponent(jTabbedPane1))
+                .addGap(71, 71, 71)
+                .addComponent(jTabbedPane1)
+                .addContainerGap())
         );
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 940, 890));
@@ -2761,6 +2806,20 @@ public class Sistema extends javax.swing.JFrame {
 
     private void cboxLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxLibroActionPerformed
         // TODO add your handling code here:
+        String seleccion = (String) cboxLibro.getSelectedItem(); 
+        if (seleccion.equals("Pais")) {
+            jTabbedPane1.setSelectedIndex(12);
+            LimpiarTable();
+            ListarPais();
+        } else if (seleccion.equals("Categoria")) {
+            jTabbedPane1.setSelectedIndex(10);
+            LimpiarTable();
+            ListarCategoria();
+        } else if (seleccion.equals("Materia")) {
+            jTabbedPane1.setSelectedIndex(11);
+            LimpiarTable();
+            ListarMateria();
+        }
     }//GEN-LAST:event_cboxLibroActionPerformed
 
     private void btnPrestamoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrestamoActionPerformed
@@ -3177,6 +3236,9 @@ public class Sistema extends javax.swing.JFrame {
             ca.setCategoria(txtNombreCategoria.getText());
             categoria.RegistrarCategoria(ca);
             JOptionPane.showMessageDialog(null, "Categoria Registrada con Exito!!!");
+            LimpiarTable();
+            ListarCategoria();
+            txtNombreCategoria.setText("");
         }else{
             JOptionPane.showMessageDialog(null, "Los campos se encuentran vacios");
         }
@@ -3188,6 +3250,10 @@ public class Sistema extends javax.swing.JFrame {
             ma.setNombre(txtNombreMateria.getText());
             materia.RegistrarMateria(ma);
             JOptionPane.showMessageDialog(null, "Materia Registrada con Exito!!!");
+            LimpiarTable();
+            ListarMateria();
+            txtSiglaMateria.setText("");
+            txtNombreMateria.setText("");
         } else{
             JOptionPane.showMessageDialog(null, "Los campos se encuentra vacios");
         }
@@ -3203,6 +3269,9 @@ public class Sistema extends javax.swing.JFrame {
             pa.setNombre(txtNombrePais.getText());
             pais.registrarPais(pa);
             JOptionPane.showMessageDialog(null, "Pais Registrado con Exito!!!");
+            LimpiarTable();
+            ListarPais();
+            txtNombrePais.setText("");
         }else{
             JOptionPane.showMessageDialog(null, "Los campos se encuentran vacios");
         }
@@ -3234,6 +3303,9 @@ public class Sistema extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable TableCategoria;
+    private javax.swing.JTable TableMateria;
+    private javax.swing.JTable TablePais;
     private javax.swing.JButton btnAjuste;
     private javax.swing.JButton btnAnalisis;
     private javax.swing.JButton btnCerrar;
@@ -3436,15 +3508,12 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable10;
     private javax.swing.JTable jTable2;
     private javax.swing.JTable jTable3;
     private javax.swing.JTable jTable4;
     private javax.swing.JTable jTable5;
     private javax.swing.JTable jTable6;
     private javax.swing.JTable jTable7;
-    private javax.swing.JTable jTable8;
-    private javax.swing.JTable jTable9;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField10;
     private javax.swing.JTextField jTextField11;
