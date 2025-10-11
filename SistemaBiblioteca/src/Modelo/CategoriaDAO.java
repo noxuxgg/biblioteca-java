@@ -22,11 +22,12 @@ public class CategoriaDAO {
     ResultSet rs;
     
     public boolean RegistrarCategoria(Categoria ca){
-        String sql = "INSERT INTO categoria (categoria) VALUES (?)";
+        String sql = "INSERT INTO categoria (categoria, estado) VALUES (?,?)";
         try{
             con = cn.getConnection();
             ps = con.prepareStatement(sql);
             ps.setString(1, ca.getCategoria());
+            ps.setInt(2, ca.getEstado());
             ps.execute();
             return true;
         } catch(SQLException e){
@@ -43,7 +44,7 @@ public class CategoriaDAO {
     
     public List ListarCategoria(){
         List<Categoria> ListaCa = new ArrayList();
-        String sql = "SELECT * FROM categoria";
+        String sql = "SELECT * FROM categoria WHERE estado = 1";
         try {
             con = cn.getConnection();
             ps = con.prepareStatement(sql);
@@ -58,5 +59,24 @@ public class CategoriaDAO {
             System.out.println("Error"+ e.toString());
         }
         return ListaCa;
+    }
+    
+    public boolean EliminarCategoria(int id){
+        String sql = "UPDATE categoria SET estado = 0 WHERE id_categoria = ?";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+            ps.execute();
+            return true;
+        } catch (SQLException e) {
+            System.out.println("Error: "+e.toString());
+            return false;
+        }finally{
+            try {
+                con.close();
+            } catch (Exception e) {
+                System.out.println(e.toString());
+            }
+        }
     }
 }
