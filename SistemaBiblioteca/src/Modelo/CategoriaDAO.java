@@ -79,4 +79,25 @@ public class CategoriaDAO {
             }
         }
     }
+    
+    public boolean ModificarCategoria(Categoria ca){
+        String sql = "UPDATE categoria SET categoria = ? WHERE id_categoria=?";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, ca.getCategoria());
+            ps.setInt(2, ca.getId_categoria());
+            ps.execute();
+            return true;
+        } catch (SQLException e) {
+            System.out.println("Error"+e.toString());
+            return false;
+        } finally{
+            try {
+                con.close();
+            } catch (SQLException e) {
+                System.out.println(e.toString());
+            }
+        }
+    }
+    
 }

@@ -38,6 +38,9 @@ public class Sistema extends javax.swing.JFrame {
         initComponents();
         LimpiarTable();
         this.setLocationRelativeTo(null);
+        txtIdPais.setVisible(false);
+        txtIdCategoria.setVisible(false);
+        txtIdMateria.setVisible(false);
     }
     
     public void ListarPais(){
@@ -321,6 +324,8 @@ public class Sistema extends javax.swing.JFrame {
         TableCategoria = new javax.swing.JTable();
         btnEliminarCategoria = new javax.swing.JButton();
         txtIdCategoria = new javax.swing.JTextField();
+        jButton33 = new javax.swing.JButton();
+        jButton34 = new javax.swing.JButton();
         jPanel26 = new javax.swing.JPanel();
         jLabel50 = new javax.swing.JLabel();
         jLabel51 = new javax.swing.JLabel();
@@ -332,6 +337,8 @@ public class Sistema extends javax.swing.JFrame {
         btnGuardarMateria = new javax.swing.JButton();
         btnEliminarMateria = new javax.swing.JButton();
         txtIdMateria = new javax.swing.JTextField();
+        btnActualizarMateria = new javax.swing.JButton();
+        btnNuevoMateria = new javax.swing.JButton();
         jPanel27 = new javax.swing.JPanel();
         txtNombrePais = new javax.swing.JTextField();
         jLabel53 = new javax.swing.JLabel();
@@ -341,6 +348,8 @@ public class Sistema extends javax.swing.JFrame {
         TablePais = new javax.swing.JTable();
         txtIdPais = new javax.swing.JTextField();
         btnEliminarPais = new javax.swing.JButton();
+        btnActualizarPais = new javax.swing.JButton();
+        btnNuevoPais = new javax.swing.JButton();
         btnAjuste = new javax.swing.JButton();
         btnAnalisis = new javax.swing.JButton();
         btnCerrar = new javax.swing.JButton();
@@ -2581,6 +2590,20 @@ public class Sistema extends javax.swing.JFrame {
             }
         });
 
+        jButton33.setText("Actualizar");
+        jButton33.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton33ActionPerformed(evt);
+            }
+        });
+
+        jButton34.setText("Nuevo");
+        jButton34.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton34ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel24Layout = new javax.swing.GroupLayout(jPanel24);
         jPanel24.setLayout(jPanel24Layout);
         jPanel24Layout.setHorizontalGroup(
@@ -2594,10 +2617,12 @@ public class Sistema extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtNombreCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtIdCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jButton34, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButton33, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btnGuardarCategoria, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnEliminarCategoria, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE))
-                            .addComponent(txtIdCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(btnEliminarCategoria, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE)))))
                 .addGap(31, 31, 31)
                 .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 531, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(1350, Short.MAX_VALUE))
@@ -2619,7 +2644,11 @@ public class Sistema extends javax.swing.JFrame {
                         .addGap(15, 15, 15)
                         .addComponent(btnGuardarCategoria)
                         .addGap(18, 18, 18)
-                        .addComponent(btnEliminarCategoria)))
+                        .addComponent(btnEliminarCategoria)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton33)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton34)))
                 .addContainerGap(63, Short.MAX_VALUE))
         );
 
@@ -2666,6 +2695,20 @@ public class Sistema extends javax.swing.JFrame {
             }
         });
 
+        btnActualizarMateria.setText("Actualizar");
+        btnActualizarMateria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarMateriaActionPerformed(evt);
+            }
+        });
+
+        btnNuevoMateria.setText("Nuevo");
+        btnNuevoMateria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevoMateriaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel26Layout = new javax.swing.GroupLayout(jPanel26);
         jPanel26.setLayout(jPanel26Layout);
         jPanel26Layout.setHorizontalGroup(
@@ -2683,10 +2726,12 @@ public class Sistema extends javax.swing.JFrame {
                             .addGroup(jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(txtNombreMateria, javax.swing.GroupLayout.DEFAULT_SIZE, 249, Short.MAX_VALUE)
                                 .addComponent(txtSiglaMateria))
+                            .addComponent(txtIdMateria, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(btnGuardarMateria, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnEliminarMateria, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(txtIdMateria, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(btnEliminarMateria, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnActualizarMateria, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(btnNuevoMateria))))
                 .addGap(43, 43, 43)
                 .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(1328, Short.MAX_VALUE))
@@ -2712,7 +2757,11 @@ public class Sistema extends javax.swing.JFrame {
                         .addGap(27, 27, 27)
                         .addComponent(btnGuardarMateria)
                         .addGap(18, 18, 18)
-                        .addComponent(btnEliminarMateria)))
+                        .addComponent(btnEliminarMateria)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnActualizarMateria)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnNuevoMateria)))
                 .addContainerGap(114, Short.MAX_VALUE))
         );
 
@@ -2762,6 +2811,20 @@ public class Sistema extends javax.swing.JFrame {
             }
         });
 
+        btnActualizarPais.setText("Actualizar");
+        btnActualizarPais.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarPaisActionPerformed(evt);
+            }
+        });
+
+        btnNuevoPais.setText("Nuevo");
+        btnNuevoPais.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevoPaisActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel27Layout = new javax.swing.GroupLayout(jPanel27);
         jPanel27.setLayout(jPanel27Layout);
         jPanel27Layout.setHorizontalGroup(
@@ -2778,7 +2841,10 @@ public class Sistema extends javax.swing.JFrame {
                             .addComponent(txtIdPais, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(btnGuardarPais, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnEliminarPais, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 81, Short.MAX_VALUE)))))
+                                .addComponent(btnEliminarPais, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 81, Short.MAX_VALUE))
+                            .addGroup(jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(btnNuevoPais, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnActualizarPais, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                 .addGap(31, 31, 31)
                 .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 531, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(1350, Short.MAX_VALUE))
@@ -2800,7 +2866,11 @@ public class Sistema extends javax.swing.JFrame {
                         .addGap(15, 15, 15)
                         .addComponent(btnGuardarPais)
                         .addGap(18, 18, 18)
-                        .addComponent(btnEliminarPais)))
+                        .addComponent(btnEliminarPais)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnActualizarPais)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnNuevoPais)))
                 .addContainerGap(63, Short.MAX_VALUE))
         );
 
@@ -3404,6 +3474,80 @@ public class Sistema extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnEliminarMateriaActionPerformed
 
+    private void btnActualizarPaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarPaisActionPerformed
+        // TODO add your handling code here:
+        if("".equals(txtIdPais.getText())){
+            JOptionPane.showMessageDialog(null, "Seleccione una fila");
+        } else{
+            if (!"".equals(txtNombrePais.getText())) {
+                pa.setNombre(txtNombrePais.getText());
+                pa.setId_pais(Integer.parseInt(txtIdPais.getText()));
+                pais.ModificarPais(pa);
+                LimpiarTable();
+                LimpiarPais();
+                ListarPais();
+                JOptionPane.showMessageDialog(null, "Campos actualizados con exito");
+            }else{
+                JOptionPane.showMessageDialog(null, "Los campos no pueden estar vacios");
+            }
+        }
+    }//GEN-LAST:event_btnActualizarPaisActionPerformed
+
+    private void btnNuevoPaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoPaisActionPerformed
+        // TODO add your handling code here:
+        LimpiarPais();
+    }//GEN-LAST:event_btnNuevoPaisActionPerformed
+
+    private void jButton34ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton34ActionPerformed
+        // TODO add your handling code here:
+        LimpiarCategoria();
+    }//GEN-LAST:event_jButton34ActionPerformed
+
+    private void jButton33ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton33ActionPerformed
+        // TODO add your handling code here:
+        if("".equals(txtIdCategoria.getText())){
+            JOptionPane.showMessageDialog(null, "Seleccione una fila");
+        } else{
+            if (!"".equals(txtNombreCategoria.getText())) {
+                ca.setCategoria(txtNombreCategoria.getText());
+                ca.setId_categoria(Integer.parseInt(txtIdCategoria.getText()));
+                categoria.ModificarCategoria(ca);
+                LimpiarTable();
+                LimpiarCategoria();
+                ListarCategoria();
+                JOptionPane.showMessageDialog(null, "Campos actualizados con exito");
+            }else{
+                JOptionPane.showMessageDialog(null, "Los campos no pueden estar vacios");
+            }
+        }
+        
+    }//GEN-LAST:event_jButton33ActionPerformed
+
+    private void btnNuevoMateriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoMateriaActionPerformed
+        // TODO add your handling code here:
+        LimpiarMateria();
+    }//GEN-LAST:event_btnNuevoMateriaActionPerformed
+
+    private void btnActualizarMateriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarMateriaActionPerformed
+        // TODO add your handling code here:
+         if("".equals(txtIdMateria.getText())){
+            JOptionPane.showMessageDialog(null, "Seleccione una fila");
+        } else{
+            if (!"".equals(txtNombreMateria.getText()) && !"".equals(txtSiglaMateria.getText())) {
+                ma.setNombre(txtNombreMateria.getText());
+                ma.setSigla(txtSiglaMateria.getText());
+                ma.setId_materia(Integer.parseInt(txtIdMateria.getText()));
+                materia.ModificarMateria(ma);
+                LimpiarTable();
+                LimpiarMateria();
+                ListarMateria();
+                JOptionPane.showMessageDialog(null, "Campos actualizados con exito");
+            }else{
+                JOptionPane.showMessageDialog(null, "Los campos no pueden estar vacios");
+            }
+        }
+    }//GEN-LAST:event_btnActualizarMateriaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -3433,6 +3577,8 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JTable TableCategoria;
     private javax.swing.JTable TableMateria;
     private javax.swing.JTable TablePais;
+    private javax.swing.JButton btnActualizarMateria;
+    private javax.swing.JButton btnActualizarPais;
     private javax.swing.JButton btnAjuste;
     private javax.swing.JButton btnAnalisis;
     private javax.swing.JButton btnCerrar;
@@ -3445,6 +3591,8 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JButton btnHistorial;
     private javax.swing.JButton btnInicio;
     private javax.swing.JButton btnMulta;
+    private javax.swing.JButton btnNuevoMateria;
+    private javax.swing.JButton btnNuevoPais;
     private javax.swing.JButton btnPrestamo;
     private javax.swing.JComboBox<String> cboxLibro;
     private javax.swing.JButton jButton1;
@@ -3473,6 +3621,8 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JButton jButton30;
     private javax.swing.JButton jButton31;
     private javax.swing.JButton jButton32;
+    private javax.swing.JButton jButton33;
+    private javax.swing.JButton jButton34;
     private javax.swing.JButton jButton35;
     private javax.swing.JButton jButton36;
     private javax.swing.JButton jButton37;

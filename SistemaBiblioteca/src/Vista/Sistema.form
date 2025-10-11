@@ -3554,11 +3554,13 @@
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="txtNombreCategoria" min="-2" pref="149" max="-2" attributes="0"/>
+                                      <Component id="txtIdCategoria" alignment="0" min="-2" pref="17" max="-2" attributes="0"/>
                                       <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                                          <Component id="jButton34" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="jButton33" alignment="0" max="32767" attributes="0"/>
                                           <Component id="btnGuardarCategoria" alignment="0" max="32767" attributes="0"/>
                                           <Component id="btnEliminarCategoria" alignment="0" pref="86" max="32767" attributes="0"/>
                                       </Group>
-                                      <Component id="txtIdCategoria" alignment="0" min="-2" pref="17" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
@@ -3587,6 +3589,10 @@
                                   <Component id="btnGuardarCategoria" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Component id="btnEliminarCategoria" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="jButton33" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="jButton34" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace pref="63" max="32767" attributes="0"/>
@@ -3667,6 +3673,22 @@
                 </Component>
                 <Component class="javax.swing.JTextField" name="txtIdCategoria">
                 </Component>
+                <Component class="javax.swing.JButton" name="jButton33">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Actualizar"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton33ActionPerformed"/>
+                  </Events>
+                </Component>
+                <Component class="javax.swing.JButton" name="jButton34">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Nuevo"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton34ActionPerformed"/>
+                  </Events>
+                </Component>
               </SubComponents>
             </Container>
             <Container class="javax.swing.JPanel" name="jPanel26">
@@ -3696,11 +3718,13 @@
                                           <Component id="txtNombreMateria" pref="249" max="32767" attributes="0"/>
                                           <Component id="txtSiglaMateria" max="32767" attributes="0"/>
                                       </Group>
+                                      <Component id="txtIdMateria" alignment="0" min="-2" pref="23" max="-2" attributes="0"/>
                                       <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
                                           <Component id="btnGuardarMateria" alignment="0" max="32767" attributes="0"/>
                                           <Component id="btnEliminarMateria" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="btnActualizarMateria" alignment="0" max="32767" attributes="0"/>
                                       </Group>
-                                      <Component id="txtIdMateria" alignment="0" min="-2" pref="23" max="-2" attributes="0"/>
+                                      <Component id="btnNuevoMateria" alignment="0" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
@@ -3734,6 +3758,10 @@
                                   <Component id="btnGuardarMateria" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Component id="btnEliminarMateria" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="btnActualizarMateria" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="btnNuevoMateria" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace pref="114" max="32767" attributes="0"/>
@@ -3824,6 +3852,22 @@
                 </Component>
                 <Component class="javax.swing.JTextField" name="txtIdMateria">
                 </Component>
+                <Component class="javax.swing.JButton" name="btnActualizarMateria">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Actualizar"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnActualizarMateriaActionPerformed"/>
+                  </Events>
+                </Component>
+                <Component class="javax.swing.JButton" name="btnNuevoMateria">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Nuevo"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnNuevoMateriaActionPerformed"/>
+                  </Events>
+                </Component>
               </SubComponents>
             </Container>
             <Container class="javax.swing.JPanel" name="jPanel27">
@@ -3851,6 +3895,10 @@
                                       <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
                                           <Component id="btnGuardarPais" alignment="0" max="32767" attributes="0"/>
                                           <Component id="btnEliminarPais" alignment="0" pref="81" max="32767" attributes="0"/>
+                                      </Group>
+                                      <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                                          <Component id="btnNuevoPais" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="btnActualizarPais" alignment="0" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
@@ -3880,6 +3928,10 @@
                                   <Component id="btnGuardarPais" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Component id="btnEliminarPais" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="btnActualizarPais" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="btnNuevoPais" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace pref="63" max="32767" attributes="0"/>
@@ -3958,6 +4010,22 @@
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEliminarPaisActionPerformed"/>
+                  </Events>
+                </Component>
+                <Component class="javax.swing.JButton" name="btnActualizarPais">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Actualizar"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnActualizarPaisActionPerformed"/>
+                  </Events>
+                </Component>
+                <Component class="javax.swing.JButton" name="btnNuevoPais">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Nuevo"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnNuevoPaisActionPerformed"/>
                   </Events>
                 </Component>
               </SubComponents>
