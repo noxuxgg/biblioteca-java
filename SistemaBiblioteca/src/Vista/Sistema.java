@@ -37,6 +37,7 @@ public class Sistema extends javax.swing.JFrame {
     public Sistema() {
         initComponents();
         LimpiarTable();
+        this.setLocationRelativeTo(null);
     }
     
     public void ListarPais(){
@@ -318,6 +319,8 @@ public class Sistema extends javax.swing.JFrame {
         btnGuardarCategoria = new javax.swing.JButton();
         jScrollPane8 = new javax.swing.JScrollPane();
         TableCategoria = new javax.swing.JTable();
+        btnEliminarCategoria = new javax.swing.JButton();
+        txtIdCategoria = new javax.swing.JTextField();
         jPanel26 = new javax.swing.JPanel();
         jLabel50 = new javax.swing.JLabel();
         jLabel51 = new javax.swing.JLabel();
@@ -327,6 +330,8 @@ public class Sistema extends javax.swing.JFrame {
         jScrollPane9 = new javax.swing.JScrollPane();
         TableMateria = new javax.swing.JTable();
         btnGuardarMateria = new javax.swing.JButton();
+        btnEliminarMateria = new javax.swing.JButton();
+        txtIdMateria = new javax.swing.JTextField();
         jPanel27 = new javax.swing.JPanel();
         txtNombrePais = new javax.swing.JTextField();
         jLabel53 = new javax.swing.JLabel();
@@ -334,6 +339,8 @@ public class Sistema extends javax.swing.JFrame {
         btnGuardarPais = new javax.swing.JButton();
         jScrollPane10 = new javax.swing.JScrollPane();
         TablePais = new javax.swing.JTable();
+        txtIdPais = new javax.swing.JTextField();
+        btnEliminarPais = new javax.swing.JButton();
         btnAjuste = new javax.swing.JButton();
         btnAnalisis = new javax.swing.JButton();
         btnCerrar = new javax.swing.JButton();
@@ -2555,12 +2562,24 @@ public class Sistema extends javax.swing.JFrame {
                 "ID", "CATEGORIA"
             }
         ));
+        TableCategoria.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TableCategoriaMouseClicked(evt);
+            }
+        });
         jScrollPane8.setViewportView(TableCategoria);
         if (TableCategoria.getColumnModel().getColumnCount() > 0) {
             TableCategoria.getColumnModel().getColumn(0).setPreferredWidth(100);
             TableCategoria.getColumnModel().getColumn(0).setMaxWidth(500);
             TableCategoria.getColumnModel().getColumn(1).setPreferredWidth(200);
         }
+
+        btnEliminarCategoria.setText("Eliminar");
+        btnEliminarCategoria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarCategoriaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel24Layout = new javax.swing.GroupLayout(jPanel24);
         jPanel24.setLayout(jPanel24Layout);
@@ -2574,8 +2593,11 @@ public class Sistema extends javax.swing.JFrame {
                         .addComponent(jLabel49, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addGroup(jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnGuardarCategoria)
-                            .addComponent(txtNombreCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(txtNombreCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(btnGuardarCategoria, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnEliminarCategoria, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE))
+                            .addComponent(txtIdCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(31, 31, 31)
                 .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 531, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(1350, Short.MAX_VALUE))
@@ -2592,8 +2614,12 @@ public class Sistema extends javax.swing.JFrame {
                         .addGroup(jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtNombreCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel49))
-                        .addGap(49, 49, 49)
-                        .addComponent(btnGuardarCategoria)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtIdCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(15, 15, 15)
+                        .addComponent(btnGuardarCategoria)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnEliminarCategoria)))
                 .addContainerGap(63, Short.MAX_VALUE))
         );
 
@@ -2613,6 +2639,11 @@ public class Sistema extends javax.swing.JFrame {
                 "ID", "SIGLA", "MATERIA"
             }
         ));
+        TableMateria.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TableMateriaMouseClicked(evt);
+            }
+        });
         jScrollPane9.setViewportView(TableMateria);
         if (TableMateria.getColumnModel().getColumnCount() > 0) {
             TableMateria.getColumnModel().getColumn(0).setPreferredWidth(100);
@@ -2625,6 +2656,13 @@ public class Sistema extends javax.swing.JFrame {
         btnGuardarMateria.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGuardarMateriaActionPerformed(evt);
+            }
+        });
+
+        btnEliminarMateria.setText("Eliminar");
+        btnEliminarMateria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarMateriaActionPerformed(evt);
             }
         });
 
@@ -2642,10 +2680,13 @@ public class Sistema extends javax.swing.JFrame {
                             .addComponent(jLabel52, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(17, 17, 17)
                         .addGroup(jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnGuardarMateria)
                             .addGroup(jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(txtNombreMateria, javax.swing.GroupLayout.DEFAULT_SIZE, 249, Short.MAX_VALUE)
-                                .addComponent(txtSiglaMateria)))))
+                                .addComponent(txtSiglaMateria))
+                            .addGroup(jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(btnGuardarMateria, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnEliminarMateria, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(txtIdMateria, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(43, 43, 43)
                 .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(1328, Short.MAX_VALUE))
@@ -2666,8 +2707,12 @@ public class Sistema extends javax.swing.JFrame {
                         .addGroup(jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel52)
                             .addComponent(txtNombreMateria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(67, 67, 67)
-                        .addComponent(btnGuardarMateria)))
+                        .addGap(18, 18, 18)
+                        .addComponent(txtIdMateria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(27, 27, 27)
+                        .addComponent(btnGuardarMateria)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnEliminarMateria)))
                 .addContainerGap(114, Short.MAX_VALUE))
         );
 
@@ -2698,12 +2743,24 @@ public class Sistema extends javax.swing.JFrame {
                 "ID", "NOMBRE"
             }
         ));
+        TablePais.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TablePaisMouseClicked(evt);
+            }
+        });
         jScrollPane10.setViewportView(TablePais);
         if (TablePais.getColumnModel().getColumnCount() > 0) {
             TablePais.getColumnModel().getColumn(0).setPreferredWidth(100);
             TablePais.getColumnModel().getColumn(0).setMaxWidth(500);
             TablePais.getColumnModel().getColumn(1).setPreferredWidth(200);
         }
+
+        btnEliminarPais.setText("Eliminar");
+        btnEliminarPais.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarPaisActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel27Layout = new javax.swing.GroupLayout(jPanel27);
         jPanel27.setLayout(jPanel27Layout);
@@ -2717,8 +2774,11 @@ public class Sistema extends javax.swing.JFrame {
                         .addComponent(jLabel56, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addGroup(jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnGuardarPais)
-                            .addComponent(txtNombrePais, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(txtNombrePais, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtIdPais, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(btnGuardarPais, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnEliminarPais, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 81, Short.MAX_VALUE)))))
                 .addGap(31, 31, 31)
                 .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 531, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(1350, Short.MAX_VALUE))
@@ -2735,8 +2795,12 @@ public class Sistema extends javax.swing.JFrame {
                         .addGroup(jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtNombrePais, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel56))
-                        .addGap(49, 49, 49)
-                        .addComponent(btnGuardarPais)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtIdPais, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(15, 15, 15)
+                        .addComponent(btnGuardarPais)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnEliminarPais)))
                 .addContainerGap(63, Short.MAX_VALUE))
         );
 
@@ -3234,11 +3298,12 @@ public class Sistema extends javax.swing.JFrame {
         // TODO add your handling code here:
         if(!"".equals(txtNombreCategoria.getText())){
             ca.setCategoria(txtNombreCategoria.getText());
+            ca.setEstado(1);
             categoria.RegistrarCategoria(ca);
             JOptionPane.showMessageDialog(null, "Categoria Registrada con Exito!!!");
             LimpiarTable();
+            LimpiarCategoria();
             ListarCategoria();
-            txtNombreCategoria.setText("");
         }else{
             JOptionPane.showMessageDialog(null, "Los campos se encuentran vacios");
         }
@@ -3248,12 +3313,12 @@ public class Sistema extends javax.swing.JFrame {
         if(!"".equals(txtSiglaMateria.getText()) && !"".equals(txtNombreMateria.getText())){
             ma.setSigla(txtSiglaMateria.getText());
             ma.setNombre(txtNombreMateria.getText());
+            ma.setEstado(1);
             materia.RegistrarMateria(ma);
             JOptionPane.showMessageDialog(null, "Materia Registrada con Exito!!!");
             LimpiarTable();
+            LimpiarMateria();
             ListarMateria();
-            txtSiglaMateria.setText("");
-            txtNombreMateria.setText("");
         } else{
             JOptionPane.showMessageDialog(null, "Los campos se encuentra vacios");
         }
@@ -3267,15 +3332,77 @@ public class Sistema extends javax.swing.JFrame {
         // TODO add your handling code here:
         if(!"".equals(txtNombrePais.getText())){
             pa.setNombre(txtNombrePais.getText());
+            pa.setEstado(1);
             pais.registrarPais(pa);
             JOptionPane.showMessageDialog(null, "Pais Registrado con Exito!!!");
             LimpiarTable();
+            LimpiarPais();
             ListarPais();
-            txtNombrePais.setText("");
         }else{
             JOptionPane.showMessageDialog(null, "Los campos se encuentran vacios");
         }
     }//GEN-LAST:event_btnGuardarPaisActionPerformed
+
+    private void TableCategoriaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TableCategoriaMouseClicked
+        // TODO add your handling code here:
+        int fila = TableCategoria.rowAtPoint(evt.getPoint());
+        txtIdCategoria.setText(TableCategoria.getValueAt(fila, 0).toString());
+        txtNombreCategoria.setText(TableCategoria.getValueAt(fila, 1).toString());
+    }//GEN-LAST:event_TableCategoriaMouseClicked
+
+    private void btnEliminarCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarCategoriaActionPerformed
+        // TODO add your handling code here:
+        if (!"".equals(txtNombreCategoria.getText())) {
+            int pregunta = JOptionPane.showConfirmDialog(null, "Esta seguro de eliminar: "+txtNombreCategoria.getText());
+            if(pregunta == 0){
+                int id = Integer.parseInt(txtIdCategoria.getText());
+                categoria.EliminarCategoria(id);
+                LimpiarTable();
+                LimpiarCategoria();
+                ListarCategoria();
+            }
+        }
+    }//GEN-LAST:event_btnEliminarCategoriaActionPerformed
+
+    private void TablePaisMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablePaisMouseClicked
+        int fila = TablePais.rowAtPoint(evt.getPoint());
+        txtIdPais.setText(TablePais.getValueAt(fila, 0).toString());
+        txtNombrePais.setText(TablePais.getValueAt(fila, 1).toString());
+    }//GEN-LAST:event_TablePaisMouseClicked
+
+    private void btnEliminarPaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarPaisActionPerformed
+        if (!"".equals(txtNombrePais.getText())) {
+            int pregunta = JOptionPane.showConfirmDialog(null, "Esta seguro de eliminar: "+txtNombrePais.getText());
+            if(pregunta == 0){
+                int id = Integer.parseInt(txtIdPais.getText());
+                pais.EliminarPais(id);
+                LimpiarTable();
+                LimpiarPais();
+                ListarPais();
+            }
+        }
+    }//GEN-LAST:event_btnEliminarPaisActionPerformed
+
+    private void TableMateriaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TableMateriaMouseClicked
+        // TODO add your handling code here:
+        int fila = TableMateria.rowAtPoint(evt.getPoint());
+        txtIdMateria.setText(TableMateria.getValueAt(fila, 0).toString());
+        txtSiglaMateria.setText(TableMateria.getValueAt(fila, 1).toString());
+        txtNombreMateria.setText(TableMateria.getValueAt(fila, 2).toString());
+    }//GEN-LAST:event_TableMateriaMouseClicked
+
+    private void btnEliminarMateriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarMateriaActionPerformed
+        if (!"".equals(txtNombreMateria.getText()) || !"".equals(txtSiglaMateria.getText())) {
+            int pregunta = JOptionPane.showConfirmDialog(null, "Esta seguro de eliminar: "+txtNombreMateria.getText());
+            if(pregunta == 0){
+                int id = Integer.parseInt(txtIdMateria.getText());
+                materia.EliminarMateria(id);
+                LimpiarTable();
+                LimpiarMateria();
+                ListarMateria();
+            }
+        }
+    }//GEN-LAST:event_btnEliminarMateriaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -3309,6 +3436,9 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JButton btnAjuste;
     private javax.swing.JButton btnAnalisis;
     private javax.swing.JButton btnCerrar;
+    private javax.swing.JButton btnEliminarCategoria;
+    private javax.swing.JButton btnEliminarMateria;
+    private javax.swing.JButton btnEliminarPais;
     private javax.swing.JButton btnGuardarCategoria;
     private javax.swing.JButton btnGuardarMateria;
     private javax.swing.JButton btnGuardarPais;
@@ -3540,9 +3670,29 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField7;
     private javax.swing.JTextField jTextField8;
     private javax.swing.JTextField jTextField9;
+    private javax.swing.JTextField txtIdCategoria;
+    private javax.swing.JTextField txtIdMateria;
+    private javax.swing.JTextField txtIdPais;
     private javax.swing.JTextField txtNombreCategoria;
     private javax.swing.JTextField txtNombreMateria;
     private javax.swing.JTextField txtNombrePais;
     private javax.swing.JTextField txtSiglaMateria;
     // End of variables declaration//GEN-END:variables
+
+    private void LimpiarMateria(){
+        txtIdMateria.setText("");
+        txtSiglaMateria.setText("");
+        txtNombreMateria.setText("");
+    }
+    
+    private void LimpiarPais(){
+        txtIdPais.setText("");
+        txtNombrePais.setText("");
+    }
+    
+    private void LimpiarCategoria(){
+        txtIdCategoria.setText("");
+        txtNombreCategoria.setText("");
+    }
+            
 }

@@ -3,9 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/D:/Fernando%20Trabajoos/SEMESTRE%20VI/DISEÑO%20DE%20SISTEMAS/PROYECTO/biblioteca-java/SistemaBiblioteca/src/Vista/Sistema.java</file>
             <file>file:/D:/Fernando%20Trabajoos/SEMESTRE%20VI/DISEÑO%20DE%20SISTEMAS/PROYECTO/biblioteca-java/SistemaBiblioteca/src/Modelo/MateriaDAO.java</file>
             <file>file:/D:/Fernando%20Trabajoos/SEMESTRE%20VI/DISEÑO%20DE%20SISTEMAS/PROYECTO/biblioteca-java/SistemaBiblioteca/src/Modelo/PaisDAO.java</file>
+=======
+            <file>file:/D:/Fernando%20Trabajoos/SEMESTRE%20VI/DISEÑO%20DE%20SISTEMAS/PROYECTO/biblioteca-java/SistemaBiblioteca/src/Modelo/MateriaDAO.java</file>
+            <file>file:/D:/Fernando%20Trabajoos/SEMESTRE%20VI/DISEÑO%20DE%20SISTEMAS/PROYECTO/biblioteca-java/SistemaBiblioteca/src/Vista/Sistema.java</file>
+>>>>>>> e201a8b1b4d7ab56ea8934e761ce388a74248918
         </group>
     </open-files>
 </project-private>

@@ -22,11 +22,12 @@ public class PaisDAO {
     ResultSet rs;
     
     public boolean registrarPais(Pais pa){
-        String sql = "INSERT INTO paises (nombre) VALUES (?)";
+        String sql = "INSERT INTO paises (nombre,estado) VALUES (?,?)";
         try{
             con = cn.getConnection();
             ps = con.prepareStatement(sql);
             ps.setString(1, pa.getNombre());
+            ps.setInt(2, pa.getEstado());
             ps.execute();
             return true;
         } catch(SQLException e){
@@ -44,7 +45,7 @@ public class PaisDAO {
     
     public List ListarPais(){
         List<Pais> ListaPais = new ArrayList();
-        String sql = "SELECT * FROM paises";
+        String sql = "SELECT * FROM paises WHERE estado = 1";
         try {
             con = cn.getConnection();
             ps = con.prepareStatement(sql);
@@ -60,4 +61,25 @@ public class PaisDAO {
         }
         return ListaPais;
     }
+    
+    public boolean EliminarPais(int id){
+        String sql = "UPDATE paises SET estado = 0 WHERE id_pais = ?";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+            ps.execute();
+            return true;
+        } catch (SQLException e) {
+            System.out.println("Error: "+e.toString());
+            return false;
+        }finally{
+            try {
+                con.close();
+            } catch (Exception e) {
+                System.out.println(e.toString());
+            }
+        }
+    }
+    
+    
 }

@@ -11,13 +11,15 @@ package Modelo;
 public class Pais {
     private int id_pais;
     private String nombre;
+    private int estado;
 
     public Pais() {
     }
 
-    public Pais(int id_pais, String nombre) {
+    public Pais(int id_pais, String nombre, int estado) {
         this.id_pais = id_pais;
         this.nombre = nombre;
+        this.estado = estado;
     }
 
     public int getId_pais() {
@@ -35,5 +37,15 @@ public class Pais {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
+
+    public int getEstado() {
+        return estado;
+    }
+
+    public void setEstado(int estado) {
+        this.estado = estado;
+    }
+
+    
     
 }
