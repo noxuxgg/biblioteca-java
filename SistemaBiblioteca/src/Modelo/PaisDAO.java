@@ -82,4 +82,24 @@ public class PaisDAO {
     }
     
     
+    public boolean ModificarPais(Pais pa){
+        String sql = "UPDATE paises SET nombre = ? WHERE id_pais=?";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, pa.getNombre());
+            ps.setInt(2, pa.getId_pais());
+            ps.execute();
+            return true;
+        } catch (SQLException e) {
+            System.out.println("Error"+e.toString());
+            return false;
+        } finally{
+            try {
+                con.close();
+            } catch (SQLException e) {
+                System.out.println(e.toString());
+            }
+        }
+    }
+    
 }
