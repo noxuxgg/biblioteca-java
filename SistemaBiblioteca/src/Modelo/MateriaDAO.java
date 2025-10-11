@@ -81,4 +81,25 @@ public class MateriaDAO {
         }
     }
     
+    public boolean ModificarMateria(Materia ma){
+        String sql = "UPDATE materia SET sigla = ?, nombre = ? WHERE id_materia=?";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, ma.getSigla());
+            ps.setString(2, ma.getNombre());
+            ps.setInt(3, ma.getId_materia());
+            ps.execute();
+            return true;
+        } catch (SQLException e) {
+            System.out.println("Error"+e.toString());
+            return false;
+        } finally{
+            try {
+                con.close();
+            } catch (SQLException e) {
+                System.out.println(e.toString());
+            }
+        }
+    }
+    
 }
