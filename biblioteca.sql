@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 12-10-2025 a las 13:34:54
+-- Tiempo de generación: 12-10-2025 a las 17:26:29
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -41,7 +41,10 @@ CREATE TABLE `autores` (
 
 INSERT INTO `autores` (`Id_autor`, `Nombre`, `Apellido`, `id_pais`, `estado`) VALUES
 (1, 'Luis', 'Joyanes Aguilar', 13, 1),
-(2, 'Alberto', 'Rodriguez ', 1, 1);
+(2, 'Alberto', 'Rodriguez ', 1, 1),
+(3, 'Raúl', 'Medina Rodriguez', 15, 1),
+(4, 'Raúl', 'Medina Rodriguez', 15, 0),
+(5, 'sffsfs', 'dsdfsdf', 6, 0);
 
 -- --------------------------------------------------------
 
@@ -125,11 +128,15 @@ CREATE TABLE `libro` (
   `Titulo` varchar(150) NOT NULL,
   `Id_categoria` int(11) NOT NULL,
   `Id_editorial` int(11) NOT NULL,
-  `Codigo` varchar(30) NOT NULL,
   `Id_autor` int(11) NOT NULL,
   `Id_materia` int(11) NOT NULL,
   `Edicion` varchar(30) NOT NULL,
-  `Estado` varchar(80) NOT NULL
+  `Estado` varchar(80) NOT NULL,
+  `codigo` varchar(20) NOT NULL,
+  `fechaRegistro` date NOT NULL DEFAULT current_timestamp(),
+  `stock` int(11) NOT NULL,
+  `anio` int(11) NOT NULL,
+  `Descripcion` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -220,7 +227,10 @@ INSERT INTO `paises` (`id_pais`, `nombre`, `estado`) VALUES
 (10, 'México', 1),
 (11, 'Cuba', 0),
 (12, 'China', 1),
-(13, 'España', 1);
+(13, 'España', 1),
+(14, 'Colombia', 1),
+(15, 'Puerto Rico', 1),
+(16, 'Noruega', 1);
 
 -- --------------------------------------------------------
 
@@ -382,7 +392,7 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `autores`
 --
 ALTER TABLE `autores`
-  MODIFY `Id_autor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `Id_autor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `categoria`
@@ -401,6 +411,12 @@ ALTER TABLE `editoriales`
 --
 ALTER TABLE `historial_libros`
   MODIFY `Id_historial` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `libro`
+--
+ALTER TABLE `libro`
+  MODIFY `Id_libro` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `login`
@@ -424,7 +440,7 @@ ALTER TABLE `multas`
 -- AUTO_INCREMENT de la tabla `paises`
 --
 ALTER TABLE `paises`
-  MODIFY `id_pais` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id_pais` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT de la tabla `prestamos`
