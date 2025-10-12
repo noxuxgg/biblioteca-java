@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 12-10-2025 a las 04:47:12
+-- Tiempo de generación: 12-10-2025 a las 13:34:54
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -31,8 +31,17 @@ CREATE TABLE `autores` (
   `Id_autor` int(11) NOT NULL,
   `Nombre` varchar(50) NOT NULL,
   `Apellido` varchar(50) NOT NULL,
-  `id_pais` int(50) NOT NULL
+  `id_pais` int(50) NOT NULL,
+  `estado` int(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `autores`
+--
+
+INSERT INTO `autores` (`Id_autor`, `Nombre`, `Apellido`, `id_pais`, `estado`) VALUES
+(1, 'Luis', 'Joyanes Aguilar', 13, 1),
+(2, 'Alberto', 'Rodriguez ', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -83,13 +92,14 @@ INSERT INTO `editoriales` (`Id_editorial`, `Nombre`, `Direccion`, `Telefono`, `i
 (3, 'Latinas', 'Potosi y Caro', '52-49652', 1, 1),
 (7, 'OddKings', 'Boulevard Jonks', '351-45150', 4, 1),
 (10, 'Kodlif', 'St. Jhonson', '659-94652', 4, 1),
-(11, 'Potosina Editoriales', '', '', 1, 1),
+(11, 'Potosina Editoriales', '6 de agosto y Tarija', '', 1, 1),
 (12, 'Jabushins', '', '', 9, 1),
 (21, 'Jhonimsl', '', '', 10, 1),
 (22, 'Oxford edits', 'Oxford', '', 2, 1),
 (23, 'Maduro Editores', '', '', 7, 1),
 (24, 'Nuevas Generaciones Editoriales', '', '', 6, 1),
-(25, 'Los andes ', 'La paz y Bolivia', '52-49353', 1, 1);
+(25, 'Los andes ', 'La paz y Bolivia', '52-49353', 1, 1),
+(26, 'Potosina Editorial', '6 de agosto y Tarija', '', 5, 0);
 
 -- --------------------------------------------------------
 
@@ -209,7 +219,8 @@ INSERT INTO `paises` (`id_pais`, `nombre`, `estado`) VALUES
 (9, 'Reino Unido', 1),
 (10, 'México', 1),
 (11, 'Cuba', 0),
-(12, 'China', 1);
+(12, 'China', 1),
+(13, 'España', 1);
 
 -- --------------------------------------------------------
 
@@ -368,6 +379,12 @@ ALTER TABLE `usuario`
 --
 
 --
+-- AUTO_INCREMENT de la tabla `autores`
+--
+ALTER TABLE `autores`
+  MODIFY `Id_autor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT de la tabla `categoria`
 --
 ALTER TABLE `categoria`
@@ -377,7 +394,7 @@ ALTER TABLE `categoria`
 -- AUTO_INCREMENT de la tabla `editoriales`
 --
 ALTER TABLE `editoriales`
-  MODIFY `Id_editorial` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `Id_editorial` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT de la tabla `historial_libros`
@@ -407,7 +424,7 @@ ALTER TABLE `multas`
 -- AUTO_INCREMENT de la tabla `paises`
 --
 ALTER TABLE `paises`
-  MODIFY `id_pais` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id_pais` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT de la tabla `prestamos`

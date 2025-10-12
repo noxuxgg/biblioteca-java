@@ -3,7 +3,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package Modelo;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import javax.swing.JOptionPane;
@@ -12,32 +11,29 @@ import java.util.ArrayList;
 import java.util.List;
 import java.sql.ResultSet;
 import javax.swing.JComboBox;
-
 /**
  *
  * @author pc
  */
-public class EditorialDAO {
-
+public class AutorDAO {
     Conexion cn = new Conexion();
     Connection con;
     PreparedStatement ps;
     ResultSet rs;
 
-    public boolean RegistrarEditorial(Editorial ed) {
-        String sql = "INSERT INTO editoriales (nombre,direccion,telefono,id_pais,estado) VALUES(?,?,?,?,?)";
+    public boolean RegistrarAutor(Autor au) {
+        String sql = "INSERT INTO autores (nombre, apellido, id_pais, estado) VALUES(?,?,?,?)";
         try {
             con = cn.getConnection();
             ps = con.prepareStatement(sql);
-            ps.setString(1, ed.getNombre());
-            ps.setString(2, ed.getDireccion());
-            ps.setString(3, ed.getTelefono());
-            ps.setInt(4, ed.getId_Pais());
-            ps.setInt(5, ed.getEstado());
+            ps.setString(1, au.getNombre());
+            ps.setString(2, au.getApellido());
+            ps.setInt(3, au.getId_pais());
+            ps.setInt(4, au.getEstado());
             ps.execute();
             return true;
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error: Debe seleccionar un pais de la barra de opciones");
+            JOptionPane.showMessageDialog(null, "Error: Debe seleccionar un pais de la barra de opciones"+ e.toString());
             return false;
         } finally {
             try {
@@ -47,7 +43,7 @@ public class EditorialDAO {
             }
         }
     }
-
+    
     public int ObtenerIdPais(String nombrePais) {
         String sql = "SELECT id_pais FROM paises WHERE nombre = ?";
         int id = 0;
@@ -86,31 +82,31 @@ public class EditorialDAO {
         }
     }
     
-    public List ListarEditorial(){
-        List<Editorial> ListaEd = new ArrayList();
-        String sql = "SELECT e.id_editorial, e.nombre, e.direccion, e.telefono, p.nombre FROM editoriales e, paises p WHERE p.id_pais = e.id_pais AND e.estado = 1";
+    public List ListarAutor(){
+        List<Autor> ListaAu = new ArrayList();
+        String sql = "SELECT a.id_autor, a.nombre, a.apellido, p.nombre FROM autores a, paises p WHERE p.id_pais = a.id_pais AND a.estado = 1";
         try {
             con = cn.getConnection();
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
             while(rs.next()){
-                Editorial ed = new Editorial();
-                ed.setId_editorial(rs.getInt("e.id_editorial"));
-                ed.setNombre(rs.getString("e.nombre"));
-                ed.setDireccion(rs.getString("e.direccion"));
-                ed.setTelefono(rs.getString("e.telefono"));
-                ed.setNombrePais(rs.getString("p.nombre"));
-                ListaEd.add(ed);
+                Autor au = new Autor();
+                au.setId_autor(rs.getInt("a.id_autor"));
+                au.setNombre(rs.getString("a.nombre"));
+                au.setApellido(rs.getString("a.apellido"));
+                au.setNombrePais(rs.getString("p.nombre"));
+                ListaAu.add(au);
             }
         } catch (SQLException e) {
             System.out.println("Error"+ e.toString());
         }
-        return ListaEd;
+        return ListaAu;
     }
     
-    public boolean EliminarEditorial(int id){
-        String sql = "UPDATE editoriales SET estado = 0 WHERE id_editorial = ?";
+    public boolean EliminarAutor(int id){
+        String sql = "UPDATE autores SET estado = 0 WHERE id_autor = ?";
         try {
+            con = cn.getConnection();
             ps = con.prepareStatement(sql);
             ps.setInt(1, id);
             ps.execute();
@@ -127,16 +123,15 @@ public class EditorialDAO {
         }
     }
     
-    public boolean ModificarEditorial(Editorial ed){
-        String sql = "UPDATE editoriales SET nombre = ?, direccion = ?, telefono = ?, id_pais = ? WHERE id_editorial = ?";
+    public boolean ModificarAutor(Autor au){
+        String sql = "UPDATE autores SET nombre = ?, apellido = ?, id_pais = ? WHERE id_autor = ?";
         try {
             con = cn.getConnection();
             ps = con.prepareStatement(sql);
-            ps.setString(1, ed.getNombre());
-            ps.setString(2, ed.getDireccion());
-            ps.setString(3, ed.getTelefono());
-            ps.setInt(4, ed.getId_Pais());
-            ps.setInt(5, ed.getId_editorial());
+            ps.setString(1, au.getNombre());
+            ps.setString(2, au.getApellido());
+            ps.setInt(3, au.getId_pais());
+            ps.setInt(4, au.getId_autor());
             ps.execute();
             return true;
         } catch (SQLException e) {
@@ -150,5 +145,5 @@ public class EditorialDAO {
             }
         }
     }
-
+    
 }
