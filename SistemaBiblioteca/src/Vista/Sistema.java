@@ -6,6 +6,8 @@ package Vista;
 
 import Modelo.Categoria;
 import Modelo.CategoriaDAO;
+import Modelo.Editorial;
+import Modelo.EditorialDAO;
 import Modelo.Materia;
 import Modelo.MateriaDAO;
 import Modelo.Pais;
@@ -14,15 +16,16 @@ import java.util.List;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
 /**
  *
  * @author Henry Quispe
  */
 public class Sistema extends javax.swing.JFrame {
-    
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Sistema.class.getName());
-    
+
     /**
      * Creates new form Sistema
      */
@@ -32,8 +35,10 @@ public class Sistema extends javax.swing.JFrame {
     MateriaDAO materia = new MateriaDAO();
     Pais pa = new Pais();
     PaisDAO pais = new PaisDAO();
+    Editorial ed = new Editorial();
+    EditorialDAO editorial = new EditorialDAO();
     DefaultTableModel modelo = new DefaultTableModel();
-    
+
     public Sistema() {
         initComponents();
         LimpiarTable();
@@ -41,9 +46,11 @@ public class Sistema extends javax.swing.JFrame {
         txtIdPais.setVisible(false);
         txtIdCategoria.setVisible(false);
         txtIdMateria.setVisible(false);
+        AutoCompleteDecorator.decorate(cboxPaisEditorial);
+        editorial.ConsultarEditorial(cboxPaisEditorial);
     }
-    
-    public void ListarPais(){
+
+    public void ListarPais() {
         LimpiarTable();
         List<Pais> ListarPais = pais.ListarPais();
         modelo = (DefaultTableModel) TablePais.getModel();
@@ -55,8 +62,8 @@ public class Sistema extends javax.swing.JFrame {
         }
         TablePais.setModel(modelo);
     }
-    
-    public void ListarCategoria(){
+
+    public void ListarCategoria() {
         LimpiarTable();
         List<Categoria> ListarCategoria = categoria.ListarCategoria();
         modelo = (DefaultTableModel) TableCategoria.getModel();
@@ -68,8 +75,8 @@ public class Sistema extends javax.swing.JFrame {
         }
         TableCategoria.setModel(modelo);
     }
-    
-    public void ListarMateria(){
+
+    public void ListarMateria() {
         LimpiarTable();
         List<Materia> ListarMateria = materia.ListarMateria();
         modelo = (DefaultTableModel) TableMateria.getModel();
@@ -82,9 +89,24 @@ public class Sistema extends javax.swing.JFrame {
         }
         TableMateria.setModel(modelo);
     }
+
+    public void ListarEditorial(){
+        LimpiarTable();
+        List<Editorial> ListarEditorial = editorial.ListarEditorial();
+        modelo = (DefaultTableModel) TableEditorial.getModel();
+        Object[] obj = new Object[5];
+        for (int i = 0; i < ListarEditorial.size(); i++) {
+            obj[0] = ListarEditorial.get(i).getId_editorial();
+            obj[1] = ListarEditorial.get(i).getNombre();
+            obj[2] = ListarEditorial.get(i).getNombrePais();
+            obj[3] = ListarEditorial.get(i).getDireccion();
+            obj[4] = ListarEditorial.get(i).getTelefono();
+            modelo.addRow(obj);
+        }
+        TableEditorial.setModel(modelo);
+    }
     
-    
-    public void LimpiarTable(){
+    public void LimpiarTable() {
         for (int i = 0; i < modelo.getRowCount(); i++) {
             modelo.removeRow(i);
             i = i - 1;
@@ -175,25 +197,26 @@ public class Sistema extends javax.swing.JFrame {
         jLabel55 = new javax.swing.JLabel();
         jTextField10 = new javax.swing.JTextField();
         jScrollPane5 = new javax.swing.JScrollPane();
-        jTable5 = new javax.swing.JTable();
+        TableEditorial = new javax.swing.JTable();
         jComboBox11 = new javax.swing.JComboBox<>();
-        jButton31 = new javax.swing.JButton();
-        jButton32 = new javax.swing.JButton();
         jButton35 = new javax.swing.JButton();
         jButton36 = new javax.swing.JButton();
         jButton37 = new javax.swing.JButton();
         jPanel28 = new javax.swing.JPanel();
         jLabel70 = new javax.swing.JLabel();
         jLabel71 = new javax.swing.JLabel();
-        jComboBox16 = new javax.swing.JComboBox<>();
+        cboxPaisEditorial = new javax.swing.JComboBox<>();
         jLabel72 = new javax.swing.JLabel();
         jLabel73 = new javax.swing.JLabel();
         jLabel74 = new javax.swing.JLabel();
-        jButton40 = new javax.swing.JButton();
-        jButton41 = new javax.swing.JButton();
-        jTextField11 = new javax.swing.JTextField();
-        jTextField12 = new javax.swing.JTextField();
-        jTextField13 = new javax.swing.JTextField();
+        btnGuardarEditorial = new javax.swing.JButton();
+        btnActualizarEditorial = new javax.swing.JButton();
+        txtNombreEditorial = new javax.swing.JTextField();
+        txtDireccionEditorial = new javax.swing.JTextField();
+        txtTelefonoEditorial = new javax.swing.JTextField();
+        btnEliminarEditorial = new javax.swing.JButton();
+        btnNuevoEditorial = new javax.swing.JButton();
+        txtIdEditorial = new javax.swing.JTextField();
         jPanel7 = new javax.swing.JPanel();
         jLabel75 = new javax.swing.JLabel();
         jPanel29 = new javax.swing.JPanel();
@@ -1056,37 +1079,29 @@ public class Sistema extends javax.swing.JFrame {
             }
         });
 
-        jTable5.setModel(new javax.swing.table.DefaultTableModel(
+        TableEditorial.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "nombre", "pais", "direccion", "telefono"
+                "ID", "NOMBRE", "PAIS", "DIRECCION", "TELEFONO"
             }
         ));
-        jScrollPane5.setViewportView(jTable5);
+        TableEditorial.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TableEditorialMouseClicked(evt);
+            }
+        });
+        jScrollPane5.setViewportView(TableEditorial);
+        if (TableEditorial.getColumnModel().getColumnCount() > 0) {
+            TableEditorial.getColumnModel().getColumn(0).setPreferredWidth(40);
+            TableEditorial.getColumnModel().getColumn(0).setMaxWidth(400);
+        }
 
         jComboBox11.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "buscar por", "Item 2", "Item 3", "Item 4" }));
         jComboBox11.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox11ActionPerformed(evt);
-            }
-        });
-
-        jButton31.setText("Eliminar");
-        jButton31.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton31ActionPerformed(evt);
-            }
-        });
-
-        jButton32.setText("Editar");
-        jButton32.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton32ActionPerformed(evt);
             }
         });
 
@@ -1116,57 +1131,42 @@ public class Sistema extends javax.swing.JFrame {
         jPanel25Layout.setHorizontalGroup(
             jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel25Layout.createSequentialGroup()
-                .addGroup(jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel25Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 642, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel25Layout.createSequentialGroup()
                         .addGap(32, 32, 32)
                         .addGroup(jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel55)
                             .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, 524, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(28, 28, 28)
-                        .addComponent(jComboBox11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGroup(jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(jPanel25Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton32)
-                            .addComponent(jButton31))
-                        .addGap(35, 35, 35))
-                    .addGroup(jPanel25Layout.createSequentialGroup()
+                        .addComponent(jComboBox11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(28, 28, 28)
                         .addComponent(jButton37)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton36)))
-                .addGap(18, 18, 18)
-                .addComponent(jButton35)
+                        .addGap(26, 26, 26)
+                        .addComponent(jButton36)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton35))
+                    .addGroup(jPanel25Layout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 830, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(50, Short.MAX_VALUE))
         );
         jPanel25Layout.setVerticalGroup(
             jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel25Layout.createSequentialGroup()
-                .addGroup(jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addContainerGap()
+                .addGroup(jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButton35)
+                    .addComponent(jButton36)
                     .addGroup(jPanel25Layout.createSequentialGroup()
-                        .addGap(68, 68, 68)
-                        .addComponent(jButton31)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton32))
-                    .addGroup(jPanel25Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jButton35)
-                            .addComponent(jButton36)
-                            .addGroup(jPanel25Layout.createSequentialGroup()
-                                .addComponent(jLabel55)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jComboBox11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(jButton37))
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(73, Short.MAX_VALUE))
+                        .addComponent(jLabel55)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jComboBox11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jButton37))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jPanel28.setBackground(new java.awt.Color(255, 255, 255));
@@ -1175,10 +1175,10 @@ public class Sistema extends javax.swing.JFrame {
 
         jLabel71.setText("Nombre: ");
 
-        jComboBox16.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "selecciona", "Item 2", "Item 3", "Item 4" }));
-        jComboBox16.addActionListener(new java.awt.event.ActionListener() {
+        cboxPaisEditorial.setEditable(true);
+        cboxPaisEditorial.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox16ActionPerformed(evt);
+                cboxPaisEditorialActionPerformed(evt);
             }
         });
 
@@ -1188,35 +1188,49 @@ public class Sistema extends javax.swing.JFrame {
 
         jLabel74.setText("Telefono:");
 
-        jButton40.setText("CONFIRMAR");
-        jButton40.addActionListener(new java.awt.event.ActionListener() {
+        btnGuardarEditorial.setText("Guardar");
+        btnGuardarEditorial.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton40ActionPerformed(evt);
+                btnGuardarEditorialActionPerformed(evt);
             }
         });
 
-        jButton41.setText("CANCELAR");
-        jButton41.addActionListener(new java.awt.event.ActionListener() {
+        btnActualizarEditorial.setText("Actualizar");
+        btnActualizarEditorial.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton41ActionPerformed(evt);
+                btnActualizarEditorialActionPerformed(evt);
             }
         });
 
-        jTextField11.addActionListener(new java.awt.event.ActionListener() {
+        txtNombreEditorial.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField11ActionPerformed(evt);
+                txtNombreEditorialActionPerformed(evt);
             }
         });
 
-        jTextField12.addActionListener(new java.awt.event.ActionListener() {
+        txtDireccionEditorial.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField12ActionPerformed(evt);
+                txtDireccionEditorialActionPerformed(evt);
             }
         });
 
-        jTextField13.addActionListener(new java.awt.event.ActionListener() {
+        txtTelefonoEditorial.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField13ActionPerformed(evt);
+                txtTelefonoEditorialActionPerformed(evt);
+            }
+        });
+
+        btnEliminarEditorial.setText("Eliminar");
+        btnEliminarEditorial.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarEditorialActionPerformed(evt);
+            }
+        });
+
+        btnNuevoEditorial.setText("Nuevo");
+        btnNuevoEditorial.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevoEditorialActionPerformed(evt);
             }
         });
 
@@ -1226,29 +1240,41 @@ public class Sistema extends javax.swing.JFrame {
             jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel28Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel70)
+                .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel28Layout.createSequentialGroup()
-                        .addComponent(jLabel71)
-                        .addGap(18, 18, 18)
-                        .addComponent(jTextField11, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel70)
+                            .addGroup(jPanel28Layout.createSequentialGroup()
+                                .addComponent(jLabel71)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtNombreEditorial))
+                            .addGroup(jPanel28Layout.createSequentialGroup()
+                                .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel73, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel72))
+                                .addGap(3, 3, 3)
+                                .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtDireccionEditorial)
+                                    .addComponent(cboxPaisEditorial, 0, 209, Short.MAX_VALUE)))
+                            .addGroup(jPanel28Layout.createSequentialGroup()
+                                .addGap(42, 42, 42)
+                                .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(btnEliminarEditorial, javax.swing.GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE)
+                                    .addComponent(btnGuardarEditorial, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(btnNuevoEditorial, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
+                                    .addComponent(btnActualizarEditorial, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(55, 55, 55))
                     .addGroup(jPanel28Layout.createSequentialGroup()
                         .addComponent(jLabel74)
                         .addGap(18, 18, 18)
-                        .addComponent(jTextField13))
-                    .addGroup(jPanel28Layout.createSequentialGroup()
-                        .addComponent(jButton40)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton41))
-                    .addGroup(jPanel28Layout.createSequentialGroup()
-                        .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel73, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel72))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jComboBox16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField12))))
-                .addContainerGap(128, Short.MAX_VALUE))
+                        .addComponent(txtTelefonoEditorial)
+                        .addGap(126, 126, 126))))
+            .addGroup(jPanel28Layout.createSequentialGroup()
+                .addGap(135, 135, 135)
+                .addComponent(txtIdEditorial, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel28Layout.setVerticalGroup(
             jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1258,24 +1284,30 @@ public class Sistema extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel71)
-                    .addComponent(jTextField11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtNombreEditorial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel72)
-                    .addComponent(jComboBox16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cboxPaisEditorial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel73)
-                    .addComponent(jTextField12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtDireccionEditorial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel74)
-                    .addComponent(jTextField13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtTelefonoEditorial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton40)
-                    .addComponent(jButton41))
-                .addContainerGap(120, Short.MAX_VALUE))
+                    .addComponent(btnGuardarEditorial)
+                    .addComponent(btnActualizarEditorial))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnEliminarEditorial)
+                    .addComponent(btnNuevoEditorial))
+                .addGap(18, 18, 18)
+                .addComponent(txtIdEditorial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(39, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
@@ -1284,7 +1316,7 @@ public class Sistema extends javax.swing.JFrame {
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addComponent(jPanel25, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 1281, Short.MAX_VALUE))
+                .addGap(0, 1293, Short.MAX_VALUE))
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel6Layout.createSequentialGroup()
@@ -2940,7 +2972,7 @@ public class Sistema extends javax.swing.JFrame {
 
     private void cboxLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxLibroActionPerformed
         // TODO add your handling code here:
-        String seleccion = (String) cboxLibro.getSelectedItem(); 
+        String seleccion = (String) cboxLibro.getSelectedItem();
         if (seleccion.equals("Pais")) {
             jTabbedPane1.setSelectedIndex(12);
             LimpiarTable();
@@ -2953,6 +2985,11 @@ public class Sistema extends javax.swing.JFrame {
             jTabbedPane1.setSelectedIndex(11);
             LimpiarTable();
             ListarMateria();
+        } else if (seleccion.equals("Editorial")) {
+            jTabbedPane1.setSelectedIndex(3);
+            LimpiarTable();
+            LimpiarEditorial();
+            ListarEditorial();
         }
     }//GEN-LAST:event_cboxLibroActionPerformed
 
@@ -3052,9 +3089,19 @@ public class Sistema extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton30ActionPerformed
 
-    private void jButton31ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton31ActionPerformed
+    private void btnEliminarEditorialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarEditorialActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton31ActionPerformed
+        if (!"".equals(txtIdEditorial.getText())) {
+            int pregunta = JOptionPane.showConfirmDialog(null, "Esta seguro de eliminar: " + txtNombreEditorial.getText());
+            if (pregunta == 0) {
+                int id = Integer.parseInt(txtIdEditorial.getText());
+                editorial.EliminarEditorial(id);
+                LimpiarTable();
+                LimpiarEditorial();
+                ListarEditorial();
+            }
+        }
+    }//GEN-LAST:event_btnEliminarEditorialActionPerformed
 
     private void jButton35ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton35ActionPerformed
         // TODO add your handling code here:
@@ -3068,17 +3115,34 @@ public class Sistema extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton37ActionPerformed
 
-    private void jComboBox16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox16ActionPerformed
+    private void cboxPaisEditorialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxPaisEditorialActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox16ActionPerformed
+    }//GEN-LAST:event_cboxPaisEditorialActionPerformed
 
-    private void jButton40ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton40ActionPerformed
+    private void btnGuardarEditorialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarEditorialActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton40ActionPerformed
+        if ((!"".equals(txtNombreEditorial.getText()) && !"".equals(cboxPaisEditorial.getSelectedItem()))) {
+            boolean error;
+            ed.setNombre(txtNombreEditorial.getText());
+            ed.setDireccion(txtDireccionEditorial.getText());
+            ed.setTelefono(txtTelefonoEditorial.getText());
+            ed.setId_Pais((editorial.ObtenerIdPais(cboxPaisEditorial.getSelectedItem().toString())));
+            ed.setEstado(1);
+            error = editorial.RegistrarEditorial(ed);
+            if(error == true){
+                JOptionPane.showMessageDialog(null, "Editorial Registrada con Exito!!!");
+            }
+            LimpiarTable();
+            LimpiarEditorial();
+            ListarEditorial();
+        } else {
+            JOptionPane.showMessageDialog(null, "Los campos Nombre y Pais son obligatorios");
+        }
+    }//GEN-LAST:event_btnGuardarEditorialActionPerformed
 
-    private void jTextField11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField11ActionPerformed
+    private void txtNombreEditorialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreEditorialActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField11ActionPerformed
+    }//GEN-LAST:event_txtNombreEditorialActionPerformed
 
     private void jButton42ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton42ActionPerformed
         // TODO add your handling code here:
@@ -3232,21 +3296,40 @@ public class Sistema extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBox11ActionPerformed
 
-    private void jButton32ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton32ActionPerformed
+    private void btnNuevoEditorialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoEditorialActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton32ActionPerformed
+        LimpiarEditorial();
+    }//GEN-LAST:event_btnNuevoEditorialActionPerformed
 
-    private void jTextField12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField12ActionPerformed
+    private void txtDireccionEditorialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDireccionEditorialActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField12ActionPerformed
+    }//GEN-LAST:event_txtDireccionEditorialActionPerformed
 
-    private void jTextField13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField13ActionPerformed
+    private void txtTelefonoEditorialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTelefonoEditorialActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField13ActionPerformed
+    }//GEN-LAST:event_txtTelefonoEditorialActionPerformed
 
-    private void jButton41ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton41ActionPerformed
+    private void btnActualizarEditorialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarEditorialActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton41ActionPerformed
+        if ("".equals(txtIdEditorial.getText())) {
+            JOptionPane.showMessageDialog(null, "Seleccione una fila");
+        } else {
+            if (!"".equals(txtNombreEditorial.getText()) && !"".equals(cboxPaisEditorial.getSelectedItem())) {
+                ed.setNombre(txtNombreEditorial.getText());
+                ed.setId_Pais(editorial.ObtenerIdPais(cboxPaisEditorial.getSelectedItem().toString()));
+                ed.setDireccion(txtDireccionEditorial.getText());
+                ed.setTelefono(txtTelefonoEditorial.getText());
+                ed.setId_editorial(Integer.parseInt(txtIdEditorial.getText()));
+                editorial.ModificarEditorial(ed);
+                LimpiarTable();
+                LimpiarEditorial();
+                ListarEditorial();
+                JOptionPane.showMessageDialog(null, "Campos actualizados con exito");
+            } else {
+                JOptionPane.showMessageDialog(null, "Los campos Nombre y Pais son obligatorios");
+            }
+        }
+    }//GEN-LAST:event_btnActualizarEditorialActionPerformed
 
     private void jTextField14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField14ActionPerformed
         // TODO add your handling code here:
@@ -3366,7 +3449,7 @@ public class Sistema extends javax.swing.JFrame {
 
     private void btnGuardarCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarCategoriaActionPerformed
         // TODO add your handling code here:
-        if(!"".equals(txtNombreCategoria.getText())){
+        if (!"".equals(txtNombreCategoria.getText())) {
             ca.setCategoria(txtNombreCategoria.getText());
             ca.setEstado(1);
             categoria.RegistrarCategoria(ca);
@@ -3374,13 +3457,13 @@ public class Sistema extends javax.swing.JFrame {
             LimpiarTable();
             LimpiarCategoria();
             ListarCategoria();
-        }else{
+        } else {
             JOptionPane.showMessageDialog(null, "Los campos se encuentran vacios");
         }
     }//GEN-LAST:event_btnGuardarCategoriaActionPerformed
 
     private void btnGuardarMateriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarMateriaActionPerformed
-        if(!"".equals(txtSiglaMateria.getText()) && !"".equals(txtNombreMateria.getText())){
+        if (!"".equals(txtSiglaMateria.getText()) && !"".equals(txtNombreMateria.getText())) {
             ma.setSigla(txtSiglaMateria.getText());
             ma.setNombre(txtNombreMateria.getText());
             ma.setEstado(1);
@@ -3389,7 +3472,7 @@ public class Sistema extends javax.swing.JFrame {
             LimpiarTable();
             LimpiarMateria();
             ListarMateria();
-        } else{
+        } else {
             JOptionPane.showMessageDialog(null, "Los campos se encuentra vacios");
         }
     }//GEN-LAST:event_btnGuardarMateriaActionPerformed
@@ -3400,7 +3483,7 @@ public class Sistema extends javax.swing.JFrame {
 
     private void btnGuardarPaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarPaisActionPerformed
         // TODO add your handling code here:
-        if(!"".equals(txtNombrePais.getText())){
+        if (!"".equals(txtNombrePais.getText())) {
             pa.setNombre(txtNombrePais.getText());
             pa.setEstado(1);
             pais.registrarPais(pa);
@@ -3408,7 +3491,7 @@ public class Sistema extends javax.swing.JFrame {
             LimpiarTable();
             LimpiarPais();
             ListarPais();
-        }else{
+        } else {
             JOptionPane.showMessageDialog(null, "Los campos se encuentran vacios");
         }
     }//GEN-LAST:event_btnGuardarPaisActionPerformed
@@ -3423,8 +3506,8 @@ public class Sistema extends javax.swing.JFrame {
     private void btnEliminarCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarCategoriaActionPerformed
         // TODO add your handling code here:
         if (!"".equals(txtNombreCategoria.getText())) {
-            int pregunta = JOptionPane.showConfirmDialog(null, "Esta seguro de eliminar: "+txtNombreCategoria.getText());
-            if(pregunta == 0){
+            int pregunta = JOptionPane.showConfirmDialog(null, "Esta seguro de eliminar: " + txtNombreCategoria.getText());
+            if (pregunta == 0) {
                 int id = Integer.parseInt(txtIdCategoria.getText());
                 categoria.EliminarCategoria(id);
                 LimpiarTable();
@@ -3442,8 +3525,8 @@ public class Sistema extends javax.swing.JFrame {
 
     private void btnEliminarPaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarPaisActionPerformed
         if (!"".equals(txtNombrePais.getText())) {
-            int pregunta = JOptionPane.showConfirmDialog(null, "Esta seguro de eliminar: "+txtNombrePais.getText());
-            if(pregunta == 0){
+            int pregunta = JOptionPane.showConfirmDialog(null, "Esta seguro de eliminar: " + txtNombrePais.getText());
+            if (pregunta == 0) {
                 int id = Integer.parseInt(txtIdPais.getText());
                 pais.EliminarPais(id);
                 LimpiarTable();
@@ -3463,8 +3546,8 @@ public class Sistema extends javax.swing.JFrame {
 
     private void btnEliminarMateriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarMateriaActionPerformed
         if (!"".equals(txtNombreMateria.getText()) || !"".equals(txtSiglaMateria.getText())) {
-            int pregunta = JOptionPane.showConfirmDialog(null, "Esta seguro de eliminar: "+txtNombreMateria.getText());
-            if(pregunta == 0){
+            int pregunta = JOptionPane.showConfirmDialog(null, "Esta seguro de eliminar: " + txtNombreMateria.getText());
+            if (pregunta == 0) {
                 int id = Integer.parseInt(txtIdMateria.getText());
                 materia.EliminarMateria(id);
                 LimpiarTable();
@@ -3476,9 +3559,9 @@ public class Sistema extends javax.swing.JFrame {
 
     private void btnActualizarPaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarPaisActionPerformed
         // TODO add your handling code here:
-        if("".equals(txtIdPais.getText())){
+        if ("".equals(txtIdPais.getText())) {
             JOptionPane.showMessageDialog(null, "Seleccione una fila");
-        } else{
+        } else {
             if (!"".equals(txtNombrePais.getText())) {
                 pa.setNombre(txtNombrePais.getText());
                 pa.setId_pais(Integer.parseInt(txtIdPais.getText()));
@@ -3487,7 +3570,7 @@ public class Sistema extends javax.swing.JFrame {
                 LimpiarPais();
                 ListarPais();
                 JOptionPane.showMessageDialog(null, "Campos actualizados con exito");
-            }else{
+            } else {
                 JOptionPane.showMessageDialog(null, "Los campos no pueden estar vacios");
             }
         }
@@ -3505,9 +3588,9 @@ public class Sistema extends javax.swing.JFrame {
 
     private void jButton33ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton33ActionPerformed
         // TODO add your handling code here:
-        if("".equals(txtIdCategoria.getText())){
+        if ("".equals(txtIdCategoria.getText())) {
             JOptionPane.showMessageDialog(null, "Seleccione una fila");
-        } else{
+        } else {
             if (!"".equals(txtNombreCategoria.getText())) {
                 ca.setCategoria(txtNombreCategoria.getText());
                 ca.setId_categoria(Integer.parseInt(txtIdCategoria.getText()));
@@ -3516,11 +3599,11 @@ public class Sistema extends javax.swing.JFrame {
                 LimpiarCategoria();
                 ListarCategoria();
                 JOptionPane.showMessageDialog(null, "Campos actualizados con exito");
-            }else{
+            } else {
                 JOptionPane.showMessageDialog(null, "Los campos no pueden estar vacios");
             }
         }
-        
+
     }//GEN-LAST:event_jButton33ActionPerformed
 
     private void btnNuevoMateriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoMateriaActionPerformed
@@ -3530,9 +3613,9 @@ public class Sistema extends javax.swing.JFrame {
 
     private void btnActualizarMateriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarMateriaActionPerformed
         // TODO add your handling code here:
-         if("".equals(txtIdMateria.getText())){
+        if ("".equals(txtIdMateria.getText())) {
             JOptionPane.showMessageDialog(null, "Seleccione una fila");
-        } else{
+        } else {
             if (!"".equals(txtNombreMateria.getText()) && !"".equals(txtSiglaMateria.getText())) {
                 ma.setNombre(txtNombreMateria.getText());
                 ma.setSigla(txtSiglaMateria.getText());
@@ -3542,11 +3625,20 @@ public class Sistema extends javax.swing.JFrame {
                 LimpiarMateria();
                 ListarMateria();
                 JOptionPane.showMessageDialog(null, "Campos actualizados con exito");
-            }else{
+            } else {
                 JOptionPane.showMessageDialog(null, "Los campos no pueden estar vacios");
             }
         }
     }//GEN-LAST:event_btnActualizarMateriaActionPerformed
+
+    private void TableEditorialMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TableEditorialMouseClicked
+        int fila = TableEditorial.rowAtPoint(evt.getPoint());
+        txtIdEditorial.setText(TableEditorial.getValueAt(fila, 0).toString());
+        txtNombreEditorial.setText(TableEditorial.getValueAt(fila, 1).toString());
+        cboxPaisEditorial.setSelectedItem(TableEditorial.getValueAt(fila, 2).toString());
+        txtDireccionEditorial.setText(TableEditorial.getValueAt(fila, 3).toString());
+        txtTelefonoEditorial.setText(TableEditorial.getValueAt(fila, 4).toString());
+    }//GEN-LAST:event_TableEditorialMouseClicked
 
     /**
      * @param args the command line arguments
@@ -3575,26 +3667,32 @@ public class Sistema extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable TableCategoria;
+    private javax.swing.JTable TableEditorial;
     private javax.swing.JTable TableMateria;
     private javax.swing.JTable TablePais;
+    private javax.swing.JButton btnActualizarEditorial;
     private javax.swing.JButton btnActualizarMateria;
     private javax.swing.JButton btnActualizarPais;
     private javax.swing.JButton btnAjuste;
     private javax.swing.JButton btnAnalisis;
     private javax.swing.JButton btnCerrar;
     private javax.swing.JButton btnEliminarCategoria;
+    private javax.swing.JButton btnEliminarEditorial;
     private javax.swing.JButton btnEliminarMateria;
     private javax.swing.JButton btnEliminarPais;
     private javax.swing.JButton btnGuardarCategoria;
+    private javax.swing.JButton btnGuardarEditorial;
     private javax.swing.JButton btnGuardarMateria;
     private javax.swing.JButton btnGuardarPais;
     private javax.swing.JButton btnHistorial;
     private javax.swing.JButton btnInicio;
     private javax.swing.JButton btnMulta;
+    private javax.swing.JButton btnNuevoEditorial;
     private javax.swing.JButton btnNuevoMateria;
     private javax.swing.JButton btnNuevoPais;
     private javax.swing.JButton btnPrestamo;
     private javax.swing.JComboBox<String> cboxLibro;
+    private javax.swing.JComboBox<String> cboxPaisEditorial;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
@@ -3619,16 +3717,12 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JButton jButton29;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton30;
-    private javax.swing.JButton jButton31;
-    private javax.swing.JButton jButton32;
     private javax.swing.JButton jButton33;
     private javax.swing.JButton jButton34;
     private javax.swing.JButton jButton35;
     private javax.swing.JButton jButton36;
     private javax.swing.JButton jButton37;
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton40;
-    private javax.swing.JButton jButton41;
     private javax.swing.JButton jButton42;
     private javax.swing.JButton jButton43;
     private javax.swing.JButton jButton44;
@@ -3655,7 +3749,6 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox10;
     private javax.swing.JComboBox<String> jComboBox11;
-    private javax.swing.JComboBox<String> jComboBox16;
     private javax.swing.JComboBox<String> jComboBox17;
     private javax.swing.JComboBox<String> jComboBox18;
     private javax.swing.JComboBox<String> jComboBox2;
@@ -3791,14 +3884,10 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JTable jTable2;
     private javax.swing.JTable jTable3;
     private javax.swing.JTable jTable4;
-    private javax.swing.JTable jTable5;
     private javax.swing.JTable jTable6;
     private javax.swing.JTable jTable7;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField10;
-    private javax.swing.JTextField jTextField11;
-    private javax.swing.JTextField jTextField12;
-    private javax.swing.JTextField jTextField13;
     private javax.swing.JTextField jTextField14;
     private javax.swing.JTextField jTextField15;
     private javax.swing.JTextField jTextField16;
@@ -3820,29 +3909,41 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField7;
     private javax.swing.JTextField jTextField8;
     private javax.swing.JTextField jTextField9;
+    private javax.swing.JTextField txtDireccionEditorial;
     private javax.swing.JTextField txtIdCategoria;
+    private javax.swing.JTextField txtIdEditorial;
     private javax.swing.JTextField txtIdMateria;
     private javax.swing.JTextField txtIdPais;
     private javax.swing.JTextField txtNombreCategoria;
+    private javax.swing.JTextField txtNombreEditorial;
     private javax.swing.JTextField txtNombreMateria;
     private javax.swing.JTextField txtNombrePais;
     private javax.swing.JTextField txtSiglaMateria;
+    private javax.swing.JTextField txtTelefonoEditorial;
     // End of variables declaration//GEN-END:variables
 
-    private void LimpiarMateria(){
+    private void LimpiarMateria() {
         txtIdMateria.setText("");
         txtSiglaMateria.setText("");
         txtNombreMateria.setText("");
     }
-    
-    private void LimpiarPais(){
+
+    private void LimpiarPais() {
         txtIdPais.setText("");
         txtNombrePais.setText("");
     }
-    
-    private void LimpiarCategoria(){
+
+    private void LimpiarCategoria() {
         txtIdCategoria.setText("");
         txtNombreCategoria.setText("");
     }
-            
+
+    private void LimpiarEditorial() {
+        txtIdEditorial.setText("");
+        txtNombreEditorial.setText("");
+        txtDireccionEditorial.setText("");
+        txtTelefonoEditorial.setText("");
+        cboxPaisEditorial.setSelectedItem("");
+    }
+
 }
