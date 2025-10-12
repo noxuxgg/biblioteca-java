@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 11-10-2025 a las 19:21:26
+-- Tiempo de generación: 12-10-2025 a las 04:47:12
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -69,11 +69,27 @@ INSERT INTO `categoria` (`Id_categoria`, `Categoria`, `estado`) VALUES
 CREATE TABLE `editoriales` (
   `Id_editorial` int(11) NOT NULL,
   `Nombre` varchar(100) NOT NULL,
-  `Pais` varchar(50) NOT NULL,
   `Direccion` varchar(150) NOT NULL,
   `Telefono` varchar(20) NOT NULL,
-  `id_pais` int(11) NOT NULL
+  `id_pais` int(11) NOT NULL,
+  `estado` int(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `editoriales`
+--
+
+INSERT INTO `editoriales` (`Id_editorial`, `Nombre`, `Direccion`, `Telefono`, `id_pais`, `estado`) VALUES
+(3, 'Latinas', 'Potosi y Caro', '52-49652', 1, 1),
+(7, 'OddKings', 'Boulevard Jonks', '351-45150', 4, 1),
+(10, 'Kodlif', 'St. Jhonson', '659-94652', 4, 1),
+(11, 'Potosina Editoriales', '', '', 1, 1),
+(12, 'Jabushins', '', '', 9, 1),
+(21, 'Jhonimsl', '', '', 10, 1),
+(22, 'Oxford edits', 'Oxford', '', 2, 1),
+(23, 'Maduro Editores', '', '', 7, 1),
+(24, 'Nuevas Generaciones Editoriales', '', '', 6, 1),
+(25, 'Los andes ', 'La paz y Bolivia', '52-49353', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -145,7 +161,7 @@ CREATE TABLE `materia` (
 
 INSERT INTO `materia` (`Id_materia`, `sigla`, `Nombre`, `estado`) VALUES
 (1, 'INF-3510', 'Redes Informáticas I', 1),
-(3, 'SIS-2520', 'Simulacion de Sistemas', 1),
+(3, 'SIS-2520', 'Simulacion de Sistemas', 0),
 (4, 'INF-1210', 'Análisis Discreto', 1),
 (5, 'INF-1110', 'Metodología de la Programación I', 0),
 (6, 'SIS-2210', 'Metodología de la Programación II', 0),
@@ -361,7 +377,7 @@ ALTER TABLE `categoria`
 -- AUTO_INCREMENT de la tabla `editoriales`
 --
 ALTER TABLE `editoriales`
-  MODIFY `Id_editorial` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id_editorial` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT de la tabla `historial_libros`
