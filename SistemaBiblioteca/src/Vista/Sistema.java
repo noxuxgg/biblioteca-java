@@ -4,6 +4,8 @@
  */
 package Vista;
 
+import Modelo.Autor;
+import Modelo.AutorDAO;
 import Modelo.Categoria;
 import Modelo.CategoriaDAO;
 import Modelo.Editorial;
@@ -37,6 +39,8 @@ public class Sistema extends javax.swing.JFrame {
     PaisDAO pais = new PaisDAO();
     Editorial ed = new Editorial();
     EditorialDAO editorial = new EditorialDAO();
+    Autor au = new Autor();
+    AutorDAO autor = new AutorDAO();
     DefaultTableModel modelo = new DefaultTableModel();
 
     public Sistema() {
@@ -46,8 +50,13 @@ public class Sistema extends javax.swing.JFrame {
         txtIdPais.setVisible(false);
         txtIdCategoria.setVisible(false);
         txtIdMateria.setVisible(false);
+        txtIdAutor.setVisible(false);
+        txtIdEditorial.setVisible(false);
         AutoCompleteDecorator.decorate(cboxPaisEditorial);
-        editorial.ConsultarEditorial(cboxPaisEditorial);
+        editorial.ConsultarPais(cboxPaisEditorial);
+        autor.ConsultarPais(cboxPaisAutor);
+        AutoCompleteDecorator.decorate(cboxPaisAutor);
+        
     }
 
     public void ListarPais() {
@@ -104,6 +113,21 @@ public class Sistema extends javax.swing.JFrame {
             modelo.addRow(obj);
         }
         TableEditorial.setModel(modelo);
+    }
+    
+    public void ListarAutor(){
+        LimpiarTable();
+        List<Autor> ListarAutor = autor.ListarAutor();
+        modelo = (DefaultTableModel) TableAutor.getModel();
+        Object[] obj = new Object[4];
+        for (int i = 0; i < ListarAutor.size(); i++) {
+            obj[0] = ListarAutor.get(i).getId_autor();
+            obj[1] = ListarAutor.get(i).getNombre();
+            obj[2] = ListarAutor.get(i).getApellido();
+            obj[3] = ListarAutor.get(i).getNombrePais();
+            modelo.addRow(obj);
+        }
+        TableAutor.setModel(modelo);
     }
     
     public void LimpiarTable() {
@@ -223,23 +247,24 @@ public class Sistema extends javax.swing.JFrame {
         jLabel76 = new javax.swing.JLabel();
         jTextField14 = new javax.swing.JTextField();
         jScrollPane6 = new javax.swing.JScrollPane();
-        jTable6 = new javax.swing.JTable();
+        TableAutor = new javax.swing.JTable();
         jComboBox17 = new javax.swing.JComboBox<>();
-        jButton42 = new javax.swing.JButton();
-        jButton43 = new javax.swing.JButton();
         jButton44 = new javax.swing.JButton();
         jButton45 = new javax.swing.JButton();
         jButton46 = new javax.swing.JButton();
         jPanel30 = new javax.swing.JPanel();
         jLabel77 = new javax.swing.JLabel();
         jLabel78 = new javax.swing.JLabel();
-        jComboBox18 = new javax.swing.JComboBox<>();
+        cboxPaisAutor = new javax.swing.JComboBox<>();
         jLabel79 = new javax.swing.JLabel();
         jLabel80 = new javax.swing.JLabel();
-        jButton47 = new javax.swing.JButton();
-        jButton48 = new javax.swing.JButton();
-        jTextField15 = new javax.swing.JTextField();
-        jTextField16 = new javax.swing.JTextField();
+        btnGuardarAutor = new javax.swing.JButton();
+        btnActualizarAutor = new javax.swing.JButton();
+        txtNombreAutor = new javax.swing.JTextField();
+        txtApellidoAutor = new javax.swing.JTextField();
+        btnEliminarAutor = new javax.swing.JButton();
+        btnNuevoAutor = new javax.swing.JButton();
+        txtIdAutor = new javax.swing.JTextField();
         jPanel8 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jPanel14 = new javax.swing.JPanel();
@@ -1354,37 +1379,29 @@ public class Sistema extends javax.swing.JFrame {
             }
         });
 
-        jTable6.setModel(new javax.swing.table.DefaultTableModel(
+        TableAutor.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+
             },
             new String [] {
-                "nombre", "apellido", "nacionalidad"
+                "ID", "NOMBRE", "APELLIDO", "NACIONALIDAD"
             }
         ));
-        jScrollPane6.setViewportView(jTable6);
+        TableAutor.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TableAutorMouseClicked(evt);
+            }
+        });
+        jScrollPane6.setViewportView(TableAutor);
+        if (TableAutor.getColumnModel().getColumnCount() > 0) {
+            TableAutor.getColumnModel().getColumn(0).setPreferredWidth(40);
+            TableAutor.getColumnModel().getColumn(0).setMaxWidth(200);
+        }
 
         jComboBox17.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "buscar por", "Item 2", "Item 3", "Item 4" }));
         jComboBox17.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox17ActionPerformed(evt);
-            }
-        });
-
-        jButton42.setText("Eliminar");
-        jButton42.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton42ActionPerformed(evt);
-            }
-        });
-
-        jButton43.setText("Editar");
-        jButton43.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton43ActionPerformed(evt);
             }
         });
 
@@ -1417,54 +1434,39 @@ public class Sistema extends javax.swing.JFrame {
                 .addGroup(jPanel29Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel29Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 642, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 822, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel29Layout.createSequentialGroup()
                         .addGap(32, 32, 32)
                         .addGroup(jPanel29Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel76)
                             .addComponent(jTextField14, javax.swing.GroupLayout.PREFERRED_SIZE, 524, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(28, 28, 28)
-                        .addComponent(jComboBox17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGroup(jPanel29Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(jPanel29Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel29Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton43)
-                            .addComponent(jButton42))
-                        .addGap(35, 35, 35))
-                    .addGroup(jPanel29Layout.createSequentialGroup()
+                        .addComponent(jComboBox17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(28, 28, 28)
                         .addComponent(jButton46)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton45)))
-                .addGap(18, 18, 18)
-                .addComponent(jButton44)
+                        .addGap(26, 26, 26)
+                        .addComponent(jButton45)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton44)))
                 .addContainerGap(50, Short.MAX_VALUE))
         );
         jPanel29Layout.setVerticalGroup(
             jPanel29Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel29Layout.createSequentialGroup()
-                .addGroup(jPanel29Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addContainerGap()
+                .addGroup(jPanel29Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButton44)
+                    .addComponent(jButton45)
                     .addGroup(jPanel29Layout.createSequentialGroup()
-                        .addGap(68, 68, 68)
-                        .addComponent(jButton42)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton43))
-                    .addGroup(jPanel29Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel29Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jButton44)
-                            .addComponent(jButton45)
-                            .addGroup(jPanel29Layout.createSequentialGroup()
-                                .addComponent(jLabel76)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel29Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jTextField14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jComboBox17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(jButton46))
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(73, Short.MAX_VALUE))
+                        .addComponent(jLabel76)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel29Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jTextField14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jComboBox17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jButton46))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jPanel30.setBackground(new java.awt.Color(255, 255, 255));
@@ -1473,10 +1475,10 @@ public class Sistema extends javax.swing.JFrame {
 
         jLabel78.setText("Nombre: ");
 
-        jComboBox18.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "selecciona", "Item 2", "Item 3", "Item 4" }));
-        jComboBox18.addActionListener(new java.awt.event.ActionListener() {
+        cboxPaisAutor.setEditable(true);
+        cboxPaisAutor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox18ActionPerformed(evt);
+                cboxPaisAutorActionPerformed(evt);
             }
         });
 
@@ -1484,29 +1486,43 @@ public class Sistema extends javax.swing.JFrame {
 
         jLabel80.setText("Nacionalidad: ");
 
-        jButton47.setText("CONFIRMAR");
-        jButton47.addActionListener(new java.awt.event.ActionListener() {
+        btnGuardarAutor.setText("Guardar");
+        btnGuardarAutor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton47ActionPerformed(evt);
+                btnGuardarAutorActionPerformed(evt);
             }
         });
 
-        jButton48.setText("CANCELAR");
-        jButton48.addActionListener(new java.awt.event.ActionListener() {
+        btnActualizarAutor.setText("Actualizar");
+        btnActualizarAutor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton48ActionPerformed(evt);
+                btnActualizarAutorActionPerformed(evt);
             }
         });
 
-        jTextField15.addActionListener(new java.awt.event.ActionListener() {
+        txtNombreAutor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField15ActionPerformed(evt);
+                txtNombreAutorActionPerformed(evt);
             }
         });
 
-        jTextField16.addActionListener(new java.awt.event.ActionListener() {
+        txtApellidoAutor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField16ActionPerformed(evt);
+                txtApellidoAutorActionPerformed(evt);
+            }
+        });
+
+        btnEliminarAutor.setText("Eliminar");
+        btnEliminarAutor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarAutorActionPerformed(evt);
+            }
+        });
+
+        btnNuevoAutor.setText("Nuevo");
+        btnNuevoAutor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevoAutorActionPerformed(evt);
             }
         });
 
@@ -1519,22 +1535,28 @@ public class Sistema extends javax.swing.JFrame {
                 .addGroup(jPanel30Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel77)
                     .addGroup(jPanel30Layout.createSequentialGroup()
-                        .addComponent(jButton47)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton48))
-                    .addGroup(jPanel30Layout.createSequentialGroup()
-                        .addComponent(jLabel80)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBox18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel30Layout.createSequentialGroup()
                         .addGroup(jPanel30Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel78)
                             .addComponent(jLabel79, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE))
                         .addGap(26, 26, 26)
                         .addGroup(jPanel30Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextField15, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE)
-                            .addComponent(jTextField16))))
-                .addContainerGap(178, Short.MAX_VALUE))
+                            .addComponent(txtNombreAutor, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
+                            .addComponent(txtApellidoAutor)))
+                    .addGroup(jPanel30Layout.createSequentialGroup()
+                        .addComponent(jLabel80)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel30Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel30Layout.createSequentialGroup()
+                                .addComponent(btnGuardarAutor)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnActualizarAutor))
+                            .addComponent(cboxPaisAutor, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel30Layout.createSequentialGroup()
+                                .addComponent(btnEliminarAutor)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnNuevoAutor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(txtIdAutor, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
         jPanel30Layout.setVerticalGroup(
             jPanel30Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1544,20 +1566,26 @@ public class Sistema extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel30Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel78)
-                    .addComponent(jTextField15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtNombreAutor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel30Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel79)
-                    .addComponent(jTextField16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtApellidoAutor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel30Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel80)
-                    .addComponent(jComboBox18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(58, 58, 58)
+                    .addComponent(cboxPaisAutor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(33, 33, 33)
                 .addGroup(jPanel30Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton47)
-                    .addComponent(jButton48))
-                .addContainerGap(114, Short.MAX_VALUE))
+                    .addComponent(btnActualizarAutor)
+                    .addComponent(btnGuardarAutor))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel30Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnEliminarAutor)
+                    .addComponent(btnNuevoAutor))
+                .addGap(18, 18, 18)
+                .addComponent(txtIdAutor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(58, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
@@ -1566,7 +1594,7 @@ public class Sistema extends javax.swing.JFrame {
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addComponent(jPanel29, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 1281, Short.MAX_VALUE))
+                .addGap(0, 1293, Short.MAX_VALUE))
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel7Layout.createSequentialGroup()
@@ -2990,6 +3018,11 @@ public class Sistema extends javax.swing.JFrame {
             LimpiarTable();
             LimpiarEditorial();
             ListarEditorial();
+        } else if (seleccion.equals("Autor")) {
+            jTabbedPane1.setSelectedIndex(4);
+            LimpiarTable();
+            LimpiarAutor();
+            ListarAutor();
         }
     }//GEN-LAST:event_cboxLibroActionPerformed
 
@@ -3144,9 +3177,20 @@ public class Sistema extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNombreEditorialActionPerformed
 
-    private void jButton42ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton42ActionPerformed
+    private void btnEliminarAutorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarAutorActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton42ActionPerformed
+        if (!"".equals(txtIdAutor.getText())) {
+            int pregunta = JOptionPane.showConfirmDialog(null, "Esta seguro de eliminar: " + txtNombreAutor.getText());
+            if (pregunta == 0) {
+                int id = Integer.parseInt(txtIdAutor.getText());
+                autor.EliminarAutor(id);
+                System.out.println(id);
+                LimpiarTable();
+                LimpiarAutor();
+                ListarAutor();
+            }
+        }
+    }//GEN-LAST:event_btnEliminarAutorActionPerformed
 
     private void jButton44ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton44ActionPerformed
         // TODO add your handling code here:
@@ -3160,17 +3204,33 @@ public class Sistema extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton46ActionPerformed
 
-    private void jComboBox18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox18ActionPerformed
+    private void cboxPaisAutorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxPaisAutorActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox18ActionPerformed
+    }//GEN-LAST:event_cboxPaisAutorActionPerformed
 
-    private void jButton47ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton47ActionPerformed
+    private void btnGuardarAutorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarAutorActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton47ActionPerformed
+        if ((!"".equals(txtNombreAutor.getText()) && !"".equals(cboxPaisAutor.getSelectedItem()))) {
+            boolean error;
+            au.setNombre(txtNombreAutor.getText());
+            au.setApellido(txtApellidoAutor.getText());
+            au.setId_pais((autor.ObtenerIdPais(cboxPaisAutor.getSelectedItem().toString())));
+            au.setEstado(1);
+            error = autor.RegistrarAutor(au);
+            if(error == true){
+                JOptionPane.showMessageDialog(null, "Editorial Registrada con Exito!!!");
+            }
+            LimpiarTable();
+            LimpiarAutor();
+            ListarAutor();
+        } else {
+            JOptionPane.showMessageDialog(null, "Los campos Nombre y Pais son obligatorios");
+        }
+    }//GEN-LAST:event_btnGuardarAutorActionPerformed
 
-    private void jTextField15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField15ActionPerformed
+    private void txtNombreAutorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreAutorActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField15ActionPerformed
+    }//GEN-LAST:event_txtNombreAutorActionPerformed
 
     private void jTextField26ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField26ActionPerformed
         // TODO add your handling code here:
@@ -3339,17 +3399,30 @@ public class Sistema extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBox17ActionPerformed
 
-    private void jButton43ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton43ActionPerformed
+    private void txtApellidoAutorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtApellidoAutorActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton43ActionPerformed
+    }//GEN-LAST:event_txtApellidoAutorActionPerformed
 
-    private void jTextField16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField16ActionPerformed
+    private void btnActualizarAutorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarAutorActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField16ActionPerformed
-
-    private void jButton48ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton48ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton48ActionPerformed
+        if ("".equals(txtIdAutor.getText())) {
+            JOptionPane.showMessageDialog(null, "Seleccione una fila");
+        } else {
+            if (!"".equals(txtNombreAutor.getText()) && !"".equals(cboxPaisAutor.getSelectedItem())) {
+                au.setNombre(txtNombreAutor.getText());
+                au.setId_pais(autor.ObtenerIdPais(cboxPaisAutor.getSelectedItem().toString()));
+                au.setApellido(txtApellidoAutor.getText());
+                au.setId_autor(Integer.parseInt(txtIdAutor.getText()));
+                autor.ModificarAutor(au);
+                LimpiarTable();
+                LimpiarAutor();
+                ListarAutor();
+                JOptionPane.showMessageDialog(null, "Campos actualizados con exito");
+            } else {
+                JOptionPane.showMessageDialog(null, "Los campos Nombre y Pais son obligatorios");
+            }
+        }
+    }//GEN-LAST:event_btnActualizarAutorActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
@@ -3640,6 +3713,20 @@ public class Sistema extends javax.swing.JFrame {
         txtTelefonoEditorial.setText(TableEditorial.getValueAt(fila, 4).toString());
     }//GEN-LAST:event_TableEditorialMouseClicked
 
+    private void btnNuevoAutorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoAutorActionPerformed
+        // TODO add your handling code here:
+        LimpiarAutor();
+    }//GEN-LAST:event_btnNuevoAutorActionPerformed
+
+    private void TableAutorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TableAutorMouseClicked
+        // TODO add your handling code here:
+        int fila = TableAutor.rowAtPoint(evt.getPoint());
+        txtIdAutor.setText(TableAutor.getValueAt(fila, 0).toString());
+        txtNombreAutor.setText(TableAutor.getValueAt(fila, 1).toString());
+        txtApellidoAutor.setText(TableAutor.getValueAt(fila, 2).toString());
+        cboxPaisAutor.setSelectedItem(TableAutor.getValueAt(fila, 3).toString());
+    }//GEN-LAST:event_TableAutorMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -3666,20 +3753,24 @@ public class Sistema extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable TableAutor;
     private javax.swing.JTable TableCategoria;
     private javax.swing.JTable TableEditorial;
     private javax.swing.JTable TableMateria;
     private javax.swing.JTable TablePais;
+    private javax.swing.JButton btnActualizarAutor;
     private javax.swing.JButton btnActualizarEditorial;
     private javax.swing.JButton btnActualizarMateria;
     private javax.swing.JButton btnActualizarPais;
     private javax.swing.JButton btnAjuste;
     private javax.swing.JButton btnAnalisis;
     private javax.swing.JButton btnCerrar;
+    private javax.swing.JButton btnEliminarAutor;
     private javax.swing.JButton btnEliminarCategoria;
     private javax.swing.JButton btnEliminarEditorial;
     private javax.swing.JButton btnEliminarMateria;
     private javax.swing.JButton btnEliminarPais;
+    private javax.swing.JButton btnGuardarAutor;
     private javax.swing.JButton btnGuardarCategoria;
     private javax.swing.JButton btnGuardarEditorial;
     private javax.swing.JButton btnGuardarMateria;
@@ -3687,11 +3778,13 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JButton btnHistorial;
     private javax.swing.JButton btnInicio;
     private javax.swing.JButton btnMulta;
+    private javax.swing.JButton btnNuevoAutor;
     private javax.swing.JButton btnNuevoEditorial;
     private javax.swing.JButton btnNuevoMateria;
     private javax.swing.JButton btnNuevoPais;
     private javax.swing.JButton btnPrestamo;
     private javax.swing.JComboBox<String> cboxLibro;
+    private javax.swing.JComboBox<String> cboxPaisAutor;
     private javax.swing.JComboBox<String> cboxPaisEditorial;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
@@ -3723,13 +3816,9 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JButton jButton36;
     private javax.swing.JButton jButton37;
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton42;
-    private javax.swing.JButton jButton43;
     private javax.swing.JButton jButton44;
     private javax.swing.JButton jButton45;
     private javax.swing.JButton jButton46;
-    private javax.swing.JButton jButton47;
-    private javax.swing.JButton jButton48;
     private javax.swing.JButton jButton49;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton50;
@@ -3750,7 +3839,6 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> jComboBox10;
     private javax.swing.JComboBox<String> jComboBox11;
     private javax.swing.JComboBox<String> jComboBox17;
-    private javax.swing.JComboBox<String> jComboBox18;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JComboBox<String> jComboBox4;
@@ -3884,13 +3972,10 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JTable jTable2;
     private javax.swing.JTable jTable3;
     private javax.swing.JTable jTable4;
-    private javax.swing.JTable jTable6;
     private javax.swing.JTable jTable7;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField10;
     private javax.swing.JTextField jTextField14;
-    private javax.swing.JTextField jTextField15;
-    private javax.swing.JTextField jTextField16;
     private javax.swing.JTextField jTextField17;
     private javax.swing.JTextField jTextField18;
     private javax.swing.JTextField jTextField19;
@@ -3909,11 +3994,14 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField7;
     private javax.swing.JTextField jTextField8;
     private javax.swing.JTextField jTextField9;
+    private javax.swing.JTextField txtApellidoAutor;
     private javax.swing.JTextField txtDireccionEditorial;
+    private javax.swing.JTextField txtIdAutor;
     private javax.swing.JTextField txtIdCategoria;
     private javax.swing.JTextField txtIdEditorial;
     private javax.swing.JTextField txtIdMateria;
     private javax.swing.JTextField txtIdPais;
+    private javax.swing.JTextField txtNombreAutor;
     private javax.swing.JTextField txtNombreCategoria;
     private javax.swing.JTextField txtNombreEditorial;
     private javax.swing.JTextField txtNombreMateria;
@@ -3945,5 +4033,11 @@ public class Sistema extends javax.swing.JFrame {
         txtTelefonoEditorial.setText("");
         cboxPaisEditorial.setSelectedItem("");
     }
-
+    
+    private void LimpiarAutor(){
+        txtIdAutor.setText("");
+        txtNombreAutor.setText("");
+        txtApellidoAutor.setText("");
+        cboxPaisAutor.setSelectedItem("");
+    }
 }
