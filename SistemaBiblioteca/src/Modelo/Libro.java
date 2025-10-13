@@ -16,18 +16,22 @@ public class Libro {
     private int id_autor;
     private int id_materia;
     private String edicion;
-    private String estado;
-    private String NombreCategoria;
-    private String NombreEditorial;
-    private String NombreAutor;
-    private String NombreMateria;
+    private int estado;
     private String codigo;
-    
-
+    private int stock;
+    private int anio;
+    private String descripcion;
+    private int id_estado;
+    private String nombreCategoria;
+    private String nombreEditorial;
+    private String nombreAutor;
+    private String nombreMateria;
+    private String nombreEstado;
+            
     public Libro() {
     }
 
-    public Libro(int id_libro, String titulo, int id_categoria, int id_editorial, int id_autor, int id_materia, String edicion, String estado, String NombreCategoria, String NombreEditorial, String NombreAutor, String NombreMateria, String codigo) {
+    public Libro(int id_libro, String titulo, int id_categoria, int id_editorial, int id_autor, int id_materia, String edicion, int estado, String codigo, int stock, int anio, String descripcion, int id_estado, String nombreCategoria, String nombreEditorial, String nombreAutor, String nombreMateria, String nombreEstado) {
         this.id_libro = id_libro;
         this.titulo = titulo;
         this.id_categoria = id_categoria;
@@ -36,11 +40,16 @@ public class Libro {
         this.id_materia = id_materia;
         this.edicion = edicion;
         this.estado = estado;
-        this.NombreCategoria = NombreCategoria;
-        this.NombreEditorial = NombreEditorial;
-        this.NombreAutor = NombreAutor;
-        this.NombreMateria = NombreMateria;
         this.codigo = codigo;
+        this.stock = stock;
+        this.anio = anio;
+        this.descripcion = descripcion;
+        this.id_estado = id_estado;
+        this.nombreCategoria = nombreCategoria;
+        this.nombreEditorial = nombreEditorial;
+        this.nombreAutor = nombreAutor;
+        this.nombreMateria = nombreMateria;
+        this.nombreEstado = nombreEstado;
     }
 
     public int getId_libro() {
@@ -99,44 +108,12 @@ public class Libro {
         this.edicion = edicion;
     }
 
-    public String getEstado() {
+    public int getEstado() {
         return estado;
     }
 
-    public void setEstado(String estado) {
+    public void setEstado(int estado) {
         this.estado = estado;
-    }
-
-    public String getNombreCategoria() {
-        return NombreCategoria;
-    }
-
-    public void setNombreCategoria(String NombreCategoria) {
-        this.NombreCategoria = NombreCategoria;
-    }
-
-    public String getNombreEditorial() {
-        return NombreEditorial;
-    }
-
-    public void setNombreEditorial(String NombreEditorial) {
-        this.NombreEditorial = NombreEditorial;
-    }
-
-    public String getNombreAutor() {
-        return NombreAutor;
-    }
-
-    public void setNombreAutor(String NombreAutor) {
-        this.NombreAutor = NombreAutor;
-    }
-
-    public String getNombreMateria() {
-        return NombreMateria;
-    }
-
-    public void setNombreMateria(String NombreMateria) {
-        this.NombreMateria = NombreMateria;
     }
 
     public String getCodigo() {
@@ -147,6 +124,75 @@ public class Libro {
         this.codigo = codigo;
     }
 
-    
-    
+    public int getStock() {
+        return stock;
+    }
+
+    public void setStock(int stock) {
+        this.stock = stock;
+    }
+
+    public int getAnio() {
+        return anio;
+    }
+
+    public void setAnio(int anio) {
+        this.anio = anio;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public int getId_estado() {
+        return id_estado;
+    }
+
+    public void setId_estado(int id_estado) {
+        this.id_estado = id_estado;
+    }
+
+    public String getNombreCategoria() {
+        return nombreCategoria;
+    }
+
+    public void setNombreCategoria(String nombreCategoria) {
+        this.nombreCategoria = nombreCategoria;
+    }
+
+    public String getNombreEditorial() {
+        return nombreEditorial;
+    }
+
+    public void setNombreEditorial(String nombreEditorial) {
+        this.nombreEditorial = nombreEditorial;
+    }
+
+    public String getNombreAutor() {
+        return nombreAutor;
+    }
+
+    public void setNombreAutor(String nombreAutor) {
+        this.nombreAutor = nombreAutor;
+    }
+
+    public String getNombreMateria() {
+        return nombreMateria;
+    }
+
+    public void setNombreMateria(String nombreMateria) {
+        this.nombreMateria = nombreMateria;
+    }
+
+    public String getNombreEstado() {
+        return nombreEstado;
+    }
+
+    public void setNombreEstado(String nombreEstado) {
+        this.nombreEstado = nombreEstado;
+    }
 }
