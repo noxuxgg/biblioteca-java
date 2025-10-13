@@ -10,6 +10,7 @@ import Modelo.Categoria;
 import Modelo.CategoriaDAO;
 import Modelo.Editorial;
 import Modelo.EditorialDAO;
+import Modelo.FuncionesExtra;
 import Modelo.Libro;
 import Modelo.LibroDAO;
 import Modelo.Materia;
@@ -46,6 +47,7 @@ public class Sistema extends javax.swing.JFrame {
     Libro li = new Libro();
     LibroDAO libro = new LibroDAO();
     DefaultTableModel modelo = new DefaultTableModel();
+    FuncionesExtra fun = new FuncionesExtra();
 
     public Sistema() {
         initComponents();
@@ -60,6 +62,17 @@ public class Sistema extends javax.swing.JFrame {
         editorial.ConsultarPais(cboxPaisEditorial);
         autor.ConsultarPais(cboxPaisAutor);
         AutoCompleteDecorator.decorate(cboxPaisAutor);
+
+        libro.ConsultarAutor(cboxAutorLibro);
+        AutoCompleteDecorator.decorate(cboxAutorLibro);
+        libro.ConsultarMateria(cboxMateriaLibro);
+        AutoCompleteDecorator.decorate(cboxMateriaLibro);
+        libro.ConsultarEditorial(cboxEditorialLibro);
+        AutoCompleteDecorator.decorate(cboxEditorialLibro);
+        libro.ConsultarCategoria(cboxCategoriaLibro);
+        AutoCompleteDecorator.decorate(cboxCategoriaLibro);
+        libro.ConsultarEstado(cboxEstadoLibro);
+        AutoCompleteDecorator.decorate(cboxEstadoLibro);
 
     }
 
@@ -188,15 +201,15 @@ public class Sistema extends javax.swing.JFrame {
         jLabel82 = new javax.swing.JLabel();
         jLabel83 = new javax.swing.JLabel();
         jLabel84 = new javax.swing.JLabel();
-        jTextField17 = new javax.swing.JTextField();
+        txtCodigoLibro = new javax.swing.JTextField();
         jLabel86 = new javax.swing.JLabel();
         jLabel87 = new javax.swing.JLabel();
-        jTextField22 = new javax.swing.JTextField();
+        txtAnioLibro = new javax.swing.JTextField();
         jLabel88 = new javax.swing.JLabel();
-        jTextField23 = new javax.swing.JTextField();
+        txtEdicionLibro = new javax.swing.JTextField();
         jLabel89 = new javax.swing.JLabel();
         jLabel90 = new javax.swing.JLabel();
-        jTextField25 = new javax.swing.JTextField();
+        txtDescripcionLibro = new javax.swing.JTextField();
         jScrollPane7 = new javax.swing.JScrollPane();
         TableLibro = new javax.swing.JTable();
         jButton51 = new javax.swing.JButton();
@@ -204,18 +217,19 @@ public class Sistema extends javax.swing.JFrame {
         jButton53 = new javax.swing.JButton();
         txtTituloLibro = new javax.swing.JTextField();
         jLabel57 = new javax.swing.JLabel();
-        jComboBox12 = new javax.swing.JComboBox<>();
-        jComboBox13 = new javax.swing.JComboBox<>();
-        jComboBox14 = new javax.swing.JComboBox<>();
-        jComboBox15 = new javax.swing.JComboBox<>();
-        jComboBox16 = new javax.swing.JComboBox<>();
+        cboxAutorLibro = new javax.swing.JComboBox<>();
+        cboxMateriaLibro = new javax.swing.JComboBox<>();
+        cboxEditorialLibro = new javax.swing.JComboBox<>();
+        cboxCategoriaLibro = new javax.swing.JComboBox<>();
+        cboxEstadoLibro = new javax.swing.JComboBox<>();
         jLabel58 = new javax.swing.JLabel();
         Stock = new javax.swing.JLabel();
-        jTextField11 = new javax.swing.JTextField();
-        jButton31 = new javax.swing.JButton();
-        jButton32 = new javax.swing.JButton();
-        jButton38 = new javax.swing.JButton();
-        jButton39 = new javax.swing.JButton();
+        txtStockLibro = new javax.swing.JTextField();
+        btnGuardarLibro = new javax.swing.JButton();
+        btnEliminarLibro = new javax.swing.JButton();
+        btnActualizarLibro = new javax.swing.JButton();
+        btnNuevoLibro = new javax.swing.JButton();
+        txtIdLibro = new javax.swing.JTextField();
         jPanel6 = new javax.swing.JPanel();
         jLabel54 = new javax.swing.JLabel();
         jPanel25 = new javax.swing.JPanel();
@@ -726,9 +740,9 @@ public class Sistema extends javax.swing.JFrame {
 
         jLabel84.setText("Materia: ");
 
-        jTextField17.addActionListener(new java.awt.event.ActionListener() {
+        txtCodigoLibro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField17ActionPerformed(evt);
+                txtCodigoLibroActionPerformed(evt);
             }
         });
 
@@ -736,17 +750,17 @@ public class Sistema extends javax.swing.JFrame {
 
         jLabel87.setText("Año:");
 
-        jTextField22.addActionListener(new java.awt.event.ActionListener() {
+        txtAnioLibro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField22ActionPerformed(evt);
+                txtAnioLibroActionPerformed(evt);
             }
         });
 
         jLabel88.setText("Edicion:");
 
-        jTextField23.addActionListener(new java.awt.event.ActionListener() {
+        txtEdicionLibro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField23ActionPerformed(evt);
+                txtEdicionLibroActionPerformed(evt);
             }
         });
 
@@ -754,9 +768,9 @@ public class Sistema extends javax.swing.JFrame {
 
         jLabel90.setText("Descripcion: ");
 
-        jTextField25.addActionListener(new java.awt.event.ActionListener() {
+        txtDescripcionLibro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField25ActionPerformed(evt);
+                txtDescripcionLibroActionPerformed(evt);
             }
         });
 
@@ -821,27 +835,37 @@ public class Sistema extends javax.swing.JFrame {
 
         jLabel57.setText("LIBRO");
 
-        jComboBox12.setEditable(true);
+        cboxAutorLibro.setEditable(true);
 
-        jComboBox13.setEditable(true);
+        cboxMateriaLibro.setEditable(true);
 
-        jComboBox14.setEditable(true);
+        cboxEditorialLibro.setEditable(true);
 
-        jComboBox15.setEditable(true);
+        cboxCategoriaLibro.setEditable(true);
 
-        jComboBox16.setEditable(true);
+        cboxEstadoLibro.setEditable(true);
 
         jLabel58.setText("Estado:");
 
         Stock.setText("Stock:");
 
-        jButton31.setText("Guardar");
+        btnGuardarLibro.setText("Guardar");
+        btnGuardarLibro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarLibroActionPerformed(evt);
+            }
+        });
 
-        jButton32.setText("Eliminar");
+        btnEliminarLibro.setText("Eliminar");
 
-        jButton38.setText("Actualizar");
+        btnActualizarLibro.setText("Actualizar");
 
-        jButton39.setText("Nuevo");
+        btnNuevoLibro.setText("Nuevo");
+        btnNuevoLibro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevoLibroActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel31Layout = new javax.swing.GroupLayout(jPanel31);
         jPanel31.setLayout(jPanel31Layout);
@@ -866,21 +890,21 @@ public class Sistema extends javax.swing.JFrame {
                                         .addGroup(jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addGroup(jPanel31Layout.createSequentialGroup()
                                                 .addGap(18, 18, 18)
-                                                .addComponent(jTextField17, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addComponent(txtCodigoLibro, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
                                             .addGroup(jPanel31Layout.createSequentialGroup()
                                                 .addGap(18, 18, 18)
                                                 .addComponent(txtTituloLibro, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE))
                                             .addGroup(jPanel31Layout.createSequentialGroup()
                                                 .addGap(19, 19, 19)
-                                                .addComponent(jComboBox12, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                                .addComponent(cboxAutorLibro, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel31Layout.createSequentialGroup()
                                         .addGroup(jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jLabel84)
                                             .addComponent(Stock))
                                         .addGap(18, 18, 18)
                                         .addGroup(jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jTextField11, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jComboBox13, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                            .addComponent(txtStockLibro, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(cboxMateriaLibro, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                 .addGap(49, 49, 49)
                                 .addGroup(jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addGroup(jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -888,21 +912,23 @@ public class Sistema extends javax.swing.JFrame {
                                         .addGroup(jPanel31Layout.createSequentialGroup()
                                             .addComponent(jLabel86)
                                             .addGap(12, 12, 12)
-                                            .addComponent(jComboBox14, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                            .addComponent(cboxEditorialLibro, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                     .addGroup(jPanel31Layout.createSequentialGroup()
                                         .addGroup(jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jLabel89)
                                             .addComponent(jLabel88))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addGroup(jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jTextField23, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jComboBox15, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jTextField22, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                            .addComponent(txtEdicionLibro, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(cboxCategoriaLibro, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(txtAnioLibro, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                     .addGroup(jPanel31Layout.createSequentialGroup()
                                         .addComponent(jLabel58)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jComboBox16, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(cboxEstadoLibro, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(64, 64, 64)
+                                .addComponent(txtIdLibro, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 541, Short.MAX_VALUE)
                         .addGroup(jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel31Layout.createSequentialGroup()
                                 .addComponent(jButton53)
@@ -912,16 +938,16 @@ public class Sistema extends javax.swing.JFrame {
                                 .addComponent(jButton51))
                             .addGroup(jPanel31Layout.createSequentialGroup()
                                 .addGroup(jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(jButton38, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jButton39, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jButton32, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jButton31, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(btnActualizarLibro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnNuevoLibro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnEliminarLibro, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnGuardarLibro, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGap(42, 42, 42)))
                         .addGap(61, 61, 61))
                     .addGroup(jPanel31Layout.createSequentialGroup()
                         .addGroup(jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel90)
-                            .addComponent(jTextField25, javax.swing.GroupLayout.PREFERRED_SIZE, 644, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtDescripcionLibro, javax.swing.GroupLayout.PREFERRED_SIZE, 644, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addGroup(jPanel31Layout.createSequentialGroup()
                 .addContainerGap()
@@ -943,49 +969,51 @@ public class Sistema extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel82)
-                                    .addComponent(jTextField17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(txtCodigoLibro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel83)
-                                    .addComponent(jComboBox12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(cboxAutorLibro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel84)
-                                    .addComponent(jComboBox13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(cboxMateriaLibro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(jPanel31Layout.createSequentialGroup()
                                 .addGroup(jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel86)
-                                    .addComponent(jComboBox14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(cboxEditorialLibro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtIdLibro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel87)
-                                    .addComponent(jTextField22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jButton31))
+                                    .addComponent(txtAnioLibro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnGuardarLibro))
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel88)
-                                    .addComponent(jTextField23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jButton32))
+                                    .addComponent(txtEdicionLibro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnEliminarLibro))
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel89)
-                                    .addComponent(jComboBox15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jButton38)))))
+                                    .addComponent(cboxCategoriaLibro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnActualizarLibro)))))
                     .addComponent(jButton51)
                     .addComponent(jLabel57)
                     .addComponent(jButton53)
                     .addComponent(jButton52))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel58)
-                    .addComponent(jTextField11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Stock)
-                    .addComponent(jButton39))
+                .addGroup(jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtStockLibro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(cboxEstadoLibro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel58)
+                        .addComponent(Stock)
+                        .addComponent(btnNuevoLibro)))
                 .addGap(2, 2, 2)
                 .addComponent(jLabel90)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField25, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtDescripcionLibro, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(19, Short.MAX_VALUE))
@@ -2697,10 +2725,9 @@ public class Sistema extends javax.swing.JFrame {
                         .addGap(17, 17, 17)
                         .addGroup(jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txtIdMateria, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(btnGuardarMateria, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnEliminarMateria, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnActualizarMateria, javax.swing.GroupLayout.Alignment.LEADING))
+                            .addComponent(btnGuardarMateria, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnEliminarMateria, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnActualizarMateria)
                             .addComponent(btnNuevoMateria)
                             .addComponent(txtNombreMateria)
                             .addComponent(txtSiglaMateria, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE))))
@@ -2927,18 +2954,33 @@ public class Sistema extends javax.swing.JFrame {
             ListarMateria();
         } else if (seleccion.equals("Editorial")) {
             jTabbedPane1.setSelectedIndex(3);
+            fun.VaciarCombo(cboxPaisEditorial);
             editorial.ConsultarPais(cboxPaisEditorial);
             LimpiarTable();
             LimpiarEditorial();
             ListarEditorial();
         } else if (seleccion.equals("Autor")) {
             jTabbedPane1.setSelectedIndex(4);
+            fun.VaciarCombo(cboxPaisAutor);
             autor.ConsultarPais(cboxPaisAutor);
             LimpiarTable();
             LimpiarAutor();
             ListarAutor();
         } else if (seleccion.equals("Libros")) {
             jTabbedPane1.setSelectedIndex(2);
+            fun.VaciarCombo(cboxAutorLibro);
+            fun.VaciarCombo(cboxMateriaLibro);
+            fun.VaciarCombo(cboxEditorialLibro);
+            fun.VaciarCombo(cboxCategoriaLibro);
+            fun.VaciarCombo(cboxEstadoLibro);
+            
+            libro.ConsultarAutor(cboxAutorLibro);
+            libro.ConsultarMateria(cboxMateriaLibro);
+            libro.ConsultarEditorial(cboxEditorialLibro);
+            libro.ConsultarCategoria(cboxCategoriaLibro);
+            libro.ConsultarEstado(cboxEstadoLibro);
+            
+            LimpiarLibro();
             LimpiarTable();
         }
     }//GEN-LAST:event_cboxLibroActionPerformed
@@ -3185,17 +3227,17 @@ public class Sistema extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton26ActionPerformed
 
-    private void jTextField17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField17ActionPerformed
+    private void txtCodigoLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodigoLibroActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField17ActionPerformed
+    }//GEN-LAST:event_txtCodigoLibroActionPerformed
 
-    private void jTextField22ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField22ActionPerformed
+    private void txtAnioLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAnioLibroActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField22ActionPerformed
+    }//GEN-LAST:event_txtAnioLibroActionPerformed
 
-    private void jTextField23ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField23ActionPerformed
+    private void txtEdicionLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEdicionLibroActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField23ActionPerformed
+    }//GEN-LAST:event_txtEdicionLibroActionPerformed
 
     private void jButton53ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton53ActionPerformed
         // TODO add your handling code here:
@@ -3205,9 +3247,9 @@ public class Sistema extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton52ActionPerformed
 
-    private void jTextField25ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField25ActionPerformed
+    private void txtDescripcionLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDescripcionLibroActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField25ActionPerformed
+    }//GEN-LAST:event_txtDescripcionLibroActionPerformed
 
     private void jTextField10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField10ActionPerformed
         // TODO add your handling code here:
@@ -3588,6 +3630,51 @@ public class Sistema extends javax.swing.JFrame {
         cboxPaisAutor.setSelectedItem(TableAutor.getValueAt(fila, 3).toString());
     }//GEN-LAST:event_TableAutorMouseClicked
 
+    private void btnGuardarLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarLibroActionPerformed
+        // TODO add your handling code here:
+        if (!"".equals(txtTituloLibro.getText()) && !"".equals(txtCodigoLibro.getText()) && !"".equals(cboxEstadoLibro.getSelectedItem()) && !"".equals(txtStockLibro.getText())) {
+            li.setTitulo(txtTituloLibro.getText());
+            li.setCodigo(txtCodigoLibro.getText());
+            if(!"".equals(cboxAutorLibro.getSelectedItem().toString())){
+                li.setId_autor(libro.ObtenerIdAutor(cboxAutorLibro.getSelectedItem().toString()));
+            }
+            if(!"".equals(cboxMateriaLibro.getSelectedItem().toString())){
+                li.setId_materia(libro.ObtenerIdMateria(cboxMateriaLibro.getSelectedItem().toString()));
+            }
+            li.setStock(Integer.parseInt(txtStockLibro.getText()));
+            if(!"".equals(cboxEditorialLibro.getSelectedItem().toString())){
+                li.setId_editorial(libro.ObtenerIdEditorial(cboxEditorialLibro.getSelectedItem().toString()));
+            }
+            if(!"".equals(txtAnioLibro.getText())){
+                li.setAnio(Integer.parseInt(txtAnioLibro.getText()));
+            }            
+            li.setEdicion(txtEdicionLibro.getText());
+            if(!"".equals(cboxCategoriaLibro.getSelectedItem().toString())){
+                li.setId_categoria(libro.ObtenerIdCategoria(cboxCategoriaLibro.getSelectedItem().toString()));
+            }
+            if(!"".equals(cboxEstadoLibro.getSelectedItem().toString())){
+                li.setId_estado(libro.ObtenerIdEstado(cboxEstadoLibro.getSelectedItem().toString()));    
+            }
+            li.setDescripcion(txtDescripcionLibro.getText());
+            li.setEstado(1);
+            System.out.println(li.getTitulo()+" "+li.getCodigo()+" "+li.getId_autor()+" "+li.getId_materia()+" "+li.getStock()+" "+li.getId_editorial()+" "+li.getAnio()+" "+li.getEdicion()+" "+li.getId_categoria()+" "+li.getId_estado()+" "+li.getDescripcion()+" "+li.getEstado());
+            
+            libro.RegistrarLibro(li);
+            JOptionPane.showMessageDialog(null, "Libro Registrado con Exito!!!");
+            LimpiarTable();
+            LimpiarPais();
+            ListarPais();
+        } else {
+            JOptionPane.showMessageDialog(null, "Los campos Titulo, Código, Estado y Stock son obligatorios");
+        }
+
+    }//GEN-LAST:event_btnGuardarLibroActionPerformed
+
+    private void btnNuevoLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoLibroActionPerformed
+        // TODO add your handling code here:
+        LimpiarLibro();
+    }//GEN-LAST:event_btnNuevoLibroActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -3623,6 +3710,7 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JTable TablePais;
     private javax.swing.JButton btnActualizarAutor;
     private javax.swing.JButton btnActualizarEditorial;
+    private javax.swing.JButton btnActualizarLibro;
     private javax.swing.JButton btnActualizarMateria;
     private javax.swing.JButton btnActualizarPais;
     private javax.swing.JButton btnAjuste;
@@ -3631,11 +3719,13 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JButton btnEliminarAutor;
     private javax.swing.JButton btnEliminarCategoria;
     private javax.swing.JButton btnEliminarEditorial;
+    private javax.swing.JButton btnEliminarLibro;
     private javax.swing.JButton btnEliminarMateria;
     private javax.swing.JButton btnEliminarPais;
     private javax.swing.JButton btnGuardarAutor;
     private javax.swing.JButton btnGuardarCategoria;
     private javax.swing.JButton btnGuardarEditorial;
+    private javax.swing.JButton btnGuardarLibro;
     private javax.swing.JButton btnGuardarMateria;
     private javax.swing.JButton btnGuardarPais;
     private javax.swing.JButton btnHistorial;
@@ -3643,10 +3733,16 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JButton btnMulta;
     private javax.swing.JButton btnNuevoAutor;
     private javax.swing.JButton btnNuevoEditorial;
+    private javax.swing.JButton btnNuevoLibro;
     private javax.swing.JButton btnNuevoMateria;
     private javax.swing.JButton btnNuevoPais;
     private javax.swing.JButton btnPrestamo;
+    private javax.swing.JComboBox<String> cboxAutorLibro;
+    private javax.swing.JComboBox<String> cboxCategoriaLibro;
+    private javax.swing.JComboBox<String> cboxEditorialLibro;
+    private javax.swing.JComboBox<String> cboxEstadoLibro;
     private javax.swing.JComboBox<String> cboxLibro;
+    private javax.swing.JComboBox<String> cboxMateriaLibro;
     private javax.swing.JComboBox<String> cboxPaisAutor;
     private javax.swing.JComboBox<String> cboxPaisEditorial;
     private javax.swing.JButton jButton1;
@@ -3673,15 +3769,11 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JButton jButton29;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton30;
-    private javax.swing.JButton jButton31;
-    private javax.swing.JButton jButton32;
     private javax.swing.JButton jButton33;
     private javax.swing.JButton jButton34;
     private javax.swing.JButton jButton35;
     private javax.swing.JButton jButton36;
     private javax.swing.JButton jButton37;
-    private javax.swing.JButton jButton38;
-    private javax.swing.JButton jButton39;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton44;
     private javax.swing.JButton jButton45;
@@ -3697,11 +3789,6 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox10;
     private javax.swing.JComboBox<String> jComboBox11;
-    private javax.swing.JComboBox<String> jComboBox12;
-    private javax.swing.JComboBox<String> jComboBox13;
-    private javax.swing.JComboBox<String> jComboBox14;
-    private javax.swing.JComboBox<String> jComboBox15;
-    private javax.swing.JComboBox<String> jComboBox16;
     private javax.swing.JComboBox<String> jComboBox17;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JComboBox<String> jComboBox3;
@@ -3837,13 +3924,8 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JTable jTable4;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField10;
-    private javax.swing.JTextField jTextField11;
     private javax.swing.JTextField jTextField14;
-    private javax.swing.JTextField jTextField17;
     private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField22;
-    private javax.swing.JTextField jTextField23;
-    private javax.swing.JTextField jTextField25;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
@@ -3851,11 +3933,16 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField7;
     private javax.swing.JTextField jTextField8;
     private javax.swing.JTextField jTextField9;
+    private javax.swing.JTextField txtAnioLibro;
     private javax.swing.JTextField txtApellidoAutor;
+    private javax.swing.JTextField txtCodigoLibro;
+    private javax.swing.JTextField txtDescripcionLibro;
     private javax.swing.JTextField txtDireccionEditorial;
+    private javax.swing.JTextField txtEdicionLibro;
     private javax.swing.JTextField txtIdAutor;
     private javax.swing.JTextField txtIdCategoria;
     private javax.swing.JTextField txtIdEditorial;
+    private javax.swing.JTextField txtIdLibro;
     private javax.swing.JTextField txtIdMateria;
     private javax.swing.JTextField txtIdPais;
     private javax.swing.JTextField txtNombreAutor;
@@ -3864,6 +3951,7 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JTextField txtNombreMateria;
     private javax.swing.JTextField txtNombrePais;
     private javax.swing.JTextField txtSiglaMateria;
+    private javax.swing.JTextField txtStockLibro;
     private javax.swing.JTextField txtTelefonoEditorial;
     private javax.swing.JTextField txtTituloLibro;
     // End of variables declaration//GEN-END:variables
@@ -3898,4 +3986,20 @@ public class Sistema extends javax.swing.JFrame {
         txtApellidoAutor.setText("");
         cboxPaisAutor.setSelectedItem("");
     }
+
+    private void LimpiarLibro() {
+        txtIdLibro.setText("");
+        txtTituloLibro.setText("");
+        txtCodigoLibro.setText("");
+        txtStockLibro.setText("");
+        cboxAutorLibro.setSelectedItem("");
+        cboxMateriaLibro.setSelectedItem("");
+        cboxEditorialLibro.setSelectedItem("");
+        txtAnioLibro.setText("");
+        txtEdicionLibro.setText("");
+        cboxCategoriaLibro.setSelectedItem("");
+        cboxEstadoLibro.setSelectedItem("");
+    }
+    
+    
 }

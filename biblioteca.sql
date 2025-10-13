@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 12-10-2025 a las 17:26:29
+-- Tiempo de generación: 13-10-2025 a las 05:00:09
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -43,7 +43,6 @@ INSERT INTO `autores` (`Id_autor`, `Nombre`, `Apellido`, `id_pais`, `estado`) VA
 (1, 'Luis', 'Joyanes Aguilar', 13, 1),
 (2, 'Alberto', 'Rodriguez ', 1, 1),
 (3, 'Raúl', 'Medina Rodriguez', 15, 1),
-(4, 'Raúl', 'Medina Rodriguez', 15, 0),
 (5, 'sffsfs', 'dsdfsdf', 6, 0);
 
 -- --------------------------------------------------------
@@ -107,6 +106,26 @@ INSERT INTO `editoriales` (`Id_editorial`, `Nombre`, `Direccion`, `Telefono`, `i
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `estadolibro`
+--
+
+CREATE TABLE `estadolibro` (
+  `id_estado` int(11) NOT NULL,
+  `estado` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `estadolibro`
+--
+
+INSERT INTO `estadolibro` (`id_estado`, `estado`) VALUES
+(1, 'Castigado'),
+(2, 'En prestamo'),
+(5, 'Disponible');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `historial_libros`
 --
 
@@ -126,18 +145,28 @@ CREATE TABLE `historial_libros` (
 CREATE TABLE `libro` (
   `Id_libro` int(11) NOT NULL,
   `Titulo` varchar(150) NOT NULL,
-  `Id_categoria` int(11) NOT NULL,
-  `Id_editorial` int(11) NOT NULL,
-  `Id_autor` int(11) NOT NULL,
-  `Id_materia` int(11) NOT NULL,
+  `Id_categoria` int(11) DEFAULT NULL,
+  `Id_editorial` int(11) DEFAULT NULL,
+  `Id_autor` int(11) DEFAULT NULL,
+  `Id_materia` int(11) DEFAULT NULL,
   `Edicion` varchar(30) NOT NULL,
   `Estado` varchar(80) NOT NULL,
   `codigo` varchar(20) NOT NULL,
   `fechaRegistro` date NOT NULL DEFAULT current_timestamp(),
   `stock` int(11) NOT NULL,
   `anio` int(11) NOT NULL,
-  `Descripcion` varchar(200) NOT NULL
+  `Descripcion` varchar(200) NOT NULL,
+  `id_estado` int(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `libro`
+--
+
+INSERT INTO `libro` (`Id_libro`, `Titulo`, `Id_categoria`, `Id_editorial`, `Id_autor`, `Id_materia`, `Edicion`, `Estado`, `codigo`, `fechaRegistro`, `stock`, `anio`, `Descripcion`, `id_estado`) VALUES
+(4, 'Fundamentos de C++', 1, 25, 1, 8, '9na.', '1', 'P-1101', '2025-10-12', 1, 2000, 'KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK', 5),
+(6, 'El mundo de los Objetos', 1, 12, 3, 6, '10ma.', '1', 'P-1102', '2025-10-12', 2, 2003, '', 5),
+(11, 'Java', NULL, NULL, NULL, NULL, '', '1', 'P-1010', '2025-10-12', 2, 0, '', 5);
 
 -- --------------------------------------------------------
 
@@ -178,12 +207,11 @@ CREATE TABLE `materia` (
 
 INSERT INTO `materia` (`Id_materia`, `sigla`, `Nombre`, `estado`) VALUES
 (1, 'INF-3510', 'Redes Informáticas I', 1),
-(3, 'SIS-2520', 'Simulacion de Sistemas', 0),
+(3, 'SIS-2520', 'Simulacion de Sistemas', 1),
 (4, 'INF-1210', 'Análisis Discreto', 1),
-(5, 'INF-1110', 'Metodología de la Programación I', 0),
-(6, 'SIS-2210', 'Metodología de la Programación II', 0),
+(6, 'SIS-2210', 'Metodología de la Programación II', 1),
 (7, 'SIS-2430', 'Programación Gráfica', 1),
-(8, 'SIS-1110', 'Metodología de la Programación I', 0);
+(8, 'SIS-1110', 'Metodología de la Programación I', 1);
 
 -- --------------------------------------------------------
 
@@ -315,6 +343,12 @@ ALTER TABLE `editoriales`
   ADD KEY `editoriales_ibfk_1` (`id_pais`);
 
 --
+-- Indices de la tabla `estadolibro`
+--
+ALTER TABLE `estadolibro`
+  ADD PRIMARY KEY (`id_estado`);
+
+--
 -- Indices de la tabla `historial_libros`
 --
 ALTER TABLE `historial_libros`
@@ -329,7 +363,8 @@ ALTER TABLE `libro`
   ADD KEY `Fkcategoria` (`Id_categoria`),
   ADD KEY `Fkeditorial` (`Id_editorial`),
   ADD KEY `Fkautor` (`Id_autor`),
-  ADD KEY `Fkmateria` (`Id_materia`);
+  ADD KEY `Fkmateria` (`Id_materia`),
+  ADD KEY `libro_ibfk_5` (`id_estado`);
 
 --
 -- Indices de la tabla `login`
@@ -407,6 +442,12 @@ ALTER TABLE `editoriales`
   MODIFY `Id_editorial` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
+-- AUTO_INCREMENT de la tabla `estadolibro`
+--
+ALTER TABLE `estadolibro`
+  MODIFY `id_estado` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
 -- AUTO_INCREMENT de la tabla `historial_libros`
 --
 ALTER TABLE `historial_libros`
@@ -416,7 +457,7 @@ ALTER TABLE `historial_libros`
 -- AUTO_INCREMENT de la tabla `libro`
 --
 ALTER TABLE `libro`
-  MODIFY `Id_libro` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id_libro` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de la tabla `login`
@@ -495,7 +536,8 @@ ALTER TABLE `libro`
   ADD CONSTRAINT `libro_ibfk_1` FOREIGN KEY (`Id_materia`) REFERENCES `materia` (`Id_materia`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `libro_ibfk_2` FOREIGN KEY (`Id_editorial`) REFERENCES `editoriales` (`Id_editorial`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `libro_ibfk_3` FOREIGN KEY (`Id_categoria`) REFERENCES `categoria` (`Id_categoria`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `libro_ibfk_4` FOREIGN KEY (`Id_autor`) REFERENCES `autores` (`Id_autor`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `libro_ibfk_4` FOREIGN KEY (`Id_autor`) REFERENCES `autores` (`Id_autor`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `libro_ibfk_5` FOREIGN KEY (`id_estado`) REFERENCES `estadolibro` (`id_estado`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `multas`

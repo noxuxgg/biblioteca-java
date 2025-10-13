@@ -602,7 +602,7 @@
                                                       <Group type="103" groupAlignment="0" attributes="0">
                                                           <Group type="102" alignment="0" attributes="0">
                                                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                                                              <Component id="jTextField17" min="-2" pref="117" max="-2" attributes="0"/>
+                                                              <Component id="txtCodigoLibro" min="-2" pref="117" max="-2" attributes="0"/>
                                                           </Group>
                                                           <Group type="102" alignment="0" attributes="0">
                                                               <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
@@ -610,7 +610,7 @@
                                                           </Group>
                                                           <Group type="102" attributes="0">
                                                               <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
-                                                              <Component id="jComboBox12" min="-2" pref="213" max="-2" attributes="0"/>
+                                                              <Component id="cboxAutorLibro" min="-2" pref="213" max="-2" attributes="0"/>
                                                           </Group>
                                                       </Group>
                                                   </Group>
@@ -621,8 +621,8 @@
                                                       </Group>
                                                       <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                                                       <Group type="103" groupAlignment="0" attributes="0">
-                                                          <Component id="jTextField11" min="-2" pref="110" max="-2" attributes="0"/>
-                                                          <Component id="jComboBox13" min="-2" pref="213" max="-2" attributes="0"/>
+                                                          <Component id="txtStockLibro" min="-2" pref="110" max="-2" attributes="0"/>
+                                                          <Component id="cboxMateriaLibro" min="-2" pref="213" max="-2" attributes="0"/>
                                                       </Group>
                                                   </Group>
                                               </Group>
@@ -633,7 +633,7 @@
                                                       <Group type="102" alignment="0" attributes="0">
                                                           <Component id="jLabel86" min="-2" max="-2" attributes="0"/>
                                                           <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
-                                                          <Component id="jComboBox14" min="-2" pref="250" max="-2" attributes="0"/>
+                                                          <Component id="cboxEditorialLibro" min="-2" pref="250" max="-2" attributes="0"/>
                                                       </Group>
                                                   </Group>
                                                   <Group type="102" alignment="1" attributes="0">
@@ -643,20 +643,22 @@
                                                       </Group>
                                                       <EmptySpace max="-2" attributes="0"/>
                                                       <Group type="103" groupAlignment="0" attributes="0">
-                                                          <Component id="jTextField23" min="-2" pref="144" max="-2" attributes="0"/>
-                                                          <Component id="jComboBox15" min="-2" pref="248" max="-2" attributes="0"/>
-                                                          <Component id="jTextField22" alignment="0" min="-2" pref="80" max="-2" attributes="0"/>
+                                                          <Component id="txtEdicionLibro" min="-2" pref="144" max="-2" attributes="0"/>
+                                                          <Component id="cboxCategoriaLibro" min="-2" pref="248" max="-2" attributes="0"/>
+                                                          <Component id="txtAnioLibro" alignment="0" min="-2" pref="80" max="-2" attributes="0"/>
                                                       </Group>
                                                   </Group>
                                                   <Group type="102" alignment="1" attributes="0">
                                                       <Component id="jLabel58" min="-2" max="-2" attributes="0"/>
                                                       <EmptySpace max="32767" attributes="0"/>
-                                                      <Component id="jComboBox16" min="-2" pref="248" max="-2" attributes="0"/>
+                                                      <Component id="cboxEstadoLibro" min="-2" pref="248" max="-2" attributes="0"/>
                                                   </Group>
                                               </Group>
+                                              <EmptySpace min="-2" pref="64" max="-2" attributes="0"/>
+                                              <Component id="txtIdLibro" min="-2" pref="32" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
-                                      <EmptySpace max="32767" attributes="0"/>
+                                      <EmptySpace pref="541" max="32767" attributes="0"/>
                                       <Group type="103" groupAlignment="1" attributes="0">
                                           <Group type="102" alignment="1" attributes="0">
                                               <Component id="jButton53" min="-2" max="-2" attributes="0"/>
@@ -667,10 +669,10 @@
                                           </Group>
                                           <Group type="102" alignment="1" attributes="0">
                                               <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                                  <Component id="jButton38" max="32767" attributes="0"/>
-                                                  <Component id="jButton39" max="32767" attributes="0"/>
-                                                  <Component id="jButton32" alignment="0" max="32767" attributes="0"/>
-                                                  <Component id="jButton31" alignment="0" max="32767" attributes="0"/>
+                                                  <Component id="btnActualizarLibro" max="32767" attributes="0"/>
+                                                  <Component id="btnNuevoLibro" max="32767" attributes="0"/>
+                                                  <Component id="btnEliminarLibro" alignment="0" max="32767" attributes="0"/>
+                                                  <Component id="btnGuardarLibro" alignment="0" max="32767" attributes="0"/>
                                               </Group>
                                               <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
                                           </Group>
@@ -680,7 +682,7 @@
                                   <Group type="102" attributes="0">
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="jLabel90" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jTextField25" min="-2" pref="644" max="-2" attributes="0"/>
+                                          <Component id="txtDescripcionLibro" min="-2" pref="644" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace max="32767" attributes="0"/>
                                   </Group>
@@ -709,41 +711,42 @@
                                               <EmptySpace type="separate" max="-2" attributes="0"/>
                                               <Group type="103" groupAlignment="3" attributes="0">
                                                   <Component id="jLabel82" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="jTextField17" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="txtCodigoLibro" alignment="3" min="-2" max="-2" attributes="0"/>
                                               </Group>
                                               <EmptySpace type="separate" max="-2" attributes="0"/>
                                               <Group type="103" groupAlignment="3" attributes="0">
                                                   <Component id="jLabel83" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="jComboBox12" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="cboxAutorLibro" alignment="3" min="-2" max="-2" attributes="0"/>
                                               </Group>
                                               <EmptySpace type="separate" max="-2" attributes="0"/>
                                               <Group type="103" groupAlignment="0" attributes="0">
                                                   <Component id="jLabel84" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="jComboBox13" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="cboxMateriaLibro" min="-2" max="-2" attributes="0"/>
                                               </Group>
                                           </Group>
                                           <Group type="102" attributes="0">
                                               <Group type="103" groupAlignment="3" attributes="0">
                                                   <Component id="jLabel86" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="jComboBox14" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="cboxEditorialLibro" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="txtIdLibro" alignment="3" min="-2" max="-2" attributes="0"/>
                                               </Group>
                                               <EmptySpace type="separate" max="-2" attributes="0"/>
                                               <Group type="103" groupAlignment="3" attributes="0">
                                                   <Component id="jLabel87" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="jTextField22" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="jButton31" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="txtAnioLibro" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="btnGuardarLibro" alignment="3" min="-2" max="-2" attributes="0"/>
                                               </Group>
                                               <EmptySpace type="separate" max="-2" attributes="0"/>
                                               <Group type="103" groupAlignment="3" attributes="0">
                                                   <Component id="jLabel88" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="jTextField23" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="jButton32" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="txtEdicionLibro" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="btnEliminarLibro" alignment="3" min="-2" max="-2" attributes="0"/>
                                               </Group>
                                               <EmptySpace type="separate" max="-2" attributes="0"/>
                                               <Group type="103" groupAlignment="3" attributes="0">
                                                   <Component id="jLabel89" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="jComboBox15" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="jButton38" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="cboxCategoriaLibro" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="btnActualizarLibro" alignment="3" min="-2" max="-2" attributes="0"/>
                                               </Group>
                                           </Group>
                                       </Group>
@@ -754,17 +757,19 @@
                                   <Component id="jButton52" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jComboBox16" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel58" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jTextField11" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="Stock" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jButton39" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="txtStockLibro" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="cboxEstadoLibro" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel58" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="Stock" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="btnNuevoLibro" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
                               <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
                               <Component id="jLabel90" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jTextField25" min="-2" pref="68" max="-2" attributes="0"/>
+                              <Component id="txtDescripcionLibro" min="-2" pref="68" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
                               <Component id="jScrollPane7" min="-2" pref="251" max="-2" attributes="0"/>
                               <EmptySpace pref="19" max="32767" attributes="0"/>
@@ -793,9 +798,9 @@
                         <Property name="text" type="java.lang.String" value="Materia: "/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JTextField" name="jTextField17">
+                    <Component class="javax.swing.JTextField" name="txtCodigoLibro">
                       <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField17ActionPerformed"/>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtCodigoLibroActionPerformed"/>
                       </Events>
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel86">
@@ -808,9 +813,9 @@
                         <Property name="text" type="java.lang.String" value="A&#xf1;o:"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JTextField" name="jTextField22">
+                    <Component class="javax.swing.JTextField" name="txtAnioLibro">
                       <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField22ActionPerformed"/>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtAnioLibroActionPerformed"/>
                       </Events>
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel88">
@@ -818,9 +823,9 @@
                         <Property name="text" type="java.lang.String" value="Edicion:"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JTextField" name="jTextField23">
+                    <Component class="javax.swing.JTextField" name="txtEdicionLibro">
                       <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField23ActionPerformed"/>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtEdicionLibroActionPerformed"/>
                       </Events>
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel89">
@@ -833,9 +838,9 @@
                         <Property name="text" type="java.lang.String" value="Descripcion: "/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JTextField" name="jTextField25">
+                    <Component class="javax.swing.JTextField" name="txtDescripcionLibro">
                       <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField25ActionPerformed"/>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtDescripcionLibroActionPerformed"/>
                       </Events>
                     </Component>
                     <Container class="javax.swing.JScrollPane" name="jScrollPane7">
@@ -977,7 +982,7 @@
                         <Property name="text" type="java.lang.String" value="LIBRO"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JComboBox" name="jComboBox12">
+                    <Component class="javax.swing.JComboBox" name="cboxAutorLibro">
                       <Properties>
                         <Property name="editable" type="boolean" value="true"/>
                         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
@@ -988,7 +993,7 @@
                         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
                       </AuxValues>
                     </Component>
-                    <Component class="javax.swing.JComboBox" name="jComboBox13">
+                    <Component class="javax.swing.JComboBox" name="cboxMateriaLibro">
                       <Properties>
                         <Property name="editable" type="boolean" value="true"/>
                         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
@@ -999,7 +1004,7 @@
                         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
                       </AuxValues>
                     </Component>
-                    <Component class="javax.swing.JComboBox" name="jComboBox14">
+                    <Component class="javax.swing.JComboBox" name="cboxEditorialLibro">
                       <Properties>
                         <Property name="editable" type="boolean" value="true"/>
                         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
@@ -1010,7 +1015,7 @@
                         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
                       </AuxValues>
                     </Component>
-                    <Component class="javax.swing.JComboBox" name="jComboBox15">
+                    <Component class="javax.swing.JComboBox" name="cboxCategoriaLibro">
                       <Properties>
                         <Property name="editable" type="boolean" value="true"/>
                         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
@@ -1021,7 +1026,7 @@
                         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
                       </AuxValues>
                     </Component>
-                    <Component class="javax.swing.JComboBox" name="jComboBox16">
+                    <Component class="javax.swing.JComboBox" name="cboxEstadoLibro">
                       <Properties>
                         <Property name="editable" type="boolean" value="true"/>
                         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
@@ -1042,27 +1047,35 @@
                         <Property name="text" type="java.lang.String" value="Stock:"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JTextField" name="jTextField11">
+                    <Component class="javax.swing.JTextField" name="txtStockLibro">
                     </Component>
-                    <Component class="javax.swing.JButton" name="jButton31">
+                    <Component class="javax.swing.JButton" name="btnGuardarLibro">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="Guardar"/>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnGuardarLibroActionPerformed"/>
+                      </Events>
                     </Component>
-                    <Component class="javax.swing.JButton" name="jButton32">
+                    <Component class="javax.swing.JButton" name="btnEliminarLibro">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="Eliminar"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JButton" name="jButton38">
+                    <Component class="javax.swing.JButton" name="btnActualizarLibro">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="Actualizar"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JButton" name="jButton39">
+                    <Component class="javax.swing.JButton" name="btnNuevoLibro">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="Nuevo"/>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnNuevoLibroActionPerformed"/>
+                      </Events>
+                    </Component>
+                    <Component class="javax.swing.JTextField" name="txtIdLibro">
                     </Component>
                   </SubComponents>
                 </Container>
@@ -3696,11 +3709,9 @@
                                   <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                       <Component id="txtIdMateria" alignment="0" min="-2" pref="23" max="-2" attributes="0"/>
-                                      <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                                          <Component id="btnGuardarMateria" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="btnEliminarMateria" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="btnActualizarMateria" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      </Group>
+                                      <Component id="btnGuardarMateria" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="btnEliminarMateria" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="btnActualizarMateria" alignment="0" min="-2" max="-2" attributes="0"/>
                                       <Component id="btnNuevoMateria" alignment="0" min="-2" max="-2" attributes="0"/>
                                       <Component id="txtNombreMateria" max="32767" attributes="0"/>
                                       <Component id="txtSiglaMateria" alignment="0" min="-2" pref="296" max="-2" attributes="0"/>
