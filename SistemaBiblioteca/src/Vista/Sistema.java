@@ -146,6 +146,30 @@ public class Sistema extends javax.swing.JFrame {
         }
         TableAutor.setModel(modelo);
     }
+    
+    public void ListarLibro() {
+        LimpiarTable();
+        List<Libro> ListarLibro = libro.ListarLibro();
+        modelo = (DefaultTableModel) TableLibro.getModel();
+        Object[] obj = new Object[13];
+        for (int i = 0; i < ListarLibro.size(); i++) {
+            obj[0] = ListarLibro.get(i).getId_libro();
+            obj[1] = ListarLibro.get(i).getTitulo();
+            obj[2] = ListarLibro.get(i).getCodigo();
+            obj[3] = ListarLibro.get(i).getNombreAutor();
+            obj[4] = ListarLibro.get(i).getNombreEditorial();
+            obj[5] = ListarLibro.get(i).getNombreMateria();
+            obj[6] = ListarLibro.get(i).getNombreCategoria();
+            obj[7] = ListarLibro.get(i).getNombreEstado();
+            obj[8] = ListarLibro.get(i).getStock();
+            obj[9] = ListarLibro.get(i).getFecha();
+            obj[10] = ListarLibro.get(i).getAnio();
+            obj[11] = ListarLibro.get(i).getEdicion();
+            obj[12] = ListarLibro.get(i).getDescripcion();
+            modelo.addRow(obj);
+        }
+        TableEditorial.setModel(modelo);
+    }
 
     public void LimpiarTable() {
         for (int i = 0; i < modelo.getRowCount(); i++) {
@@ -782,6 +806,11 @@ public class Sistema extends javax.swing.JFrame {
                 "ID", "TITULO", "COD", "AUTOR", "EDITORIAL", "MATERIA", "CATEGORIA", "ESTADO", "STOCK", "FECHA", "AÑO", "EDICION", "DESCRIPCION"
             }
         ));
+        TableLibro.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TableLibroMouseClicked(evt);
+            }
+        });
         jScrollPane7.setViewportView(TableLibro);
         if (TableLibro.getColumnModel().getColumnCount() > 0) {
             TableLibro.getColumnModel().getColumn(0).setPreferredWidth(40);
@@ -857,6 +886,11 @@ public class Sistema extends javax.swing.JFrame {
         });
 
         btnEliminarLibro.setText("Eliminar");
+        btnEliminarLibro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarLibroActionPerformed(evt);
+            }
+        });
 
         btnActualizarLibro.setText("Actualizar");
 
@@ -948,7 +982,7 @@ public class Sistema extends javax.swing.JFrame {
                         .addGroup(jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel90)
                             .addComponent(txtDescripcionLibro, javax.swing.GroupLayout.PREFERRED_SIZE, 644, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(457, 822, Short.MAX_VALUE))))
             .addGroup(jPanel31Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 1453, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1010,13 +1044,13 @@ public class Sistema extends javax.swing.JFrame {
                         .addComponent(jLabel58)
                         .addComponent(Stock)
                         .addComponent(btnNuevoLibro)))
-                .addGap(2, 2, 2)
-                .addComponent(jLabel90)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtDescripcionLibro, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel90)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(txtDescripcionLibro, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap(13, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
@@ -1033,7 +1067,7 @@ public class Sistema extends javax.swing.JFrame {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGap(23, 23, 23)
                 .addComponent(jPanel31, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("tab3", jPanel5);
@@ -2982,6 +3016,7 @@ public class Sistema extends javax.swing.JFrame {
             
             LimpiarLibro();
             LimpiarTable();
+            ListarLibro();
         }
     }//GEN-LAST:event_cboxLibroActionPerformed
 
@@ -3632,7 +3667,7 @@ public class Sistema extends javax.swing.JFrame {
 
     private void btnGuardarLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarLibroActionPerformed
         // TODO add your handling code here:
-        if (!"".equals(txtTituloLibro.getText()) && !"".equals(txtCodigoLibro.getText()) && !"".equals(cboxEstadoLibro.getSelectedItem()) && !"".equals(txtStockLibro.getText())) {
+        if (!"".equals(txtTituloLibro.getText()) && !"".equals(txtCodigoLibro.getText()) && !"".equals(cboxEstadoLibro.getSelectedItem()) && !"".equals(txtStockLibro.getText()) && !"".equals(txtAnioLibro.getText())) {
             li.setTitulo(txtTituloLibro.getText());
             li.setCodigo(txtCodigoLibro.getText());
             if(!"".equals(cboxAutorLibro.getSelectedItem().toString())){
@@ -3665,7 +3700,7 @@ public class Sistema extends javax.swing.JFrame {
             LimpiarPais();
             ListarPais();
         } else {
-            JOptionPane.showMessageDialog(null, "Los campos Titulo, Código, Estado y Stock son obligatorios");
+            JOptionPane.showMessageDialog(null, "Los campos Titulo, Código, Estado, Stock y Año son obligatorios");
         }
 
     }//GEN-LAST:event_btnGuardarLibroActionPerformed
@@ -3674,6 +3709,41 @@ public class Sistema extends javax.swing.JFrame {
         // TODO add your handling code here:
         LimpiarLibro();
     }//GEN-LAST:event_btnNuevoLibroActionPerformed
+
+    private void TableLibroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TableLibroMouseClicked
+        // TODO add your handling code here:
+        LimpiarLibro();
+        int fila = TableLibro.rowAtPoint(evt.getPoint());
+        txtIdLibro.setText(TableLibro.getValueAt(fila, 0).toString());
+        txtTituloLibro.setText(TableLibro.getValueAt(fila, 1).toString());
+        txtCodigoLibro.setText(TableLibro.getValueAt(fila, 2).toString());
+        cboxAutorLibro.setSelectedItem(TableLibro.getValueAt(fila, 3).toString());
+        cboxEditorialLibro.setSelectedItem(TableLibro.getValueAt(fila, 4).toString());
+        cboxMateriaLibro.setSelectedItem(TableLibro.getValueAt(fila, 5).toString());
+        cboxCategoriaLibro.setSelectedItem(TableLibro.getValueAt(fila, 6).toString());
+        cboxEstadoLibro.setSelectedItem(TableLibro.getValueAt(fila, 7).toString());
+        txtStockLibro.setText(TableLibro.getValueAt(fila, 8).toString());
+        //Fecha
+        txtAnioLibro.setText(TableLibro.getValueAt(fila, 10).toString());
+        txtEdicionLibro.setText(TableLibro.getValueAt(fila, 11).toString());
+        txtDescripcionLibro.setText(TableLibro.getValueAt(fila, 12).toString());
+    }//GEN-LAST:event_TableLibroMouseClicked
+
+    private void btnEliminarLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarLibroActionPerformed
+        // TODO add your handling code here:
+        if (!"".equals(txtIdLibro.getText())) {
+            int pregunta = JOptionPane.showConfirmDialog(null, "Esta seguro de eliminar: " + txtTituloLibro.getText());
+            if (pregunta == 0) {
+                int id = Integer.parseInt(txtIdLibro.getText());
+                libro.EliminarLibro(id);
+                LimpiarTable();
+                LimpiarLibro();
+                ListarLibro();
+            }
+        } else{
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un Libro para eliminar");
+        }
+    }//GEN-LAST:event_btnEliminarLibroActionPerformed
 
     /**
      * @param args the command line arguments
@@ -3999,6 +4069,7 @@ public class Sistema extends javax.swing.JFrame {
         txtEdicionLibro.setText("");
         cboxCategoriaLibro.setSelectedItem("");
         cboxEstadoLibro.setSelectedItem("");
+        txtDescripcionLibro.setText("");
     }
     
     

@@ -565,7 +565,7 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
                           <Component id="jPanel31" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="16" max="32767" attributes="0"/>
+                          <EmptySpace pref="12" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -679,12 +679,12 @@
                                       </Group>
                                       <EmptySpace min="-2" pref="61" max="-2" attributes="0"/>
                                   </Group>
-                                  <Group type="102" attributes="0">
+                                  <Group type="102" alignment="0" attributes="0">
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="jLabel90" min="-2" max="-2" attributes="0"/>
                                           <Component id="txtDescripcionLibro" min="-2" pref="644" max="-2" attributes="0"/>
                                       </Group>
-                                      <EmptySpace max="32767" attributes="0"/>
+                                      <EmptySpace min="457" pref="822" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
@@ -766,13 +766,13 @@
                                       <Component id="btnNuevoLibro" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
-                              <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
-                              <Component id="jLabel90" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="txtDescripcionLibro" min="-2" pref="68" max="-2" attributes="0"/>
+                              <Component id="jLabel90" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
+                              <Component id="txtDescripcionLibro" min="-2" pref="68" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="jScrollPane7" min="-2" pref="251" max="-2" attributes="0"/>
-                              <EmptySpace pref="19" max="32767" attributes="0"/>
+                              <EmptySpace pref="13" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -942,6 +942,9 @@
                               <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                             </Property>
                           </Properties>
+                          <Events>
+                            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="TableLibroMouseClicked"/>
+                          </Events>
                         </Component>
                       </SubComponents>
                     </Container>
@@ -1061,6 +1064,9 @@
                       <Properties>
                         <Property name="text" type="java.lang.String" value="Eliminar"/>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEliminarLibroActionPerformed"/>
+                      </Events>
                     </Component>
                     <Component class="javax.swing.JButton" name="btnActualizarLibro">
                       <Properties>

@@ -27,11 +27,12 @@ public class Libro {
     private String nombreAutor;
     private String nombreMateria;
     private String nombreEstado;
-            
+    private String fecha;
+    
     public Libro() {
     }
 
-    public Libro(int id_libro, String titulo, int id_categoria, int id_editorial, int id_autor, int id_materia, String edicion, int estado, String codigo, int stock, int anio, String descripcion, int id_estado, String nombreCategoria, String nombreEditorial, String nombreAutor, String nombreMateria, String nombreEstado) {
+    public Libro(int id_libro, String titulo, int id_categoria, int id_editorial, int id_autor, int id_materia, String edicion, int estado, String codigo, int stock, int anio, String descripcion, int id_estado, String nombreCategoria, String nombreEditorial, String nombreAutor, String nombreMateria, String nombreEstado, String fecha) {
         this.id_libro = id_libro;
         this.titulo = titulo;
         this.id_categoria = id_categoria;
@@ -50,6 +51,7 @@ public class Libro {
         this.nombreAutor = nombreAutor;
         this.nombreMateria = nombreMateria;
         this.nombreEstado = nombreEstado;
+        this.fecha = fecha;
     }
 
     public int getId_libro() {
@@ -195,4 +197,14 @@ public class Libro {
     public void setNombreEstado(String nombreEstado) {
         this.nombreEstado = nombreEstado;
     }
+
+    public String getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
+    }
+
+   
 }
