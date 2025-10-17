@@ -87,8 +87,12 @@ public class LibroDAO {
             return false;
         } finally {
             try {
-                if (ps != null) ps.close();
-                if (con != null) con.close();
+                if (ps != null) {
+                    ps.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
                 con.close();
             } catch (SQLException e) {
                 System.out.println(e.toString());
@@ -286,4 +290,54 @@ public class LibroDAO {
         }
     }
 
+    public List ListarLibro() {
+        List<Libro> ListaLi = new ArrayList();
+        //String sql = "SELECT l.id_libro, l.titulo, l.codigo, l.fechaRegistro, CONCAT(a.nombre, a.apellido), m.nombre, l.stock, l.descripcion, e.nombre, l.anio, l.edicion, c.categoria, el.estado FROM libro l, autores a, materia m, editoriales e, categoria c, estadolibro el  WHERE  l.id_categoria = c.id_categoria AND l.id_editorial = e.id_editorial AND l.id_autor = a.id_autor AND l.id_materia = m.id_materia AND l.id_estado = el.id_estado AND l.estado = 1;";
+        String sql = "SELECT l.id_libro, l.titulo, l.codigo, l.fechaRegistro, CONCAT(a.nombre, ' ', a.apellido) autor, m.nombre materia, l.stock, l.descripcion, e.nombre editorial, l.anio, l.edicion, c.categoria, el.estado FROM libro l LEFT JOIN autores a ON l.id_autor = a.id_autor LEFT JOIN materia m ON l.id_materia = m.id_materia LEFT JOIN editoriales e ON l.id_editorial = e.id_editorial LEFT JOIN categoria c ON l.id_categoria = c.id_categoria LEFT JOIN estadolibro el ON l.id_estado = el.id_estado WHERE l.estado = 1;";
+        try {
+            con = cn.getConnection();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Libro li = new Libro();
+                li.setId_libro(rs.getInt("id_libro"));
+                li.setTitulo(rs.getString("titulo"));
+                li.setCodigo(rs.getString("codigo"));
+                li.setFecha(rs.getString("fechaRegistro"));
+                li.setNombreAutor(rs.getString("autor"));
+                li.setNombreMateria(rs.getString("materia"));
+                li.setStock(rs.getInt("stock"));
+                li.setDescripcion(rs.getString("descripcion"));
+                li.setNombreEditorial(rs.getString("editorial"));
+                li.setAnio(rs.getInt("anio"));
+                li.setEdicion(rs.getString("edicion"));
+                li.setNombreCategoria(rs.getString("categoria"));
+                li.setNombreEstado(rs.getString("estado"));
+
+                ListaLi.add(li);
+            }
+        } catch (SQLException e) {
+            System.out.println("Error" + e.toString());
+        }
+        return ListaLi;
+    }
+
+    public boolean EliminarLibro(int id) {
+        String sql = "UPDATE libro SET estado = 0 WHERE id_libro = ?";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+            ps.execute();
+            return true;
+        } catch (SQLException e) {
+            System.out.println("Error: " + e.toString());
+            return false;
+        } finally {
+            try {
+                con.close();
+            } catch (Exception e) {
+                System.out.println(e.toString());
+            }
+        }
+    }
 }
