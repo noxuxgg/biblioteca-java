@@ -437,6 +437,8 @@ public class Sistema extends javax.swing.JFrame {
         btnEliminarPais = new javax.swing.JButton();
         btnActualizarPais = new javax.swing.JButton();
         btnNuevoPais = new javax.swing.JButton();
+        jPanel32 = new javax.swing.JPanel();
+        jLabel59 = new javax.swing.JLabel();
         btnAjuste = new javax.swing.JButton();
         btnAnalisis = new javax.swing.JButton();
         btnCerrar = new javax.swing.JButton();
@@ -2909,6 +2911,27 @@ public class Sistema extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("tab13", jPanel27);
 
+        jLabel59.setText("USUARIO");
+
+        javax.swing.GroupLayout jPanel32Layout = new javax.swing.GroupLayout(jPanel32);
+        jPanel32.setLayout(jPanel32Layout);
+        jPanel32Layout.setHorizontalGroup(
+            jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel32Layout.createSequentialGroup()
+                .addGap(53, 53, 53)
+                .addComponent(jLabel59)
+                .addContainerGap(2106, Short.MAX_VALUE))
+        );
+        jPanel32Layout.setVerticalGroup(
+            jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel32Layout.createSequentialGroup()
+                .addGap(29, 29, 29)
+                .addComponent(jLabel59)
+                .addContainerGap(585, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("tab14", jPanel32);
+
         btnAjuste.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/74551-30x30.png"))); // NOI18N
         btnAjuste.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -3922,6 +3945,7 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel56;
     private javax.swing.JLabel jLabel57;
     private javax.swing.JLabel jLabel58;
+    private javax.swing.JLabel jLabel59;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel70;
@@ -3971,6 +3995,7 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel30;
     private javax.swing.JPanel jPanel31;
+    private javax.swing.JPanel jPanel32;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;

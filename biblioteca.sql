@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 13-10-2025 a las 05:00:09
+-- Tiempo de generación: 18-10-2025 a las 18:00:51
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -44,6 +44,45 @@ INSERT INTO `autores` (`Id_autor`, `Nombre`, `Apellido`, `id_pais`, `estado`) VA
 (2, 'Alberto', 'Rodriguez ', 1, 1),
 (3, 'Raúl', 'Medina Rodriguez', 15, 1),
 (5, 'sffsfs', 'dsdfsdf', 6, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `cargo`
+--
+
+CREATE TABLE `cargo` (
+  `id_cargo` int(11) NOT NULL,
+  `nombre` varchar(60) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `cargo`
+--
+
+INSERT INTO `cargo` (`id_cargo`, `nombre`) VALUES
+(1, 'Administrativo'),
+(2, 'Docente'),
+(3, 'Estudiante');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `carrera`
+--
+
+CREATE TABLE `carrera` (
+  `id_carrera` int(11) NOT NULL,
+  `nombre` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `carrera`
+--
+
+INSERT INTO `carrera` (`id_carrera`, `nombre`) VALUES
+(1, 'Ingeniería Informática'),
+(2, 'Ingeniería de Sistemas');
 
 -- --------------------------------------------------------
 
@@ -258,7 +297,8 @@ INSERT INTO `paises` (`id_pais`, `nombre`, `estado`) VALUES
 (13, 'España', 1),
 (14, 'Colombia', 1),
 (15, 'Puerto Rico', 1),
-(16, 'Noruega', 1);
+(16, 'Noruega', 1),
+(17, 'Venezuela', 1);
 
 -- --------------------------------------------------------
 
@@ -297,10 +337,16 @@ CREATE TABLE `sanciones` (
 
 CREATE TABLE `tipo_usuario` (
   `Id_tipo_usuario` int(11) NOT NULL,
-  `Tipo_usuario` varchar(30) NOT NULL,
-  `Carrera` varchar(80) NOT NULL,
-  `Cargo` varchar(50) NOT NULL
+  `Tipo_usuario` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `tipo_usuario`
+--
+
+INSERT INTO `tipo_usuario` (`Id_tipo_usuario`, `Tipo_usuario`) VALUES
+(1, 'administrador'),
+(2, 'normal');
 
 -- --------------------------------------------------------
 
@@ -315,7 +361,9 @@ CREATE TABLE `usuario` (
   `Apellido` varchar(50) NOT NULL,
   `Domicilo` varchar(100) NOT NULL,
   `Id_tipo_usuario` int(11) NOT NULL,
-  `Telefono` varchar(20) NOT NULL
+  `Telefono` varchar(20) NOT NULL,
+  `id_cargo` int(11) NOT NULL,
+  `id_carrera` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -328,6 +376,18 @@ CREATE TABLE `usuario` (
 ALTER TABLE `autores`
   ADD PRIMARY KEY (`Id_autor`),
   ADD KEY `autores_ibfk_1` (`id_pais`);
+
+--
+-- Indices de la tabla `cargo`
+--
+ALTER TABLE `cargo`
+  ADD PRIMARY KEY (`id_cargo`);
+
+--
+-- Indices de la tabla `carrera`
+--
+ALTER TABLE `carrera`
+  ADD PRIMARY KEY (`id_carrera`);
 
 --
 -- Indices de la tabla `categoria`
@@ -417,7 +477,9 @@ ALTER TABLE `tipo_usuario`
 --
 ALTER TABLE `usuario`
   ADD PRIMARY KEY (`Id_usuario`),
-  ADD KEY `Tipo_usuario` (`Id_tipo_usuario`);
+  ADD KEY `Tipo_usuario` (`Id_tipo_usuario`),
+  ADD KEY `id_cargo` (`id_cargo`),
+  ADD KEY `id_carrera` (`id_carrera`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -428,6 +490,18 @@ ALTER TABLE `usuario`
 --
 ALTER TABLE `autores`
   MODIFY `Id_autor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT de la tabla `cargo`
+--
+ALTER TABLE `cargo`
+  MODIFY `id_cargo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT de la tabla `carrera`
+--
+ALTER TABLE `carrera`
+  MODIFY `id_carrera` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `categoria`
@@ -481,7 +555,7 @@ ALTER TABLE `multas`
 -- AUTO_INCREMENT de la tabla `paises`
 --
 ALTER TABLE `paises`
-  MODIFY `id_pais` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id_pais` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT de la tabla `prestamos`
@@ -499,7 +573,7 @@ ALTER TABLE `sanciones`
 -- AUTO_INCREMENT de la tabla `tipo_usuario`
 --
 ALTER TABLE `tipo_usuario`
-  MODIFY `Id_tipo_usuario` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id_tipo_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`
@@ -562,7 +636,9 @@ ALTER TABLE `sanciones`
 -- Filtros para la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  ADD CONSTRAINT `usuario_ibfk_1` FOREIGN KEY (`Id_tipo_usuario`) REFERENCES `tipo_usuario` (`Id_tipo_usuario`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `usuario_ibfk_1` FOREIGN KEY (`Id_tipo_usuario`) REFERENCES `tipo_usuario` (`Id_tipo_usuario`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `usuario_ibfk_2` FOREIGN KEY (`id_cargo`) REFERENCES `cargo` (`id_cargo`),
+  ADD CONSTRAINT `usuario_ibfk_3` FOREIGN KEY (`id_carrera`) REFERENCES `carrera` (`id_carrera`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
