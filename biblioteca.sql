@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 18-10-2025 a las 18:00:51
+-- Tiempo de generación: 18-10-2025 a las 19:11:56
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -363,7 +363,8 @@ CREATE TABLE `usuario` (
   `Id_tipo_usuario` int(11) NOT NULL,
   `Telefono` varchar(20) NOT NULL,
   `id_cargo` int(11) NOT NULL,
-  `id_carrera` int(11) NOT NULL
+  `id_carrera` int(11) NOT NULL,
+  `Estado` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
