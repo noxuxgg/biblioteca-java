@@ -85,6 +85,8 @@ public class Sistema extends javax.swing.JFrame {
         AutoCompleteDecorator.decorate(cboxCarreraUsuario);
         usuario.ConsultarTipoUsuario(cboxTipoUsuario);
         AutoCompleteDecorator.decorate(cboxTipoUsuario);
+        usuario.ConsultarEstadoUsuario(cboxEstadoPrestamoUsuario);
+        AutoCompleteDecorator.decorate(cboxEstadoPrestamoUsuario);
     }
 
     public void ListarPais() {
@@ -450,7 +452,6 @@ public class Sistema extends javax.swing.JFrame {
         btnNuevoPais = new javax.swing.JButton();
         jPanel32 = new javax.swing.JPanel();
         jLabel59 = new javax.swing.JLabel();
-        jLabel60 = new javax.swing.JLabel();
         jLabel61 = new javax.swing.JLabel();
         jLabel62 = new javax.swing.JLabel();
         jLabel63 = new javax.swing.JLabel();
@@ -475,6 +476,8 @@ public class Sistema extends javax.swing.JFrame {
         btnListarUsuario = new javax.swing.JButton();
         jScrollPane12 = new javax.swing.JScrollPane();
         TableUsuario = new javax.swing.JTable();
+        jLabel69 = new javax.swing.JLabel();
+        cboxEstadoPrestamoUsuario = new javax.swing.JComboBox<>();
         btnAjuste = new javax.swing.JButton();
         btnAnalisis = new javax.swing.JButton();
         btnCerrar = new javax.swing.JButton();
@@ -2949,8 +2952,6 @@ public class Sistema extends javax.swing.JFrame {
 
         jLabel59.setText("USUARIO");
 
-        jLabel60.setText("ID");
-
         jLabel61.setText("CARNET");
 
         jLabel62.setText("NOMBRE");
@@ -3028,7 +3029,7 @@ public class Sistema extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "CARNET", "NOMBRE", "APELLIDO", "DOMICILIO", "TIPO DE USUARIO", "TELEFONO", "CARGO", "CARRERA"
+                "ID", "CARNET", "NOMBRE", "APELLIDO", "DOMICILIO", "TIPO DE USUARIO", "TELEFONO", "CARGO", "CARRERA", "ESTADO_PRESTAMO"
             }
         ));
         TableUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -3048,69 +3049,80 @@ public class Sistema extends javax.swing.JFrame {
             TableUsuario.getColumnModel().getColumn(6).setPreferredWidth(20);
             TableUsuario.getColumnModel().getColumn(7).setPreferredWidth(50);
             TableUsuario.getColumnModel().getColumn(8).setPreferredWidth(50);
+            TableUsuario.getColumnModel().getColumn(9).setPreferredWidth(100);
         }
+
+        jLabel69.setText("ESTADO USUARIO");
+
+        cboxEstadoPrestamoUsuario.setEditable(true);
+        cboxEstadoPrestamoUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboxEstadoPrestamoUsuarioActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel32Layout = new javax.swing.GroupLayout(jPanel32);
         jPanel32.setLayout(jPanel32Layout);
         jPanel32Layout.setHorizontalGroup(
             jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel32Layout.createSequentialGroup()
-                .addGap(53, 53, 53)
+                .addContainerGap()
                 .addGroup(jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel32Layout.createSequentialGroup()
+                        .addComponent(jLabel69, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(cboxEstadoPrestamoUsuario, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel32Layout.createSequentialGroup()
                         .addComponent(jLabel59)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(cboxTipoUsuario, 0, 170, Short.MAX_VALUE)
-                            .addComponent(cboxCargoUsuario, 0, 170, Short.MAX_VALUE)
-                            .addComponent(cboxCarreraUsuario, 0, 170, Short.MAX_VALUE)
-                            .addComponent(txtIdUsuario)
-                            .addComponent(txtCarnetUsuario)
-                            .addComponent(txtNombreUsuario)
-                            .addComponent(txtApellidoUsuario)
-                            .addComponent(txtDomicilioUsuario)
-                            .addComponent(txtTelefonoUsuario))
-                        .addGap(45, 45, 45))
+                        .addComponent(cboxCarreraUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel32Layout.createSequentialGroup()
                         .addGroup(jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel68, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel67, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel65, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                            .addComponent(jLabel65, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE)
                             .addComponent(jLabel64, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel63, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel62, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel61, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel60, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel66, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(jPanel32Layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
+                            .addComponent(jLabel66, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(218, 218, 218))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel32Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel32Layout.createSequentialGroup()
                                 .addGroup(jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(btnEliminarUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btnGuardarUsuario))))
-                        .addGap(27, 27, 27)
-                        .addGroup(jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnActualizarUsuario)
-                            .addComponent(btnNuevoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addComponent(btnListarUsuario)
-                        .addGap(47, 47, 47)))
-                .addComponent(jScrollPane12, javax.swing.GroupLayout.PREFERRED_SIZE, 852, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(952, 952, 952))
+                                    .addComponent(btnGuardarUsuario))
+                                .addGap(27, 27, 27)
+                                .addGroup(jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(btnActualizarUsuario)
+                                    .addComponent(btnNuevoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addComponent(btnListarUsuario))
+                            .addComponent(txtIdUsuario, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtCarnetUsuario, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtNombreUsuario, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtApellidoUsuario, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtDomicilioUsuario, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(txtTelefonoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(cboxTipoUsuario, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(cboxCargoUsuario, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane12, javax.swing.GroupLayout.PREFERRED_SIZE, 964, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(869, 869, 869))
         );
         jPanel32Layout.setVerticalGroup(
             jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel32Layout.createSequentialGroup()
-                .addGroup(jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addContainerGap()
+                .addComponent(jLabel59)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane12, javax.swing.GroupLayout.PREFERRED_SIZE, 427, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel32Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane12, javax.swing.GroupLayout.PREFERRED_SIZE, 427, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel32Layout.createSequentialGroup()
-                        .addGap(29, 29, 29)
-                        .addComponent(jLabel59)
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel60)
-                            .addComponent(txtIdUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtIdUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addGroup(jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel61)
@@ -3146,6 +3158,10 @@ public class Sistema extends javax.swing.JFrame {
                             .addComponent(cboxTipoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel69)
+                            .addComponent(cboxEstadoPrestamoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(4, 4, 4)
+                        .addGroup(jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnGuardarUsuario)
                             .addComponent(btnActualizarUsuario)
                             .addComponent(btnListarUsuario))
@@ -3153,7 +3169,7 @@ public class Sistema extends javax.swing.JFrame {
                         .addGroup(jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnEliminarUsuario)
                             .addComponent(btnNuevoUsuario))))
-                .addContainerGap(158, Short.MAX_VALUE))
+                .addContainerGap(155, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("tab14", jPanel32);
@@ -4023,6 +4039,7 @@ public class Sistema extends javax.swing.JFrame {
 
         cboxCargoUsuario.setSelectedItem(TableUsuario.getValueAt(fila, 7).toString());
         cboxCarreraUsuario.setSelectedItem(TableUsuario.getValueAt(fila, 8).toString());
+        cboxEstadoPrestamoUsuario.setSelectedItem(TableUsuario.getValueAt(fila, 9).toString());
     }//GEN-LAST:event_TableUsuarioMouseClicked
 
     private void btnGuardarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarUsuarioActionPerformed
@@ -4034,7 +4051,8 @@ public class Sistema extends javax.swing.JFrame {
        !"".equals(cboxTipoUsuario.getSelectedItem()) && 
        !"".equals(txtTelefonoUsuario.getText()) &&
        !"".equals(cboxCargoUsuario.getSelectedItem()) && 
-       !"".equals(cboxCarreraUsuario.getSelectedItem())) {
+       !"".equals(cboxCarreraUsuario.getSelectedItem()) &&
+       !"".equals(cboxEstadoPrestamoUsuario.getSelectedItem())){
              
              String carnet = txtCarnetUsuario.getText();
             if (usuario.existeCarnet(carnet)) {
@@ -4052,6 +4070,7 @@ public class Sistema extends javax.swing.JFrame {
              us.setId_tipo_usuario(usuario.ObtenerIdTipoUsuario(cboxTipoUsuario.getSelectedItem().toString()));
              us.setId_cargo(usuario.ObtenerIdCargo(cboxCargoUsuario.getSelectedItem().toString()));
              us.setId_carrera(usuario.ObtenerIdCarrera(cboxCarreraUsuario.getSelectedItem().toString()));
+             us.setId_estado_prestamo(usuario.ObtenerIdEstadoPrestamo(cboxEstadoPrestamoUsuario.getSelectedItem().toString()));
              us.setEstado(1);
              error = usuario.RegistrarUsuario(us);
              if (error == true) {
@@ -4090,6 +4109,7 @@ public class Sistema extends javax.swing.JFrame {
                 us.setId_cargo(usuario.ObtenerIdCargo(cboxCargoUsuario.getSelectedItem().toString()));
                 us.setId_carrera(usuario.ObtenerIdCarrera(cboxCarreraUsuario.getSelectedItem().toString()));
                 us.setId_usuario(Integer.parseInt(txtIdUsuario.getText()));
+                us.setId_estado_prestamo(usuario.ObtenerIdEstadoPrestamo(cboxEstadoPrestamoUsuario.getSelectedItem().toString()));
 
                 boolean resultado = usuario.ModificarUsuario(us);
                 if (resultado) {
@@ -4145,12 +4165,16 @@ public class Sistema extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Seleccione un usuario de la tabla para eliminar");
         }
     }//GEN-LAST:event_btnEliminarUsuarioActionPerformed
+
+    private void cboxEstadoPrestamoUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxEstadoPrestamoUsuarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cboxEstadoPrestamoUsuarioActionPerformed
     
     public void ListarUsuario() {
         LimpiarTable();
         List<Usuario> ListarUsuario = usuario.ListarUsuario();
         modelo = (DefaultTableModel) TableUsuario.getModel();
-        Object[] obj = new Object[9];
+        Object[] obj = new Object[10];
         for (int i = 0; i < ListarUsuario.size(); i++) {
             obj[0] = ListarUsuario.get(i).getId_usuario();
             obj[1] = ListarUsuario.get(i).getCarnet();
@@ -4161,6 +4185,7 @@ public class Sistema extends javax.swing.JFrame {
             obj[6] = ListarUsuario.get(i).getTelefono();
             obj[7] = ListarUsuario.get(i).getCargoNombre();        // NOMBRE en lugar de ID
             obj[8] = ListarUsuario.get(i).getCarreraNombre();      // NOMBRE en lugar de ID
+            obj[9] = ListarUsuario.get(i).getEstadoPrestamo();      // NOMBRE en lugar de ID
 
             modelo.addRow(obj);
         }
@@ -4241,6 +4266,7 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cboxCategoriaLibro;
     private javax.swing.JComboBox<String> cboxEditorialLibro;
     private javax.swing.JComboBox<String> cboxEstadoLibro;
+    private javax.swing.JComboBox<String> cboxEstadoPrestamoUsuario;
     private javax.swing.JComboBox<String> cboxLibro;
     private javax.swing.JComboBox<String> cboxMateriaLibro;
     private javax.swing.JComboBox<String> cboxPaisAutor;
@@ -4355,7 +4381,6 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel58;
     private javax.swing.JLabel jLabel59;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel60;
     private javax.swing.JLabel jLabel61;
     private javax.swing.JLabel jLabel62;
     private javax.swing.JLabel jLabel63;
@@ -4364,6 +4389,7 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel66;
     private javax.swing.JLabel jLabel67;
     private javax.swing.JLabel jLabel68;
+    private javax.swing.JLabel jLabel69;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel70;
     private javax.swing.JLabel jLabel71;
@@ -4421,7 +4447,6 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane10;
-    private javax.swing.JScrollPane jScrollPane11;
     private javax.swing.JScrollPane jScrollPane12;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
@@ -4517,6 +4542,7 @@ public class Sistema extends javax.swing.JFrame {
         txtTelefonoUsuario.setText("");
         cboxCargoUsuario.setSelectedItem("");
         cboxCarreraUsuario.setSelectedItem("");
+        cboxEstadoPrestamoUsuario.setSelectedItem("");
     }
 
     private void LimpiarLibro() {

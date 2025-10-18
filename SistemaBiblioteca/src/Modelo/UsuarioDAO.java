@@ -23,7 +23,7 @@ public class UsuarioDAO {
     ResultSet rs;
     
     public boolean RegistrarUsuario(Usuario us){
-        String sql = "INSERT INTO usuario (Id_usuario, Carnet, Nombre, Apellido, Domicilo, Id_tipo_usuario, Telefono, id_cargo, id_carrera, Estado) VALUES(?,?,?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO usuario (Id_usuario, Carnet, Nombre, Apellido, Domicilo, Id_tipo_usuario, Telefono, id_cargo, id_carrera, Estado, id_estado_prestamo) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
         try {
             con = cn.getConnection();
             ps = con.prepareStatement(sql);
@@ -37,6 +37,7 @@ public class UsuarioDAO {
             ps.setInt(8, us.getId_cargo());
             ps.setInt(9, us.getId_carrera());
             ps.setInt(10, us.getEstado());
+            ps.setInt(11, us.getId_estado_prestamo());
             ps.execute();
             return true;
         } catch (Exception e) {
@@ -123,6 +124,30 @@ public class UsuarioDAO {
         }
     }
     
+    public int ObtenerIdEstadoPrestamo(String nombreEstado) {
+        String sql = "SELECT id_estado_usuario FROM estado_usuario WHERE estado_usuario = ?";
+        int id = 0;
+        try {
+            con = cn.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setString(1, nombreEstado);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                id = rs.getInt("id_estado_usuario");
+            }
+            return id;
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al obtener ID estado usuario: " + e.toString());
+            return -1;
+        } finally {
+            try {
+                con.close();
+            } catch (SQLException e) {
+                System.out.println(e.toString());
+            }
+        }
+    }
+    
     public void ConsultarTipoUsuario(JComboBox tipoUsuario){
         String sql = "SELECT Tipo_usuario FROM tipo_usuario";
         try {
@@ -183,15 +208,36 @@ public class UsuarioDAO {
         }
     }
     
+    public void ConsultarEstadoUsuario(JComboBox estadoUsuario){
+        String sql = "SELECT estado_usuario FROM estado_usuario";
+        try {
+            con = cn.getConnection();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while(rs.next()){
+                estadoUsuario.addItem(rs.getString("estado_usuario"));
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al consultar estado usuario: " + e.toString());
+        } finally {
+            try {
+                if (con != null) con.close();
+            } catch (SQLException e) {
+                System.out.println(e.toString());
+            }
+        }
+    }
+    
     public List ListarUsuario(){
         List<Usuario> ListaUs = new ArrayList();
         String sql = "SELECT a.Id_usuario, a.Carnet, a.Nombre, a.Apellido, a.Domicilo, " +
-                 "p.Tipo_usuario, a.Telefono, f.nombre as nombre_cargo, j.nombre as nombre_carrera " + // CAMBIOS AQUÍ
-                 "FROM usuario a " +
-                 "INNER JOIN tipo_usuario p ON p.Id_tipo_usuario = a.Id_tipo_usuario " +
-                 "INNER JOIN cargo f ON f.id_cargo = a.id_cargo " +
-                 "INNER JOIN carrera j ON j.id_carrera = a.id_carrera " +
-                 "WHERE a.estado = 1";
+             "p.Tipo_usuario, a.Telefono, f.nombre as nombre_cargo, j.nombre as nombre_carrera, m.estado_usuario as estado_usuario " +
+             "FROM usuario a " +
+             "INNER JOIN tipo_usuario p ON p.Id_tipo_usuario = a.Id_tipo_usuario " +
+             "INNER JOIN cargo f ON f.id_cargo = a.id_cargo " +
+             "INNER JOIN carrera j ON j.id_carrera = a.id_carrera " +
+             "INNER JOIN estado_usuario m ON m.id_estado_usuario = a.id_estado_usuario " + 
+             "WHERE a.estado = 1";
         try {
             con = cn.getConnection();
             ps = con.prepareStatement(sql);
@@ -209,7 +255,8 @@ public class UsuarioDAO {
                 us.setTipoUsuarioNombre(rs.getString("Tipo_usuario"));
                 us.setCargoNombre(rs.getString("nombre_cargo"));
                 us.setCarreraNombre(rs.getString("nombre_carrera"));
-
+                us.setEstadoPrestamo(rs.getString("estado_usuario"));
+                
                 ListaUs.add(us);
             }
         } catch (SQLException e) {
@@ -268,7 +315,7 @@ public class UsuarioDAO {
     }
     
     public boolean ModificarUsuario(Usuario us){
-        String sql = "UPDATE usuario SET Carnet = ?, Nombre = ?, Apellido = ?, Domicilo = ?, Telefono = ?, Id_tipo_usuario = ?, id_cargo = ?, id_carrera = ? WHERE Id_usuario = ?";
+        String sql = "UPDATE usuario SET Carnet = ?, Nombre = ?, Apellido = ?, Domicilo = ?, Telefono = ?, Id_tipo_usuario = ?, id_cargo = ?, id_carrera = ?, id_estado_usuario = ? WHERE Id_usuario = ?";
         try {
             con = cn.getConnection();
             ps = con.prepareStatement(sql);
@@ -281,6 +328,7 @@ public class UsuarioDAO {
             ps.setInt(7, us.getId_cargo());
             ps.setInt(8, us.getId_carrera());
             ps.setInt(9, us.getId_usuario());
+            ps.setInt(10, us.getId_estado_prestamo());
             ps.execute();
             return true;
         } catch (SQLException e) {

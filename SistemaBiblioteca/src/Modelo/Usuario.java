@@ -19,7 +19,9 @@ public class Usuario {
     private int id_cargo;
     private int id_carrera;
     private int Estado;
+    private int id_estado_prestamo;
     
+    private String EstadoPrestamo; 
     private String TipoUsuarioNombre;
     private String CargoNombre;
     private String CarreraNombre;
@@ -27,7 +29,7 @@ public class Usuario {
     public Usuario() {
     }
 
-    public Usuario(int Id_usuario, String Carnet, String Nombre, String Apellido, String Domicilio, String Telefono, int Id_tipo_usuario, int id_cargo, int id_carrera, int estado) {
+    public Usuario(int Id_usuario, String Carnet, String Nombre, String Apellido, String Domicilio, String Telefono, int Id_tipo_usuario, int id_cargo, int id_carrera, int Estado, int id_estado_prestamo, String EstadoPrestamo, String TipoUsuarioNombre, String CargoNombre, String CarreraNombre) {
         this.Id_usuario = Id_usuario;
         this.Carnet = Carnet;
         this.Nombre = Nombre;
@@ -37,9 +39,17 @@ public class Usuario {
         this.Id_tipo_usuario = Id_tipo_usuario;
         this.id_cargo = id_cargo;
         this.id_carrera = id_carrera;
-        this.Estado = estado;
+        this.Estado = Estado;
+        this.id_estado_prestamo = id_estado_prestamo;
+        this.EstadoPrestamo = EstadoPrestamo;
+        this.TipoUsuarioNombre = TipoUsuarioNombre;
+        this.CargoNombre = CargoNombre;
+        this.CarreraNombre = CarreraNombre;
     }
 
+   
+
+    
     public int getId_usuario() {
         return Id_usuario;
     }
@@ -142,6 +152,22 @@ public class Usuario {
 
     public void setCarreraNombre(String CarreraNombre) {
         this.CarreraNombre = CarreraNombre;
+    }
+
+    public int getId_estado_prestamo() {
+        return id_estado_prestamo;
+    }
+
+    public void setId_estado_prestamo(int id_estado_prestamo) {
+        this.id_estado_prestamo = id_estado_prestamo;
+    }
+
+    public String getEstadoPrestamo() {
+        return EstadoPrestamo;
+    }
+
+    public void setEstadoPrestamo(String EstadoPrestamo) {
+        this.EstadoPrestamo = EstadoPrestamo;
     }
     
     
