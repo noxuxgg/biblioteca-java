@@ -19,6 +19,10 @@ public class Usuario {
     private int id_cargo;
     private int id_carrera;
     private int Estado;
+    
+    private String TipoUsuarioNombre;
+    private String CargoNombre;
+    private String CarreraNombre;
 
     public Usuario() {
     }
@@ -114,6 +118,30 @@ public class Usuario {
 
     public void setEstado(int Estado) {
         this.Estado = Estado;
+    }
+
+    public String getTipoUsuarioNombre() {
+        return TipoUsuarioNombre;
+    }
+
+    public void setTipoUsuarioNombre(String TipoUsuarioNombre) {
+        this.TipoUsuarioNombre = TipoUsuarioNombre;
+    }
+
+    public String getCargoNombre() {
+        return CargoNombre;
+    }
+
+    public void setCargoNombre(String CargoNombre) {
+        this.CargoNombre = CargoNombre;
+    }
+
+    public String getCarreraNombre() {
+        return CarreraNombre;
+    }
+
+    public void setCarreraNombre(String CarreraNombre) {
+        this.CarreraNombre = CarreraNombre;
     }
     
     

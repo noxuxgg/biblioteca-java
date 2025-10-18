@@ -8,6 +8,9 @@ import java.sql.PreparedStatement;
 import javax.swing.JOptionPane;
 import java.sql.SQLException;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JComboBox;
 
 /**
  *
@@ -20,7 +23,7 @@ public class UsuarioDAO {
     ResultSet rs;
     
     public boolean RegistrarUsuario(Usuario us){
-        String sql = "INSERT INTO usuario (Id_usuario, Carnet, Nombre, Apellido, Domicilio, Id_tipo_usuario, Telefono, id_cargo, id_carrera, Estado) VALUES(?,?,?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO usuario (Id_usuario, Carnet, Nombre, Apellido, Domicilo, Id_tipo_usuario, Telefono, id_cargo, id_carrera, Estado) VALUES(?,?,?,?,?,?,?,?,?,?)";
         try {
             con = cn.getConnection();
             ps = con.prepareStatement(sql);
@@ -47,4 +50,250 @@ public class UsuarioDAO {
             }
         }
     }
+    
+    public int ObtenerIdTipoUsuario(String nombreTipoUsuario) {
+        String sql = "SELECT Id_tipo_usuario FROM tipo_usuario WHERE Tipo_usuario = ?";
+        int id = 0;
+        try {
+            con = cn.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setString(1, nombreTipoUsuario);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                id = rs.getInt("Id_tipo_usuario");
+            }
+            return id;
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al obtener ID tipo usuario: " + e.toString());
+            return -1;
+        } finally {
+            try {
+                con.close();
+            } catch (SQLException e) {
+                System.out.println(e.toString());
+            }
+        }
+    }
+    
+    public int ObtenerIdCargo(String nombreCargo) {
+        String sql = "SELECT id_cargo FROM cargo WHERE nombre = ?";
+        int id = 0;
+        try {
+            con = cn.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setString(1, nombreCargo);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                id = rs.getInt("id_cargo");
+            }
+            return id;
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al obtener ID cargo: " + e.toString());
+            return -1;
+        } finally {
+            try {
+                con.close();
+            } catch (SQLException e) {
+                System.out.println(e.toString());
+            }
+        }
+    }
+    
+    public int ObtenerIdCarrera(String nombreCarrera) {
+        String sql = "SELECT id_carrera FROM carrera WHERE nombre = ?";
+        int id = 0;
+        try {
+            con = cn.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setString(1, nombreCarrera);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                id = rs.getInt("id_carrera");
+            }
+            return id;
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al obtener ID carrera: " + e.toString());
+            return -1;
+        } finally {
+            try {
+                con.close();
+            } catch (SQLException e) {
+                System.out.println(e.toString());
+            }
+        }
+    }
+    
+    public void ConsultarTipoUsuario(JComboBox tipoUsuario){
+        String sql = "SELECT Tipo_usuario FROM tipo_usuario";
+        try {
+            con = cn.getConnection();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while(rs.next()){
+                tipoUsuario.addItem(rs.getString("Tipo_usuario"));
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al consultar tipo usuario: " + e.toString());
+        } finally {
+            try {
+                if (con != null) con.close();
+            } catch (SQLException e) {
+                System.out.println(e.toString());
+            }
+        }
+    }
+    
+    public void ConsultarCargo(JComboBox cargos){
+        String sql = "SELECT nombre FROM cargo";
+        try {
+            con = cn.getConnection();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while(rs.next()){
+                cargos.addItem(rs.getString("nombre"));
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al consultar cargo: " + e.toString());
+        } finally {
+            try {
+                if (con != null) con.close();
+            } catch (SQLException e) {
+                System.out.println(e.toString());
+            }
+        }
+    }
+    
+    public void ConsultarCarreras(JComboBox carreras){
+        String sql = "SELECT nombre FROM carrera";
+        try {
+            con = cn.getConnection();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while(rs.next()){
+                carreras.addItem(rs.getString("nombre"));
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al consultar carrera: " + e.toString());
+        } finally {
+            try {
+                if (con != null) con.close();
+            } catch (SQLException e) {
+                System.out.println(e.toString());
+            }
+        }
+    }
+    
+    public List ListarUsuario(){
+        List<Usuario> ListaUs = new ArrayList();
+        String sql = "SELECT a.Id_usuario, a.Carnet, a.Nombre, a.Apellido, a.Domicilo, " +
+                 "p.Tipo_usuario, a.Telefono, f.nombre as nombre_cargo, j.nombre as nombre_carrera " + // CAMBIOS AQUÍ
+                 "FROM usuario a " +
+                 "INNER JOIN tipo_usuario p ON p.Id_tipo_usuario = a.Id_tipo_usuario " +
+                 "INNER JOIN cargo f ON f.id_cargo = a.id_cargo " +
+                 "INNER JOIN carrera j ON j.id_carrera = a.id_carrera " +
+                 "WHERE a.estado = 1";
+        try {
+            con = cn.getConnection();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while(rs.next()){
+                Usuario us = new Usuario();
+                us.setId_usuario(rs.getInt("Id_usuario"));
+                us.setCarnet(rs.getString("Carnet"));
+                us.setNombre(rs.getString("Nombre"));
+                us.setApellido(rs.getString("Apellido"));
+                us.setDomicilio(rs.getString("Domicilo"));
+                us.setTelefono(rs.getString("Telefono"));
+
+                // ASIGNAR LOS NOMBRES EN LUGAR DE LOS IDs
+                us.setTipoUsuarioNombre(rs.getString("Tipo_usuario"));
+                us.setCargoNombre(rs.getString("nombre_cargo"));
+                us.setCarreraNombre(rs.getString("nombre_carrera"));
+
+                ListaUs.add(us);
+            }
+        } catch (SQLException e) {
+            System.out.println("Error en ListarUsuario"+ e.toString());
+        } finally {
+            try {
+                if (con != null) con.close();
+            } catch (SQLException e) {
+                System.out.println(e.toString());
+            }
+        }
+        return ListaUs;
+    }   
+    
+    public boolean existeCarnet(String carnet) {
+        String sql = "SELECT COUNT(*) FROM usuario WHERE Carnet = ? AND estado = 1";
+        try {
+            con = cn.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setString(1, carnet);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1) > 0; // Si count > 0, el carnet ya existe
+            }
+            return false;
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al verificar carnet: " + e.toString());
+            return false;
+        } finally {
+            try {
+                if (con != null) con.close();
+            } catch (SQLException e) {
+                System.out.println(e.toString());
+            }
+        }
+    }
+    
+    public boolean EliminarUsuario(int id){
+        String sql = "UPDATE usuario SET estado = 0 WHERE Id_usuario = ?";
+        try {
+            con = cn.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+            ps.execute();
+            return true;
+        } catch (SQLException e) {
+            System.out.println("Error al eliminar usuario: "+e.toString());
+            return false;
+        } finally {
+            try {
+                if (con != null) con.close();
+            } catch (SQLException e) {
+                System.out.println(e.toString());
+            }
+        }
+    }
+    
+    public boolean ModificarUsuario(Usuario us){
+        String sql = "UPDATE usuario SET Carnet = ?, Nombre = ?, Apellido = ?, Domicilo = ?, Telefono = ?, Id_tipo_usuario = ?, id_cargo = ?, id_carrera = ? WHERE Id_usuario = ?";
+        try {
+            con = cn.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setString(1, us.getCarnet());
+            ps.setString(2, us.getNombre());
+            ps.setString(3, us.getApellido());
+            ps.setString(4, us.getDomicilio());
+            ps.setString(5, us.getTelefono());
+            ps.setInt(6, us.getId_tipo_usuario());
+            ps.setInt(7, us.getId_cargo());
+            ps.setInt(8, us.getId_carrera());
+            ps.setInt(9, us.getId_usuario());
+            ps.execute();
+            return true;
+        } catch (SQLException e) {
+            System.out.println("Error al modificar usuario: "+e.toString());
+            return false;
+        } finally {
+            try {
+                if (con != null) con.close();
+            } catch (SQLException e) {
+                System.out.println(e.toString());
+            }
+        }
+    }
+    
+    
 }
