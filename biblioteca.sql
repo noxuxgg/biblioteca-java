@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 18-10-2025 a las 21:51:31
+-- Tiempo de generación: 19-10-2025 a las 00:14:06
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -162,6 +162,25 @@ INSERT INTO `estadolibro` (`id_estado`, `estado`) VALUES
 (1, 'Castigado'),
 (2, 'En prestamo'),
 (5, 'Disponible');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `estado_usuario`
+--
+
+CREATE TABLE `estado_usuario` (
+  `id_estado_usuario` int(11) NOT NULL,
+  `estado_usuario` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `estado_usuario`
+--
+
+INSERT INTO `estado_usuario` (`id_estado_usuario`, `estado_usuario`) VALUES
+(1, 'Activo'),
+(2, 'Inactivo');
 
 -- --------------------------------------------------------
 
@@ -365,22 +384,18 @@ CREATE TABLE `usuario` (
   `Telefono` varchar(20) NOT NULL,
   `id_cargo` int(11) NOT NULL,
   `id_carrera` int(11) NOT NULL,
-  `Estado` int(11) NOT NULL
+  `Estado` int(11) NOT NULL,
+  `id_estado_usuario` int(11) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `usuario`
 --
 
-INSERT INTO `usuario` (`Id_usuario`, `Carnet`, `Nombre`, `Apellido`, `Domicilo`, `Id_tipo_usuario`, `Telefono`, `id_cargo`, `id_carrera`, `Estado`) VALUES
-(5, '7278371', 'Juan Marco', 'Mercedes Canaviri', 'Av. al valle entre junin y ayacucho Nro578', 2, '54821147', 3, 2, 1),
-(6, '54986321', 'Maria', 'Camopero Rodriguez', 'La plata entre villaroel y 6 de agosto Nro 67', 2, '54871125', 3, 1, 1),
-(7, '48658454', 'Carla', 'Rocha Quispe', 'Pagado entre soria galvarro y ayacucho Nro 40', 2, '58421154', 3, 1, 0),
-(8, '54872165', 'Maria', 'Magdalen Torrez', 'Av. españa esquina La Salle Nro 24', 2, '84871265', 3, 1, 1),
-(11, '746598', 'Monica', 'Paredes Linares', 'Antofagasta y Morales Nro 12', 2, '65982158', 3, 2, 1),
-(12, '747598', 'Camila', 'Cortez Vega', ' Av Chile Nro 1', 2, '3214569', 3, 2, 0),
-(13, '7483920', 'Jorge', 'Claros Matinez', 'La Salle entre La plata Nro 43', 2, '7483920', 3, 1, 1),
-(14, '54218756', 'Malina', 'Coria Mendez', 'Parada mini 13 Nro 34', 2, '52148996', 3, 2, 1);
+INSERT INTO `usuario` (`Id_usuario`, `Carnet`, `Nombre`, `Apellido`, `Domicilo`, `Id_tipo_usuario`, `Telefono`, `id_cargo`, `id_carrera`, `Estado`, `id_estado_usuario`) VALUES
+(5, '7278371', 'Juan Marco', 'Mercedes Canaviri', 'Av. al valle entre junin y ayacucho Nro578', 2, '54821147', 3, 2, 1, 1),
+(6, '54986321', 'Maria', 'Camopero Rodriguez', 'La plata entre villaroel y 6 de agosto Nro 67', 2, '54871125', 3, 1, 1, 1),
+(7, '48658454', 'Carla', 'Rocha Quispe', 'Pagado entre soria galvarro y ayacucho Nro 40', 2, '58421154', 3, 1, 0, 1);
 
 --
 -- Índices para tablas volcadas
@@ -423,6 +438,12 @@ ALTER TABLE `editoriales`
 --
 ALTER TABLE `estadolibro`
   ADD PRIMARY KEY (`id_estado`);
+
+--
+-- Indices de la tabla `estado_usuario`
+--
+ALTER TABLE `estado_usuario`
+  ADD PRIMARY KEY (`id_estado_usuario`);
 
 --
 -- Indices de la tabla `historial_libros`
@@ -495,7 +516,8 @@ ALTER TABLE `usuario`
   ADD PRIMARY KEY (`Id_usuario`),
   ADD KEY `Tipo_usuario` (`Id_tipo_usuario`),
   ADD KEY `id_cargo` (`id_cargo`),
-  ADD KEY `id_carrera` (`id_carrera`);
+  ADD KEY `id_carrera` (`id_carrera`),
+  ADD KEY `id_estado_usuario` (`id_estado_usuario`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -536,6 +558,12 @@ ALTER TABLE `editoriales`
 --
 ALTER TABLE `estadolibro`
   MODIFY `id_estado` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT de la tabla `estado_usuario`
+--
+ALTER TABLE `estado_usuario`
+  MODIFY `id_estado_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `historial_libros`
@@ -654,7 +682,8 @@ ALTER TABLE `sanciones`
 ALTER TABLE `usuario`
   ADD CONSTRAINT `usuario_ibfk_1` FOREIGN KEY (`Id_tipo_usuario`) REFERENCES `tipo_usuario` (`Id_tipo_usuario`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `usuario_ibfk_2` FOREIGN KEY (`id_cargo`) REFERENCES `cargo` (`id_cargo`),
-  ADD CONSTRAINT `usuario_ibfk_3` FOREIGN KEY (`id_carrera`) REFERENCES `carrera` (`id_carrera`);
+  ADD CONSTRAINT `usuario_ibfk_3` FOREIGN KEY (`id_carrera`) REFERENCES `carrera` (`id_carrera`),
+  ADD CONSTRAINT `usuario_ibfk_4` FOREIGN KEY (`id_estado_usuario`) REFERENCES `estado_usuario` (`id_estado_usuario`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
