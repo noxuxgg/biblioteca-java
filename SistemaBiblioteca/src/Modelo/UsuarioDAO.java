@@ -344,4 +344,30 @@ public class UsuarioDAO {
     }
     
     
+      public Usuario BuscarUsuario(String cod){
+        Usuario usuario = new Usuario();
+        String sql = "SELECT * FROM usuario WHERE carnet = ?";
+        try {
+            con = cn.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setString(1, cod);
+            rs = ps.executeQuery();
+            if(rs.next()){
+                usuario.setId_usuario(rs.getInt("id_usuario"));
+                usuario.setNombre(rs.getString("nombre"));
+                usuario.setApellido(rs.getString("apellido"));
+                usuario.setTelefono(rs.getString("telefono"));
+                usuario.setDomicilio(rs.getString("domicilo"));
+                usuario.setId_estado_prestamo(rs.getInt("id_estado_usuario"));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.toString());
+        }
+        return usuario;
+    }
+
+    
+    
+    
+    
 }
