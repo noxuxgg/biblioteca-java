@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 19-10-2025 a las 00:45:52
+-- Tiempo de generación: 19-10-2025 a las 23:59:07
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -330,10 +330,24 @@ CREATE TABLE `prestamos` (
   `Id_prestamo` int(11) NOT NULL,
   `Id_usuario` int(11) NOT NULL,
   `Id_libro` int(11) NOT NULL,
-  `Fecha_prestamo` date NOT NULL,
-  `Fecha_devolucion` date NOT NULL,
-  `Estado` varchar(80) NOT NULL
+  `Fecha_prestamo` datetime NOT NULL DEFAULT current_timestamp(),
+  `Fecha_devolucion` datetime NOT NULL,
+  `Estado` varchar(80) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `prestamos`
+--
+
+INSERT INTO `prestamos` (`Id_prestamo`, `Id_usuario`, `Id_libro`, `Fecha_prestamo`, `Fecha_devolucion`, `Estado`) VALUES
+(7, 7, 6, '2025-10-19 14:00:28', '2025-10-19 14:30:28', '1'),
+(8, 5, 4, '2025-10-19 16:28:46', '2025-10-21 16:28:45', '1'),
+(9, 6, 11, '2025-10-19 16:33:46', '2025-10-24 16:33:45', '1'),
+(10, 7, 6, '2025-10-19 16:36:05', '2025-10-25 16:36:04', '1'),
+(11, 7, 6, '2025-10-19 16:36:11', '2025-10-25 16:36:10', '1'),
+(12, 7, 6, '2025-10-19 16:36:35', '2025-10-25 16:36:34', '0'),
+(13, 6, 6, '2025-10-19 17:16:16', '2025-10-24 17:16:14', '1'),
+(14, 7, 4, '2025-10-19 17:17:08', '2025-10-31 17:17:07', '1');
 
 -- --------------------------------------------------------
 
@@ -393,7 +407,7 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`Id_usuario`, `Carnet`, `Nombre`, `Apellido`, `Domicilo`, `Id_tipo_usuario`, `Telefono`, `id_cargo`, `id_carrera`, `Estado`, `id_estado_usuario`) VALUES
-(5, '7278371', 'Juan Marco', 'Mercedes Canaviri', 'Av. al valle entre junin y ayacucho Nro578', 2, '54821147', 3, 2, 1, 1),
+(5, '7278371', 'Juan Marco', 'Mercedes Canaviri', 'Av. al valle entre junin y ayacucho Nro578', 2, '54821147', 3, 2, 1, 2),
 (6, '54986321', 'Maria', 'Camopero Rodriguez', 'La plata entre villaroel y 6 de agosto Nro 67', 2, '54871125', 3, 1, 1, 1),
 (7, '48658454', 'Carla', 'Rocha Quispe', 'Pagado entre soria galvarro y ayacucho Nro 40', 2, '58421154', 3, 1, 0, 1);
 
@@ -605,7 +619,7 @@ ALTER TABLE `paises`
 -- AUTO_INCREMENT de la tabla `prestamos`
 --
 ALTER TABLE `prestamos`
-  MODIFY `Id_prestamo` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id_prestamo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT de la tabla `sanciones`
