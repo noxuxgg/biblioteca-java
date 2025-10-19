@@ -23,7 +23,7 @@ public class UsuarioDAO {
     ResultSet rs;
     
     public boolean RegistrarUsuario(Usuario us){
-        String sql = "INSERT INTO usuario (Id_usuario, Carnet, Nombre, Apellido, Domicilo, Id_tipo_usuario, Telefono, id_cargo, id_carrera, Estado, id_estado_prestamo) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO usuario (Id_usuario, Carnet, Nombre, Apellido, Domicilo, Id_tipo_usuario, Telefono, id_cargo, id_carrera, Estado, id_estado_usuario) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
         try {
             con = cn.getConnection();
             ps = con.prepareStatement(sql);
