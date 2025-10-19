@@ -181,7 +181,7 @@ public class Sistema extends javax.swing.JFrame {
             obj[12] = ListarLibro.get(i).getDescripcion();
             modelo.addRow(obj);
         }
-        TableEditorial.setModel(modelo);
+        TableLibro.setModel(modelo);
     }
 
     public void LimpiarTable() {
@@ -2873,7 +2873,7 @@ public class Sistema extends javax.swing.JFrame {
         });
         jScrollPane10.setViewportView(TablePais);
         if (TablePais.getColumnModel().getColumnCount() > 0) {
-            TablePais.getColumnModel().getColumn(0).setPreferredWidth(20);
+            TablePais.getColumnModel().getColumn(0).setPreferredWidth(40);
             TablePais.getColumnModel().getColumn(0).setMaxWidth(500);
             TablePais.getColumnModel().getColumn(1).setPreferredWidth(50);
         }
