@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 19-10-2025 a las 23:59:07
+-- Tiempo de generación: 20-10-2025 a las 08:12:57
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -281,6 +281,7 @@ INSERT INTO `materia` (`Id_materia`, `sigla`, `Nombre`, `estado`) VALUES
 CREATE TABLE `multas` (
   `Id_multa` int(11) NOT NULL,
   `Id_prestamo` int(11) NOT NULL,
+  `Id_usuario` int(11) NOT NULL,
   `Dias_retraso` int(11) NOT NULL,
   `Monto` decimal(8,2) NOT NULL,
   `Estado` varchar(80) NOT NULL
@@ -358,9 +359,10 @@ INSERT INTO `prestamos` (`Id_prestamo`, `Id_usuario`, `Id_libro`, `Fecha_prestam
 CREATE TABLE `sanciones` (
   `Id_sancion` int(11) NOT NULL,
   `Id_usuario` int(11) NOT NULL,
-  `Descripcion` text NOT NULL,
+  `Motivo` text NOT NULL,
   `Fecha_unicio` date NOT NULL,
-  `Fecha_fin` date NOT NULL
+  `Fecha_fin` date NOT NULL,
+  `Estado` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -494,7 +496,8 @@ ALTER TABLE `materia`
 --
 ALTER TABLE `multas`
   ADD PRIMARY KEY (`Id_multa`),
-  ADD KEY `Fkprestamo` (`Id_prestamo`);
+  ADD KEY `Fkprestamo` (`Id_prestamo`),
+  ADD KEY `Id_usuario` (`Id_usuario`);
 
 --
 -- Indices de la tabla `paises`
@@ -675,7 +678,8 @@ ALTER TABLE `libro`
 -- Filtros para la tabla `multas`
 --
 ALTER TABLE `multas`
-  ADD CONSTRAINT `multas_ibfk_1` FOREIGN KEY (`Id_prestamo`) REFERENCES `prestamos` (`Id_prestamo`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `multas_ibfk_1` FOREIGN KEY (`Id_prestamo`) REFERENCES `prestamos` (`Id_prestamo`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `multas_ibfk_2` FOREIGN KEY (`Id_usuario`) REFERENCES `usuario` (`Id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `prestamos`
@@ -688,7 +692,7 @@ ALTER TABLE `prestamos`
 -- Filtros para la tabla `sanciones`
 --
 ALTER TABLE `sanciones`
-  ADD CONSTRAINT `sanciones_ibfk_1` FOREIGN KEY (`Id_usuario`) REFERENCES `prestamos` (`Id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `sanciones_ibfk_1` FOREIGN KEY (`Id_usuario`) REFERENCES `usuario` (`Id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `usuario`
