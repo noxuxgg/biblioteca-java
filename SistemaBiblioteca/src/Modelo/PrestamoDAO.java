@@ -157,6 +157,31 @@ public class PrestamoDAO {
             }
         }
     }
-    
+ //esto sirve para mi tabla ver prestamo en multa no borrar por favor 
+public Prestamo buscarPorId(int id) {
+    Prestamo p = null;
+    String sql = "SELECT * FROM prestamos WHERE Id_prestamo = ?";
+    try {
+        con = cn.getConnection();
+        ps = con.prepareStatement(sql);
+        ps.setInt(1, id);
+        rs = ps.executeQuery();
+        if (rs.next()) {
+            p = new Prestamo();
+            p.setId_prestamo(rs.getInt("Id_prestamo"));
+            p.setId_usuario(rs.getInt("Id_usuario"));
+            p.setId_libro(rs.getInt("Id_libro"));
+            p.setFecha_prestamo(rs.getString("Fecha_prestamo"));
+            p.setFecha_devolucion(rs.getString("Fecha_devolucion"));
+            p.setEstado(rs.getString("Estado"));
+        }
+    } catch (SQLException e) {
+        System.out.println("Error al buscar préstamo: " + e.toString());
+    } finally {
+        try { con.close(); } catch (SQLException e) { System.out.println(e.toString()); }
+    }
+    return p;
+}
+
     
 }

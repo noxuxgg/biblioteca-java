@@ -365,6 +365,28 @@ public class UsuarioDAO {
         }
         return usuario;
     }
+      //esto es para multa no borrar por favor
+    public Usuario BuscarUsuarioPorId(int id) {
+    Usuario u = null;
+    String sql = "SELECT * FROM usuario WHERE Id_usuario = ?";
+    try {
+        con = cn.getConnection();
+        ps = con.prepareStatement(sql);
+        ps.setInt(1, id);
+        rs = ps.executeQuery();
+        if (rs.next()) {
+            u = new Usuario();
+            u.setId_usuario(rs.getInt("Id_usuario"));
+            u.setNombre(rs.getString("Nombre"));
+            u.setApellido(rs.getString("Apellido"));
+        }
+    } catch (SQLException e) {
+        System.out.println("Error al buscar usuario: " + e.toString());
+    } finally {
+        try { con.close(); } catch (SQLException e) {}
+    }
+    return u;
+}
 
     
     

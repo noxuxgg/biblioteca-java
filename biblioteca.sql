@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 21-10-2025 a las 02:15:09
+-- Tiempo de generación: 21-10-2025 a las 06:56:01
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -294,10 +294,10 @@ INSERT INTO `materia` (`Id_materia`, `sigla`, `Nombre`, `estado`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `multas`
+-- Estructura de tabla para la tabla `multa`
 --
 
-CREATE TABLE `multas` (
+CREATE TABLE `multa` (
   `Id_multa` int(11) NOT NULL,
   `Id_prestamo` int(11) NOT NULL,
   `Id_usuario` int(11) NOT NULL,
@@ -379,10 +379,10 @@ INSERT INTO `prestamos` (`Id_prestamo`, `Id_usuario`, `Id_libro`, `Fecha_prestam
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `sanciones`
+-- Estructura de tabla para la tabla `sancion`
 --
 
-CREATE TABLE `sanciones` (
+CREATE TABLE `sancion` (
   `Id_sancion` int(11) NOT NULL,
   `Id_usuario` int(11) NOT NULL,
   `Motivo` text NOT NULL,
@@ -524,9 +524,9 @@ ALTER TABLE `materia`
   ADD PRIMARY KEY (`Id_materia`);
 
 --
--- Indices de la tabla `multas`
+-- Indices de la tabla `multa`
 --
-ALTER TABLE `multas`
+ALTER TABLE `multa`
   ADD PRIMARY KEY (`Id_multa`),
   ADD KEY `Fkprestamo` (`Id_prestamo`),
   ADD KEY `Id_usuario` (`Id_usuario`);
@@ -547,9 +547,9 @@ ALTER TABLE `prestamos`
   ADD KEY `FKdevolucion` (`Id_estado_devolucion`);
 
 --
--- Indices de la tabla `sanciones`
+-- Indices de la tabla `sancion`
 --
-ALTER TABLE `sanciones`
+ALTER TABLE `sancion`
   ADD PRIMARY KEY (`Id_sancion`),
   ADD KEY `FK` (`Id_usuario`);
 
@@ -646,9 +646,9 @@ ALTER TABLE `materia`
   MODIFY `Id_materia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- AUTO_INCREMENT de la tabla `multas`
+-- AUTO_INCREMENT de la tabla `multa`
 --
-ALTER TABLE `multas`
+ALTER TABLE `multa`
   MODIFY `Id_multa` int(11) NOT NULL AUTO_INCREMENT;
 
 --
@@ -664,9 +664,9 @@ ALTER TABLE `prestamos`
   MODIFY `Id_prestamo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
--- AUTO_INCREMENT de la tabla `sanciones`
+-- AUTO_INCREMENT de la tabla `sancion`
 --
-ALTER TABLE `sanciones`
+ALTER TABLE `sancion`
   MODIFY `Id_sancion` int(11) NOT NULL AUTO_INCREMENT;
 
 --
@@ -714,11 +714,11 @@ ALTER TABLE `libro`
   ADD CONSTRAINT `libro_ibfk_5` FOREIGN KEY (`id_estado`) REFERENCES `estadolibro` (`id_estado`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Filtros para la tabla `multas`
+-- Filtros para la tabla `multa`
 --
-ALTER TABLE `multas`
-  ADD CONSTRAINT `multas_ibfk_1` FOREIGN KEY (`Id_prestamo`) REFERENCES `prestamos` (`Id_prestamo`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `multas_ibfk_2` FOREIGN KEY (`Id_usuario`) REFERENCES `usuario` (`Id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `multa`
+  ADD CONSTRAINT `multa_ibfk_1` FOREIGN KEY (`Id_prestamo`) REFERENCES `prestamos` (`Id_prestamo`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `multa_ibfk_2` FOREIGN KEY (`Id_usuario`) REFERENCES `usuario` (`Id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `prestamos`
@@ -729,10 +729,10 @@ ALTER TABLE `prestamos`
   ADD CONSTRAINT `prestamos_ibfk_3` FOREIGN KEY (`Id_estado_devolucion`) REFERENCES `estado_devolucion` (`id_estado_devolucion`) ON UPDATE CASCADE;
 
 --
--- Filtros para la tabla `sanciones`
+-- Filtros para la tabla `sancion`
 --
-ALTER TABLE `sanciones`
-  ADD CONSTRAINT `sanciones_ibfk_1` FOREIGN KEY (`Id_usuario`) REFERENCES `usuario` (`Id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `sancion`
+  ADD CONSTRAINT `sancion_ibfk_1` FOREIGN KEY (`Id_usuario`) REFERENCES `usuario` (`Id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `usuario`
