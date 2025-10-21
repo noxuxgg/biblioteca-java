@@ -2021,6 +2021,7 @@
                                                       <EmptySpace type="separate" max="-2" attributes="0"/>
                                                       <Component id="txtidUsuarioPrestamo" min="-2" pref="121" max="-2" attributes="0"/>
                                                   </Group>
+                                                  <Component id="btnDevolucionPrestamo" alignment="1" min="-2" max="-2" attributes="0"/>
                                               </Group>
                                               <Group type="102" alignment="0" attributes="0">
                                                   <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
@@ -2046,7 +2047,7 @@
                                   <Component id="jScrollPane11" min="-2" pref="970" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace pref="5628" max="32767" attributes="0"/>
+                          <EmptySpace pref="5631" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -2134,6 +2135,7 @@
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="btnGuardarPrestamo" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="btnActualizarPrestamo" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="btnDevolucionPrestamo" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="btnEliminarPrestamo" min="-2" max="-2" attributes="0"/>
@@ -2398,6 +2400,14 @@
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnActualizarPrestamoActionPerformed"/>
+                  </Events>
+                </Component>
+                <Component class="javax.swing.JButton" name="btnDevolucionPrestamo">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Registrar Devolucion"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDevolucionPrestamoActionPerformed"/>
                   </Events>
                 </Component>
               </SubComponents>

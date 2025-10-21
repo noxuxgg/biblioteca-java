@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 20-10-2025 a las 08:12:57
+-- Tiempo de generación: 21-10-2025 a las 02:15:09
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -166,6 +166,25 @@ INSERT INTO `estadolibro` (`id_estado`, `estado`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `estado_devolucion`
+--
+
+CREATE TABLE `estado_devolucion` (
+  `id_estado_devolucion` int(11) NOT NULL,
+  `estado_dev` varchar(15) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `estado_devolucion`
+--
+
+INSERT INTO `estado_devolucion` (`id_estado_devolucion`, `estado_dev`) VALUES
+(1, 'Vigente'),
+(2, 'Devuelto');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `estado_usuario`
 --
 
@@ -224,7 +243,7 @@ CREATE TABLE `libro` (
 
 INSERT INTO `libro` (`Id_libro`, `Titulo`, `Id_categoria`, `Id_editorial`, `Id_autor`, `Id_materia`, `Edicion`, `Estado`, `codigo`, `fechaRegistro`, `stock`, `anio`, `Descripcion`, `id_estado`) VALUES
 (4, 'Fundamentos de C++', 1, 25, 1, 8, '9na.', '1', 'P-1101', '2025-10-12', 1, 2000, 'KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK', 5),
-(6, 'El mundo de los Objetos', 1, 12, 3, 6, '10ma.', '1', 'P-1102', '2025-10-12', 2, 2003, '', 5),
+(6, 'El mundo de los Objetos', 1, 12, 3, 6, '10ma.', '1', 'P-1102', '2025-10-12', 4, 2003, '', 5),
 (11, 'Java', NULL, NULL, NULL, NULL, '', '1', 'P-1010', '2025-10-12', 2, 0, '', 5);
 
 -- --------------------------------------------------------
@@ -333,22 +352,29 @@ CREATE TABLE `prestamos` (
   `Id_libro` int(11) NOT NULL,
   `Fecha_prestamo` datetime NOT NULL DEFAULT current_timestamp(),
   `Fecha_devolucion` datetime NOT NULL,
-  `Estado` varchar(80) NOT NULL DEFAULT '1'
+  `Estado` varchar(80) NOT NULL DEFAULT '1',
+  `Id_estado_devolucion` int(11) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `prestamos`
 --
 
-INSERT INTO `prestamos` (`Id_prestamo`, `Id_usuario`, `Id_libro`, `Fecha_prestamo`, `Fecha_devolucion`, `Estado`) VALUES
-(7, 7, 6, '2025-10-19 14:00:28', '2025-10-19 14:30:28', '1'),
-(8, 5, 4, '2025-10-19 16:28:46', '2025-10-21 16:28:45', '1'),
-(9, 6, 11, '2025-10-19 16:33:46', '2025-10-24 16:33:45', '1'),
-(10, 7, 6, '2025-10-19 16:36:05', '2025-10-25 16:36:04', '1'),
-(11, 7, 6, '2025-10-19 16:36:11', '2025-10-25 16:36:10', '1'),
-(12, 7, 6, '2025-10-19 16:36:35', '2025-10-25 16:36:34', '0'),
-(13, 6, 6, '2025-10-19 17:16:16', '2025-10-24 17:16:14', '1'),
-(14, 7, 4, '2025-10-19 17:17:08', '2025-10-31 17:17:07', '1');
+INSERT INTO `prestamos` (`Id_prestamo`, `Id_usuario`, `Id_libro`, `Fecha_prestamo`, `Fecha_devolucion`, `Estado`, `Id_estado_devolucion`) VALUES
+(7, 7, 6, '2025-10-19 14:00:28', '2025-10-19 14:30:28', '1', 2),
+(8, 5, 4, '2025-10-19 16:28:46', '2025-10-21 16:28:45', '1', 1),
+(9, 6, 11, '2025-10-19 16:33:46', '2025-10-24 16:33:45', '1', 1),
+(10, 7, 6, '2025-10-19 16:36:05', '2025-10-25 16:36:04', '0', 1),
+(11, 7, 6, '2025-10-19 16:36:11', '2025-10-25 16:36:10', '1', 1),
+(12, 7, 6, '2025-10-19 16:36:35', '2025-10-25 16:36:34', '0', 1),
+(13, 6, 6, '2025-10-19 17:16:16', '2025-10-24 17:16:14', '1', 2),
+(14, 7, 4, '2025-10-19 17:17:08', '2025-10-31 17:17:07', '1', 1),
+(15, 7, 6, '2025-10-20 19:16:25', '2025-10-30 19:16:24', '0', 1),
+(16, 7, 6, '2025-10-20 19:18:40', '2025-10-29 19:18:39', '0', 1),
+(17, 7, 6, '2025-10-20 19:23:22', '2025-10-29 19:23:21', '1', 1),
+(18, 7, 6, '2025-10-20 19:25:25', '2025-10-28 19:25:24', '1', 1),
+(19, 7, 6, '2025-10-20 19:30:13', '2025-10-27 19:30:12', '1', 1),
+(20, 7, 6, '2025-10-20 19:33:24', '2025-10-26 19:33:23', '1', 2);
 
 -- --------------------------------------------------------
 
@@ -456,6 +482,12 @@ ALTER TABLE `estadolibro`
   ADD PRIMARY KEY (`id_estado`);
 
 --
+-- Indices de la tabla `estado_devolucion`
+--
+ALTER TABLE `estado_devolucion`
+  ADD PRIMARY KEY (`id_estado_devolucion`);
+
+--
 -- Indices de la tabla `estado_usuario`
 --
 ALTER TABLE `estado_usuario`
@@ -511,7 +543,8 @@ ALTER TABLE `paises`
 ALTER TABLE `prestamos`
   ADD PRIMARY KEY (`Id_prestamo`),
   ADD KEY `FKusuario` (`Id_usuario`),
-  ADD KEY `Fklibro` (`Id_libro`);
+  ADD KEY `Fklibro` (`Id_libro`),
+  ADD KEY `FKdevolucion` (`Id_estado_devolucion`);
 
 --
 -- Indices de la tabla `sanciones`
@@ -577,6 +610,12 @@ ALTER TABLE `estadolibro`
   MODIFY `id_estado` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
+-- AUTO_INCREMENT de la tabla `estado_devolucion`
+--
+ALTER TABLE `estado_devolucion`
+  MODIFY `id_estado_devolucion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
 -- AUTO_INCREMENT de la tabla `estado_usuario`
 --
 ALTER TABLE `estado_usuario`
@@ -622,7 +661,7 @@ ALTER TABLE `paises`
 -- AUTO_INCREMENT de la tabla `prestamos`
 --
 ALTER TABLE `prestamos`
-  MODIFY `Id_prestamo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `Id_prestamo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT de la tabla `sanciones`
@@ -686,7 +725,8 @@ ALTER TABLE `multas`
 --
 ALTER TABLE `prestamos`
   ADD CONSTRAINT `prestamos_ibfk_1` FOREIGN KEY (`Id_usuario`) REFERENCES `usuario` (`Id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `prestamos_ibfk_2` FOREIGN KEY (`Id_libro`) REFERENCES `libro` (`Id_libro`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `prestamos_ibfk_2` FOREIGN KEY (`Id_libro`) REFERENCES `libro` (`Id_libro`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `prestamos_ibfk_3` FOREIGN KEY (`Id_estado_devolucion`) REFERENCES `estado_devolucion` (`id_estado_devolucion`) ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `sanciones`

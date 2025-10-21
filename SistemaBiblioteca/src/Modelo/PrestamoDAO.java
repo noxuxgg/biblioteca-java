@@ -44,7 +44,7 @@ public class PrestamoDAO {
        public List ListarPrestamo() {
         List<Prestamo> Listapre = new ArrayList();
         //String sql = "SELECT l.id_libro, l.titulo, l.codigo, l.fechaRegistro, CONCAT(a.nombre, a.apellido), m.nombre, l.stock, l.descripcion, e.nombre, l.anio, l.edicion, c.categoria, el.estado FROM libro l, autores a, materia m, editoriales e, categoria c, estadolibro el  WHERE  l.id_categoria = c.id_categoria AND l.id_editorial = e.id_editorial AND l.id_autor = a.id_autor AND l.id_materia = m.id_materia AND l.id_estado = el.id_estado AND l.estado = 1;";
-        String sql = "SELECT p.id_prestamo, p.fecha_prestamo, p.fecha_devolucion, CONCAT(u.nombre, ' ', u.apellido) usu, u.carnet carnet,l.codigo codi, l.titulo titulo, CASE WHEN p.fecha_devolucion < NOW() THEN 'Atrasado' WHEN NOW() BETWEEN p.fecha_prestamo AND p.fecha_devolucion THEN 'Activo' END AS estado_prestamo FROM prestamos p LEFT JOIN usuario u ON p.id_usuario = u.id_usuario LEFT JOIN libro l ON l.id_libro = p.id_libro WHERE p.estado = 1;";
+        String sql = "SELECT p.id_prestamo, p.fecha_prestamo, p.fecha_devolucion, CONCAT(u.nombre, ' ', u.apellido) usu, u.carnet carnet,l.codigo codi, l.titulo titulo, CASE WHEN NOW() BETWEEN p.fecha_prestamo AND p.fecha_devolucion AND p.id_estado_devolucion = 1 THEN 'Activo' WHEN NOW() BETWEEN p.fecha_prestamo AND p.fecha_devolucion AND p.id_estado_devolucion = 2 THEN 'Devuelto' WHEN NOW() > p.fecha_devolucion AND p.id_estado_devolucion = 1 THEN 'Activo sin devolver' WHEN NOW() > p.fecha_devolucion AND p.id_estado_devolucion = 2 THEN 'Devuelto con retraso' END AS estado_prestamo FROM prestamos p LEFT JOIN usuario u ON p.id_usuario = u.id_usuario LEFT JOIN libro l ON l.id_libro = p.id_libro WHERE p.estado = 1;";
         try {
             con = cn.getConnection();
             ps = con.prepareStatement(sql);
@@ -97,6 +97,39 @@ public class PrestamoDAO {
             } catch (Exception e) {
                 System.out.println(e.toString());
             }
+        }
+    }
+    public boolean DevolverPrestamo(int id) {
+        String sql = "UPDATE prestamos SET id_estado_devolucion = 2 WHERE id_prestamo = ?";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+            ps.execute();
+            return true;
+        } catch (SQLException e) {
+            System.out.println("Error: " + e.toString());
+            return false;
+        } finally {
+            try {
+                con.close();
+            } catch (Exception e) {
+                System.out.println(e.toString());
+            }
+        }
+    }
+    
+    public boolean ActualizarStockLibro(int cant, int cod){
+        String sql = "UPDATE libro SET stock = ? WHERE id_libro = ?";
+        try {
+            con = cn.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, cant);
+            ps.setInt(2, cod);
+            ps.execute();
+            return true;
+        } catch (SQLException e) {
+            System.out.println(e.toString());
+            return false;
         }
     }
     

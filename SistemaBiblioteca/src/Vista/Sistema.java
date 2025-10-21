@@ -361,6 +361,7 @@ public class Sistema extends javax.swing.JFrame {
         btnEliminarPrestamo = new javax.swing.JButton();
         txtidPrestamo = new javax.swing.JTextField();
         btnActualizarPrestamo = new javax.swing.JButton();
+        btnDevolucionPrestamo = new javax.swing.JButton();
         jPanel11 = new javax.swing.JPanel();
         jLabel35 = new javax.swing.JLabel();
         jLabel36 = new javax.swing.JLabel();
@@ -1842,6 +1843,13 @@ public class Sistema extends javax.swing.JFrame {
             }
         });
 
+        btnDevolucionPrestamo.setText("Registrar Devolucion");
+        btnDevolucionPrestamo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDevolucionPrestamoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
@@ -1905,7 +1913,8 @@ public class Sistema extends javax.swing.JFrame {
                                         .addGroup(jPanel8Layout.createSequentialGroup()
                                             .addComponent(jLabel96)
                                             .addGap(18, 18, 18)
-                                            .addComponent(txtidUsuarioPrestamo, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                            .addComponent(txtidUsuarioPrestamo, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(btnDevolucionPrestamo, javax.swing.GroupLayout.Alignment.TRAILING))
                                     .addGroup(jPanel8Layout.createSequentialGroup()
                                         .addGap(1, 1, 1)
                                         .addComponent(jLabel97)
@@ -1922,7 +1931,7 @@ public class Sistema extends javax.swing.JFrame {
                                 .addComponent(btnActualizarPrestamo)))
                         .addGap(49, 49, 49)
                         .addComponent(jScrollPane11, javax.swing.GroupLayout.PREFERRED_SIZE, 970, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(5628, Short.MAX_VALUE))
+                .addContainerGap(5631, Short.MAX_VALUE))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1990,7 +1999,8 @@ public class Sistema extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnGuardarPrestamo)
-                            .addComponent(btnActualizarPrestamo))
+                            .addComponent(btnActualizarPrestamo)
+                            .addComponent(btnDevolucionPrestamo))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnEliminarPrestamo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
@@ -3501,7 +3511,12 @@ public class Sistema extends javax.swing.JFrame {
              JOptionPane.showMessageDialog(null,"Se registro el prestamo correctamente");
               //LimpiarTable();
               //ListarPrestamo();
-            prestamo.RegistrarPrestamo(pre);
+             prestamo.RegistrarPrestamo(pre);
+             String co=txtCodigoPrestamo.getText();
+             li = libro.BuscarLibro(co);
+             int StockActual= li.getStock()-1;
+             int idlibro = li.getId_libro();
+             prestamo.ActualizarStockLibro(StockActual, idlibro);
             
                LimpiarTable();
                 LimpiarPrestamo();
@@ -3820,7 +3835,7 @@ public class Sistema extends javax.swing.JFrame {
         // TODO add your handling code here:
         
           if (!"".equals(txtidPrestamo.getText())) {
-            int pregunta = JOptionPane.showConfirmDialog(null, "Esta seguro de eliminar: " + txtTituloLibro.getText());
+            int pregunta = JOptionPane.showConfirmDialog(null, "Esta seguro de eliminar el Prestamo Nro. " + txtidPrestamo.getText());
             if (pregunta == 0) {
                 int id = Integer.parseInt(txtidPrestamo.getText());
                 prestamo.EliminarPrestamo(id);
@@ -3829,7 +3844,7 @@ public class Sistema extends javax.swing.JFrame {
                 ListarPrestamo();
             }
         } else{
-            JOptionPane.showMessageDialog(null, "Debe seleccionar un Libro para eliminar");
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un Prestamo para eliminar");
         }
     }//GEN-LAST:event_btnEliminarPrestamoActionPerformed
 
@@ -4510,6 +4525,27 @@ public class Sistema extends javax.swing.JFrame {
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void btnDevolucionPrestamoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDevolucionPrestamoActionPerformed
+        // TODO add your handling code here:
+         if (!"".equals(txtidPrestamo.getText())) {
+            int pregunta = JOptionPane.showConfirmDialog(null, "Esta seguro de devolver el Prestamo Nro. " + txtidPrestamo.getText());
+            if (pregunta == 0) {
+                int id = Integer.parseInt(txtidPrestamo.getText());
+                prestamo.DevolverPrestamo(id);
+             String co=txtCodigoPrestamo.getText();
+             li = libro.BuscarLibro(co);
+             int StockActual= li.getStock()+1;
+             int idlibro = li.getId_libro();
+             prestamo.ActualizarStockLibro(StockActual, idlibro);
+                LimpiarTable();
+                LimpiarPrestamo();
+                ListarPrestamo();
+            }
+        } else{
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un Prestamo para registrar devolucion");
+        }
+    }//GEN-LAST:event_btnDevolucionPrestamoActionPerformed
     
     public void ListarUsuario() {
         LimpiarTable();
@@ -4597,6 +4633,7 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JButton btnAjuste;
     private javax.swing.JButton btnAnalisis;
     private javax.swing.JButton btnCerrar;
+    private javax.swing.JButton btnDevolucionPrestamo;
     private javax.swing.JButton btnEliminarAutor;
     private javax.swing.JButton btnEliminarCategoria;
     private javax.swing.JButton btnEliminarEditorial;
