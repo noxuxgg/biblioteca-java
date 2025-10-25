@@ -485,10 +485,10 @@ public class UsuarioDAO {
         return usuario;
     }
     
-    //Filtros para PDF
-    
+    //Filtros para listar y pdf
     public List<Usuario> listarPorFiltro(String filtro, String valor) {
         List<Usuario> lista = new ArrayList<>();
+
         String sql = "SELECT a.Id_usuario, a.Carnet, a.Nombre, a.Apellido, a.Domicilo, " +
                      "p.Tipo_usuario, a.Telefono, f.nombre as nombre_cargo, j.nombre as nombre_carrera, m.estado_usuario as estado_usuario " +
                      "FROM usuario a " +
@@ -498,18 +498,32 @@ public class UsuarioDAO {
                      "INNER JOIN estado_usuario m ON m.id_estado_usuario = a.id_estado_usuario " +
                      "WHERE a.estado = 1 ";
 
-        if (filtro.equalsIgnoreCase("tipoUsuario")) {
-            sql += "AND p.Tipo_usuario = ?";
-        } else if (filtro.equalsIgnoreCase("estadoPrestamo")) {
-            sql += "AND m.estado_usuario = ?";
-        } else if (filtro.equalsIgnoreCase("carrera")) {
-            sql += "AND j.nombre = ?";
+        // Aplicar filtro solo si no es "Todos" o vacío
+        boolean aplicarFiltro = valor != null && !valor.equalsIgnoreCase("Todos") && !valor.isEmpty();
+
+        if (aplicarFiltro) {
+            switch(filtro) {
+                case "Tipo Usuario":
+                    sql += " AND p.Tipo_usuario = ?";
+                    break;
+                case "Cargo":
+                    sql += " AND f.nombre = ?";
+                    break;
+                case "Carrera":
+                    sql += " AND j.nombre = ?";
+                    break;
+                case "Estado Préstamo":
+                    sql += " AND m.estado_usuario = ?";
+                    break;
+            }
         }
 
         try {
             con = cn.getConnection();
             ps = con.prepareStatement(sql);
-            ps.setString(1, valor);
+            if (aplicarFiltro) {
+                ps.setString(1, valor);
+            }
             rs = ps.executeQuery();
             while (rs.next()) {
                 Usuario us = new Usuario();
@@ -530,9 +544,6 @@ public class UsuarioDAO {
         } finally {
             try { if (con != null) con.close(); } catch (SQLException e) {}
         }
-
         return lista;
     }
-
-
 }

@@ -132,7 +132,16 @@ public class Sistema extends javax.swing.JFrame {
         //MULTA
         ListarMultas();
         //pdf();
-        
+        // Inicializar combos de filtro para usuarios
+        cboxEFiltroUsuario.addItem("Tipo Usuario");
+        cboxEFiltroUsuario.addItem("Cargo");
+        cboxEFiltroUsuario.addItem("Carrera");
+        cboxEFiltroUsuario.addItem("Estado Préstamo");
+        cboxEFiltroUsuario.addItem("Sin filtro");
+        cboxEFiltroUsuario.setSelectedIndex(0); // Selecciona la primera opción
+
+        // Llenar los valores iniciales según el filtro seleccionado
+        actualizarComboValorUsuario();
 
     }
     
@@ -633,8 +642,8 @@ public class Sistema extends javax.swing.JFrame {
         TableUsuario = new javax.swing.JTable();
         jLabel69 = new javax.swing.JLabel();
         cboxEstadoPrestamoUsuario = new javax.swing.JComboBox<>();
-        btnfiltrarUsuario = new javax.swing.JButton();
-        cboxEFiltroTipoUsuario = new javax.swing.JComboBox<>();
+        btnAplicarFiltroUsuario = new javax.swing.JButton();
+        cboxEFiltroUsuario = new javax.swing.JComboBox<>();
         cboxFiltroValorUsuario = new javax.swing.JComboBox<>();
         jLabel99 = new javax.swing.JLabel();
         jLabel100 = new javax.swing.JLabel();
@@ -3411,17 +3420,22 @@ public class Sistema extends javax.swing.JFrame {
             }
         });
 
-        btnfiltrarUsuario.setText("FILTRAR");
-        btnfiltrarUsuario.addActionListener(new java.awt.event.ActionListener() {
+        btnAplicarFiltroUsuario.setText("APLICAR");
+        btnAplicarFiltroUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnfiltrarUsuarioActionPerformed(evt);
+                btnAplicarFiltroUsuarioActionPerformed(evt);
             }
         });
 
-        cboxEFiltroTipoUsuario.setEditable(true);
-        cboxEFiltroTipoUsuario.addActionListener(new java.awt.event.ActionListener() {
+        cboxEFiltroUsuario.setEditable(true);
+        cboxEFiltroUsuario.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cboxEFiltroUsuarioItemStateChanged(evt);
+            }
+        });
+        cboxEFiltroUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cboxEFiltroTipoUsuarioActionPerformed(evt);
+                cboxEFiltroUsuarioActionPerformed(evt);
             }
         });
 
@@ -3501,13 +3515,13 @@ public class Sistema extends javax.swing.JFrame {
                     .addGroup(jPanel32Layout.createSequentialGroup()
                         .addComponent(jLabel99, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cboxEFiltroTipoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cboxEFiltroUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel100, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cboxFiltroValorUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(34, 34, 34)
-                        .addComponent(btnfiltrarUsuario)
+                        .addComponent(btnAplicarFiltroUsuario)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btngenerarpdfusuario)))
                 .addGap(6734, 6734, 6734))
@@ -3524,8 +3538,8 @@ public class Sistema extends javax.swing.JFrame {
                         .addGap(27, 27, 27))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel32Layout.createSequentialGroup()
                         .addGroup(jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnfiltrarUsuario)
-                            .addComponent(cboxEFiltroTipoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnAplicarFiltroUsuario)
+                            .addComponent(cboxEFiltroUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(cboxFiltroValorUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel99)
                             .addComponent(jLabel100)
@@ -4943,13 +4957,63 @@ public class Sistema extends javax.swing.JFrame {
          }
     }//GEN-LAST:event_txtCarnetUsuarioKeyPressed
 
-    private void btnfiltrarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnfiltrarUsuarioActionPerformed
-        pdf();
-    }//GEN-LAST:event_btnfiltrarUsuarioActionPerformed
+    private void btnAplicarFiltroUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAplicarFiltroUsuarioActionPerformed
+        /*String filtro = "";
+        String valor = "";
 
-    private void cboxEFiltroTipoUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxEFiltroTipoUsuarioActionPerformed
+        if(cboxEFiltroUsuario.getSelectedItem() != null && cboxFiltroValorUsuario.getSelectedItem() != null){
+            filtro = cboxEFiltroUsuario.getSelectedItem().toString();
+            valor = cboxFiltroValorUsuario.getSelectedItem().toString();
+
+            List<Usuario> listaFiltrada = usuario.listarPorFiltro(filtro, valor);
+            LimpiarTable();
+            LimpiarUsuario(); // Limpia la tabla antes de llenarla
+
+            // Llenar la tabla con los resultados filtrados
+            DefaultTableModel model = (DefaultTableModel) TableUsuario.getModel(); // Reemplaza 'tablaUsuarios' por tu JTable
+            for(Usuario u : listaFiltrada){
+                Object[] fila = new Object[]{
+                    u.getId_usuario(),
+                    u.getCarnet(),
+                    u.getNombre(),
+                    u.getApellido(),
+                    u.getDomicilio(),
+                    u.getTipoUsuarioNombre(),
+                    u.getTelefono(),
+                    u.getCargoNombre(),
+                    u.getCarreraNombre(),
+                    u.getEstadoPrestamo()
+                };
+                model.addRow(fila);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Seleccione un filtro y un valor.");
+        }*/
+        LimpiarTable(); // Limpiamos la tabla antes de mostrar
+
+        String filtro = cboxEFiltroUsuario.getSelectedItem() != null ? cboxEFiltroUsuario.getSelectedItem().toString() : "";
+        String valor = cboxFiltroValorUsuario.getSelectedItem() != null ? cboxFiltroValorUsuario.getSelectedItem().toString() : "";
+
+        List<Usuario> lista;
+
+        if(filtro.equals("Sin filtro")){
+            lista = usuario.ListarUsuario(); // Todos los usuarios activos
+        } else {
+            lista = usuario.listarPorFiltro(filtro, valor); // Aplicar filtro específico
+        }
+
+        DefaultTableModel model = (DefaultTableModel) TableUsuario.getModel();
+
+        for (Usuario u : lista) {
+            model.addRow(new Object[]{u.getId_usuario(), u.getCarnet(), u.getNombre(), u.getApellido(), u.getDomicilio(),
+                                      u.getTipoUsuarioNombre(), u.getTelefono(), u.getCargoNombre(), u.getCarreraNombre(),
+                                      u.getEstadoPrestamo()});
+        }
+    }//GEN-LAST:event_btnAplicarFiltroUsuarioActionPerformed
+
+    private void cboxEFiltroUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxEFiltroUsuarioActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_cboxEFiltroTipoUsuarioActionPerformed
+    }//GEN-LAST:event_cboxEFiltroUsuarioActionPerformed
 
     private void cboxFiltroValorUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxFiltroValorUsuarioActionPerformed
         // TODO add your handling code here:
@@ -4958,6 +5022,42 @@ public class Sistema extends javax.swing.JFrame {
     private void btngenerarpdfusuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btngenerarpdfusuarioActionPerformed
         pdf();
     }//GEN-LAST:event_btngenerarpdfusuarioActionPerformed
+
+    private void cboxEFiltroUsuarioItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cboxEFiltroUsuarioItemStateChanged
+        /*if (evt.getStateChange() == java.awt.event.ItemEvent.SELECTED) {
+            actualizarComboValorUsuario(); // método que llena cboxFiltroValorUsuario
+        }*/
+            if (evt.getStateChange() == java.awt.event.ItemEvent.SELECTED) {
+                String filtroSeleccionado = cboxEFiltroUsuario.getSelectedItem().toString();
+
+                // Limpiar ComboBox de valores
+                cboxFiltroValorUsuario.removeAllItems();
+
+                if(filtroSeleccionado.equals("Sin filtro")){
+                    // Si es Sin filtro, no ponemos valores y deshabilitamos el ComboBox
+                    cboxFiltroValorUsuario.setEnabled(false);
+                } else {
+                    // Habilitamos el ComboBox de valores
+                    cboxFiltroValorUsuario.setEnabled(true);
+
+                    // Llenar los valores según el filtro
+                    switch(filtroSeleccionado){
+                        case "Tipo Usuario":
+                            usuario.ConsultarTipoUsuario(cboxFiltroValorUsuario);
+                            break;
+                        case "Cargo":
+                            usuario.ConsultarCargo(cboxFiltroValorUsuario);
+                            break;
+                        case "Carrera":
+                            usuario.ConsultarCarreras(cboxFiltroValorUsuario);
+                            break;
+                        case "Estado Préstamo":
+                            usuario.ConsultarEstadoUsuario(cboxFiltroValorUsuario);
+                            break;
+                    }
+                }
+            }
+    }//GEN-LAST:event_cboxEFiltroUsuarioItemStateChanged
     
     public void ListarUsuario() {
         LimpiarTable();
@@ -5044,6 +5144,7 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JButton btnActualizarUsuario;
     private javax.swing.JButton btnAjuste;
     private javax.swing.JButton btnAnalisis;
+    private javax.swing.JButton btnAplicarFiltroUsuario;
     private javax.swing.JButton btnBuscarprestamo;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnCerrar;
@@ -5077,13 +5178,12 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JButton btnNuevoUsuario;
     private javax.swing.JButton btnPrestamo;
     private javax.swing.JButton btneleminarMulta;
-    private javax.swing.JButton btnfiltrarUsuario;
     private javax.swing.JButton btngenerarpdfusuario;
     private javax.swing.JComboBox<String> cboxAutorLibro;
     private javax.swing.JComboBox<String> cboxCargoUsuario;
     private javax.swing.JComboBox<String> cboxCarreraUsuario;
     private javax.swing.JComboBox<String> cboxCategoriaLibro;
-    private javax.swing.JComboBox<String> cboxEFiltroTipoUsuario;
+    private javax.swing.JComboBox<String> cboxEFiltroUsuario;
     private javax.swing.JComboBox<String> cboxEditorialLibro;
     private javax.swing.JComboBox<String> cboxEstadoLibro;
     private javax.swing.JComboBox<String> cboxEstadoPrestamoUsuario;
@@ -5403,110 +5503,6 @@ public class Sistema extends javax.swing.JFrame {
         txtStockPrestamo.setText("");
     }
     
-    private void pdfs(){
-            try {
-                FileOutputStream archivo;
-                File file = new File("src/pdf/usuario.pdf");
-                archivo = new FileOutputStream(file);
-                
-                Document doc = new Document();
-                PdfWriter.getInstance(doc, archivo);
-                doc.open();
-                
-                Image img = Image.getInstance("src/Img/SISINf.png");
-                Paragraph fecha = new Paragraph();
-                Font negrita = new Font(Font.FontFamily.TIMES_ROMAN,8, Font.BOLD, BaseColor.BLUE);
-                fecha.add(Chunk.NEWLINE);
-                Date date = new Date();
-                fecha.add("Reporte: 1\n"+"Fecha: "+new SimpleDateFormat("dd-MM-yyyy").format(date)+"\n\n");
-                
-                PdfPTable Encabezado = new PdfPTable(4);
-                Encabezado.setWidthPercentage(100);
-                Encabezado.getDefaultCell().setBorder(0);
-                
-                float[] columnasEncabezado = new float[]{20f, 30f, 70f, 40f};
-                Encabezado.setWidths(columnasEncabezado);
-                Encabezado.setHorizontalAlignment(Element.ALIGN_LEFT);
-                
-                Encabezado.addCell(img);
-                
-                String ci = "00001";
-                String nom = "nombre";
-                String tel = "telefono";
-                String dir = "direccion";
-                String car = "cargo";
-                
-                Encabezado.addCell("");
-                Encabezado.addCell("CI: "+ci+"\nNombre: "+nom+"\nTelefono: "+tel+"\nCargo: "+car);
-                Encabezado.addCell(fecha);
-                doc.add(Encabezado);
-                //listando usuarios general
-                Paragraph usuario = new Paragraph();
-                usuario.add(Chunk.NEWLINE);
-                usuario.add("Datos usuario"+"\n\n");
-                doc.add(usuario);
-                
-                PdfPTable tablaus = new PdfPTable(9);
-                
-                tablaus.setWidthPercentage(100);
-                tablaus.getDefaultCell().setBorder(0);
-                
-                System.out.println("Nombre: " + txtNombreUsuario.getText());
-                System.out.println("Carrera: " + cboxCarreraUsuario.getSelectedItem());
-
-                float[] columnaUs = new float[]{20f, 30f, 40f, 50f, 50f, 40f, 40f, 40f, 40f};
-                tablaus.setWidths(columnaUs);
-                tablaus.setHorizontalAlignment(Element.ALIGN_LEFT);
-                PdfPCell us1 = new PdfPCell(new Phrase("CI"));
-                PdfPCell us2 = new PdfPCell(new Phrase("Nombre"));
-                PdfPCell us3 = new PdfPCell(new Phrase("Apellido"));
-                PdfPCell us4 = new PdfPCell(new Phrase("Domicilio"));
-                PdfPCell us5 = new PdfPCell(new Phrase("Tipo Usuario"));
-                PdfPCell us6 = new PdfPCell(new Phrase("Telefono"));
-                PdfPCell us7 = new PdfPCell(new Phrase("Cargo"));
-                PdfPCell us8 = new PdfPCell(new Phrase("Carrera"));
-                PdfPCell us9 = new PdfPCell(new Phrase("Estado Prestamo"));
-                
-                us1.setBorder(0);
-                us2.setBorder(0);
-                us3.setBorder(0);
-                us4.setBorder(0);
-                us5.setBorder(0);
-                us6.setBorder(0);
-                us7.setBorder(0);
-                us8.setBorder(0);
-                us9.setBorder(0);
-                        
-                tablaus.addCell(us1);
-                tablaus.addCell(us2);
-                tablaus.addCell(us3);
-                tablaus.addCell(us4);
-                tablaus.addCell(us5);
-                tablaus.addCell(us6);
-                tablaus.addCell(us7);
-                tablaus.addCell(us8);
-                tablaus.addCell(us9);
-                
-                tablaus.addCell(txtCarnetUsuario.getText());
-                tablaus.addCell(txtNombreUsuario.getText());
-                tablaus.addCell(txtApellidoUsuario.getText());
-                tablaus.addCell(txtDomicilioUsuario.getText());
-                tablaus.addCell(cboxTipoUsuario.getSelectedItem().toString());
-                tablaus.addCell(txtTelefonoUsuario.getText());
-                tablaus.addCell(cboxCargoUsuario.getSelectedItem().toString());
-                tablaus.addCell(cboxCarreraUsuario.getSelectedItem().toString());
-                tablaus.addCell(cboxEstadoPrestamoUsuario.getSelectedItem().toString());
-                
-                doc.add(tablaus);
-                
-                
-                doc.close();
-                archivo.close();
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "Error al generar PDF: " + e.getMessage());
-            }
-    }
-    
     private void pdf() {
         try {
             // Ruta del archivo
@@ -5540,7 +5536,9 @@ public class Sistema extends javax.swing.JFrame {
 
             encabezado.addCell(img);
             encabezado.addCell("");
-            encabezado.addCell(new Paragraph("SISTEMA DE BIBLIOTECA\nREPORTE DE USUARIOS", negrita));
+            encabezado.addCell(new Paragraph("\n\nSISTEMA DE BIBLIOTECA\nREPORTE DE USUARIOS", 
+                            new Font(Font.FontFamily.TIMES_ROMAN, 20, Font.BOLD)));
+         
             encabezado.addCell(fecha);
 
             doc.add(encabezado);
@@ -5548,30 +5546,28 @@ public class Sistema extends javax.swing.JFrame {
             // Título principal
             Paragraph titulo = new Paragraph();
             titulo.add(Chunk.NEWLINE);
-            titulo.add(new Paragraph("LISTADO GENERAL DE USUARIOS\n\n", 
-                    new Font(Font.FontFamily.HELVETICA, 14, Font.BOLD)));
+            titulo.add(new Paragraph("LISTADO DE USUARIOS FILTRADOS\n\n", 
+                new Font(Font.FontFamily.TIMES_ROMAN, 14, Font.BOLD)));
             titulo.setAlignment(Element.ALIGN_CENTER);
             doc.add(titulo);
+            
 
             // Tabla de datos
-            PdfPTable tabla = new PdfPTable(9); // 9 columnas en total
+            PdfPTable tabla = new PdfPTable(TableUsuario.getColumnCount()); // 9 columnas
             tabla.setWidthPercentage(100);
             tabla.setSpacingBefore(10f);
             tabla.setSpacingAfter(10f);
 
-            // Ajustar anchos de columnas
-            float[] medidaCeldas = {10f, 20f, 20f, 25f, 20f, 20f, 20f, 20f, 20f};
+            // Ajustar anchos de columnas (opcional)
+            float[] medidaCeldas = {10f,10f, 20f, 20f, 25f, 20f, 20f, 20f, 20f, 20f};
             tabla.setWidths(medidaCeldas);
 
             // Encabezados de tabla
             Font fontHeader = new Font(Font.FontFamily.HELVETICA, 10, Font.BOLD, BaseColor.WHITE);
             PdfPCell celdaHeader;
 
-            String[] titulos = {"CI", "Nombre", "Apellido", "Domicilio", "Tipo Usuario", 
-                                "Teléfono", "Cargo", "Carrera", "Estado Préstamo"};
-
-            for (String tituloColumna : titulos) {
-                celdaHeader = new PdfPCell(new Phrase(tituloColumna, fontHeader));
+            for (int i = 0; i < TableUsuario.getColumnCount(); i++) {
+                celdaHeader = new PdfPCell(new Phrase(TableUsuario.getColumnName(i), fontHeader));
                 celdaHeader.setBackgroundColor(BaseColor.DARK_GRAY);
                 celdaHeader.setHorizontalAlignment(Element.ALIGN_CENTER);
                 celdaHeader.setPadding(5f);
@@ -5581,20 +5577,12 @@ public class Sistema extends javax.swing.JFrame {
             // Fuente para los datos
             Font fontDatos = new Font(Font.FontFamily.HELVETICA, 9);
 
-            // Obtener lista de usuarios desde tu DAO
-            UsuarioDAO udao = new UsuarioDAO();
-            List<Usuario> lista = udao.ListarUsuario(); // asegúrate de tener este método en tu DAO
-
-            for (Usuario u : lista) {
-                tabla.addCell(new Phrase(String.valueOf(u.getCarnet()), fontDatos));
-                tabla.addCell(new Phrase(u.getNombre(), fontDatos));
-                tabla.addCell(new Phrase(u.getApellido(), fontDatos));
-                tabla.addCell(new Phrase(u.getDomicilio(), fontDatos));
-                tabla.addCell(new Phrase(u.getTipoUsuarioNombre(), fontDatos));
-                tabla.addCell(new Phrase(u.getTelefono(), fontDatos));
-                tabla.addCell(new Phrase(u.getCargoNombre(), fontDatos));
-                tabla.addCell(new Phrase(u.getCarreraNombre(), fontDatos));
-                tabla.addCell(new Phrase(u.getEstadoPrestamo(), fontDatos));
+            // Recorrer filas de JTable
+            for (int i = 0; i < TableUsuario.getRowCount(); i++) {
+                for (int j = 0; j < TableUsuario.getColumnCount(); j++) {
+                    String valorCelda = TableUsuario.getValueAt(i, j).toString();
+                    tabla.addCell(new Phrase(valorCelda, fontDatos));
+                }
             }
 
             // Agregar tabla al documento
@@ -5609,6 +5597,31 @@ public class Sistema extends javax.swing.JFrame {
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Error al generar PDF: " + e.getMessage());
+        }
+    }
+//auxiliar para filtrar
+    private void actualizarComboValorUsuario() {
+        String filtro = cboxEFiltroUsuario.getSelectedItem().toString();
+
+        // Limpiar el combo antes de llenarlo
+        cboxFiltroValorUsuario.removeAllItems();
+
+        switch(filtro) {
+            case "Tipo Usuario":
+                usuario.ConsultarTipoUsuario(cboxFiltroValorUsuario);
+                break;
+            case "Cargo":
+                usuario.ConsultarCargo(cboxFiltroValorUsuario);
+                break;
+            case "Carrera":
+                usuario.ConsultarCarreras(cboxFiltroValorUsuario);
+                break;
+            case "Estado Préstamo":
+                usuario.ConsultarEstadoUsuario(cboxFiltroValorUsuario);
+                break;
+            default:
+                // No hacer nada
+                break;
         }
     }
 
