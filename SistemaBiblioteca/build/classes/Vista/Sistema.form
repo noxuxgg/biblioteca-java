@@ -258,7 +258,7 @@
                               <Component id="jLabel10" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel9" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="7091" max="32767" attributes="0"/>
+                          <EmptySpace pref="7101" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel12" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -342,7 +342,7 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jPanel23" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="7040" max="32767" attributes="0"/>
+                          <EmptySpace pref="7060" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -595,7 +595,7 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jPanel31" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="6516" max="32767" attributes="0"/>
+                          <EmptySpace pref="6536" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -1148,7 +1148,7 @@
                               </Group>
                               <Component id="jLabel54" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="6575" max="32767" attributes="0"/>
+                          <EmptySpace pref="6597" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -1573,7 +1573,7 @@
                               </Group>
                               <Component id="jLabel75" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="6584" max="32767" attributes="0"/>
+                          <EmptySpace pref="6606" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -2058,7 +2058,7 @@
                                   <Component id="jScrollPane11" min="-2" pref="970" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace pref="6556" max="32767" attributes="0"/>
+                          <EmptySpace pref="6577" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -2452,7 +2452,7 @@
                               </Group>
                               <Group type="102" attributes="0">
                                   <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="4241" pref="7882" max="32767" attributes="0"/>
+                                  <EmptySpace min="4241" pref="7904" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -2873,7 +2873,7 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <EmptySpace min="0" pref="4375" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="4397" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
@@ -2919,7 +2919,7 @@
                               <Component id="jLabel33" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="jPanel20" alignment="0" min="-2" pref="853" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="6949" max="32767" attributes="0"/>
+                          <EmptySpace pref="6971" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -3308,7 +3308,7 @@
                                   <Component id="jPanel21" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace min="987" pref="7094" max="32767" attributes="0"/>
+                          <EmptySpace min="987" pref="7115" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -3642,7 +3642,7 @@
                               <Component id="jButton19" min="-2" max="-2" attributes="0"/>
                               <Component id="jButton20" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="7716" max="32767" attributes="0"/>
+                          <EmptySpace pref="7736" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -3710,7 +3710,7 @@
                           </Group>
                           <EmptySpace min="-2" pref="121" max="-2" attributes="0"/>
                           <Component id="jScrollPane8" min="-2" pref="711" max="-2" attributes="0"/>
-                          <EmptySpace pref="6726" max="32767" attributes="0"/>
+                          <EmptySpace pref="6748" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -3870,7 +3870,7 @@
                           </Group>
                           <EmptySpace min="-2" pref="79" max="-2" attributes="0"/>
                           <Component id="jScrollPane9" min="-2" pref="685" max="-2" attributes="0"/>
-                          <EmptySpace pref="6700" max="32767" attributes="0"/>
+                          <EmptySpace pref="6722" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -4045,7 +4045,7 @@
                           </Group>
                           <EmptySpace min="-2" pref="72" max="-2" attributes="0"/>
                           <Component id="jScrollPane10" min="-2" pref="637" max="-2" attributes="0"/>
-                          <EmptySpace pref="6829" max="32767" attributes="0"/>
+                          <EmptySpace pref="6851" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -4186,77 +4186,59 @@
                           <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="jLabel59" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
+                              </Group>
+                              <Group type="102" attributes="0">
+                                  <Group type="103" groupAlignment="1" attributes="0">
                                       <Group type="102" attributes="0">
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="jLabel65" alignment="1" max="32767" attributes="0"/>
-                                              <Group type="102" attributes="0">
-                                                  <Group type="103" groupAlignment="0" attributes="0">
-                                                      <Component id="jLabel64" alignment="0" max="-2" attributes="0"/>
-                                                      <Component id="jLabel63" alignment="0" max="-2" attributes="0"/>
-                                                      <Component id="jLabel68" min="-2" pref="102" max="-2" attributes="0"/>
-                                                      <Component id="jLabel67" max="-2" attributes="0"/>
-                                                      <Component id="jLabel69" alignment="0" min="-2" pref="123" max="-2" attributes="0"/>
-                                                  </Group>
-                                                  <EmptySpace min="0" pref="3" max="32767" attributes="0"/>
-                                              </Group>
-                                          </Group>
-                                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="jLabel66" max="-2" attributes="0"/>
-                                          <EmptySpace min="84" pref="87" max="32767" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" alignment="1" attributes="0">
                                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="jLabel61" max="-2" attributes="0"/>
+                                              <Group type="102" alignment="0" attributes="0">
+                                                  <Component id="btnEliminarUsuario" min="-2" pref="85" max="-2" attributes="0"/>
+                                                  <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
+                                                  <Component id="btnNuevoUsuario" min="-2" pref="99" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Group type="102" alignment="0" attributes="0">
+                                                  <Component id="btnGuardarUsuario" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
+                                                  <Component id="btnActualizarUsuario" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                          </Group>
+                                      </Group>
+                                      <Group type="102" alignment="1" attributes="0">
+                                          <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
                                               <Component id="jLabel62" max="-2" attributes="0"/>
+                                              <Component id="jLabel61" max="-2" attributes="0"/>
+                                              <Component id="jLabel63" alignment="0" max="-2" attributes="0"/>
+                                              <Component id="jLabel64" alignment="0" max="-2" attributes="0"/>
+                                              <Component id="jLabel65" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jLabel66" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jLabel67" alignment="0" max="-2" attributes="0"/>
+                                              <Component id="jLabel68" alignment="0" min="-2" pref="57" max="-2" attributes="0"/>
+                                              <Component id="jLabel69" min="-2" max="-2" attributes="0"/>
                                           </Group>
-                                          <EmptySpace min="-2" pref="94" max="-2" attributes="0"/>
+                                          <EmptySpace pref="23" max="32767" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                              <Component id="txtIdUsuario" alignment="0" min="-2" pref="18" max="-2" attributes="0"/>
+                                              <Component id="cboxCarreraUsuario" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="cboxCargoUsuario" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="txtTelefonoUsuario" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="txtDomicilioUsuario" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="txtApellidoUsuario" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="txtNombreUsuario" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="cboxEstadoPrestamoUsuario" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="cboxTipoUsuario" alignment="1" max="32767" attributes="0"/>
+                                              <Component id="txtCarnetUsuario" alignment="1" min="-2" pref="215" max="-2" attributes="0"/>
+                                          </Group>
                                       </Group>
                                   </Group>
-                                  <Group type="103" groupAlignment="1" attributes="0">
-                                      <Component id="txtTelefonoUsuario" max="32767" attributes="0"/>
-                                      <Component id="cboxCarreraUsuario" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="cboxCargoUsuario" alignment="1" max="32767" attributes="0"/>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Group type="103" groupAlignment="1" attributes="0">
-                                              <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Group type="102" alignment="0" attributes="0">
-                                                      <Component id="btnEliminarUsuario" min="-2" pref="85" max="-2" attributes="0"/>
-                                                      <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
-                                                      <Component id="btnNuevoUsuario" min="-2" pref="99" max="-2" attributes="0"/>
-                                                  </Group>
-                                                  <Group type="102" alignment="0" attributes="0">
-                                                      <Component id="btnGuardarUsuario" min="-2" max="-2" attributes="0"/>
-                                                      <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
-                                                      <Component id="btnActualizarUsuario" min="-2" max="-2" attributes="0"/>
-                                                  </Group>
-                                              </Group>
-                                              <Group type="103" groupAlignment="1" attributes="0">
-                                                  <Component id="cboxTipoUsuario" alignment="0" min="-2" pref="230" max="-2" attributes="0"/>
-                                                  <Component id="txtApellidoUsuario" alignment="0" min="-2" pref="225" max="-2" attributes="0"/>
-                                                  <Component id="txtDomicilioUsuario" alignment="0" min="-2" pref="225" max="-2" attributes="0"/>
-                                                  <Component id="txtNombreUsuario" alignment="0" min="-2" pref="225" max="-2" attributes="0"/>
-                                                  <Component id="txtCarnetUsuario" alignment="0" min="-2" pref="225" max="-2" attributes="0"/>
-                                                  <Component id="txtIdUsuario" alignment="0" min="-2" pref="225" max="-2" attributes="0"/>
-                                                  <Component id="cboxEstadoPrestamoUsuario" alignment="0" min="-2" pref="230" max="-2" attributes="0"/>
-                                              </Group>
-                                          </Group>
-                                          <EmptySpace min="0" pref="3" max="32767" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                                  <EmptySpace min="-2" pref="104" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="jLabel59" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace pref="454" max="32767" attributes="0"/>
+                                  <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <Component id="jScrollPane12" pref="922" max="32767" attributes="0"/>
-                          <EmptySpace min="-2" pref="6576" max="-2" attributes="0"/>
+                          <Component id="jScrollPane12" min="-2" pref="1037" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="6632" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -4295,12 +4277,12 @@
                                       <Component id="cboxTipoUsuario" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabel65" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="jLabel66" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="txtTelefonoUsuario" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel66" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="cboxCargoUsuario" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabel67" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -4311,11 +4293,11 @@
                                       <Component id="cboxCarreraUsuario" alignment="3" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="1" attributes="0">
-                                      <Component id="jLabel69" min="-2" max="-2" attributes="0"/>
-                                      <Component id="cboxEstadoPrestamoUsuario" min="-2" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="cboxEstadoPrestamoUsuario" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel69" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="btnGuardarUsuario" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="btnActualizarUsuario" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -4328,7 +4310,7 @@
                               </Group>
                               <Component id="jScrollPane12" min="-2" pref="427" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="179" max="32767" attributes="0"/>
+                          <EmptySpace pref="192" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -4361,7 +4343,7 @@
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel65">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="TIPO DE USUARIO"/>
+                    <Property name="text" type="java.lang.String" value="TIPO "/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel66">
@@ -4481,41 +4463,16 @@
                             <Column editable="true" title="NOMBRE" type="java.lang.Object"/>
                             <Column editable="true" title="APELLIDO" type="java.lang.Object"/>
                             <Column editable="true" title="DOMICILIO" type="java.lang.Object"/>
-                            <Column editable="true" title="TIPO DE USUARIO" type="java.lang.Object"/>
+                            <Column editable="true" title="TIPO" type="java.lang.Object"/>
                             <Column editable="true" title="TELEFONO" type="java.lang.Object"/>
                             <Column editable="true" title="CARGO" type="java.lang.Object"/>
                             <Column editable="true" title="CARRERA" type="java.lang.Object"/>
-                            <Column editable="true" title="ESTADO_PRESTAMO" type="java.lang.Object"/>
+                            <Column editable="true" title="PRESTAMO" type="java.lang.Object"/>
                           </Table>
                         </Property>
                         <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                           <TableColumnModel selectionModel="0">
-                            <Column maxWidth="500" minWidth="-1" prefWidth="50" resizable="true">
-                              <Title/>
-                              <Editor/>
-                              <Renderer/>
-                            </Column>
-                            <Column maxWidth="-1" minWidth="-1" prefWidth="50" resizable="true">
-                              <Title/>
-                              <Editor/>
-                              <Renderer/>
-                            </Column>
-                            <Column maxWidth="-1" minWidth="-1" prefWidth="100" resizable="true">
-                              <Title/>
-                              <Editor/>
-                              <Renderer/>
-                            </Column>
-                            <Column maxWidth="-1" minWidth="-1" prefWidth="100" resizable="true">
-                              <Title/>
-                              <Editor/>
-                              <Renderer/>
-                            </Column>
-                            <Column maxWidth="-1" minWidth="-1" prefWidth="100" resizable="true">
-                              <Title/>
-                              <Editor/>
-                              <Renderer/>
-                            </Column>
-                            <Column maxWidth="-1" minWidth="-1" prefWidth="100" resizable="true">
+                            <Column maxWidth="500" minWidth="-1" prefWidth="30" resizable="true">
                               <Title/>
                               <Editor/>
                               <Renderer/>
@@ -4535,7 +4492,32 @@
                               <Editor/>
                               <Renderer/>
                             </Column>
-                            <Column maxWidth="-1" minWidth="-1" prefWidth="100" resizable="true">
+                            <Column maxWidth="-1" minWidth="-1" prefWidth="60" resizable="true">
+                              <Title/>
+                              <Editor/>
+                              <Renderer/>
+                            </Column>
+                            <Column maxWidth="-1" minWidth="-1" prefWidth="5" resizable="true">
+                              <Title/>
+                              <Editor/>
+                              <Renderer/>
+                            </Column>
+                            <Column maxWidth="-1" minWidth="-1" prefWidth="15" resizable="true">
+                              <Title/>
+                              <Editor/>
+                              <Renderer/>
+                            </Column>
+                            <Column maxWidth="-1" minWidth="-1" prefWidth="10" resizable="true">
+                              <Title/>
+                              <Editor/>
+                              <Renderer/>
+                            </Column>
+                            <Column maxWidth="-1" minWidth="-1" prefWidth="50" resizable="true">
+                              <Title/>
+                              <Editor/>
+                              <Renderer/>
+                            </Column>
+                            <Column maxWidth="-1" minWidth="-1" prefWidth="20" resizable="true">
                               <Title/>
                               <Editor/>
                               <Renderer/>
@@ -4554,7 +4536,7 @@
                 </Container>
                 <Component class="javax.swing.JLabel" name="jLabel69">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="ESTADO USUARIO"/>
+                    <Property name="text" type="java.lang.String" value="ESTADO"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JComboBox" name="cboxEstadoPrestamoUsuario">

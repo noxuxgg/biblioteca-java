@@ -741,7 +741,7 @@ public class Sistema extends javax.swing.JFrame {
                     .addComponent(jLabel3)
                     .addComponent(jLabel10)
                     .addComponent(jLabel9))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7091, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7101, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4)
                     .addComponent(jLabel12)
@@ -943,7 +943,7 @@ public class Sistema extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(7040, Short.MAX_VALUE))
+                .addContainerGap(7060, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1261,7 +1261,7 @@ public class Sistema extends javax.swing.JFrame {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel31, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(6516, Short.MAX_VALUE))
+                .addContainerGap(6536, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1529,7 +1529,7 @@ public class Sistema extends javax.swing.JFrame {
                         .addGap(104, 104, 104)
                         .addComponent(jPanel25, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel54))
-                .addContainerGap(6575, Short.MAX_VALUE))
+                .addContainerGap(6597, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1779,7 +1779,7 @@ public class Sistema extends javax.swing.JFrame {
                         .addGap(81, 81, 81)
                         .addComponent(jPanel29, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel75))
-                .addContainerGap(6584, Short.MAX_VALUE))
+                .addContainerGap(6606, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2042,7 +2042,7 @@ public class Sistema extends javax.swing.JFrame {
                                 .addComponent(btnActualizarPrestamo)))
                         .addGap(49, 49, 49)
                         .addComponent(jScrollPane11, javax.swing.GroupLayout.PREFERRED_SIZE, 970, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(6556, Short.MAX_VALUE))
+                .addContainerGap(6577, Short.MAX_VALUE))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2372,7 +2372,7 @@ public class Sistema extends javax.swing.JFrame {
         jPanel14.setLayout(jPanel14Layout);
         jPanel14Layout.setHorizontalGroup(
             jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 4375, Short.MAX_VALUE)
+            .addGap(0, 4397, Short.MAX_VALUE)
         );
         jPanel14Layout.setVerticalGroup(
             jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2405,7 +2405,7 @@ public class Sistema extends javax.swing.JFrame {
                         .addComponent(jPanel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel9Layout.createSequentialGroup()
                         .addComponent(jLabel8)
-                        .addGap(4241, 7882, Short.MAX_VALUE))))
+                        .addGap(4241, 7904, Short.MAX_VALUE))))
             .addGroup(jPanel9Layout.createSequentialGroup()
                 .addComponent(txtIdMulta, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
@@ -2654,7 +2654,7 @@ public class Sistema extends javax.swing.JFrame {
                         .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel33)
                     .addComponent(jPanel20, javax.swing.GroupLayout.PREFERRED_SIZE, 853, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(6949, Short.MAX_VALUE))
+                .addContainerGap(6971, Short.MAX_VALUE))
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2858,7 +2858,7 @@ public class Sistema extends javax.swing.JFrame {
                                 .addComponent(jLabel43)))
                         .addGap(107, 107, 107)
                         .addComponent(jPanel21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(987, 7094, Short.MAX_VALUE))
+                .addGap(987, 7115, Short.MAX_VALUE))
         );
         jPanel11Layout.setVerticalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2925,7 +2925,7 @@ public class Sistema extends javax.swing.JFrame {
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton19)
                     .addComponent(jButton20))
-                .addContainerGap(7716, Short.MAX_VALUE))
+                .addContainerGap(7736, Short.MAX_VALUE))
         );
         jPanel12Layout.setVerticalGroup(
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -3018,7 +3018,7 @@ public class Sistema extends javax.swing.JFrame {
                             .addComponent(txtNombreCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(121, 121, 121)
                 .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 711, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(6726, Short.MAX_VALUE))
+                .addContainerGap(6748, Short.MAX_VALUE))
         );
         jPanel24Layout.setVerticalGroup(
             jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -3125,7 +3125,7 @@ public class Sistema extends javax.swing.JFrame {
                             .addComponent(txtSiglaMateria, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(79, 79, 79)
                 .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 685, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(6700, Short.MAX_VALUE))
+                .addContainerGap(6722, Short.MAX_VALUE))
         );
         jPanel26Layout.setVerticalGroup(
             jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -3238,7 +3238,7 @@ public class Sistema extends javax.swing.JFrame {
                             .addComponent(txtNombrePais, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(72, 72, 72)
                 .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 637, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(6829, Short.MAX_VALUE))
+                .addContainerGap(6851, Short.MAX_VALUE))
         );
         jPanel27Layout.setVerticalGroup(
             jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -3277,7 +3277,7 @@ public class Sistema extends javax.swing.JFrame {
 
         jLabel64.setText("DOMICILIO");
 
-        jLabel65.setText("TIPO DE USUARIO");
+        jLabel65.setText("TIPO ");
 
         jLabel66.setText("TELEFONO");
 
@@ -3345,7 +3345,7 @@ public class Sistema extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "CARNET", "NOMBRE", "APELLIDO", "DOMICILIO", "TIPO DE USUARIO", "TELEFONO", "CARGO", "CARRERA", "ESTADO_PRESTAMO"
+                "ID", "CARNET", "NOMBRE", "APELLIDO", "DOMICILIO", "TIPO", "TELEFONO", "CARGO", "CARRERA", "PRESTAMO"
             }
         ));
         TableUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -3355,20 +3355,20 @@ public class Sistema extends javax.swing.JFrame {
         });
         jScrollPane12.setViewportView(TableUsuario);
         if (TableUsuario.getColumnModel().getColumnCount() > 0) {
-            TableUsuario.getColumnModel().getColumn(0).setPreferredWidth(50);
+            TableUsuario.getColumnModel().getColumn(0).setPreferredWidth(30);
             TableUsuario.getColumnModel().getColumn(0).setMaxWidth(500);
-            TableUsuario.getColumnModel().getColumn(1).setPreferredWidth(50);
-            TableUsuario.getColumnModel().getColumn(2).setPreferredWidth(100);
-            TableUsuario.getColumnModel().getColumn(3).setPreferredWidth(100);
-            TableUsuario.getColumnModel().getColumn(4).setPreferredWidth(100);
-            TableUsuario.getColumnModel().getColumn(5).setPreferredWidth(100);
-            TableUsuario.getColumnModel().getColumn(6).setPreferredWidth(20);
-            TableUsuario.getColumnModel().getColumn(7).setPreferredWidth(50);
+            TableUsuario.getColumnModel().getColumn(1).setPreferredWidth(20);
+            TableUsuario.getColumnModel().getColumn(2).setPreferredWidth(50);
+            TableUsuario.getColumnModel().getColumn(3).setPreferredWidth(50);
+            TableUsuario.getColumnModel().getColumn(4).setPreferredWidth(60);
+            TableUsuario.getColumnModel().getColumn(5).setPreferredWidth(5);
+            TableUsuario.getColumnModel().getColumn(6).setPreferredWidth(15);
+            TableUsuario.getColumnModel().getColumn(7).setPreferredWidth(10);
             TableUsuario.getColumnModel().getColumn(8).setPreferredWidth(50);
-            TableUsuario.getColumnModel().getColumn(9).setPreferredWidth(100);
+            TableUsuario.getColumnModel().getColumn(9).setPreferredWidth(20);
         }
 
-        jLabel69.setText("ESTADO USUARIO");
+        jLabel69.setText("ESTADO");
 
         cboxEstadoPrestamoUsuario.setEditable(true);
         cboxEstadoPrestamoUsuario.addActionListener(new java.awt.event.ActionListener() {
@@ -3385,59 +3385,48 @@ public class Sistema extends javax.swing.JFrame {
                 .addGap(12, 12, 12)
                 .addGroup(jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel32Layout.createSequentialGroup()
-                        .addGap(23, 23, 23)
-                        .addGroup(jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel59)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel32Layout.createSequentialGroup()
+                        .addGroup(jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel32Layout.createSequentialGroup()
-                                .addGroup(jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel65, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addGroup(jPanel32Layout.createSequentialGroup()
-                                        .addGroup(jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel64)
-                                            .addComponent(jLabel63)
-                                            .addComponent(jLabel68, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel67)
-                                            .addComponent(jLabel69, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(0, 3, Short.MAX_VALUE)))
-                                .addGap(18, 18, 18))
-                            .addGroup(jPanel32Layout.createSequentialGroup()
-                                .addComponent(jLabel66)
-                                .addGap(84, 87, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel32Layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
                                 .addGroup(jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel32Layout.createSequentialGroup()
+                                        .addComponent(btnEliminarUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(31, 31, 31)
+                                        .addComponent(btnNuevoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel32Layout.createSequentialGroup()
+                                        .addComponent(btnGuardarUsuario)
+                                        .addGap(31, 31, 31)
+                                        .addComponent(btnActualizarUsuario))))
+                            .addGroup(jPanel32Layout.createSequentialGroup()
+                                .addGap(16, 16, 16)
+                                .addGroup(jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel62)
                                     .addComponent(jLabel61)
-                                    .addComponent(jLabel62))
-                                .addGap(94, 94, 94)))
-                        .addGroup(jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(txtTelefonoUsuario)
-                            .addComponent(cboxCarreraUsuario, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(cboxCargoUsuario, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel32Layout.createSequentialGroup()
-                                .addGroup(jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(jPanel32Layout.createSequentialGroup()
-                                            .addComponent(btnEliminarUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGap(31, 31, 31)
-                                            .addComponent(btnNuevoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(jPanel32Layout.createSequentialGroup()
-                                            .addComponent(btnGuardarUsuario)
-                                            .addGap(31, 31, 31)
-                                            .addComponent(btnActualizarUsuario)))
-                                    .addGroup(jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(cboxTipoUsuario, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(txtApellidoUsuario, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(txtDomicilioUsuario, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(txtNombreUsuario, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(txtCarnetUsuario, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(txtIdUsuario, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(cboxEstadoPrestamoUsuario, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(0, 3, Short.MAX_VALUE)))
-                        .addGap(104, 104, 104))
-                    .addGroup(jPanel32Layout.createSequentialGroup()
-                        .addComponent(jLabel59)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 454, Short.MAX_VALUE)))
-                .addComponent(jScrollPane12, javax.swing.GroupLayout.DEFAULT_SIZE, 922, Short.MAX_VALUE)
-                .addGap(6576, 6576, 6576))
+                                    .addComponent(jLabel63)
+                                    .addComponent(jLabel64)
+                                    .addComponent(jLabel65)
+                                    .addComponent(jLabel66)
+                                    .addComponent(jLabel67)
+                                    .addComponent(jLabel68, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel69))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
+                                .addGroup(jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtIdUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(cboxCarreraUsuario, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(cboxCargoUsuario, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(txtTelefonoUsuario)
+                                    .addComponent(txtDomicilioUsuario)
+                                    .addComponent(txtApellidoUsuario)
+                                    .addComponent(txtNombreUsuario)
+                                    .addComponent(cboxEstadoPrestamoUsuario, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(cboxTipoUsuario, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(txtCarnetUsuario, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(30, 30, 30)))
+                .addComponent(jScrollPane12, javax.swing.GroupLayout.PREFERRED_SIZE, 1037, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(6632, 6632, 6632))
         );
         jPanel32Layout.setVerticalGroup(
             jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -3468,11 +3457,11 @@ public class Sistema extends javax.swing.JFrame {
                         .addGroup(jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(cboxTipoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel65))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(12, 12, 12)
                         .addGroup(jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel66)
-                            .addComponent(txtTelefonoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(21, 21, 21)
+                            .addComponent(txtTelefonoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel66))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(cboxCargoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel67))
@@ -3481,10 +3470,10 @@ public class Sistema extends javax.swing.JFrame {
                             .addComponent(jLabel68)
                             .addComponent(cboxCarreraUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel69)
-                            .addComponent(cboxEstadoPrestamoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(28, 28, 28)
+                        .addGroup(jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cboxEstadoPrestamoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel69))
+                        .addGap(18, 18, 18)
                         .addGroup(jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnGuardarUsuario)
                             .addComponent(btnActualizarUsuario))
@@ -3493,7 +3482,7 @@ public class Sistema extends javax.swing.JFrame {
                             .addComponent(btnNuevoUsuario)
                             .addComponent(btnEliminarUsuario)))
                     .addComponent(jScrollPane12, javax.swing.GroupLayout.PREFERRED_SIZE, 427, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(179, Short.MAX_VALUE))
+                .addContainerGap(192, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("tab14", jPanel32);
@@ -4356,160 +4345,6 @@ public class Sistema extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnEliminarLibroActionPerformed
 
-    private void cboxTipoUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxTipoUsuarioActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cboxTipoUsuarioActionPerformed
-
-    private void cboxCargoUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxCargoUsuarioActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cboxCargoUsuarioActionPerformed
-
-    private void cboxCarreraUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxCarreraUsuarioActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cboxCarreraUsuarioActionPerformed
-
-    private void TableUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TableUsuarioMouseClicked
-        int fila = TableUsuario.rowAtPoint(evt.getPoint());
-        txtIdUsuario.setText(TableUsuario.getValueAt(fila, 0).toString());
-        txtCarnetUsuario.setText(TableUsuario.getValueAt(fila, 1).toString());
-        txtNombreUsuario.setText(TableUsuario.getValueAt(fila, 2).toString());
-        txtApellidoUsuario.setText(TableUsuario.getValueAt(fila, 3).toString());
-        txtDomicilioUsuario.setText(TableUsuario.getValueAt(fila, 4).toString());
-
-        // Para los combobox, establecer el valor seleccionado
-        cboxTipoUsuario.setSelectedItem(TableUsuario.getValueAt(fila, 5).toString());
-
-        txtTelefonoUsuario.setText(TableUsuario.getValueAt(fila, 6).toString());
-
-        cboxCargoUsuario.setSelectedItem(TableUsuario.getValueAt(fila, 7).toString());
-        cboxCarreraUsuario.setSelectedItem(TableUsuario.getValueAt(fila, 8).toString());
-        cboxEstadoPrestamoUsuario.setSelectedItem(TableUsuario.getValueAt(fila, 9).toString());
-    }//GEN-LAST:event_TableUsuarioMouseClicked
-
-    private void btnGuardarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarUsuarioActionPerformed
-         if(
-       !"".equals(txtCarnetUsuario.getText()) &&
-       !"".equals(txtNombreUsuario.getText()) &&
-       !"".equals(txtApellidoUsuario.getText()) && 
-       !"".equals(txtDomicilioUsuario.getText()) &&
-       !"".equals(cboxTipoUsuario.getSelectedItem()) && 
-       !"".equals(txtTelefonoUsuario.getText()) &&
-       !"".equals(cboxCargoUsuario.getSelectedItem()) && 
-       !"".equals(cboxCarreraUsuario.getSelectedItem()) &&
-       !"".equals(cboxEstadoPrestamoUsuario.getSelectedItem())){
-             
-             String carnet = txtCarnetUsuario.getText();
-            if (usuario.existeCarnet(carnet)) {
-                JOptionPane.showMessageDialog(null, "El carnet " + carnet + " ya está registrado. No se puede guardar.");
-                return; // Salir del método sin guardar
-            }
-             
-             boolean error;
-             
-             us.setCarnet(txtCarnetUsuario.getText());
-             us.setNombre(txtNombreUsuario.getText());
-             us.setApellido(txtApellidoUsuario.getText());
-             us.setDomicilio(txtDomicilioUsuario.getText());
-             us.setTelefono(txtTelefonoUsuario.getText());
-             us.setId_tipo_usuario(usuario.ObtenerIdTipoUsuario(cboxTipoUsuario.getSelectedItem().toString()));
-             us.setId_cargo(usuario.ObtenerIdCargo(cboxCargoUsuario.getSelectedItem().toString()));
-             us.setId_carrera(usuario.ObtenerIdCarrera(cboxCarreraUsuario.getSelectedItem().toString()));
-             us.setId_estado_prestamo(usuario.ObtenerIdEstadoPrestamo(cboxEstadoPrestamoUsuario.getSelectedItem().toString()));
-             us.setEstado(1);
-             error = usuario.RegistrarUsuario(us);
-             if (error == true) {
-                JOptionPane.showMessageDialog(null, "Usuario Registrado con Éxito!!!");
-            }   
-            LimpiarTable();
-            ListarUsuario();
-        }else{
-             JOptionPane.showMessageDialog(null, "Todos los campos son obligatorios");
-        }
-    }//GEN-LAST:event_btnGuardarUsuarioActionPerformed
-
-    private void btnNuevoUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoUsuarioActionPerformed
-        LimpiarUsuario();
-    }//GEN-LAST:event_btnNuevoUsuarioActionPerformed
-
-    private void btnActualizarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarUsuarioActionPerformed
-        if ("".equals(txtIdUsuario.getText())) {
-            JOptionPane.showMessageDialog(null, "Seleccione una fila");
-        } else {
-            if (!"".equals(txtCarnetUsuario.getText()) && 
-                !"".equals(txtNombreUsuario.getText()) && 
-                !"".equals(txtApellidoUsuario.getText()) &&
-                !"".equals(txtDomicilioUsuario.getText()) &&
-                !"".equals(txtTelefonoUsuario.getText()) &&
-                !"".equals(cboxTipoUsuario.getSelectedItem()) && 
-                !"".equals(cboxCargoUsuario.getSelectedItem()) && 
-                !"".equals(cboxCarreraUsuario.getSelectedItem())) {
-
-                us.setCarnet(txtCarnetUsuario.getText());
-                us.setNombre(txtNombreUsuario.getText());
-                us.setApellido(txtApellidoUsuario.getText());
-                us.setDomicilio(txtDomicilioUsuario.getText());
-                us.setTelefono(txtTelefonoUsuario.getText());
-                us.setId_tipo_usuario(usuario.ObtenerIdTipoUsuario(cboxTipoUsuario.getSelectedItem().toString()));
-                us.setId_cargo(usuario.ObtenerIdCargo(cboxCargoUsuario.getSelectedItem().toString()));
-                us.setId_carrera(usuario.ObtenerIdCarrera(cboxCarreraUsuario.getSelectedItem().toString()));
-                us.setId_usuario(Integer.parseInt(txtIdUsuario.getText()));
-                us.setId_estado_prestamo(usuario.ObtenerIdEstadoPrestamo(cboxEstadoPrestamoUsuario.getSelectedItem().toString()));
-
-                boolean resultado = usuario.ModificarUsuario(us);
-                if (resultado) {
-                    JOptionPane.showMessageDialog(null, "Usuario actualizado con éxito");
-                } else {
-                    JOptionPane.showMessageDialog(null, "Error al actualizar el usuario");
-                }
-
-                LimpiarTable();
-                ListarUsuario();
-                LimpiarUsuario();
-            } else {
-                JOptionPane.showMessageDialog(null, "Los campos Carnet, Nombre, Apellido, Tipo Usuario, Cargo y Carrera son obligatorios");
-            }
-        }
-    }//GEN-LAST:event_btnActualizarUsuarioActionPerformed
-
-    private void btnEliminarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarUsuarioActionPerformed
-         if (!"".equals(txtIdUsuario.getText())) {
-            String nombreCompleto = txtNombreUsuario.getText() + " " + txtApellidoUsuario.getText();
-            int pregunta = JOptionPane.showConfirmDialog(
-                null, 
-                "¿Está seguro de eliminar al usuario:\n" + 
-                "Nombre: " + nombreCompleto + "\n" +
-                "Carnet: " + txtCarnetUsuario.getText(), 
-                "Confirmar Eliminación", 
-                JOptionPane.YES_NO_OPTION,
-                JOptionPane.WARNING_MESSAGE
-            );
-
-            if (pregunta == JOptionPane.YES_OPTION) {
-                try {
-                    int id = Integer.parseInt(txtIdUsuario.getText());
-                    boolean eliminado = usuario.EliminarUsuario(id);
-
-                    if (eliminado) {
-                        JOptionPane.showMessageDialog(null, "Usuario eliminado correctamente");
-                        LimpiarTable();
-                        LimpiarUsuario();
-                        ListarUsuario();
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Error al eliminar el usuario");
-                    }
-                } catch (NumberFormatException e) {
-                    JOptionPane.showMessageDialog(null, "Error: ID de usuario inválido");
-                }
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "Seleccione un usuario de la tabla para eliminar");
-        }
-    }//GEN-LAST:event_btnEliminarUsuarioActionPerformed
-
-    private void cboxEstadoPrestamoUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxEstadoPrestamoUsuarioActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cboxEstadoPrestamoUsuarioActionPerformed
-
     private void txtNombrePrestamoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombrePrestamoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNombrePrestamoActionPerformed
@@ -4755,10 +4590,6 @@ public class Sistema extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnDevolucionPrestamoActionPerformed
 
-    private void txtIdUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdUsuarioActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtIdUsuarioActionPerformed
-
     private void btnBuscarprestamoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarprestamoActionPerformed
         // TODO add your handling code here:
         BuscarPrestamoPorId();
@@ -4826,6 +4657,164 @@ public class Sistema extends javax.swing.JFrame {
             jTabbedPane1.setSelectedIndex(7); // Tab 8 visual (índice real 13)
         }
     }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    private void cboxEstadoPrestamoUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxEstadoPrestamoUsuarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cboxEstadoPrestamoUsuarioActionPerformed
+
+    private void TableUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TableUsuarioMouseClicked
+        int fila = TableUsuario.rowAtPoint(evt.getPoint());
+        txtIdUsuario.setText(TableUsuario.getValueAt(fila, 0).toString());
+        txtCarnetUsuario.setText(TableUsuario.getValueAt(fila, 1).toString());
+        txtNombreUsuario.setText(TableUsuario.getValueAt(fila, 2).toString());
+        txtApellidoUsuario.setText(TableUsuario.getValueAt(fila, 3).toString());
+        txtDomicilioUsuario.setText(TableUsuario.getValueAt(fila, 4).toString());
+
+        // Para los combobox, establecer el valor seleccionado
+        cboxTipoUsuario.setSelectedItem(TableUsuario.getValueAt(fila, 5).toString());
+
+        txtTelefonoUsuario.setText(TableUsuario.getValueAt(fila, 6).toString());
+
+        cboxCargoUsuario.setSelectedItem(TableUsuario.getValueAt(fila, 7).toString());
+        cboxCarreraUsuario.setSelectedItem(TableUsuario.getValueAt(fila, 8).toString());
+        cboxEstadoPrestamoUsuario.setSelectedItem(TableUsuario.getValueAt(fila, 9).toString());
+    }//GEN-LAST:event_TableUsuarioMouseClicked
+
+    private void btnNuevoUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoUsuarioActionPerformed
+        LimpiarUsuario();
+    }//GEN-LAST:event_btnNuevoUsuarioActionPerformed
+
+    private void btnEliminarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarUsuarioActionPerformed
+        if (!"".equals(txtIdUsuario.getText())) {
+            String nombreCompleto = txtNombreUsuario.getText() + " " + txtApellidoUsuario.getText();
+            int pregunta = JOptionPane.showConfirmDialog(
+                null,
+                "¿Está seguro de eliminar al usuario:\n" +
+                "Nombre: " + nombreCompleto + "\n" +
+                "Carnet: " + txtCarnetUsuario.getText(),
+                "Confirmar Eliminación",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.WARNING_MESSAGE
+            );
+
+            if (pregunta == JOptionPane.YES_OPTION) {
+                try {
+                    int id = Integer.parseInt(txtIdUsuario.getText());
+                    boolean eliminado = usuario.EliminarUsuario(id);
+
+                    if (eliminado) {
+                        JOptionPane.showMessageDialog(null, "Usuario eliminado correctamente");
+                        LimpiarTable();
+                        LimpiarUsuario();
+                        ListarUsuario();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Error al eliminar el usuario");
+                    }
+                } catch (NumberFormatException e) {
+                    JOptionPane.showMessageDialog(null, "Error: ID de usuario inválido");
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Seleccione un usuario de la tabla para eliminar");
+        }
+    }//GEN-LAST:event_btnEliminarUsuarioActionPerformed
+
+    private void btnActualizarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarUsuarioActionPerformed
+        if ("".equals(txtIdUsuario.getText())) {
+            JOptionPane.showMessageDialog(null, "Seleccione una fila");
+        } else {
+            if (!"".equals(txtCarnetUsuario.getText()) &&
+                !"".equals(txtNombreUsuario.getText()) &&
+                !"".equals(txtApellidoUsuario.getText()) &&
+                !"".equals(txtDomicilioUsuario.getText()) &&
+                !"".equals(txtTelefonoUsuario.getText()) &&
+                !"".equals(cboxTipoUsuario.getSelectedItem()) &&
+                !"".equals(cboxCargoUsuario.getSelectedItem()) &&
+                !"".equals(cboxCarreraUsuario.getSelectedItem())) {
+
+                us.setCarnet(txtCarnetUsuario.getText());
+                us.setNombre(txtNombreUsuario.getText());
+                us.setApellido(txtApellidoUsuario.getText());
+                us.setDomicilio(txtDomicilioUsuario.getText());
+                us.setTelefono(txtTelefonoUsuario.getText());
+                us.setId_tipo_usuario(usuario.ObtenerIdTipoUsuario(cboxTipoUsuario.getSelectedItem().toString()));
+                us.setId_cargo(usuario.ObtenerIdCargo(cboxCargoUsuario.getSelectedItem().toString()));
+                us.setId_carrera(usuario.ObtenerIdCarrera(cboxCarreraUsuario.getSelectedItem().toString()));
+                us.setId_usuario(Integer.parseInt(txtIdUsuario.getText()));
+                us.setId_estado_prestamo(usuario.ObtenerIdEstadoPrestamo(cboxEstadoPrestamoUsuario.getSelectedItem().toString()));
+
+                boolean resultado = usuario.ModificarUsuario(us);
+                if (resultado) {
+                    JOptionPane.showMessageDialog(null, "Usuario actualizado con éxito");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Error al actualizar el usuario");
+                }
+
+                LimpiarTable();
+                ListarUsuario();
+                LimpiarUsuario();
+            } else {
+                JOptionPane.showMessageDialog(null, "Los campos Carnet, Nombre, Apellido, Tipo Usuario, Cargo y Carrera son obligatorios");
+            }
+        }
+    }//GEN-LAST:event_btnActualizarUsuarioActionPerformed
+
+    private void btnGuardarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarUsuarioActionPerformed
+        if(
+            !"".equals(txtCarnetUsuario.getText()) &&
+            !"".equals(txtNombreUsuario.getText()) &&
+            !"".equals(txtApellidoUsuario.getText()) &&
+            !"".equals(txtDomicilioUsuario.getText()) &&
+            !"".equals(cboxTipoUsuario.getSelectedItem()) &&
+            !"".equals(txtTelefonoUsuario.getText()) &&
+            !"".equals(cboxCargoUsuario.getSelectedItem()) &&
+            !"".equals(cboxCarreraUsuario.getSelectedItem()) &&
+            !"".equals(cboxEstadoPrestamoUsuario.getSelectedItem())){
+
+            String carnet = txtCarnetUsuario.getText();
+            if (usuario.existeCarnet(carnet)) {
+                JOptionPane.showMessageDialog(null, "El carnet " + carnet + " ya está registrado. No se puede guardar.");
+                return; // Salir del método sin guardar
+            }
+
+            boolean error;
+
+            us.setCarnet(txtCarnetUsuario.getText());
+            us.setNombre(txtNombreUsuario.getText());
+            us.setApellido(txtApellidoUsuario.getText());
+            us.setDomicilio(txtDomicilioUsuario.getText());
+            us.setTelefono(txtTelefonoUsuario.getText());
+            us.setId_tipo_usuario(usuario.ObtenerIdTipoUsuario(cboxTipoUsuario.getSelectedItem().toString()));
+            us.setId_cargo(usuario.ObtenerIdCargo(cboxCargoUsuario.getSelectedItem().toString()));
+            us.setId_carrera(usuario.ObtenerIdCarrera(cboxCarreraUsuario.getSelectedItem().toString()));
+            us.setId_estado_prestamo(usuario.ObtenerIdEstadoPrestamo(cboxEstadoPrestamoUsuario.getSelectedItem().toString()));
+            us.setEstado(1);
+            error = usuario.RegistrarUsuario(us);
+            if (error == true) {
+                JOptionPane.showMessageDialog(null, "Usuario Registrado con Éxito!!!");
+            }
+            LimpiarTable();
+            ListarUsuario();
+        }else{
+            JOptionPane.showMessageDialog(null, "Todos los campos son obligatorios");
+        }
+    }//GEN-LAST:event_btnGuardarUsuarioActionPerformed
+
+    private void cboxCarreraUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxCarreraUsuarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cboxCarreraUsuarioActionPerformed
+
+    private void cboxCargoUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxCargoUsuarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cboxCargoUsuarioActionPerformed
+
+    private void cboxTipoUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxTipoUsuarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cboxTipoUsuarioActionPerformed
+
+    private void txtIdUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdUsuarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIdUsuarioActionPerformed
     
     public void ListarUsuario() {
         LimpiarTable();

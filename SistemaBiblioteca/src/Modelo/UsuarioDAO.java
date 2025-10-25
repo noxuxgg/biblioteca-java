@@ -23,6 +23,18 @@ public class UsuarioDAO {
     ResultSet rs;
     
     public boolean RegistrarUsuario(Usuario us){
+        String errores = validarUsuarioCompleto(us);
+        if (!errores.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Errores de validación:\n" + errores);
+            return false;
+        }
+        
+        // Verificar si el carnet ya existe
+        if (existeCarnet(us.getCarnet())) {
+            JOptionPane.showMessageDialog(null, "El carnet ya está registrado");
+            return false;
+        }
+        
         String sql = "INSERT INTO usuario (Id_usuario, Carnet, Nombre, Apellido, Domicilo, Id_tipo_usuario, Telefono, id_cargo, id_carrera, Estado, id_estado_usuario) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
         try {
             con = cn.getConnection();
@@ -315,6 +327,12 @@ public class UsuarioDAO {
     }
     
     public boolean ModificarUsuario(Usuario us){
+        String errores = validarUsuarioCompleto(us);
+        if (!errores.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Errores de validación:\n" + errores);
+            return false;
+        }
+        
         String sql = "UPDATE usuario SET Carnet = ?, Nombre = ?, Apellido = ?, Domicilo = ?, Telefono = ?, Id_tipo_usuario = ?, id_cargo = ?, id_carrera = ?, id_estado_usuario = ? WHERE Id_usuario = ?";
         try {
             con = cn.getConnection();
@@ -367,29 +385,78 @@ public class UsuarioDAO {
     }
       //esto es para multa no borrar por favor
     public Usuario BuscarUsuarioPorId(int id) {
-    Usuario u = null;
-    String sql = "SELECT * FROM usuario WHERE Id_usuario = ?";
-    try {
-        con = cn.getConnection();
-        ps = con.prepareStatement(sql);
-        ps.setInt(1, id);
-        rs = ps.executeQuery();
-        if (rs.next()) {
-            u = new Usuario();
-            u.setId_usuario(rs.getInt("Id_usuario"));
-            u.setNombre(rs.getString("Nombre"));
-            u.setApellido(rs.getString("Apellido"));
+        Usuario u = null;
+        String sql = "SELECT * FROM usuario WHERE Id_usuario = ?";
+        try {
+            con = cn.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                u = new Usuario();
+                u.setId_usuario(rs.getInt("Id_usuario"));
+                u.setNombre(rs.getString("Nombre"));
+                u.setApellido(rs.getString("Apellido"));
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al buscar usuario: " + e.toString());
+        } finally {
+            try { con.close(); } catch (SQLException e) {}
         }
-    } catch (SQLException e) {
-        System.out.println("Error al buscar usuario: " + e.toString());
-    } finally {
-        try { con.close(); } catch (SQLException e) {}
+        return u;
+    } 
+    
+    //VALIDACIONES
+    
+    public boolean validarCarnet(String carnet) {
+        // Solo números y exactamente 7 dígitos
+        return carnet != null && carnet.matches("\\d{7}");
     }
-    return u;
-}
-
     
+    public boolean validarNombre(String nombre) {
+        // Solo letras (incluyendo acentos y ñ) y espacios
+        return nombre != null && nombre.matches("^[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]+$");
+    }
     
+    public boolean validarApellido(String apellido) {
+        // Solo letras (incluyendo acentos y ñ) y espacios
+        return apellido != null && apellido.matches("^[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]+$");
+    }
     
+    public boolean validarTelefono(String telefono) {
+        // Empieza con 6 o 7, y exactamente 8 dígitos
+        return telefono != null && telefono.matches("^[67]\\d{7}$");
+    }
+    
+    public boolean validarDomicilio(String domicilio) {
+        // Letras, números, espacios y caracteres especiales comunes en direcciones
+        return domicilio != null && domicilio.matches("^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ\\s#.,-]+$");
+    }
+    //LLAMADA A VALIDACIONES
+    public String validarUsuarioCompleto(Usuario us) {
+        StringBuilder errores = new StringBuilder();
+        
+        if (!validarCarnet(us.getCarnet())) {
+            errores.append("- Carnet debe tener exactamente 7 números\n");
+        }
+        
+        if (!validarNombre(us.getNombre())) {
+            errores.append("- Nombre solo puede contener letras\n");
+        }
+        
+        if (!validarApellido(us.getApellido())) {
+            errores.append("- Apellido solo puede contener letras\n");
+        }
+        
+        if (!validarTelefono(us.getTelefono())) {
+            errores.append("- Teléfono debe empezar con 6 o 7 y tener 8 dígitos\n");
+        }
+        
+        if (!validarDomicilio(us.getDomicilio())) {
+            errores.append("- Domicilio contiene caracteres no válidos\n");
+        }
+        
+        return errores.toString();
+    }
     
 }
