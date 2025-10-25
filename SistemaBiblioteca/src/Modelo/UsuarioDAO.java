@@ -327,8 +327,8 @@ public class UsuarioDAO {
             ps.setInt(6, us.getId_tipo_usuario());
             ps.setInt(7, us.getId_cargo());
             ps.setInt(8, us.getId_carrera());
-            ps.setInt(9, us.getId_usuario());
-            ps.setInt(10, us.getId_estado_prestamo());
+            ps.setInt(10, us.getId_usuario());
+            ps.setInt(9, us.getId_estado_prestamo());
             ps.execute();
             return true;
         } catch (SQLException e) {
