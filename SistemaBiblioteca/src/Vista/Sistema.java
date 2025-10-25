@@ -23,6 +23,7 @@ import Modelo.Usuario;
 import Modelo.UsuarioDAO;
 import Modelo.Multa;
 import Modelo.MultaDAO;
+import Modelo.login;
 import com.itextpdf.text.Image;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
@@ -96,6 +97,57 @@ public class Sistema extends javax.swing.JFrame {
 
     public Sistema() {
         initComponents();
+        /*LimpiarTable();
+        this.setLocationRelativeTo(null);
+        txtIdPais.setVisible(false);
+        txtIdCategoria.setVisible(false);
+        txtIdMateria.setVisible(false);
+        txtIdAutor.setVisible(false);
+        txtIdEditorial.setVisible(false);
+        txtIdUsuario.setVisible(false);
+        AutoCompleteDecorator.decorate(cboxPaisEditorial);
+        editorial.ConsultarPais(cboxPaisEditorial);
+        autor.ConsultarPais(cboxPaisAutor);
+        AutoCompleteDecorator.decorate(cboxPaisAutor);
+
+        libro.ConsultarAutor(cboxAutorLibro);
+        AutoCompleteDecorator.decorate(cboxAutorLibro);
+        libro.ConsultarMateria(cboxMateriaLibro);
+        AutoCompleteDecorator.decorate(cboxMateriaLibro);
+        libro.ConsultarEditorial(cboxEditorialLibro);
+        AutoCompleteDecorator.decorate(cboxEditorialLibro);
+        libro.ConsultarCategoria(cboxCategoriaLibro);
+        AutoCompleteDecorator.decorate(cboxCategoriaLibro);
+        libro.ConsultarEstado(cboxEstadoLibro);
+        AutoCompleteDecorator.decorate(cboxEstadoLibro);
+
+        usuario.ConsultarCargo(cboxCargoUsuario);
+        AutoCompleteDecorator.decorate(cboxCargoUsuario);
+        usuario.ConsultarCarreras(cboxCarreraUsuario);
+        AutoCompleteDecorator.decorate(cboxCarreraUsuario);
+        usuario.ConsultarTipoUsuario(cboxTipoUsuario);
+        AutoCompleteDecorator.decorate(cboxTipoUsuario);
+        usuario.ConsultarEstadoUsuario(cboxEstadoPrestamoUsuario);
+        AutoCompleteDecorator.decorate(cboxEstadoPrestamoUsuario);
+
+        //MULTA
+        ListarMultas();
+        //pdf();
+        // Inicializar combos de filtro para usuarios
+        cboxEFiltroUsuario.addItem("Tipo Usuario");
+        cboxEFiltroUsuario.addItem("Cargo");
+        cboxEFiltroUsuario.addItem("Carrera");
+        cboxEFiltroUsuario.addItem("Estado Préstamo");
+        cboxEFiltroUsuario.addItem("Sin filtro");
+        cboxEFiltroUsuario.setSelectedIndex(0); // Selecciona la primera opción
+
+        // Llenar los valores iniciales según el filtro seleccionado
+        actualizarComboValorUsuario();*/
+       
+    }
+    
+    public Sistema(login priv){
+        initComponents();
         LimpiarTable();
         this.setLocationRelativeTo(null);
         txtIdPais.setVisible(false);
@@ -142,7 +194,59 @@ public class Sistema extends javax.swing.JFrame {
 
         // Llenar los valores iniciales según el filtro seleccionado
         actualizarComboValorUsuario();
+        //privilegios
+        
+        String tipo = (priv.getTipo() != null) ? priv.getTipo().toLowerCase() : "desconocido";
 
+        if ("administrador".equals(tipo)) {
+            JOptionPane.showMessageDialog(null, "Entro como administrador");
+            System.out.println("Entró como administrador");
+        } else if ("normal".equals(tipo)) {
+            // USUARIO NORMAL
+            btnPrestamo.setEnabled(false);
+            jComboBox1.setEnabled(false);
+            btnGuardarUsuario.setEnabled(false);
+            btnEliminarUsuario.setEnabled(false);
+            btnReportes.setEnabled(false);
+            btnAnalisis.setEnabled(false);
+            btnAjuste.setEnabled(false);
+            
+            for (int i = cboxLibro.getItemCount() - 1; i >= 0; i--) {
+                Object item = cboxLibro.getItemAt(i);
+                if (!"Libros".equalsIgnoreCase(item.toString())) {
+                    cboxLibro.removeItemAt(i);
+                }
+            }
+
+            cboxLibro.setSelectedItem("Libros");
+
+            //falta cerrar guardar eliminar y asi
+            JOptionPane.showMessageDialog(null, "Entro como usuario normal");
+            System.out.println("Entró como usuario normal");
+        } else if("reportes".equals(tipo)){
+            //USUARIO
+            btnGuardarUsuario.setEnabled(false);
+            btnEliminarUsuario.setEnabled(false);
+            btnActualizarUsuario.setEnabled(false);
+            btnNuevoUsuario.setEnabled(false);
+            txtCarnetUsuario.setEnabled(false);
+            txtNombreUsuario.setEnabled(false);
+            txtApellidoUsuario.setEnabled(false);
+            txtTelefonoUsuario.setEnabled(false);
+            txtDomicilioUsuario.setEnabled(false);
+            cboxCargoUsuario.setEnabled(false);
+            cboxCarreraUsuario.setEnabled(false);
+            cboxTipoUsuario.setEnabled(false);
+            cboxEstadoPrestamoUsuario.setEnabled(false);
+            
+            JOptionPane.showMessageDialog(this, "Bienvenido usuario de reportes");
+        }
+        else {
+            JOptionPane.showMessageDialog(this,
+                "Tipo de usuario desconocido: " + tipo,
+                "Advertencia",
+                JOptionPane.WARNING_MESSAGE);
+        }
     }
     
 
@@ -352,12 +456,12 @@ public class Sistema extends javax.swing.JFrame {
         jPanel15 = new javax.swing.JPanel();
         jPanel19 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        jLabelBiblioteca = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         btnInicio = new javax.swing.JButton();
         cboxLibro = new javax.swing.JComboBox<>();
         btnPrestamo = new javax.swing.JButton();
-        btnHistorial = new javax.swing.JButton();
+        btnReportes = new javax.swing.JButton();
         jComboBox1 = new javax.swing.JComboBox<>();
         jPanel2 = new javax.swing.JPanel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
@@ -680,8 +784,8 @@ public class Sistema extends javax.swing.JFrame {
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/SISINf-128x128.png"))); // NOI18N
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(28, 14, -1, -1));
 
-        jLabel1.setText("BIBLIOTECA");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(174, 69, -1, -1));
+        jLabelBiblioteca.setText("BIBLIOTECA");
+        getContentPane().add(jLabelBiblioteca, new org.netbeans.lib.awtextra.AbsoluteConstraints(174, 69, -1, -1));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -706,10 +810,10 @@ public class Sistema extends javax.swing.JFrame {
             }
         });
 
-        btnHistorial.setText("Historial");
-        btnHistorial.addActionListener(new java.awt.event.ActionListener() {
+        btnReportes.setText("Reportes");
+        btnReportes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnHistorialActionPerformed(evt);
+                btnReportesActionPerformed(evt);
             }
         });
 
@@ -733,7 +837,7 @@ public class Sistema extends javax.swing.JFrame {
                 .addGap(34, 34, 34)
                 .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(39, 39, 39)
-                .addComponent(btnHistorial, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnReportes, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -741,7 +845,7 @@ public class Sistema extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnHistorial, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnReportes, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(cboxLibro, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -3623,15 +3727,16 @@ public class Sistema extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(268, 268, 268)
-                        .addComponent(btnAnalisis)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnCerrar))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(817, 817, 817)
-                        .addComponent(btnAjuste))
-                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                            .addGap(268, 268, 268)
+                            .addComponent(btnAnalisis)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnCerrar))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                            .addGap(817, 817, 817)
+                            .addComponent(btnAjuste))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -3639,8 +3744,8 @@ public class Sistema extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(59, 59, 59)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnCerrar)
-                    .addComponent(btnAnalisis))
+                    .addComponent(btnAnalisis)
+                    .addComponent(btnCerrar))
                 .addGap(21, 21, 21)
                 .addComponent(btnAjuste)
                 .addGap(79, 79, 79)
@@ -3729,12 +3834,26 @@ public class Sistema extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnPrestamoActionPerformed
 
-    private void btnHistorialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHistorialActionPerformed
+    private void btnReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportesActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnHistorialActionPerformed
+    }//GEN-LAST:event_btnReportesActionPerformed
 
     private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarActionPerformed
-        // TODO add your handling code here:
+        int opcion = JOptionPane.showConfirmDialog(this,
+            "¿Deseas cerrar sesión?",
+            "Confirmar",
+            JOptionPane.YES_NO_OPTION,
+            JOptionPane.QUESTION_MESSAGE);
+
+            if (opcion == JOptionPane.YES_OPTION) {
+                // Cierra la ventana actual
+                this.dispose();
+
+                // Abre la ventana de Login
+                Login login = new Login();
+                login.setVisible(true);
+                login.setLocationRelativeTo(null); // centra la ventana
+            }
     }//GEN-LAST:event_btnCerrarActionPerformed
 
     private void txtUsuarioPrestamoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsuarioPrestamoActionPerformed
@@ -5122,6 +5241,10 @@ public class Sistema extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> new Sistema().setVisible(true));
+        
+        //Login login = new Login();
+        //login.setVisible(true);
+    
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -5166,7 +5289,6 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JButton btnGuardarPrestamo;
     private javax.swing.JButton btnGuardarUsuario;
     private javax.swing.JButton btnGuardarmulta;
-    private javax.swing.JButton btnHistorial;
     private javax.swing.JButton btnInicio;
     private javax.swing.JButton btnModificarMulta;
     private javax.swing.JButton btnNuevaMulta;
@@ -5177,6 +5299,7 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JButton btnNuevoPais;
     private javax.swing.JButton btnNuevoUsuario;
     private javax.swing.JButton btnPrestamo;
+    private javax.swing.JButton btnReportes;
     private javax.swing.JButton btneleminarMulta;
     private javax.swing.JButton btngenerarpdfusuario;
     private javax.swing.JComboBox<String> cboxAutorLibro;
@@ -5233,7 +5356,6 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> jComboBox7;
     private javax.swing.JComboBox<String> jComboBox8;
     private javax.swing.JComboBox<String> jComboBox9;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel100;
     private javax.swing.JLabel jLabel11;
@@ -5323,6 +5445,7 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel97;
     private javax.swing.JLabel jLabel98;
     private javax.swing.JLabel jLabel99;
+    private javax.swing.JLabel jLabelBiblioteca;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;

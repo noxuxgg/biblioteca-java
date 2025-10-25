@@ -69,7 +69,7 @@
         </Constraint>
       </Constraints>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel1">
+    <Component class="javax.swing.JLabel" name="jLabelBiblioteca">
       <Properties>
         <Property name="text" type="java.lang.String" value="BIBLIOTECA"/>
       </Properties>
@@ -103,7 +103,7 @@
                   <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
                   <Component id="jComboBox1" min="-2" pref="133" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
-                  <Component id="btnHistorial" min="-2" pref="145" max="-2" attributes="0"/>
+                  <Component id="btnReportes" min="-2" pref="145" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -113,7 +113,7 @@
               <Group type="102" alignment="1" attributes="0">
                   <Group type="103" groupAlignment="1" attributes="0">
                       <Component id="jComboBox1" alignment="0" max="32767" attributes="0"/>
-                      <Component id="btnHistorial" alignment="0" max="32767" attributes="0"/>
+                      <Component id="btnReportes" alignment="0" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="btnInicio" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
                           <Component id="cboxLibro" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
@@ -163,12 +163,12 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPrestamoActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="btnHistorial">
+        <Component class="javax.swing.JButton" name="btnReportes">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Historial"/>
+            <Property name="text" type="java.lang.String" value="Reportes"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnHistorialActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnReportesActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JComboBox" name="jComboBox1">
@@ -201,17 +201,19 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="268" max="-2" attributes="0"/>
-                          <Component id="btnAnalisis" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="btnCerrar" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="817" max="-2" attributes="0"/>
-                          <Component id="btnAjuste" min="-2" max="-2" attributes="0"/>
-                      </Group>
                       <Component id="jTabbedPane1" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="268" max="-2" attributes="0"/>
+                              <Component id="btnAnalisis" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="btnCerrar" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="817" max="-2" attributes="0"/>
+                              <Component id="btnAjuste" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -222,8 +224,8 @@
               <Group type="102" attributes="0">
                   <EmptySpace min="-2" pref="59" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="btnCerrar" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btnAnalisis" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnCerrar" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
                   <Component id="btnAjuste" min="-2" max="-2" attributes="0"/>

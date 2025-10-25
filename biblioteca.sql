@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 21-10-2025 a las 06:56:01
+-- Tiempo de generación: 25-10-2025 a las 22:41:58
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -110,6 +110,29 @@ INSERT INTO `categoria` (`Id_categoria`, `Categoria`, `estado`) VALUES
 (6, 'Trabajo de Curso', 1),
 (7, 'Proyecto de Curso', 1),
 (8, 'Revista Cientifica', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `cliente`
+--
+
+CREATE TABLE `cliente` (
+  `id_cliente` int(11) NOT NULL,
+  `nombre` varchar(100) NOT NULL,
+  `correo` varchar(200) NOT NULL,
+  `pass` varchar(11) NOT NULL,
+  `id_tipo_usuario` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `cliente`
+--
+
+INSERT INTO `cliente` (`id_cliente`, `nombre`, `correo`, `pass`, `id_tipo_usuario`) VALUES
+(2, 'administrador', 'administrador', '1234', 1),
+(5, 'normal', 'normal', '1234', 2),
+(7, 'reportes', 'reportes', '1234', 3);
 
 -- --------------------------------------------------------
 
@@ -408,7 +431,8 @@ CREATE TABLE `tipo_usuario` (
 
 INSERT INTO `tipo_usuario` (`Id_tipo_usuario`, `Tipo_usuario`) VALUES
 (1, 'administrador'),
-(2, 'normal');
+(2, 'normal'),
+(3, 'reportes');
 
 -- --------------------------------------------------------
 
@@ -435,9 +459,11 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`Id_usuario`, `Carnet`, `Nombre`, `Apellido`, `Domicilo`, `Id_tipo_usuario`, `Telefono`, `id_cargo`, `id_carrera`, `Estado`, `id_estado_usuario`) VALUES
-(5, '7278371', 'Juan Marco', 'Mercedes Canaviri', 'Av. al valle entre junin y ayacucho Nro578', 2, '54821147', 3, 2, 1, 2),
-(6, '54986321', 'Maria', 'Camopero Rodriguez', 'La plata entre villaroel y 6 de agosto Nro 67', 2, '54871125', 3, 1, 1, 1),
-(7, '48658454', 'Carla', 'Rocha Quispe', 'Pagado entre soria galvarro y ayacucho Nro 40', 2, '58421154', 3, 1, 0, 1);
+(5, '7278371', 'Juan Marco', 'Mercedes Canaviri', 'Av. al valle entre junin y ayacucho Nro578', 2, '74821147', 3, 2, 1, 2),
+(6, '5489632', 'Maria', 'Campero Rodriguez', 'La plata entre villaroel y 6 de agosto Nro 67', 2, '61278854', 3, 1, 1, 1),
+(7, '48658454', 'Carla', 'Rocha Quispe', 'Pagado entre soria galvarro y ayacucho Nro 40', 2, '58421154', 3, 1, 0, 1),
+(15, '7274931', 'Adriana', 'Choquecallata Troncoso', 'Av. Villaroel y Ayachucho #35', 2, '63814471', 3, 2, 1, 1),
+(16, '5689451', 'Juana Azurduy', 'De padilla', 'Av terracota, calle Linares #54', 2, '78945211', 3, 1, 1, 1);
 
 --
 -- Índices para tablas volcadas
@@ -467,6 +493,13 @@ ALTER TABLE `carrera`
 --
 ALTER TABLE `categoria`
   ADD PRIMARY KEY (`Id_categoria`);
+
+--
+-- Indices de la tabla `cliente`
+--
+ALTER TABLE `cliente`
+  ADD PRIMARY KEY (`id_cliente`),
+  ADD KEY `fk_cliente_tipo_usuario` (`id_tipo_usuario`);
 
 --
 -- Indices de la tabla `editoriales`
@@ -598,6 +631,12 @@ ALTER TABLE `categoria`
   MODIFY `Id_categoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
+-- AUTO_INCREMENT de la tabla `cliente`
+--
+ALTER TABLE `cliente`
+  MODIFY `id_cliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
 -- AUTO_INCREMENT de la tabla `editoriales`
 --
 ALTER TABLE `editoriales`
@@ -673,13 +712,13 @@ ALTER TABLE `sancion`
 -- AUTO_INCREMENT de la tabla `tipo_usuario`
 --
 ALTER TABLE `tipo_usuario`
-  MODIFY `Id_tipo_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `Id_tipo_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `Id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `Id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- Restricciones para tablas volcadas
@@ -690,6 +729,12 @@ ALTER TABLE `usuario`
 --
 ALTER TABLE `autores`
   ADD CONSTRAINT `autores_ibfk_1` FOREIGN KEY (`id_pais`) REFERENCES `paises` (`id_pais`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Filtros para la tabla `cliente`
+--
+ALTER TABLE `cliente`
+  ADD CONSTRAINT `fk_cliente_tipo_usuario` FOREIGN KEY (`id_tipo_usuario`) REFERENCES `tipo_usuario` (`Id_tipo_usuario`);
 
 --
 -- Filtros para la tabla `editoriales`
