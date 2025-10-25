@@ -361,28 +361,6 @@ public class UsuarioDAO {
         }
     }
     
-    
-      public Usuario BuscarUsuario(String cod){
-        Usuario usuario = new Usuario();
-        String sql = "SELECT * FROM usuario WHERE carnet = ?";
-        try {
-            con = cn.getConnection();
-            ps = con.prepareStatement(sql);
-            ps.setString(1, cod);
-            rs = ps.executeQuery();
-            if(rs.next()){
-                usuario.setId_usuario(rs.getInt("id_usuario"));
-                usuario.setNombre(rs.getString("nombre"));
-                usuario.setApellido(rs.getString("apellido"));
-                usuario.setTelefono(rs.getString("telefono"));
-                usuario.setDomicilio(rs.getString("domicilo"));
-                usuario.setId_estado_prestamo(rs.getInt("id_estado_usuario"));
-            }
-        } catch (SQLException e) {
-            System.out.println(e.toString());
-        }
-        return usuario;
-    }
       //esto es para multa no borrar por favor
     public Usuario BuscarUsuarioPorId(int id) {
         Usuario u = null;
@@ -459,4 +437,102 @@ public class UsuarioDAO {
         return errores.toString();
     }
     
+    //BUSCADOR
+    public Usuario BuscarUsuario(String cod) {
+        Usuario usuario = new Usuario();
+        String sql = "SELECT u.*, tu.Tipo_usuario, c.nombre as nombre_cargo, " +
+                    "ca.nombre as nombre_carrera, eu.estado_usuario " +
+                    "FROM usuario u " +
+                    "LEFT JOIN tipo_usuario tu ON u.Id_tipo_usuario = tu.Id_tipo_usuario " +
+                    "LEFT JOIN cargo c ON u.id_cargo = c.id_cargo " +
+                    "LEFT JOIN carrera ca ON u.id_carrera = ca.id_carrera " +
+                    "LEFT JOIN estado_usuario eu ON u.id_estado_usuario = eu.id_estado_usuario " +
+                    "WHERE u.carnet = ? AND u.estado = 1";
+        try {
+            con = cn.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setString(1, cod);
+            rs = ps.executeQuery();
+            if(rs.next()){
+                // Datos básicos
+                usuario.setId_usuario(rs.getInt("id_usuario"));
+                usuario.setNombre(rs.getString("nombre"));
+                usuario.setApellido(rs.getString("apellido"));
+                usuario.setTelefono(rs.getString("telefono"));
+                usuario.setDomicilio(rs.getString("domicilo"));
+                usuario.setId_estado_prestamo(rs.getInt("id_estado_usuario"));
+
+                // IDs para referencia
+                usuario.setId_tipo_usuario(rs.getInt("Id_tipo_usuario"));
+                usuario.setId_cargo(rs.getInt("id_cargo"));
+                usuario.setId_carrera(rs.getInt("id_carrera"));
+
+                // NOMBRES para los ComboBox - ESTO ES LO QUE FALTA
+                usuario.setTipoUsuarioNombre(rs.getString("Tipo_usuario"));
+                usuario.setCargoNombre(rs.getString("nombre_cargo"));
+                usuario.setCarreraNombre(rs.getString("nombre_carrera"));
+                usuario.setEstadoPrestamo(rs.getString("estado_usuario"));
+            }
+        } catch (SQLException e) {
+            System.out.println("Error en BuscarUsuario: " + e.toString());
+        } finally {
+            try {
+                if (con != null) con.close();
+            } catch (SQLException e) {
+                System.out.println(e.toString());
+            }
+        }
+        return usuario;
+    }
+    
+    //Filtros para PDF
+    
+    public List<Usuario> listarPorFiltro(String filtro, String valor) {
+        List<Usuario> lista = new ArrayList<>();
+        String sql = "SELECT a.Id_usuario, a.Carnet, a.Nombre, a.Apellido, a.Domicilo, " +
+                     "p.Tipo_usuario, a.Telefono, f.nombre as nombre_cargo, j.nombre as nombre_carrera, m.estado_usuario as estado_usuario " +
+                     "FROM usuario a " +
+                     "INNER JOIN tipo_usuario p ON p.Id_tipo_usuario = a.Id_tipo_usuario " +
+                     "INNER JOIN cargo f ON f.id_cargo = a.id_cargo " +
+                     "INNER JOIN carrera j ON j.id_carrera = a.id_carrera " +
+                     "INNER JOIN estado_usuario m ON m.id_estado_usuario = a.id_estado_usuario " +
+                     "WHERE a.estado = 1 ";
+
+        if (filtro.equalsIgnoreCase("tipoUsuario")) {
+            sql += "AND p.Tipo_usuario = ?";
+        } else if (filtro.equalsIgnoreCase("estadoPrestamo")) {
+            sql += "AND m.estado_usuario = ?";
+        } else if (filtro.equalsIgnoreCase("carrera")) {
+            sql += "AND j.nombre = ?";
+        }
+
+        try {
+            con = cn.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setString(1, valor);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Usuario us = new Usuario();
+                us.setId_usuario(rs.getInt("Id_usuario"));
+                us.setCarnet(rs.getString("Carnet"));
+                us.setNombre(rs.getString("Nombre"));
+                us.setApellido(rs.getString("Apellido"));
+                us.setDomicilio(rs.getString("Domicilo"));
+                us.setTelefono(rs.getString("Telefono"));
+                us.setTipoUsuarioNombre(rs.getString("Tipo_usuario"));
+                us.setCargoNombre(rs.getString("nombre_cargo"));
+                us.setCarreraNombre(rs.getString("nombre_carrera"));
+                us.setEstadoPrestamo(rs.getString("estado_usuario"));
+                lista.add(us);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try { if (con != null) con.close(); } catch (SQLException e) {}
+        }
+
+        return lista;
+    }
+
+
 }

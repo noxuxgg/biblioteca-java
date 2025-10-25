@@ -23,6 +23,9 @@ import Modelo.Usuario;
 import Modelo.UsuarioDAO;
 import Modelo.Multa;
 import Modelo.MultaDAO;
+import com.itextpdf.text.Image;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfWriter;
 import java.awt.event.KeyEvent;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -33,13 +36,24 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 import java.awt.event.KeyEvent;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.text.DefaultStyledDocument;
+//import javax.swing.text.Document;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
+import com.itextpdf.text.*;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfWriter;
 
 /**
  *
@@ -114,8 +128,11 @@ public class Sistema extends javax.swing.JFrame {
         AutoCompleteDecorator.decorate(cboxTipoUsuario);
         usuario.ConsultarEstadoUsuario(cboxEstadoPrestamoUsuario);
         AutoCompleteDecorator.decorate(cboxEstadoPrestamoUsuario);
+
         //MULTA
         ListarMultas();
+        //pdf();
+        
 
     }
     
@@ -616,6 +633,12 @@ public class Sistema extends javax.swing.JFrame {
         TableUsuario = new javax.swing.JTable();
         jLabel69 = new javax.swing.JLabel();
         cboxEstadoPrestamoUsuario = new javax.swing.JComboBox<>();
+        btnfiltrarUsuario = new javax.swing.JButton();
+        cboxEFiltroTipoUsuario = new javax.swing.JComboBox<>();
+        cboxFiltroValorUsuario = new javax.swing.JComboBox<>();
+        jLabel99 = new javax.swing.JLabel();
+        jLabel100 = new javax.swing.JLabel();
+        btngenerarpdfusuario = new javax.swing.JButton();
         btnAjuste = new javax.swing.JButton();
         btnAnalisis = new javax.swing.JButton();
         btnCerrar = new javax.swing.JButton();
@@ -741,7 +764,7 @@ public class Sistema extends javax.swing.JFrame {
                     .addComponent(jLabel3)
                     .addComponent(jLabel10)
                     .addComponent(jLabel9))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7101, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7209, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4)
                     .addComponent(jLabel12)
@@ -943,7 +966,7 @@ public class Sistema extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(7060, Short.MAX_VALUE))
+                .addContainerGap(7168, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1261,7 +1284,7 @@ public class Sistema extends javax.swing.JFrame {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel31, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(6536, Short.MAX_VALUE))
+                .addContainerGap(6644, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1529,7 +1552,7 @@ public class Sistema extends javax.swing.JFrame {
                         .addGap(104, 104, 104)
                         .addComponent(jPanel25, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel54))
-                .addContainerGap(6597, Short.MAX_VALUE))
+                .addContainerGap(6705, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1779,7 +1802,7 @@ public class Sistema extends javax.swing.JFrame {
                         .addGap(81, 81, 81)
                         .addComponent(jPanel29, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel75))
-                .addContainerGap(6606, Short.MAX_VALUE))
+                .addContainerGap(6714, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2042,7 +2065,7 @@ public class Sistema extends javax.swing.JFrame {
                                 .addComponent(btnActualizarPrestamo)))
                         .addGap(49, 49, 49)
                         .addComponent(jScrollPane11, javax.swing.GroupLayout.PREFERRED_SIZE, 970, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(6577, Short.MAX_VALUE))
+                .addContainerGap(6685, Short.MAX_VALUE))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2372,7 +2395,7 @@ public class Sistema extends javax.swing.JFrame {
         jPanel14.setLayout(jPanel14Layout);
         jPanel14Layout.setHorizontalGroup(
             jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 4397, Short.MAX_VALUE)
+            .addGap(0, 4505, Short.MAX_VALUE)
         );
         jPanel14Layout.setVerticalGroup(
             jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2405,7 +2428,7 @@ public class Sistema extends javax.swing.JFrame {
                         .addComponent(jPanel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel9Layout.createSequentialGroup()
                         .addComponent(jLabel8)
-                        .addGap(4241, 7904, Short.MAX_VALUE))))
+                        .addGap(4241, 8012, Short.MAX_VALUE))))
             .addGroup(jPanel9Layout.createSequentialGroup()
                 .addComponent(txtIdMulta, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
@@ -2654,7 +2677,7 @@ public class Sistema extends javax.swing.JFrame {
                         .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel33)
                     .addComponent(jPanel20, javax.swing.GroupLayout.PREFERRED_SIZE, 853, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(6971, Short.MAX_VALUE))
+                .addContainerGap(7079, Short.MAX_VALUE))
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2858,7 +2881,7 @@ public class Sistema extends javax.swing.JFrame {
                                 .addComponent(jLabel43)))
                         .addGap(107, 107, 107)
                         .addComponent(jPanel21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(987, 7115, Short.MAX_VALUE))
+                .addGap(987, 7223, Short.MAX_VALUE))
         );
         jPanel11Layout.setVerticalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2925,7 +2948,7 @@ public class Sistema extends javax.swing.JFrame {
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton19)
                     .addComponent(jButton20))
-                .addContainerGap(7736, Short.MAX_VALUE))
+                .addContainerGap(7844, Short.MAX_VALUE))
         );
         jPanel12Layout.setVerticalGroup(
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -3018,7 +3041,7 @@ public class Sistema extends javax.swing.JFrame {
                             .addComponent(txtNombreCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(121, 121, 121)
                 .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 711, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(6748, Short.MAX_VALUE))
+                .addContainerGap(6856, Short.MAX_VALUE))
         );
         jPanel24Layout.setVerticalGroup(
             jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -3125,7 +3148,7 @@ public class Sistema extends javax.swing.JFrame {
                             .addComponent(txtSiglaMateria, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(79, 79, 79)
                 .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 685, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(6722, Short.MAX_VALUE))
+                .addContainerGap(6830, Short.MAX_VALUE))
         );
         jPanel26Layout.setVerticalGroup(
             jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -3238,7 +3261,7 @@ public class Sistema extends javax.swing.JFrame {
                             .addComponent(txtNombrePais, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(72, 72, 72)
                 .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 637, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(6851, Short.MAX_VALUE))
+                .addContainerGap(6959, Short.MAX_VALUE))
         );
         jPanel27Layout.setVerticalGroup(
             jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -3288,6 +3311,17 @@ public class Sistema extends javax.swing.JFrame {
         txtIdUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtIdUsuarioActionPerformed(evt);
+            }
+        });
+
+        txtCarnetUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCarnetUsuarioActionPerformed(evt);
+            }
+        });
+        txtCarnetUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtCarnetUsuarioKeyPressed(evt);
             }
         });
 
@@ -3377,6 +3411,38 @@ public class Sistema extends javax.swing.JFrame {
             }
         });
 
+        btnfiltrarUsuario.setText("FILTRAR");
+        btnfiltrarUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnfiltrarUsuarioActionPerformed(evt);
+            }
+        });
+
+        cboxEFiltroTipoUsuario.setEditable(true);
+        cboxEFiltroTipoUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboxEFiltroTipoUsuarioActionPerformed(evt);
+            }
+        });
+
+        cboxFiltroValorUsuario.setEditable(true);
+        cboxFiltroValorUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboxFiltroValorUsuarioActionPerformed(evt);
+            }
+        });
+
+        jLabel99.setText("FILTRO:");
+
+        jLabel100.setText("VALOR");
+
+        btngenerarpdfusuario.setText("GENERAR PDF");
+        btngenerarpdfusuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btngenerarpdfusuarioActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel32Layout = new javax.swing.GroupLayout(jPanel32);
         jPanel32.setLayout(jPanel32Layout);
         jPanel32Layout.setHorizontalGroup(
@@ -3385,12 +3451,20 @@ public class Sistema extends javax.swing.JFrame {
                 .addGap(12, 12, 12)
                 .addGroup(jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel32Layout.createSequentialGroup()
-                        .addComponent(jLabel59)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel32Layout.createSequentialGroup()
-                        .addGroup(jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGap(16, 16, 16)
+                        .addGroup(jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel62)
+                            .addComponent(jLabel61)
+                            .addComponent(jLabel63)
+                            .addComponent(jLabel64)
+                            .addComponent(jLabel65)
+                            .addComponent(jLabel66)
+                            .addComponent(jLabel67)
+                            .addComponent(jLabel68, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel69))
+                        .addGroup(jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel32Layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addGap(18, 18, 18)
                                 .addGroup(jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel32Layout.createSequentialGroup()
                                         .addComponent(btnEliminarUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -3401,32 +3475,42 @@ public class Sistema extends javax.swing.JFrame {
                                         .addGap(31, 31, 31)
                                         .addComponent(btnActualizarUsuario))))
                             .addGroup(jPanel32Layout.createSequentialGroup()
-                                .addGap(16, 16, 16)
+                                .addGap(18, 18, 18)
                                 .addGroup(jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel62)
-                                    .addComponent(jLabel61)
-                                    .addComponent(jLabel63)
-                                    .addComponent(jLabel64)
-                                    .addComponent(jLabel65)
-                                    .addComponent(jLabel66)
-                                    .addComponent(jLabel67)
-                                    .addComponent(jLabel68, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel69))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
-                                .addGroup(jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtTelefonoUsuario, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(cboxCargoUsuario, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel32Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(cboxCarreraUsuario, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(cboxEstadoPrestamoUsuario, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel32Layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtIdUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(cboxCarreraUsuario, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(cboxCargoUsuario, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(txtTelefonoUsuario)
-                                    .addComponent(txtDomicilioUsuario)
-                                    .addComponent(txtApellidoUsuario)
-                                    .addComponent(txtNombreUsuario)
-                                    .addComponent(cboxEstadoPrestamoUsuario, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(cboxTipoUsuario, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(txtCarnetUsuario, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(30, 30, 30)))
-                .addComponent(jScrollPane12, javax.swing.GroupLayout.PREFERRED_SIZE, 1037, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(6632, 6632, 6632))
+                                    .addGroup(jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(txtCarnetUsuario)
+                                        .addComponent(txtNombreUsuario)
+                                        .addComponent(txtApellidoUsuario)
+                                        .addComponent(txtDomicilioUsuario)
+                                        .addComponent(cboxTipoUsuario, 0, 215, Short.MAX_VALUE))))))
+                    .addComponent(jLabel59))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
+                .addGroup(jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane12, javax.swing.GroupLayout.PREFERRED_SIZE, 1037, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel32Layout.createSequentialGroup()
+                        .addComponent(jLabel99, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cboxEFiltroTipoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel100, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cboxFiltroValorUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(34, 34, 34)
+                        .addComponent(btnfiltrarUsuario)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btngenerarpdfusuario)))
+                .addGap(6734, 6734, 6734))
         );
         jPanel32Layout.setVerticalGroup(
             jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -3437,7 +3521,18 @@ public class Sistema extends javax.swing.JFrame {
                         .addGroup(jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel59)
                             .addComponent(txtIdUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(27, 27, 27)
+                        .addGap(27, 27, 27))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel32Layout.createSequentialGroup()
+                        .addGroup(jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnfiltrarUsuario)
+                            .addComponent(cboxEFiltroTipoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cboxFiltroValorUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel99)
+                            .addComponent(jLabel100)
+                            .addComponent(btngenerarpdfusuario))
+                        .addGap(18, 18, 18)))
+                .addGroup(jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel32Layout.createSequentialGroup()
                         .addGroup(jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel61)
                             .addComponent(txtCarnetUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -3459,9 +3554,9 @@ public class Sistema extends javax.swing.JFrame {
                             .addComponent(jLabel65))
                         .addGap(12, 12, 12)
                         .addGroup(jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtTelefonoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel66))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(jLabel66)
+                            .addComponent(txtTelefonoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(9, 9, 9)
                         .addGroup(jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(cboxCargoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel67))
@@ -3482,7 +3577,7 @@ public class Sistema extends javax.swing.JFrame {
                             .addComponent(btnNuevoUsuario)
                             .addComponent(btnEliminarUsuario)))
                     .addComponent(jScrollPane12, javax.swing.GroupLayout.PREFERRED_SIZE, 427, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(192, Short.MAX_VALUE))
+                .addContainerGap(160, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("tab14", jPanel32);
@@ -4815,6 +4910,54 @@ public class Sistema extends javax.swing.JFrame {
     private void txtIdUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdUsuarioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtIdUsuarioActionPerformed
+
+    private void txtCarnetUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCarnetUsuarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCarnetUsuarioActionPerformed
+
+    private void txtCarnetUsuarioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCarnetUsuarioKeyPressed
+         if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            if(!"".equals(txtCarnetUsuario.getText())){
+                String cod = txtCarnetUsuario.getText();
+                us = usuario.BuscarUsuario(cod);
+                if(us.getNombre() != null){
+                    txtNombreUsuario.setText(""+us.getNombre());
+                    txtApellidoUsuario.setText(""+us.getApellido());
+                    txtDomicilioUsuario.setText(""+us.getDomicilio());
+                    txtTelefonoUsuario.setText(""+us.getTelefono());
+                    cboxTipoUsuario.setSelectedItem(us.getTipoUsuarioNombre());
+                    cboxCargoUsuario.setSelectedItem(us.getCargoNombre());
+                    cboxCarreraUsuario.setSelectedItem(us.getCarreraNombre());
+                    cboxEstadoPrestamoUsuario.setSelectedItem(us.getEstadoPrestamo());
+                    txtNombreUsuario.requestFocus();
+                }else{
+                    LimpiarUsuario();
+                    JOptionPane.showMessageDialog(null, "Usuario no encontrado con CI: " + cod);
+                    txtCarnetUsuario.requestFocus();
+                    txtCarnetUsuario.selectAll();
+                }
+            }else{
+                JOptionPane.showMessageDialog(null, "Ingrese el CI del usuario a buscar");
+                txtCarnetUsuario.requestFocus();
+            }
+         }
+    }//GEN-LAST:event_txtCarnetUsuarioKeyPressed
+
+    private void btnfiltrarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnfiltrarUsuarioActionPerformed
+        pdf();
+    }//GEN-LAST:event_btnfiltrarUsuarioActionPerformed
+
+    private void cboxEFiltroTipoUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxEFiltroTipoUsuarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cboxEFiltroTipoUsuarioActionPerformed
+
+    private void cboxFiltroValorUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxFiltroValorUsuarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cboxFiltroValorUsuarioActionPerformed
+
+    private void btngenerarpdfusuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btngenerarpdfusuarioActionPerformed
+        pdf();
+    }//GEN-LAST:event_btngenerarpdfusuarioActionPerformed
     
     public void ListarUsuario() {
         LimpiarTable();
@@ -4934,13 +5077,17 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JButton btnNuevoUsuario;
     private javax.swing.JButton btnPrestamo;
     private javax.swing.JButton btneleminarMulta;
+    private javax.swing.JButton btnfiltrarUsuario;
+    private javax.swing.JButton btngenerarpdfusuario;
     private javax.swing.JComboBox<String> cboxAutorLibro;
     private javax.swing.JComboBox<String> cboxCargoUsuario;
     private javax.swing.JComboBox<String> cboxCarreraUsuario;
     private javax.swing.JComboBox<String> cboxCategoriaLibro;
+    private javax.swing.JComboBox<String> cboxEFiltroTipoUsuario;
     private javax.swing.JComboBox<String> cboxEditorialLibro;
     private javax.swing.JComboBox<String> cboxEstadoLibro;
     private javax.swing.JComboBox<String> cboxEstadoPrestamoUsuario;
+    private javax.swing.JComboBox<String> cboxFiltroValorUsuario;
     private javax.swing.JComboBox<String> cboxLibro;
     private javax.swing.JComboBox<String> cboxMateriaLibro;
     private javax.swing.JComboBox<String> cboxPaisAutor;
@@ -4988,6 +5135,7 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> jComboBox9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel100;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
@@ -5074,6 +5222,7 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel96;
     private javax.swing.JLabel jLabel97;
     private javax.swing.JLabel jLabel98;
+    private javax.swing.JLabel jLabel99;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
@@ -5254,6 +5403,214 @@ public class Sistema extends javax.swing.JFrame {
         txtStockPrestamo.setText("");
     }
     
+    private void pdfs(){
+            try {
+                FileOutputStream archivo;
+                File file = new File("src/pdf/usuario.pdf");
+                archivo = new FileOutputStream(file);
+                
+                Document doc = new Document();
+                PdfWriter.getInstance(doc, archivo);
+                doc.open();
+                
+                Image img = Image.getInstance("src/Img/SISINf.png");
+                Paragraph fecha = new Paragraph();
+                Font negrita = new Font(Font.FontFamily.TIMES_ROMAN,8, Font.BOLD, BaseColor.BLUE);
+                fecha.add(Chunk.NEWLINE);
+                Date date = new Date();
+                fecha.add("Reporte: 1\n"+"Fecha: "+new SimpleDateFormat("dd-MM-yyyy").format(date)+"\n\n");
+                
+                PdfPTable Encabezado = new PdfPTable(4);
+                Encabezado.setWidthPercentage(100);
+                Encabezado.getDefaultCell().setBorder(0);
+                
+                float[] columnasEncabezado = new float[]{20f, 30f, 70f, 40f};
+                Encabezado.setWidths(columnasEncabezado);
+                Encabezado.setHorizontalAlignment(Element.ALIGN_LEFT);
+                
+                Encabezado.addCell(img);
+                
+                String ci = "00001";
+                String nom = "nombre";
+                String tel = "telefono";
+                String dir = "direccion";
+                String car = "cargo";
+                
+                Encabezado.addCell("");
+                Encabezado.addCell("CI: "+ci+"\nNombre: "+nom+"\nTelefono: "+tel+"\nCargo: "+car);
+                Encabezado.addCell(fecha);
+                doc.add(Encabezado);
+                //listando usuarios general
+                Paragraph usuario = new Paragraph();
+                usuario.add(Chunk.NEWLINE);
+                usuario.add("Datos usuario"+"\n\n");
+                doc.add(usuario);
+                
+                PdfPTable tablaus = new PdfPTable(9);
+                
+                tablaus.setWidthPercentage(100);
+                tablaus.getDefaultCell().setBorder(0);
+                
+                System.out.println("Nombre: " + txtNombreUsuario.getText());
+                System.out.println("Carrera: " + cboxCarreraUsuario.getSelectedItem());
+
+                float[] columnaUs = new float[]{20f, 30f, 40f, 50f, 50f, 40f, 40f, 40f, 40f};
+                tablaus.setWidths(columnaUs);
+                tablaus.setHorizontalAlignment(Element.ALIGN_LEFT);
+                PdfPCell us1 = new PdfPCell(new Phrase("CI"));
+                PdfPCell us2 = new PdfPCell(new Phrase("Nombre"));
+                PdfPCell us3 = new PdfPCell(new Phrase("Apellido"));
+                PdfPCell us4 = new PdfPCell(new Phrase("Domicilio"));
+                PdfPCell us5 = new PdfPCell(new Phrase("Tipo Usuario"));
+                PdfPCell us6 = new PdfPCell(new Phrase("Telefono"));
+                PdfPCell us7 = new PdfPCell(new Phrase("Cargo"));
+                PdfPCell us8 = new PdfPCell(new Phrase("Carrera"));
+                PdfPCell us9 = new PdfPCell(new Phrase("Estado Prestamo"));
+                
+                us1.setBorder(0);
+                us2.setBorder(0);
+                us3.setBorder(0);
+                us4.setBorder(0);
+                us5.setBorder(0);
+                us6.setBorder(0);
+                us7.setBorder(0);
+                us8.setBorder(0);
+                us9.setBorder(0);
+                        
+                tablaus.addCell(us1);
+                tablaus.addCell(us2);
+                tablaus.addCell(us3);
+                tablaus.addCell(us4);
+                tablaus.addCell(us5);
+                tablaus.addCell(us6);
+                tablaus.addCell(us7);
+                tablaus.addCell(us8);
+                tablaus.addCell(us9);
+                
+                tablaus.addCell(txtCarnetUsuario.getText());
+                tablaus.addCell(txtNombreUsuario.getText());
+                tablaus.addCell(txtApellidoUsuario.getText());
+                tablaus.addCell(txtDomicilioUsuario.getText());
+                tablaus.addCell(cboxTipoUsuario.getSelectedItem().toString());
+                tablaus.addCell(txtTelefonoUsuario.getText());
+                tablaus.addCell(cboxCargoUsuario.getSelectedItem().toString());
+                tablaus.addCell(cboxCarreraUsuario.getSelectedItem().toString());
+                tablaus.addCell(cboxEstadoPrestamoUsuario.getSelectedItem().toString());
+                
+                doc.add(tablaus);
+                
+                
+                doc.close();
+                archivo.close();
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Error al generar PDF: " + e.getMessage());
+            }
+    }
     
+    private void pdf() {
+        try {
+            // Ruta del archivo
+            File file = new File("src/pdf/usuarios.pdf");
+            FileOutputStream archivo = new FileOutputStream(file);
+
+            // Documento horizontal (A4 landscape)
+            Document doc = new Document(PageSize.A4.rotate());
+            PdfWriter.getInstance(doc, archivo);
+            doc.open();
+
+            // Imagen del encabezado
+            Image img = Image.getInstance("src/Img/SISINf.png");
+            img.scaleToFit(90, 90);
+
+            // Fecha
+            Paragraph fecha = new Paragraph();
+            Font negrita = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.BOLD, BaseColor.BLUE);
+            fecha.add(Chunk.NEWLINE);
+            Date date = new Date();
+            fecha.add("Fecha: " + new SimpleDateFormat("dd-MM-yyyy").format(date) + "\n\n");
+
+            // ENCABEZADO
+            PdfPTable encabezado = new PdfPTable(4);
+            encabezado.setWidthPercentage(100);
+            encabezado.getDefaultCell().setBorder(0);
+
+            float[] columnasEncabezado = new float[]{20f, 30f, 70f, 40f};
+            encabezado.setWidths(columnasEncabezado);
+            encabezado.setHorizontalAlignment(Element.ALIGN_LEFT);
+
+            encabezado.addCell(img);
+            encabezado.addCell("");
+            encabezado.addCell(new Paragraph("SISTEMA DE BIBLIOTECA\nREPORTE DE USUARIOS", negrita));
+            encabezado.addCell(fecha);
+
+            doc.add(encabezado);
+
+            // Título principal
+            Paragraph titulo = new Paragraph();
+            titulo.add(Chunk.NEWLINE);
+            titulo.add(new Paragraph("LISTADO GENERAL DE USUARIOS\n\n", 
+                    new Font(Font.FontFamily.HELVETICA, 14, Font.BOLD)));
+            titulo.setAlignment(Element.ALIGN_CENTER);
+            doc.add(titulo);
+
+            // Tabla de datos
+            PdfPTable tabla = new PdfPTable(9); // 9 columnas en total
+            tabla.setWidthPercentage(100);
+            tabla.setSpacingBefore(10f);
+            tabla.setSpacingAfter(10f);
+
+            // Ajustar anchos de columnas
+            float[] medidaCeldas = {10f, 20f, 20f, 25f, 20f, 20f, 20f, 20f, 20f};
+            tabla.setWidths(medidaCeldas);
+
+            // Encabezados de tabla
+            Font fontHeader = new Font(Font.FontFamily.HELVETICA, 10, Font.BOLD, BaseColor.WHITE);
+            PdfPCell celdaHeader;
+
+            String[] titulos = {"CI", "Nombre", "Apellido", "Domicilio", "Tipo Usuario", 
+                                "Teléfono", "Cargo", "Carrera", "Estado Préstamo"};
+
+            for (String tituloColumna : titulos) {
+                celdaHeader = new PdfPCell(new Phrase(tituloColumna, fontHeader));
+                celdaHeader.setBackgroundColor(BaseColor.DARK_GRAY);
+                celdaHeader.setHorizontalAlignment(Element.ALIGN_CENTER);
+                celdaHeader.setPadding(5f);
+                tabla.addCell(celdaHeader);
+            }
+
+            // Fuente para los datos
+            Font fontDatos = new Font(Font.FontFamily.HELVETICA, 9);
+
+            // Obtener lista de usuarios desde tu DAO
+            UsuarioDAO udao = new UsuarioDAO();
+            List<Usuario> lista = udao.ListarUsuario(); // asegúrate de tener este método en tu DAO
+
+            for (Usuario u : lista) {
+                tabla.addCell(new Phrase(String.valueOf(u.getCarnet()), fontDatos));
+                tabla.addCell(new Phrase(u.getNombre(), fontDatos));
+                tabla.addCell(new Phrase(u.getApellido(), fontDatos));
+                tabla.addCell(new Phrase(u.getDomicilio(), fontDatos));
+                tabla.addCell(new Phrase(u.getTipoUsuarioNombre(), fontDatos));
+                tabla.addCell(new Phrase(u.getTelefono(), fontDatos));
+                tabla.addCell(new Phrase(u.getCargoNombre(), fontDatos));
+                tabla.addCell(new Phrase(u.getCarreraNombre(), fontDatos));
+                tabla.addCell(new Phrase(u.getEstadoPrestamo(), fontDatos));
+            }
+
+            // Agregar tabla al documento
+            doc.add(tabla);
+
+            // Cerrar
+            doc.close();
+            archivo.close();
+
+            JOptionPane.showMessageDialog(null, "PDF generado correctamente en: " + file.getAbsolutePath());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error al generar PDF: " + e.getMessage());
+        }
+    }
+
 }
 
