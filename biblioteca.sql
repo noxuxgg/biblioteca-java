@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 25-10-2025 a las 22:41:58
+-- Tiempo de generación: 26-10-2025 a las 23:58:05
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -106,10 +106,13 @@ INSERT INTO `categoria` (`Id_categoria`, `Categoria`, `estado`) VALUES
 (2, 'Proyecto de Grado', 1),
 (3, 'Trabajo de Investigacion', 1),
 (4, 'Articulo Cientifico', 1),
-(5, 'Informe laboratorio', 1),
+(5, 'Trabajo titulado', 1),
 (6, 'Trabajo de Curso', 1),
 (7, 'Proyecto de Curso', 1),
-(8, 'Revista Cientifica', 0);
+(8, 'Revista Cientifica', 0),
+(9, 'Proyecto de grado', 0),
+(10, 'Proyecto de GRADO', 0),
+(11, 'Libro  ', 1);
 
 -- --------------------------------------------------------
 
@@ -267,7 +270,9 @@ CREATE TABLE `libro` (
 INSERT INTO `libro` (`Id_libro`, `Titulo`, `Id_categoria`, `Id_editorial`, `Id_autor`, `Id_materia`, `Edicion`, `Estado`, `codigo`, `fechaRegistro`, `stock`, `anio`, `Descripcion`, `id_estado`) VALUES
 (4, 'Fundamentos de C++', 1, 25, 1, 8, '9na.', '1', 'P-1101', '2025-10-12', 1, 2000, 'KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK', 5),
 (6, 'El mundo de los Objetos', 1, 12, 3, 6, '10ma.', '1', 'P-1102', '2025-10-12', 4, 2003, '', 5),
-(11, 'Java', NULL, NULL, NULL, NULL, '', '1', 'P-1010', '2025-10-12', 2, 0, '', 5);
+(11, 'Java', NULL, NULL, NULL, NULL, '', '1', 'P-1010', '2025-10-12', 2, 0, '', 5),
+(12, 'Programacion en C', 2, 10, 1, 6, '10ma', '1', 'P-1020', '2025-10-26', 3, 2020, 'Programacion', 5),
+(13, 'Python', 5, 21, 2, 8, '1ra.', '1', 'P-1022', '2025-10-26', 2, 1999, 'PYTHON', 5);
 
 -- --------------------------------------------------------
 
@@ -312,7 +317,8 @@ INSERT INTO `materia` (`Id_materia`, `sigla`, `Nombre`, `estado`) VALUES
 (4, 'INF-1210', 'Análisis Discreto', 1),
 (6, 'SIS-2210', 'Metodología de la Programación II', 1),
 (7, 'SIS-2430', 'Programación Gráfica', 1),
-(8, 'SIS-1110', 'Metodología de la Programación I', 1);
+(8, 'SIS-1110', 'Metodología de la Programación I', 1),
+(9, 'MAT-1207', 'Ecuaciones Diferenciales', 1);
 
 -- --------------------------------------------------------
 
@@ -361,7 +367,15 @@ INSERT INTO `paises` (`id_pais`, `nombre`, `estado`) VALUES
 (14, 'Colombia', 1),
 (15, 'Puerto Rico', 1),
 (16, 'Noruega', 1),
-(17, 'Venezuela', 1);
+(17, 'Venezuela', 1),
+(18, 'Perú', 1),
+(19, 'CHINA JAPON', 0),
+(20, 'CHINA JAPON', 0),
+(21, 'Senegal', 1),
+(22, 'Bolivia', 0),
+(23, 'Challapampita', 0),
+(24, '      d', 0),
+(25, 'Rumania', 1);
 
 -- --------------------------------------------------------
 
@@ -463,7 +477,8 @@ INSERT INTO `usuario` (`Id_usuario`, `Carnet`, `Nombre`, `Apellido`, `Domicilo`,
 (6, '5489632', 'Maria', 'Campero Rodriguez', 'La plata entre villaroel y 6 de agosto Nro 67', 2, '61278854', 3, 1, 1, 1),
 (7, '48658454', 'Carla', 'Rocha Quispe', 'Pagado entre soria galvarro y ayacucho Nro 40', 2, '58421154', 3, 1, 0, 1),
 (15, '7274931', 'Adriana', 'Choquecallata Troncoso', 'Av. Villaroel y Ayachucho #35', 2, '63814471', 3, 2, 1, 1),
-(16, '5689451', 'Juana Azurduy', 'De padilla', 'Av terracota, calle Linares #54', 2, '78945211', 3, 1, 1, 1);
+(16, '5689451', 'Juana Azurduy', 'De padilla', 'Av terracota, calle Linares #54', 2, '78945211', 3, 1, 1, 1),
+(17, '2412344', 'ADFADFAFDFD', 'ADFAFDAFDADF', 'ADFADFADFAFD', 2, '65353230', 2, 2, 1, 1);
 
 --
 -- Índices para tablas volcadas
@@ -628,7 +643,7 @@ ALTER TABLE `carrera`
 -- AUTO_INCREMENT de la tabla `categoria`
 --
 ALTER TABLE `categoria`
-  MODIFY `Id_categoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `Id_categoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de la tabla `cliente`
@@ -670,7 +685,7 @@ ALTER TABLE `historial_libros`
 -- AUTO_INCREMENT de la tabla `libro`
 --
 ALTER TABLE `libro`
-  MODIFY `Id_libro` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `Id_libro` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT de la tabla `login`
@@ -682,7 +697,7 @@ ALTER TABLE `login`
 -- AUTO_INCREMENT de la tabla `materia`
 --
 ALTER TABLE `materia`
-  MODIFY `Id_materia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `Id_materia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `multa`
@@ -694,7 +709,7 @@ ALTER TABLE `multa`
 -- AUTO_INCREMENT de la tabla `paises`
 --
 ALTER TABLE `paises`
-  MODIFY `id_pais` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id_pais` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT de la tabla `prestamos`
@@ -718,7 +733,7 @@ ALTER TABLE `tipo_usuario`
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `Id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `Id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- Restricciones para tablas volcadas
