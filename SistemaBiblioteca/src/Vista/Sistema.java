@@ -88,16 +88,13 @@ public class Sistema extends javax.swing.JFrame {
     Multa mu = new Multa();
     MultaDAO multaDao = new MultaDAO();
     DefaultTableModel modeloMulta = new DefaultTableModel();
-    
+
     //ESTO ES POR MULTA
     private static final float MULTA_POR_DIA = 2.0f; // puedes cambiar el monto diario
 
-    
-
-
     public Sistema() {
         initComponents();
-        /*LimpiarTable();
+        LimpiarTable();
         this.setLocationRelativeTo(null);
         txtIdPais.setVisible(false);
         txtIdCategoria.setVisible(false);
@@ -142,11 +139,11 @@ public class Sistema extends javax.swing.JFrame {
         cboxEFiltroUsuario.setSelectedIndex(0); // Selecciona la primera opción
 
         // Llenar los valores iniciales según el filtro seleccionado
-        actualizarComboValorUsuario();*/
-       
+        actualizarComboValorUsuario();
+
     }
-    
-    public Sistema(login priv){
+
+    public Sistema(login priv) {
         initComponents();
         LimpiarTable();
         this.setLocationRelativeTo(null);
@@ -195,7 +192,7 @@ public class Sistema extends javax.swing.JFrame {
         // Llenar los valores iniciales según el filtro seleccionado
         actualizarComboValorUsuario();
         //privilegios
-        
+
         String tipo = (priv.getTipo() != null) ? priv.getTipo().toLowerCase() : "desconocido";
 
         if ("administrador".equals(tipo)) {
@@ -210,7 +207,7 @@ public class Sistema extends javax.swing.JFrame {
             btnReportes.setEnabled(false);
             btnAnalisis.setEnabled(false);
             btnAjuste.setEnabled(false);
-            
+
             for (int i = cboxLibro.getItemCount() - 1; i >= 0; i--) {
                 Object item = cboxLibro.getItemAt(i);
                 if (!"Libros".equalsIgnoreCase(item.toString())) {
@@ -223,7 +220,7 @@ public class Sistema extends javax.swing.JFrame {
             //falta cerrar guardar eliminar y asi
             JOptionPane.showMessageDialog(null, "Entro como usuario normal");
             System.out.println("Entró como usuario normal");
-        } else if("reportes".equals(tipo)){
+        } else if ("reportes".equals(tipo)) {
             //USUARIO
             btnGuardarUsuario.setEnabled(false);
             btnEliminarUsuario.setEnabled(false);
@@ -238,17 +235,15 @@ public class Sistema extends javax.swing.JFrame {
             cboxCarreraUsuario.setEnabled(false);
             cboxTipoUsuario.setEnabled(false);
             cboxEstadoPrestamoUsuario.setEnabled(false);
-            
+
             JOptionPane.showMessageDialog(this, "Bienvenido usuario de reportes");
-        }
-        else {
+        } else {
             JOptionPane.showMessageDialog(this,
-                "Tipo de usuario desconocido: " + tipo,
-                "Advertencia",
-                JOptionPane.WARNING_MESSAGE);
+                    "Tipo de usuario desconocido: " + tipo,
+                    "Advertencia",
+                    JOptionPane.WARNING_MESSAGE);
         }
     }
-    
 
     public void ListarPais() {
         LimpiarTable();
@@ -320,7 +315,7 @@ public class Sistema extends javax.swing.JFrame {
         }
         TableAutor.setModel(modelo);
     }
-    
+
     public void ListarLibro() {
         LimpiarTable();
         List<Libro> ListarLibro = libro.ListarLibro();
@@ -352,97 +347,100 @@ public class Sistema extends javax.swing.JFrame {
         }
     }
     //DESDE AQUI COMIENZA MULTAS
-    
+
     public void ListarMultas() {
-    LimpiarTableMulta();
-    List<Multa> lista = multaDao.listarMultas();
-    modeloMulta = (DefaultTableModel) tableMultas.getModel();
-    Object[] obj = new Object[7];
-    for (int i = 0; i < lista.size(); i++) {
-        obj[0] = lista.get(i).getId_multa();
-        obj[1] = lista.get(i).getId_prestamo();
-        obj[2] = lista.get(i).getId_usuario();
-        obj[3] = lista.get(i).getNombreUsuario();
-        obj[4] = lista.get(i).getDias_retraso();
-        obj[5] = lista.get(i).getMonto();
-        obj[6] = lista.get(i).getEstado();
-        modeloMulta.addRow(obj);
-    }
-    tableMultas.setModel(modeloMulta);
-   }
-   public void LimpiarTableMulta() {
-    modeloMulta = (DefaultTableModel) tableMultas.getModel();
-    for (int i = 0; i < modeloMulta.getRowCount(); i++) {
-        modeloMulta.removeRow(i);
-        i = i - 1;
-    }
-    }
-   public void LimpiarCamposMulta() {
-    txtIdMulta.setText("");
-    txtIdprestamomulta.setText("");
-    txtIdUsuariomulta.setText("");
-    txtdiasretraso.setText("");
-    txtmonto.setText("");
-    ComboBoxEstadomulta.setSelectedIndex(0);
-    }
-   public void BuscarPrestamoPorId() {
-    String texto = txtBuscarprestamo.getText().trim();
-    if (texto.isEmpty()) {
-        JOptionPane.showMessageDialog(null, "⚠ Ingrese un ID de préstamo para buscar.");
-        return;
+        LimpiarTableMulta();
+        List<Multa> lista = multaDao.listarMultas();
+        modeloMulta = (DefaultTableModel) tableMultas.getModel();
+        Object[] obj = new Object[7];
+        for (int i = 0; i < lista.size(); i++) {
+            obj[0] = lista.get(i).getId_multa();
+            obj[1] = lista.get(i).getId_prestamo();
+            obj[2] = lista.get(i).getId_usuario();
+            obj[3] = lista.get(i).getNombreUsuario();
+            obj[4] = lista.get(i).getDias_retraso();
+            obj[5] = lista.get(i).getMonto();
+            obj[6] = lista.get(i).getEstado();
+            modeloMulta.addRow(obj);
+        }
+        tableMultas.setModel(modeloMulta);
     }
 
-    int idBuscar;
-    try {
-        idBuscar = Integer.parseInt(texto);
-    } catch (NumberFormatException e) {
-        JOptionPane.showMessageDialog(null, "⚠ El ID debe ser un número válido.");
-        return;
+    public void LimpiarTableMulta() {
+        modeloMulta = (DefaultTableModel) tableMultas.getModel();
+        for (int i = 0; i < modeloMulta.getRowCount(); i++) {
+            modeloMulta.removeRow(i);
+            i = i - 1;
+        }
     }
 
-    PrestamoDAO prestamoDAO = new PrestamoDAO();
-    Prestamo p = prestamoDAO.buscarPorId(idBuscar);
+    public void LimpiarCamposMulta() {
+        txtIdMulta.setText("");
+        txtIdprestamomulta.setText("");
+        txtIdUsuariomulta.setText("");
+        txtdiasretraso.setText("");
+        txtmonto.setText("");
+        ComboBoxEstadomulta.setSelectedIndex(0);
+    }
 
-    DefaultTableModel modeloPrestamo = (DefaultTableModel) tableverprestamo.getModel();
-    modeloPrestamo.setRowCount(0); // limpiar tabla antes de mostrar resultados
-
-    if (p != null) {
-        // ✅ Buscar también información adicional para mostrarla
-        UsuarioDAO usuarioDAO = new UsuarioDAO();
-        Usuario u = usuarioDAO.BuscarUsuarioPorId(p.getId_usuario()); // ← asegúrate de tener este método
-        LibroDAO libroDAO = new LibroDAO();
-        Libro l = libroDAO.BuscarLibroPorId(p.getId_libro()); // ← asegúrate de tener este método
-
-        // Calcular días de retraso
-        int diasRetraso = 0;
-        try {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            Date fechaDevolucion = sdf.parse(p.getFecha_devolucion());
-            Date fechaActual = new Date();
-            long diff = fechaActual.getTime() - fechaDevolucion.getTime();
-            diasRetraso = (int) (diff / (1000 * 60 * 60 * 24));
-            if (diasRetraso < 0) diasRetraso = 0;
-        } catch (Exception e) {
-            System.out.println("Error al calcular retraso: " + e.getMessage());
+    public void BuscarPrestamoPorId() {
+        String texto = txtBuscarprestamo.getText().trim();
+        if (texto.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "⚠ Ingrese un ID de préstamo para buscar.");
+            return;
         }
 
-        // Mostrar el préstamo en la tabla
-        Object[] fila = new Object[6];
-        fila[0] = p.getId_prestamo();
-        fila[1] = p.getId_usuario();
-        fila[2] = (u != null) ? u.getNombre() + " " + u.getApellido() : "Desconocido";
-        fila[3] = diasRetraso;
-        fila[4] = (l != null) ? l.getTitulo() : "Desconocido";
-        fila[5] = p.getEstado();
-        modeloPrestamo.addRow(fila);
+        int idBuscar;
+        try {
+            idBuscar = Integer.parseInt(texto);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "⚠ El ID debe ser un número válido.");
+            return;
+        }
 
-    } else {
-        JOptionPane.showMessageDialog(null, "❌ No se encontró ningún préstamo con ese ID.");
+        PrestamoDAO prestamoDAO = new PrestamoDAO();
+        Prestamo p = prestamoDAO.buscarPorId(idBuscar);
+
+        DefaultTableModel modeloPrestamo = (DefaultTableModel) tableverprestamo.getModel();
+        modeloPrestamo.setRowCount(0); // limpiar tabla antes de mostrar resultados
+
+        if (p != null) {
+            // ✅ Buscar también información adicional para mostrarla
+            UsuarioDAO usuarioDAO = new UsuarioDAO();
+            Usuario u = usuarioDAO.BuscarUsuarioPorId(p.getId_usuario()); // ← asegúrate de tener este método
+            LibroDAO libroDAO = new LibroDAO();
+            Libro l = libroDAO.BuscarLibroPorId(p.getId_libro()); // ← asegúrate de tener este método
+
+            // Calcular días de retraso
+            int diasRetraso = 0;
+            try {
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                Date fechaDevolucion = sdf.parse(p.getFecha_devolucion());
+                Date fechaActual = new Date();
+                long diff = fechaActual.getTime() - fechaDevolucion.getTime();
+                diasRetraso = (int) (diff / (1000 * 60 * 60 * 24));
+                if (diasRetraso < 0) {
+                    diasRetraso = 0;
+                }
+            } catch (Exception e) {
+                System.out.println("Error al calcular retraso: " + e.getMessage());
+            }
+
+            // Mostrar el préstamo en la tabla
+            Object[] fila = new Object[6];
+            fila[0] = p.getId_prestamo();
+            fila[1] = p.getId_usuario();
+            fila[2] = (u != null) ? u.getNombre() + " " + u.getApellido() : "Desconocido";
+            fila[3] = diasRetraso;
+            fila[4] = (l != null) ? l.getTitulo() : "Desconocido";
+            fila[5] = p.getEstado();
+            modeloPrestamo.addRow(fila);
+
+        } else {
+            JOptionPane.showMessageDialog(null, "❌ No se encontró ningún préstamo con ese ID.");
+        }
     }
-    }
-   //HASTA AQUI SON LAS MULTAS
-
-
+    //HASTA AQUI SON LAS MULTAS
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -3253,15 +3251,18 @@ public class Sistema extends javax.swing.JFrame {
                         .addGap(17, 17, 17)
                         .addGroup(jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txtIdMateria, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnGuardarMateria, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnEliminarMateria, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnActualizarMateria)
-                            .addComponent(btnNuevoMateria)
                             .addComponent(txtNombreMateria)
-                            .addComponent(txtSiglaMateria, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(txtSiglaMateria, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel26Layout.createSequentialGroup()
+                                .addGap(78, 78, 78)
+                                .addGroup(jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(btnNuevoMateria, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnGuardarMateria, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnEliminarMateria, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnActualizarMateria, javax.swing.GroupLayout.Alignment.LEADING))))))
                 .addGap(79, 79, 79)
                 .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 685, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(6830, Short.MAX_VALUE))
+                .addContainerGap(6831, Short.MAX_VALUE))
         );
         jPanel26Layout.setVerticalGroup(
             jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -3281,7 +3282,7 @@ public class Sistema extends javax.swing.JFrame {
                             .addComponent(txtNombreMateria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addComponent(txtIdMateria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(27, 27, 27)
+                        .addGap(24, 24, 24)
                         .addComponent(btnGuardarMateria)
                         .addGap(18, 18, 18)
                         .addComponent(btnEliminarMateria)
@@ -3798,13 +3799,13 @@ public class Sistema extends javax.swing.JFrame {
             fun.VaciarCombo(cboxEditorialLibro);
             fun.VaciarCombo(cboxCategoriaLibro);
             fun.VaciarCombo(cboxEstadoLibro);
-            
+
             libro.ConsultarAutor(cboxAutorLibro);
             libro.ConsultarMateria(cboxMateriaLibro);
             libro.ConsultarEditorial(cboxEditorialLibro);
             libro.ConsultarCategoria(cboxCategoriaLibro);
             libro.ConsultarEstado(cboxEstadoLibro);
-            
+
             LimpiarLibro();
             LimpiarTable();
             ListarLibro();
@@ -3814,12 +3815,12 @@ public class Sistema extends javax.swing.JFrame {
             fun.VaciarCombo(cboxCargoUsuario);
             fun.VaciarCombo(cboxEstadoPrestamoUsuario);
             fun.VaciarCombo(cboxTipoUsuario);
-            
+
             usuario.ConsultarCarreras(cboxCarreraUsuario);
             usuario.ConsultarCargo(cboxCargoUsuario);
             usuario.ConsultarEstadoUsuario(cboxEstadoPrestamoUsuario);
             usuario.ConsultarTipoUsuario(cboxTipoUsuario);
-            
+
             LimpiarUsuario();
             LimpiarTable();
             ListarUsuario();
@@ -3831,7 +3832,7 @@ public class Sistema extends javax.swing.JFrame {
         LimpiarTable();
         ListarPrestamo();
         jTabbedPane1.setSelectedIndex(5);
-        
+
     }//GEN-LAST:event_btnPrestamoActionPerformed
 
     private void btnReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportesActionPerformed
@@ -3840,20 +3841,20 @@ public class Sistema extends javax.swing.JFrame {
 
     private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarActionPerformed
         int opcion = JOptionPane.showConfirmDialog(this,
-            "¿Deseas cerrar sesión?",
-            "Confirmar",
-            JOptionPane.YES_NO_OPTION,
-            JOptionPane.QUESTION_MESSAGE);
+                "¿Deseas cerrar sesión?",
+                "Confirmar",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE);
 
-            if (opcion == JOptionPane.YES_OPTION) {
-                // Cierra la ventana actual
-                this.dispose();
+        if (opcion == JOptionPane.YES_OPTION) {
+            // Cierra la ventana actual
+            this.dispose();
 
-                // Abre la ventana de Login
-                Login login = new Login();
-                login.setVisible(true);
-                login.setLocationRelativeTo(null); // centra la ventana
-            }
+            // Abre la ventana de Login
+            Login login = new Login();
+            login.setVisible(true);
+            login.setLocationRelativeTo(null); // centra la ventana
+        }
     }//GEN-LAST:event_btnCerrarActionPerformed
 
     private void txtUsuarioPrestamoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsuarioPrestamoActionPerformed
@@ -3862,11 +3863,11 @@ public class Sistema extends javax.swing.JFrame {
 
     private void btnGuardarPrestamoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarPrestamoActionPerformed
         // TODO add your handling code here:
-         String cod = txtUsuarioPrestamo.getText();
-         us = usuario.BuscarUsuario(cod);
-         if(us.getId_estado_prestamo()==1){
-        if(!"".equals(txtidUsuarioPrestamo.getText()) ||!"".equals(txtidLibroPrestamo.getText()) || !"".equals(txtFechaDevolucion.getDateFormatString()) ){
-        /*   // Crear formateador para MySQL (YYYY-MM-DD)
+        String cod = txtUsuarioPrestamo.getText();
+        us = usuario.BuscarUsuario(cod);
+        if (us.getId_estado_prestamo() == 1) {
+            if (!"".equals(txtidUsuarioPrestamo.getText()) || !"".equals(txtidLibroPrestamo.getText()) || !"".equals(txtFechaDevolucion.getDateFormatString())) {
+                /*   // Crear formateador para MySQL (YYYY-MM-DD)
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         
         // Fecha de préstamo (automática - hoy)
@@ -3876,51 +3877,51 @@ public class Sistema extends javax.swing.JFrame {
         // Fecha de devolución (del JDateChooser)
         Date fechaDev = txtFechaDevolucion.getDate();
         String fechaDevolucionFormateada = sdf.format(fechaDev);
-        */
-        
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            
-            // Obtener fecha del JDateChooser y hora actual
-            Date fechaSeleccionada = txtFechaDevolucion.getDate();
-            Date horaActual = new Date(); // Hora actual
-            
-            // Combinar fecha seleccionada con hora actual
-            Calendar calSeleccionada = Calendar.getInstance();
-            calSeleccionada.setTime(fechaSeleccionada);
-            
-            Calendar calHoraActual = Calendar.getInstance();
-            calHoraActual.setTime(horaActual);
-            
-            // Aplicar hora actual a la fecha seleccionada
-            calSeleccionada.set(Calendar.HOUR_OF_DAY, calHoraActual.get(Calendar.HOUR_OF_DAY));
-            calSeleccionada.set(Calendar.MINUTE, calHoraActual.get(Calendar.MINUTE));
-            calSeleccionada.set(Calendar.SECOND, calHoraActual.get(Calendar.SECOND));
-            
-            String fechaDevolucionFormateada = sdf.format(calSeleccionada.getTime());
-            pre.setId_usuario(Integer.parseInt(txtidUsuarioPrestamo.getText()));
-            pre.setId_libro(Integer.parseInt(txtidLibroPrestamo.getText()));
-            pre.setFecha_devolucion(fechaDevolucionFormateada);
-            //pre.setFecha_prestamo(fechaPrestamoFormateada);
-           // pre.setEstado("Activo");
-             JOptionPane.showMessageDialog(null,"Se registro el prestamo correctamente");
-              //LimpiarTable();
-              //ListarPrestamo();
-             prestamo.RegistrarPrestamo(pre);
-             String co=txtCodigoPrestamo.getText();
-             li = libro.BuscarLibro(co);
-             int StockActual= li.getStock()-1;
-             int idlibro = li.getId_libro();
-             prestamo.ActualizarStockLibro(StockActual, idlibro);
-            
-               LimpiarTable();
+                 */
+
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+                // Obtener fecha del JDateChooser y hora actual
+                Date fechaSeleccionada = txtFechaDevolucion.getDate();
+                Date horaActual = new Date(); // Hora actual
+
+                // Combinar fecha seleccionada con hora actual
+                Calendar calSeleccionada = Calendar.getInstance();
+                calSeleccionada.setTime(fechaSeleccionada);
+
+                Calendar calHoraActual = Calendar.getInstance();
+                calHoraActual.setTime(horaActual);
+
+                // Aplicar hora actual a la fecha seleccionada
+                calSeleccionada.set(Calendar.HOUR_OF_DAY, calHoraActual.get(Calendar.HOUR_OF_DAY));
+                calSeleccionada.set(Calendar.MINUTE, calHoraActual.get(Calendar.MINUTE));
+                calSeleccionada.set(Calendar.SECOND, calHoraActual.get(Calendar.SECOND));
+
+                String fechaDevolucionFormateada = sdf.format(calSeleccionada.getTime());
+                pre.setId_usuario(Integer.parseInt(txtidUsuarioPrestamo.getText()));
+                pre.setId_libro(Integer.parseInt(txtidLibroPrestamo.getText()));
+                pre.setFecha_devolucion(fechaDevolucionFormateada);
+                //pre.setFecha_prestamo(fechaPrestamoFormateada);
+                // pre.setEstado("Activo");
+                JOptionPane.showMessageDialog(null, "Se registro el prestamo correctamente");
+                //LimpiarTable();
+                //ListarPrestamo();
+                prestamo.RegistrarPrestamo(pre);
+                String co = txtCodigoPrestamo.getText();
+                li = libro.BuscarLibro(co);
+                int StockActual = li.getStock() - 1;
+                int idlibro = li.getId_libro();
+                prestamo.ActualizarStockLibro(StockActual, idlibro);
+
+                LimpiarTable();
                 LimpiarPrestamo();
                 ListarPrestamo();
-        }else{
-            JOptionPane.showMessageDialog(null,"Los campos estan vacios");
+            } else {
+                JOptionPane.showMessageDialog(null, "Los campos estan vacios");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "El usuario no esta habilitado para realizar un prestamo");
         }
-        }else{
-             JOptionPane.showMessageDialog(null,"El usuario no esta habilitado para realizar un prestamo");
-         }
     }//GEN-LAST:event_btnGuardarPrestamoActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
@@ -4227,8 +4228,8 @@ public class Sistema extends javax.swing.JFrame {
 
     private void btnEliminarPrestamoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarPrestamoActionPerformed
         // TODO add your handling code here:
-        
-          if (!"".equals(txtidPrestamo.getText())) {
+
+        if (!"".equals(txtidPrestamo.getText())) {
             int pregunta = JOptionPane.showConfirmDialog(null, "Esta seguro de eliminar el Prestamo Nro. " + txtidPrestamo.getText());
             if (pregunta == 0) {
                 int id = Integer.parseInt(txtidPrestamo.getText());
@@ -4237,7 +4238,7 @@ public class Sistema extends javax.swing.JFrame {
                 LimpiarPrestamo();
                 ListarPrestamo();
             }
-        } else{
+        } else {
             JOptionPane.showMessageDialog(null, "Debe seleccionar un Prestamo para eliminar");
         }
     }//GEN-LAST:event_btnEliminarPrestamoActionPerformed
@@ -4289,13 +4290,20 @@ public class Sistema extends javax.swing.JFrame {
     private void btnGuardarCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarCategoriaActionPerformed
         // TODO add your handling code here:
         if (!"".equals(txtNombreCategoria.getText())) {
-            ca.setCategoria(txtNombreCategoria.getText());
-            ca.setEstado(1);
-            categoria.RegistrarCategoria(ca);
-            JOptionPane.showMessageDialog(null, "Categoria Registrada con Exito!!!");
-            LimpiarTable();
-            LimpiarCategoria();
-            ListarCategoria();
+            boolean error;
+            if (categoria.existeCategoria(txtNombreCategoria.getText()) == false) {
+                ca.setCategoria(txtNombreCategoria.getText());
+                ca.setEstado(1);
+                error = categoria.RegistrarCategoria(ca);
+                if (error == true) {
+                    JOptionPane.showMessageDialog(null, "Categoria Registrada con Exito!!!");
+                    LimpiarTable();
+                    LimpiarCategoria();
+                    ListarCategoria();
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "La categoria " + txtNombreCategoria.getText() + " ya ha sido registrada");
+            }
         } else {
             JOptionPane.showMessageDialog(null, "Los campos se encuentran vacios");
         }
@@ -4303,14 +4311,21 @@ public class Sistema extends javax.swing.JFrame {
 
     private void btnGuardarMateriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarMateriaActionPerformed
         if (!"".equals(txtSiglaMateria.getText()) && !"".equals(txtNombreMateria.getText())) {
-            ma.setSigla(txtSiglaMateria.getText());
-            ma.setNombre(txtNombreMateria.getText());
-            ma.setEstado(1);
-            materia.RegistrarMateria(ma);
-            JOptionPane.showMessageDialog(null, "Materia Registrada con Exito!!!");
-            LimpiarTable();
-            LimpiarMateria();
-            ListarMateria();
+            boolean error;
+            if (materia.existeMateria(txtSiglaMateria.getText()) == false) {
+                ma.setSigla(txtSiglaMateria.getText());
+                ma.setNombre(txtNombreMateria.getText());
+                ma.setEstado(1);
+                error = materia.RegistrarMateria(ma);
+                if (error == true) {
+                    JOptionPane.showMessageDialog(null, "Materia Registrada con Exito!!!");
+                    LimpiarTable();
+                    LimpiarMateria();
+                    ListarMateria();
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "La materia con la sigla " + txtSiglaMateria.getText() + " ya ha sido registrado");
+            }
         } else {
             JOptionPane.showMessageDialog(null, "Los campos se encuentra vacios");
         }
@@ -4323,13 +4338,20 @@ public class Sistema extends javax.swing.JFrame {
     private void btnGuardarPaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarPaisActionPerformed
         // TODO add your handling code here:
         if (!"".equals(txtNombrePais.getText())) {
-            pa.setNombre(txtNombrePais.getText());
-            pa.setEstado(1);
-            pais.registrarPais(pa);
-            JOptionPane.showMessageDialog(null, "Pais Registrado con Exito!!!");
-            LimpiarTable();
-            LimpiarPais();
-            ListarPais();
+            boolean error;
+            if (pais.existePais(txtNombrePais.getText()) == false) {
+                pa.setNombre(txtNombrePais.getText());
+                pa.setEstado(1);
+                error = pais.registrarPais(pa);
+                if (error == true) {
+                    JOptionPane.showMessageDialog(null, "País Registrado con Éxito!!!");
+                    LimpiarPais();
+                }
+                LimpiarTable();
+                ListarPais();
+            } else {
+                JOptionPane.showMessageDialog(null, "El país " + txtNombrePais.getText() + " ya ha sido registrado");
+            }
         } else {
             JOptionPane.showMessageDialog(null, "Los campos se encuentran vacios");
         }
@@ -4404,11 +4426,17 @@ public class Sistema extends javax.swing.JFrame {
             if (!"".equals(txtNombrePais.getText())) {
                 pa.setNombre(txtNombrePais.getText());
                 pa.setId_pais(Integer.parseInt(txtIdPais.getText()));
-                pais.ModificarPais(pa);
-                LimpiarTable();
-                LimpiarPais();
-                ListarPais();
-                JOptionPane.showMessageDialog(null, "Campos actualizados con exito");
+                if (pais.existePais(txtNombrePais.getText()) == false) {
+                    boolean resultado = pais.ModificarPais(pa);
+                    if (resultado) {
+                        JOptionPane.showMessageDialog(null, "Usuario actualizado con éxito");
+                        LimpiarTable();
+                        LimpiarPais();
+                        ListarPais();
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "El país " + txtNombrePais.getText() + " ya ha sido registrado");
+                }
             } else {
                 JOptionPane.showMessageDialog(null, "Los campos no pueden estar vacios");
             }
@@ -4431,13 +4459,20 @@ public class Sistema extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Seleccione una fila");
         } else {
             if (!"".equals(txtNombreCategoria.getText())) {
-                ca.setCategoria(txtNombreCategoria.getText());
-                ca.setId_categoria(Integer.parseInt(txtIdCategoria.getText()));
-                categoria.ModificarCategoria(ca);
-                LimpiarTable();
-                LimpiarCategoria();
-                ListarCategoria();
-                JOptionPane.showMessageDialog(null, "Campos actualizados con exito");
+                if (categoria.existeCategoria(txtNombreCategoria.getText()) == false) {
+                    boolean error;
+                    ca.setCategoria(txtNombreCategoria.getText());
+                    ca.setId_categoria(Integer.parseInt(txtIdCategoria.getText()));
+                    error = categoria.ModificarCategoria(ca);
+                    if (error == true) {
+                        LimpiarTable();
+                        LimpiarCategoria();
+                        ListarCategoria();
+                        JOptionPane.showMessageDialog(null, "Campos actualizados con exito");
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "La categoría " + txtNombreCategoria.getText() + " ya ha sido registrada");
+                }
             } else {
                 JOptionPane.showMessageDialog(null, "Los campos no pueden estar vacios");
             }
@@ -4456,14 +4491,21 @@ public class Sistema extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Seleccione una fila");
         } else {
             if (!"".equals(txtNombreMateria.getText()) && !"".equals(txtSiglaMateria.getText())) {
-                ma.setNombre(txtNombreMateria.getText());
-                ma.setSigla(txtSiglaMateria.getText());
-                ma.setId_materia(Integer.parseInt(txtIdMateria.getText()));
-                materia.ModificarMateria(ma);
-                LimpiarTable();
-                LimpiarMateria();
-                ListarMateria();
-                JOptionPane.showMessageDialog(null, "Campos actualizados con exito");
+                if (materia.existeMateria(txtSiglaMateria.getText()) == false) {
+                    boolean error;
+                    ma.setNombre(txtNombreMateria.getText());
+                    ma.setSigla(txtSiglaMateria.getText());
+                    ma.setId_materia(Integer.parseInt(txtIdMateria.getText()));
+                    error = materia.ModificarMateria(ma);
+                    if (error == true) {
+                        LimpiarTable();
+                        LimpiarMateria();
+                        ListarMateria();
+                        JOptionPane.showMessageDialog(null, "Campos actualizados con exito");
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "La materia con sigla " + txtSiglaMateria.getText() + " ya ha sido registrada");
+                }
             } else {
                 JOptionPane.showMessageDialog(null, "Los campos no pueden estar vacios");
             }
@@ -4498,35 +4540,35 @@ public class Sistema extends javax.swing.JFrame {
         if (!"".equals(txtTituloLibro.getText()) && !"".equals(txtCodigoLibro.getText()) && !"".equals(cboxEstadoLibro.getSelectedItem()) && !"".equals(txtStockLibro.getText()) && !"".equals(txtAnioLibro.getText())) {
             li.setTitulo(txtTituloLibro.getText());
             li.setCodigo(txtCodigoLibro.getText());
-            if(!"".equals(cboxAutorLibro.getSelectedItem().toString())){
+            if (!"".equals(cboxAutorLibro.getSelectedItem().toString())) {
                 li.setId_autor(libro.ObtenerIdAutor(cboxAutorLibro.getSelectedItem().toString()));
             }
-            if(!"".equals(cboxMateriaLibro.getSelectedItem().toString())){
+            if (!"".equals(cboxMateriaLibro.getSelectedItem().toString())) {
                 li.setId_materia(libro.ObtenerIdMateria(cboxMateriaLibro.getSelectedItem().toString()));
             }
             li.setStock(Integer.parseInt(txtStockLibro.getText()));
-            if(!"".equals(cboxEditorialLibro.getSelectedItem().toString())){
+            if (!"".equals(cboxEditorialLibro.getSelectedItem().toString())) {
                 li.setId_editorial(libro.ObtenerIdEditorial(cboxEditorialLibro.getSelectedItem().toString()));
             }
-            if(!"".equals(txtAnioLibro.getText())){
+            if (!"".equals(txtAnioLibro.getText())) {
                 li.setAnio(Integer.parseInt(txtAnioLibro.getText()));
-            }            
+            }
             li.setEdicion(txtEdicionLibro.getText());
-            if(!"".equals(cboxCategoriaLibro.getSelectedItem().toString())){
+            if (!"".equals(cboxCategoriaLibro.getSelectedItem().toString())) {
                 li.setId_categoria(libro.ObtenerIdCategoria(cboxCategoriaLibro.getSelectedItem().toString()));
             }
-            if(!"".equals(cboxEstadoLibro.getSelectedItem().toString())){
-                li.setId_estado(libro.ObtenerIdEstado(cboxEstadoLibro.getSelectedItem().toString()));    
+            if (!"".equals(cboxEstadoLibro.getSelectedItem().toString())) {
+                li.setId_estado(libro.ObtenerIdEstado(cboxEstadoLibro.getSelectedItem().toString()));
             }
             li.setDescripcion(txtDescripcionLibro.getText());
             li.setEstado(1);
-            System.out.println(li.getTitulo()+" "+li.getCodigo()+" "+li.getId_autor()+" "+li.getId_materia()+" "+li.getStock()+" "+li.getId_editorial()+" "+li.getAnio()+" "+li.getEdicion()+" "+li.getId_categoria()+" "+li.getId_estado()+" "+li.getDescripcion()+" "+li.getEstado());
-            
+            System.out.println(li.getTitulo() + " " + li.getCodigo() + " " + li.getId_autor() + " " + li.getId_materia() + " " + li.getStock() + " " + li.getId_editorial() + " " + li.getAnio() + " " + li.getEdicion() + " " + li.getId_categoria() + " " + li.getId_estado() + " " + li.getDescripcion() + " " + li.getEstado());
+
             libro.RegistrarLibro(li);
             JOptionPane.showMessageDialog(null, "Libro Registrado con Exito!!!");
             LimpiarTable();
-            LimpiarPais();
-            ListarPais();
+            LimpiarLibro();
+            ListarLibro();
         } else {
             JOptionPane.showMessageDialog(null, "Los campos Titulo, Código, Estado, Stock y Año son obligatorios");
         }
@@ -4568,7 +4610,7 @@ public class Sistema extends javax.swing.JFrame {
                 LimpiarLibro();
                 ListarLibro();
             }
-        } else{
+        } else {
             JOptionPane.showMessageDialog(null, "Debe seleccionar un Libro para eliminar");
         }
     }//GEN-LAST:event_btnEliminarLibroActionPerformed
@@ -4603,22 +4645,22 @@ public class Sistema extends javax.swing.JFrame {
 
     private void txtUsuarioPrestamoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUsuarioPrestamoKeyPressed
         // TODO add your handling code here:
-          if(evt.getKeyCode()==KeyEvent.VK_ENTER){
-            
-            if(!"".equals(txtUsuarioPrestamo.getText())){
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+
+            if (!"".equals(txtUsuarioPrestamo.getText())) {
                 String cod = txtUsuarioPrestamo.getText();
                 us = usuario.BuscarUsuario(cod);
-                if(us.getNombre()!=null){
-                    txtidUsuarioPrestamo.setText(""+us.getId_usuario());
-                    txtNombrePrestamo.setText(""+us.getNombre());
-                    txtApellidoPrestamo.setText(""+us.getApellido());
-                    txtTelefonoPrestamo.setText(""+us.getTelefono());
-                    txtDomicilioPrestamo.setText(""+us.getDomicilio());
+                if (us.getNombre() != null) {
+                    txtidUsuarioPrestamo.setText("" + us.getId_usuario());
+                    txtNombrePrestamo.setText("" + us.getNombre());
+                    txtApellidoPrestamo.setText("" + us.getApellido());
+                    txtTelefonoPrestamo.setText("" + us.getTelefono());
+                    txtDomicilioPrestamo.setText("" + us.getDomicilio());
                     //REQUESTFOCUS
-                    
-                }else{
+
+                } else {
                     //REQUESTFOCUS
-                    JOptionPane.showMessageDialog(null,"El usuario no esta registrado");
+                    JOptionPane.showMessageDialog(null, "El usuario no esta registrado");
                     txtidUsuarioPrestamo.setText("");
                     txtNombrePrestamo.setText("");
                     txtApellidoPrestamo.setText("");
@@ -4626,46 +4668,46 @@ public class Sistema extends javax.swing.JFrame {
                     txtDomicilioPrestamo.setText("");
                     txtUsuarioPrestamo.requestFocus();
                 }
-            }else{
-                JOptionPane.showMessageDialog(null,"Ingrese el carnet del usuario");
+            } else {
+                JOptionPane.showMessageDialog(null, "Ingrese el carnet del usuario");
                 txtUsuarioPrestamo.requestFocus();
             }
-            
+
         }
-        
+
     }//GEN-LAST:event_txtUsuarioPrestamoKeyPressed
 
     private void txtCodigoPrestamoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoPrestamoKeyPressed
         // TODO add your handling code here:
-        if(evt.getKeyCode()==KeyEvent.VK_ENTER){
-            
-            if(!"".equals(txtCodigoPrestamo.getText())){
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+
+            if (!"".equals(txtCodigoPrestamo.getText())) {
                 String cod = txtCodigoPrestamo.getText();
                 li = libro.BuscarLibro(cod);
-                if(li.getTitulo()!=null){
-                    txtidLibroPrestamo.setText(""+li.getId_libro());
-                    txtTituloPrestamo.setText(""+li.getTitulo());
-                    txtEdicionPrestamo.setText(""+li.getEdicion());
-                    txtStockPrestamo.setText(""+li.getStock());
+                if (li.getTitulo() != null) {
+                    txtidLibroPrestamo.setText("" + li.getId_libro());
+                    txtTituloPrestamo.setText("" + li.getTitulo());
+                    txtEdicionPrestamo.setText("" + li.getEdicion());
+                    txtStockPrestamo.setText("" + li.getStock());
                     //REQUESTFOCUS
-                    
-                }else{
+
+                } else {
                     //REQUESTFOCUS
-                    JOptionPane.showMessageDialog(null,"El libro no esta registrado");
+                    JOptionPane.showMessageDialog(null, "El libro no esta registrado");
                     txtidLibroPrestamo.setText("");
                     txtTituloPrestamo.setText("");
                     txtEdicionPrestamo.setText("");
                     txtStockPrestamo.setText("");
                     txtCodigoPrestamo.requestFocus();
                 }
-            }else{
-                JOptionPane.showMessageDialog(null,"Ingrese el codigo del libro");
-                
+            } else {
+                JOptionPane.showMessageDialog(null, "Ingrese el codigo del libro");
+
                 txtCodigoPrestamo.requestFocus();
             }
-            
+
         }
-        
+
     }//GEN-LAST:event_txtCodigoPrestamoKeyPressed
 
     private void txtidUsuarioPrestamoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtidUsuarioPrestamoActionPerformed
@@ -4679,10 +4721,10 @@ public class Sistema extends javax.swing.JFrame {
     private void TablePrestamoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablePrestamoMouseClicked
         // TODO add your handling code here:
         int fila = TablePrestamo.rowAtPoint(evt.getPoint());
-        txtidPrestamo.setText(TablePrestamo.getValueAt(fila,0).toString());
-        txtUsuarioPrestamo.setText(TablePrestamo.getValueAt(fila,1).toString());
-        txtCodigoPrestamo.setText(TablePrestamo.getValueAt(fila,4).toString());
-        
+        txtidPrestamo.setText(TablePrestamo.getValueAt(fila, 0).toString());
+        txtUsuarioPrestamo.setText(TablePrestamo.getValueAt(fila, 1).toString());
+        txtCodigoPrestamo.setText(TablePrestamo.getValueAt(fila, 4).toString());
+
     }//GEN-LAST:event_TablePrestamoMouseClicked
 
     private void txtidPrestamoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtidPrestamoActionPerformed
@@ -4691,12 +4733,12 @@ public class Sistema extends javax.swing.JFrame {
 
     private void btnActualizarPrestamoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarPrestamoActionPerformed
         // TODO add your handling code here:
-          if ("".equals(txtidPrestamo.getText())) {
+        if ("".equals(txtidPrestamo.getText())) {
             JOptionPane.showMessageDialog(null, "Seleccione una fila");
         } else {
-            if (!"".equals(txtUsuarioPrestamo.getText()) && !"".equals(txtCodigoPrestamo.getText()) ) {
-                
-          /*  SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            if (!"".equals(txtUsuarioPrestamo.getText()) && !"".equals(txtCodigoPrestamo.getText())) {
+
+                /*  SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             // Obtener fecha del JDateChooser y hora actual
             Date fechaSeleccionada = txtFechaDevolucion.getDate();
             Date horaActual = new Date(); // Hora actual
@@ -4711,11 +4753,10 @@ public class Sistema extends javax.swing.JFrame {
             calSeleccionada.set(Calendar.SECOND, calHoraActual.get(Calendar.SECOND));
             
             String fechaDevolucionFormateada = sdf.format(calSeleccionada.getTime());*/
-          
-            pre.setId_usuario(Integer.parseInt(txtidUsuarioPrestamo.getText()));
-            pre.setId_libro(Integer.parseInt(txtidLibroPrestamo.getText()));
-            //pre.setFecha_devolucion(fechaDevolucionFormateada);
-            prestamo.ModificarPrestamo(pre);
+                pre.setId_usuario(Integer.parseInt(txtidUsuarioPrestamo.getText()));
+                pre.setId_libro(Integer.parseInt(txtidLibroPrestamo.getText()));
+                //pre.setFecha_devolucion(fechaDevolucionFormateada);
+                prestamo.ModificarPrestamo(pre);
                 LimpiarTable();
                 LimpiarPrestamo();
                 ListarPrestamo();
@@ -4728,23 +4769,23 @@ public class Sistema extends javax.swing.JFrame {
 
     private void btnModificarMultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarMultaActionPerformed
         if (txtIdMulta.getText().isEmpty()) {
-        JOptionPane.showMessageDialog(null, "Selecciona una multa para modificar.");
-        return;
-    }
+            JOptionPane.showMessageDialog(null, "Selecciona una multa para modificar.");
+            return;
+        }
 
-    mu.setId_multa(Integer.parseInt(txtIdMulta.getText()));
-    mu.setDias_retraso(Integer.parseInt(txtdiasretraso.getText()));
-    mu.setMonto(Float.parseFloat(txtmonto.getText()));
-    mu.setEstado(ComboBoxEstadomulta.getSelectedItem().toString());
+        mu.setId_multa(Integer.parseInt(txtIdMulta.getText()));
+        mu.setDias_retraso(Integer.parseInt(txtdiasretraso.getText()));
+        mu.setMonto(Float.parseFloat(txtmonto.getText()));
+        mu.setEstado(ComboBoxEstadomulta.getSelectedItem().toString());
 
-    if (multaDao.modificarMulta(mu)) {
-        JOptionPane.showMessageDialog(null, "Multa modificada correctamente.");
-        LimpiarTableMulta();
-        ListarMultas();
-        LimpiarCamposMulta();
-    } else {
-        JOptionPane.showMessageDialog(null, "Error al modificar la multa");
-    }
+        if (multaDao.modificarMulta(mu)) {
+            JOptionPane.showMessageDialog(null, "Multa modificada correctamente.");
+            LimpiarTableMulta();
+            ListarMultas();
+            LimpiarCamposMulta();
+        } else {
+            JOptionPane.showMessageDialog(null, "Error al modificar la multa");
+        }
 
     }//GEN-LAST:event_btnModificarMultaActionPerformed
 
@@ -4761,32 +4802,32 @@ public class Sistema extends javax.swing.JFrame {
     }//GEN-LAST:event_ComboBoxEstadomultaActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-       LimpiarCamposMulta();
+        LimpiarCamposMulta();
     }//GEN-LAST:event_btnCancelarActionPerformed
 //DESDE AQUI COMIENZA MI INTERFAS DE MULTAS
-    
-  
+
+
     private void btnGuardarmultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarmultaActionPerformed
-     if (txtIdprestamomulta.getText().isEmpty() || txtIdUsuariomulta.getText().isEmpty() || 
-        txtdiasretraso.getText().isEmpty() || txtmonto.getText().isEmpty()) {
-        JOptionPane.showMessageDialog(null, "Debes llenar todos los campos para registrar una multa.");
-        return;
-    }
+        if (txtIdprestamomulta.getText().isEmpty() || txtIdUsuariomulta.getText().isEmpty()
+                || txtdiasretraso.getText().isEmpty() || txtmonto.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Debes llenar todos los campos para registrar una multa.");
+            return;
+        }
 
-    mu.setId_prestamo(Integer.parseInt(txtIdprestamomulta.getText()));
-    mu.setId_usuario(Integer.parseInt(txtIdUsuariomulta.getText()));
-    mu.setDias_retraso(Integer.parseInt(txtdiasretraso.getText()));
-    mu.setMonto(Float.parseFloat(txtmonto.getText()));
-    mu.setEstado(ComboBoxEstadomulta.getSelectedItem().toString());
+        mu.setId_prestamo(Integer.parseInt(txtIdprestamomulta.getText()));
+        mu.setId_usuario(Integer.parseInt(txtIdUsuariomulta.getText()));
+        mu.setDias_retraso(Integer.parseInt(txtdiasretraso.getText()));
+        mu.setMonto(Float.parseFloat(txtmonto.getText()));
+        mu.setEstado(ComboBoxEstadomulta.getSelectedItem().toString());
 
-    if (multaDao.registrarMulta(mu)) {
-        JOptionPane.showMessageDialog(null, "Multa registrada correctamente.");
-        LimpiarTableMulta();
-        ListarMultas();
-        LimpiarCamposMulta();
-    } else {
-        JOptionPane.showMessageDialog(null, "Error al registrar la multa.");
-    }
+        if (multaDao.registrarMulta(mu)) {
+            JOptionPane.showMessageDialog(null, "Multa registrada correctamente.");
+            LimpiarTableMulta();
+            ListarMultas();
+            LimpiarCamposMulta();
+        } else {
+            JOptionPane.showMessageDialog(null, "Error al registrar la multa.");
+        }
     }//GEN-LAST:event_btnGuardarmultaActionPerformed
 
     private void txtBuscarprestamoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarprestamoActionPerformed
@@ -4799,21 +4840,21 @@ public class Sistema extends javax.swing.JFrame {
 
     private void btnDevolucionPrestamoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDevolucionPrestamoActionPerformed
         // TODO add your handling code here:
-         if (!"".equals(txtidPrestamo.getText())) {
+        if (!"".equals(txtidPrestamo.getText())) {
             int pregunta = JOptionPane.showConfirmDialog(null, "Esta seguro de devolver el Prestamo Nro. " + txtidPrestamo.getText());
             if (pregunta == 0) {
                 int id = Integer.parseInt(txtidPrestamo.getText());
                 prestamo.DevolverPrestamo(id);
-             String co=txtCodigoPrestamo.getText();
-             li = libro.BuscarLibro(co);
-             int StockActual= li.getStock()+1;
-             int idlibro = li.getId_libro();
-             prestamo.ActualizarStockLibro(StockActual, idlibro);
+                String co = txtCodigoPrestamo.getText();
+                li = libro.BuscarLibro(co);
+                int StockActual = li.getStock() + 1;
+                int idlibro = li.getId_libro();
+                prestamo.ActualizarStockLibro(StockActual, idlibro);
                 LimpiarTable();
                 LimpiarPrestamo();
                 ListarPrestamo();
             }
-        } else{
+        } else {
             JOptionPane.showMessageDialog(null, "Debe seleccionar un Prestamo para registrar devolucion");
         }
     }//GEN-LAST:event_btnDevolucionPrestamoActionPerformed
@@ -4833,44 +4874,44 @@ public class Sistema extends javax.swing.JFrame {
 
     private void btneleminarMultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneleminarMultaActionPerformed
         int fila = tableMultas.getSelectedRow();
-    if (fila == -1) {
-        JOptionPane.showMessageDialog(null, "Selecciona una multa para eliminar.");
-        return;
-    }
-
-    int id = Integer.parseInt(tableMultas.getValueAt(fila, 0).toString());
-    int confirmar = JOptionPane.showConfirmDialog(null, "¿Seguro que deseas eliminar esta multa?", "Confirmar", JOptionPane.YES_NO_OPTION);
-    if (confirmar == JOptionPane.YES_OPTION) {
-        if (multaDao.eliminarMulta(id)) {
-            JOptionPane.showMessageDialog(null, " Multa eliminada (estado cambiado a Inactiva).");
-            LimpiarTableMulta();
-            ListarMultas();
-            LimpiarCamposMulta();
-        } else {
-            JOptionPane.showMessageDialog(null, "Error al eliminar la multa.");
+        if (fila == -1) {
+            JOptionPane.showMessageDialog(null, "Selecciona una multa para eliminar.");
+            return;
         }
-    }
+
+        int id = Integer.parseInt(tableMultas.getValueAt(fila, 0).toString());
+        int confirmar = JOptionPane.showConfirmDialog(null, "¿Seguro que deseas eliminar esta multa?", "Confirmar", JOptionPane.YES_NO_OPTION);
+        if (confirmar == JOptionPane.YES_OPTION) {
+            if (multaDao.eliminarMulta(id)) {
+                JOptionPane.showMessageDialog(null, " Multa eliminada (estado cambiado a Inactiva).");
+                LimpiarTableMulta();
+                ListarMultas();
+                LimpiarCamposMulta();
+            } else {
+                JOptionPane.showMessageDialog(null, "Error al eliminar la multa.");
+            }
+        }
 
 
     }//GEN-LAST:event_btneleminarMultaActionPerformed
 
     private void btnNuevaMultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevaMultaActionPerformed
-      LimpiarCamposMulta();
+        LimpiarCamposMulta();
     }//GEN-LAST:event_btnNuevaMultaActionPerformed
 
     private void tableMultas(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableMultas
-            int fila = tableMultas.rowAtPoint(evt.getPoint());
-    txtIdMulta.setText(tableMultas.getValueAt(fila, 0).toString());
-    txtIdprestamomulta.setText(tableMultas.getValueAt(fila, 1).toString());
-    txtIdUsuariomulta.setText(tableMultas.getValueAt(fila, 2).toString());
-    txtdiasretraso.setText(tableMultas.getValueAt(fila, 4).toString());
-    txtmonto.setText(tableMultas.getValueAt(fila, 5).toString());
-    ComboBoxEstadomulta.setSelectedItem(tableMultas.getValueAt(fila, 6).toString());
+        int fila = tableMultas.rowAtPoint(evt.getPoint());
+        txtIdMulta.setText(tableMultas.getValueAt(fila, 0).toString());
+        txtIdprestamomulta.setText(tableMultas.getValueAt(fila, 1).toString());
+        txtIdUsuariomulta.setText(tableMultas.getValueAt(fila, 2).toString());
+        txtdiasretraso.setText(tableMultas.getValueAt(fila, 4).toString());
+        txtmonto.setText(tableMultas.getValueAt(fila, 5).toString());
+        ComboBoxEstadomulta.setSelectedItem(tableMultas.getValueAt(fila, 6).toString());
 
     }//GEN-LAST:event_tableMultas
 
     private void tableverprestamo(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableverprestamo
-        
+
     }//GEN-LAST:event_tableverprestamo
 
     private void txtIdMultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdMultaActionPerformed
@@ -4916,13 +4957,13 @@ public class Sistema extends javax.swing.JFrame {
         if (!"".equals(txtIdUsuario.getText())) {
             String nombreCompleto = txtNombreUsuario.getText() + " " + txtApellidoUsuario.getText();
             int pregunta = JOptionPane.showConfirmDialog(
-                null,
-                "¿Está seguro de eliminar al usuario:\n" +
-                "Nombre: " + nombreCompleto + "\n" +
-                "Carnet: " + txtCarnetUsuario.getText(),
-                "Confirmar Eliminación",
-                JOptionPane.YES_NO_OPTION,
-                JOptionPane.WARNING_MESSAGE
+                    null,
+                    "¿Está seguro de eliminar al usuario:\n"
+                    + "Nombre: " + nombreCompleto + "\n"
+                    + "Carnet: " + txtCarnetUsuario.getText(),
+                    "Confirmar Eliminación",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.WARNING_MESSAGE
             );
 
             if (pregunta == JOptionPane.YES_OPTION) {
@@ -4951,14 +4992,14 @@ public class Sistema extends javax.swing.JFrame {
         if ("".equals(txtIdUsuario.getText())) {
             JOptionPane.showMessageDialog(null, "Seleccione una fila");
         } else {
-            if (!"".equals(txtCarnetUsuario.getText()) &&
-                !"".equals(txtNombreUsuario.getText()) &&
-                !"".equals(txtApellidoUsuario.getText()) &&
-                !"".equals(txtDomicilioUsuario.getText()) &&
-                !"".equals(txtTelefonoUsuario.getText()) &&
-                !"".equals(cboxTipoUsuario.getSelectedItem()) &&
-                !"".equals(cboxCargoUsuario.getSelectedItem()) &&
-                !"".equals(cboxCarreraUsuario.getSelectedItem())) {
+            if (!"".equals(txtCarnetUsuario.getText())
+                    && !"".equals(txtNombreUsuario.getText())
+                    && !"".equals(txtApellidoUsuario.getText())
+                    && !"".equals(txtDomicilioUsuario.getText())
+                    && !"".equals(txtTelefonoUsuario.getText())
+                    && !"".equals(cboxTipoUsuario.getSelectedItem())
+                    && !"".equals(cboxCargoUsuario.getSelectedItem())
+                    && !"".equals(cboxCarreraUsuario.getSelectedItem())) {
 
                 us.setCarnet(txtCarnetUsuario.getText());
                 us.setNombre(txtNombreUsuario.getText());
@@ -4988,16 +5029,15 @@ public class Sistema extends javax.swing.JFrame {
     }//GEN-LAST:event_btnActualizarUsuarioActionPerformed
 
     private void btnGuardarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarUsuarioActionPerformed
-        if(
-            !"".equals(txtCarnetUsuario.getText()) &&
-            !"".equals(txtNombreUsuario.getText()) &&
-            !"".equals(txtApellidoUsuario.getText()) &&
-            !"".equals(txtDomicilioUsuario.getText()) &&
-            !"".equals(cboxTipoUsuario.getSelectedItem()) &&
-            !"".equals(txtTelefonoUsuario.getText()) &&
-            !"".equals(cboxCargoUsuario.getSelectedItem()) &&
-            !"".equals(cboxCarreraUsuario.getSelectedItem()) &&
-            !"".equals(cboxEstadoPrestamoUsuario.getSelectedItem())){
+        if (!"".equals(txtCarnetUsuario.getText())
+                && !"".equals(txtNombreUsuario.getText())
+                && !"".equals(txtApellidoUsuario.getText())
+                && !"".equals(txtDomicilioUsuario.getText())
+                && !"".equals(cboxTipoUsuario.getSelectedItem())
+                && !"".equals(txtTelefonoUsuario.getText())
+                && !"".equals(cboxCargoUsuario.getSelectedItem())
+                && !"".equals(cboxCarreraUsuario.getSelectedItem())
+                && !"".equals(cboxEstadoPrestamoUsuario.getSelectedItem())) {
 
             String carnet = txtCarnetUsuario.getText();
             if (usuario.existeCarnet(carnet)) {
@@ -5023,7 +5063,7 @@ public class Sistema extends javax.swing.JFrame {
             }
             LimpiarTable();
             ListarUsuario();
-        }else{
+        } else {
             JOptionPane.showMessageDialog(null, "Todos los campos son obligatorios");
         }
     }//GEN-LAST:event_btnGuardarUsuarioActionPerformed
@@ -5049,31 +5089,31 @@ public class Sistema extends javax.swing.JFrame {
     }//GEN-LAST:event_txtCarnetUsuarioActionPerformed
 
     private void txtCarnetUsuarioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCarnetUsuarioKeyPressed
-         if(evt.getKeyCode() == KeyEvent.VK_ENTER){
-            if(!"".equals(txtCarnetUsuario.getText())){
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            if (!"".equals(txtCarnetUsuario.getText())) {
                 String cod = txtCarnetUsuario.getText();
                 us = usuario.BuscarUsuario(cod);
-                if(us.getNombre() != null){
-                    txtNombreUsuario.setText(""+us.getNombre());
-                    txtApellidoUsuario.setText(""+us.getApellido());
-                    txtDomicilioUsuario.setText(""+us.getDomicilio());
-                    txtTelefonoUsuario.setText(""+us.getTelefono());
+                if (us.getNombre() != null) {
+                    txtNombreUsuario.setText("" + us.getNombre());
+                    txtApellidoUsuario.setText("" + us.getApellido());
+                    txtDomicilioUsuario.setText("" + us.getDomicilio());
+                    txtTelefonoUsuario.setText("" + us.getTelefono());
                     cboxTipoUsuario.setSelectedItem(us.getTipoUsuarioNombre());
                     cboxCargoUsuario.setSelectedItem(us.getCargoNombre());
                     cboxCarreraUsuario.setSelectedItem(us.getCarreraNombre());
                     cboxEstadoPrestamoUsuario.setSelectedItem(us.getEstadoPrestamo());
                     txtNombreUsuario.requestFocus();
-                }else{
+                } else {
                     LimpiarUsuario();
                     JOptionPane.showMessageDialog(null, "Usuario no encontrado con CI: " + cod);
                     txtCarnetUsuario.requestFocus();
                     txtCarnetUsuario.selectAll();
                 }
-            }else{
+            } else {
                 JOptionPane.showMessageDialog(null, "Ingrese el CI del usuario a buscar");
                 txtCarnetUsuario.requestFocus();
             }
-         }
+        }
     }//GEN-LAST:event_txtCarnetUsuarioKeyPressed
 
     private void btnAplicarFiltroUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAplicarFiltroUsuarioActionPerformed
@@ -5115,7 +5155,7 @@ public class Sistema extends javax.swing.JFrame {
 
         List<Usuario> lista;
 
-        if(filtro.equals("Sin filtro")){
+        if (filtro.equals("Sin filtro")) {
             lista = usuario.ListarUsuario(); // Todos los usuarios activos
         } else {
             lista = usuario.listarPorFiltro(filtro, valor); // Aplicar filtro específico
@@ -5125,8 +5165,8 @@ public class Sistema extends javax.swing.JFrame {
 
         for (Usuario u : lista) {
             model.addRow(new Object[]{u.getId_usuario(), u.getCarnet(), u.getNombre(), u.getApellido(), u.getDomicilio(),
-                                      u.getTipoUsuarioNombre(), u.getTelefono(), u.getCargoNombre(), u.getCarreraNombre(),
-                                      u.getEstadoPrestamo()});
+                u.getTipoUsuarioNombre(), u.getTelefono(), u.getCargoNombre(), u.getCarreraNombre(),
+                u.getEstadoPrestamo()});
         }
     }//GEN-LAST:event_btnAplicarFiltroUsuarioActionPerformed
 
@@ -5146,38 +5186,38 @@ public class Sistema extends javax.swing.JFrame {
         /*if (evt.getStateChange() == java.awt.event.ItemEvent.SELECTED) {
             actualizarComboValorUsuario(); // método que llena cboxFiltroValorUsuario
         }*/
-            if (evt.getStateChange() == java.awt.event.ItemEvent.SELECTED) {
-                String filtroSeleccionado = cboxEFiltroUsuario.getSelectedItem().toString();
+        if (evt.getStateChange() == java.awt.event.ItemEvent.SELECTED) {
+            String filtroSeleccionado = cboxEFiltroUsuario.getSelectedItem().toString();
 
-                // Limpiar ComboBox de valores
-                cboxFiltroValorUsuario.removeAllItems();
+            // Limpiar ComboBox de valores
+            cboxFiltroValorUsuario.removeAllItems();
 
-                if(filtroSeleccionado.equals("Sin filtro")){
-                    // Si es Sin filtro, no ponemos valores y deshabilitamos el ComboBox
-                    cboxFiltroValorUsuario.setEnabled(false);
-                } else {
-                    // Habilitamos el ComboBox de valores
-                    cboxFiltroValorUsuario.setEnabled(true);
+            if (filtroSeleccionado.equals("Sin filtro")) {
+                // Si es Sin filtro, no ponemos valores y deshabilitamos el ComboBox
+                cboxFiltroValorUsuario.setEnabled(false);
+            } else {
+                // Habilitamos el ComboBox de valores
+                cboxFiltroValorUsuario.setEnabled(true);
 
-                    // Llenar los valores según el filtro
-                    switch(filtroSeleccionado){
-                        case "Tipo Usuario":
-                            usuario.ConsultarTipoUsuario(cboxFiltroValorUsuario);
-                            break;
-                        case "Cargo":
-                            usuario.ConsultarCargo(cboxFiltroValorUsuario);
-                            break;
-                        case "Carrera":
-                            usuario.ConsultarCarreras(cboxFiltroValorUsuario);
-                            break;
-                        case "Estado Préstamo":
-                            usuario.ConsultarEstadoUsuario(cboxFiltroValorUsuario);
-                            break;
-                    }
+                // Llenar los valores según el filtro
+                switch (filtroSeleccionado) {
+                    case "Tipo Usuario":
+                        usuario.ConsultarTipoUsuario(cboxFiltroValorUsuario);
+                        break;
+                    case "Cargo":
+                        usuario.ConsultarCargo(cboxFiltroValorUsuario);
+                        break;
+                    case "Carrera":
+                        usuario.ConsultarCarreras(cboxFiltroValorUsuario);
+                        break;
+                    case "Estado Préstamo":
+                        usuario.ConsultarEstadoUsuario(cboxFiltroValorUsuario);
+                        break;
                 }
             }
+        }
     }//GEN-LAST:event_cboxEFiltroUsuarioItemStateChanged
-    
+
     public void ListarUsuario() {
         LimpiarTable();
         List<Usuario> ListarUsuario = usuario.ListarUsuario();
@@ -5199,7 +5239,8 @@ public class Sistema extends javax.swing.JFrame {
         }
         TableUsuario.setModel(modelo);
     }
-      public void ListarPrestamo() {
+
+    public void ListarPrestamo() {
         LimpiarTable();
         List<Prestamo> ListarPre = prestamo.ListarPrestamo();
         modelo = (DefaultTableModel) TablePrestamo.getModel();
@@ -5217,10 +5258,12 @@ public class Sistema extends javax.swing.JFrame {
         }
         TablePrestamo.setModel(modelo);
     }
+
     /**
      * @param args the command line arguments
-     * 
-     * */
+     *
+     *
+     */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -5241,10 +5284,9 @@ public class Sistema extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> new Sistema().setVisible(true));
-        
+
         //Login login = new Login();
         //login.setVisible(true);
-    
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -5582,7 +5624,7 @@ public class Sistema extends javax.swing.JFrame {
         txtApellidoAutor.setText("");
         cboxPaisAutor.setSelectedItem("");
     }
-    
+
     private void LimpiarUsuario() {
         txtIdUsuario.setText("");
         txtCarnetUsuario.setText("");
@@ -5610,7 +5652,7 @@ public class Sistema extends javax.swing.JFrame {
         cboxEstadoLibro.setSelectedItem("");
         txtDescripcionLibro.setText("");
     }
-    
+
     private void LimpiarPrestamo() {
         txtidPrestamo.setText("");
         txtUsuarioPrestamo.setText("");
@@ -5625,7 +5667,7 @@ public class Sistema extends javax.swing.JFrame {
         txtEdicionPrestamo.setText("");
         txtStockPrestamo.setText("");
     }
-    
+
     private void pdf() {
         try {
             // Ruta del archivo
@@ -5659,9 +5701,9 @@ public class Sistema extends javax.swing.JFrame {
 
             encabezado.addCell(img);
             encabezado.addCell("");
-            encabezado.addCell(new Paragraph("\n\nSISTEMA DE BIBLIOTECA\nREPORTE DE USUARIOS", 
-                            new Font(Font.FontFamily.TIMES_ROMAN, 20, Font.BOLD)));
-         
+            encabezado.addCell(new Paragraph("\n\nSISTEMA DE BIBLIOTECA\nREPORTE DE USUARIOS",
+                    new Font(Font.FontFamily.TIMES_ROMAN, 20, Font.BOLD)));
+
             encabezado.addCell(fecha);
 
             doc.add(encabezado);
@@ -5669,11 +5711,10 @@ public class Sistema extends javax.swing.JFrame {
             // Título principal
             Paragraph titulo = new Paragraph();
             titulo.add(Chunk.NEWLINE);
-            titulo.add(new Paragraph("LISTADO DE USUARIOS FILTRADOS\n\n", 
-                new Font(Font.FontFamily.TIMES_ROMAN, 14, Font.BOLD)));
+            titulo.add(new Paragraph("LISTADO DE USUARIOS FILTRADOS\n\n",
+                    new Font(Font.FontFamily.TIMES_ROMAN, 14, Font.BOLD)));
             titulo.setAlignment(Element.ALIGN_CENTER);
             doc.add(titulo);
-            
 
             // Tabla de datos
             PdfPTable tabla = new PdfPTable(TableUsuario.getColumnCount()); // 9 columnas
@@ -5682,7 +5723,7 @@ public class Sistema extends javax.swing.JFrame {
             tabla.setSpacingAfter(10f);
 
             // Ajustar anchos de columnas (opcional)
-            float[] medidaCeldas = {10f,10f, 20f, 20f, 25f, 20f, 20f, 20f, 20f, 20f};
+            float[] medidaCeldas = {10f, 10f, 20f, 20f, 25f, 20f, 20f, 20f, 20f, 20f};
             tabla.setWidths(medidaCeldas);
 
             // Encabezados de tabla
@@ -5723,13 +5764,14 @@ public class Sistema extends javax.swing.JFrame {
         }
     }
 //auxiliar para filtrar
+
     private void actualizarComboValorUsuario() {
         String filtro = cboxEFiltroUsuario.getSelectedItem().toString();
 
         // Limpiar el combo antes de llenarlo
         cboxFiltroValorUsuario.removeAllItems();
 
-        switch(filtro) {
+        switch (filtro) {
             case "Tipo Usuario":
                 usuario.ConsultarTipoUsuario(cboxFiltroValorUsuario);
                 break;
@@ -5749,4 +5791,3 @@ public class Sistema extends javax.swing.JFrame {
     }
 
 }
-
