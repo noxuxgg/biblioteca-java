@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package Modelo;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import javax.swing.JOptionPane;
@@ -11,17 +12,24 @@ import java.util.ArrayList;
 import java.util.List;
 import java.sql.ResultSet;
 import javax.swing.JComboBox;
+
 /**
  *
  * @author pc
  */
 public class AutorDAO {
+
     Conexion cn = new Conexion();
     Connection con;
     PreparedStatement ps;
     ResultSet rs;
 
     public boolean RegistrarAutor(Autor au) {
+        String errores = validarAutorCompleto(au);
+        if (!errores.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Errores de validación:\n" + errores);
+            return false;
+        }
         String sql = "INSERT INTO autores (nombre, apellido, id_pais, estado) VALUES(?,?,?,?)";
         try {
             con = cn.getConnection();
@@ -33,7 +41,7 @@ public class AutorDAO {
             ps.execute();
             return true;
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error: Debe seleccionar un pais de la barra de opciones"+ e.toString());
+            JOptionPane.showMessageDialog(null, "Error: Debe seleccionar un pais de la barra de opciones");
             return false;
         } finally {
             try {
@@ -43,7 +51,7 @@ public class AutorDAO {
             }
         }
     }
-    
+
     public int ObtenerIdPais(String nombrePais) {
         String sql = "SELECT id_pais FROM paises WHERE nombre = ?";
         int id = 0;
@@ -67,29 +75,29 @@ public class AutorDAO {
             }
         }
     }
-    
-    public void ConsultarPais(JComboBox pais){
+
+    public void ConsultarPais(JComboBox pais) {
         String sql = "SELECT nombre FROM paises";
         try {
             con = cn.getConnection();
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 pais.addItem(rs.getString("nombre"));
             }
         } catch (SQLException e) {
             System.out.println(e.toString());;
         }
     }
-    
-    public List ListarAutor(){
+
+    public List ListarAutor() {
         List<Autor> ListaAu = new ArrayList();
         String sql = "SELECT a.id_autor, a.nombre, a.apellido, p.nombre FROM autores a, paises p WHERE p.id_pais = a.id_pais AND a.estado = 1";
         try {
             con = cn.getConnection();
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 Autor au = new Autor();
                 au.setId_autor(rs.getInt("a.id_autor"));
                 au.setNombre(rs.getString("a.nombre"));
@@ -98,12 +106,12 @@ public class AutorDAO {
                 ListaAu.add(au);
             }
         } catch (SQLException e) {
-            System.out.println("Error"+ e.toString());
+            System.out.println("Error" + e.toString());
         }
         return ListaAu;
     }
-    
-    public boolean EliminarAutor(int id){
+
+    public boolean EliminarAutor(int id) {
         String sql = "UPDATE autores SET estado = 0 WHERE id_autor = ?";
         try {
             con = cn.getConnection();
@@ -112,9 +120,9 @@ public class AutorDAO {
             ps.execute();
             return true;
         } catch (SQLException e) {
-            System.out.println("Error: "+e.toString());
+            System.out.println("Error: " + e.toString());
             return false;
-        }finally{
+        } finally {
             try {
                 con.close();
             } catch (Exception e) {
@@ -122,8 +130,13 @@ public class AutorDAO {
             }
         }
     }
-    
-    public boolean ModificarAutor(Autor au){
+
+    public boolean ModificarAutor(Autor au) {
+        String errores = validarAutorCompleto(au);
+        if (!errores.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Errores de validación:\n" + errores);
+            return false;
+        }
         String sql = "UPDATE autores SET nombre = ?, apellido = ?, id_pais = ? WHERE id_autor = ?";
         try {
             con = cn.getConnection();
@@ -135,9 +148,9 @@ public class AutorDAO {
             ps.execute();
             return true;
         } catch (SQLException e) {
-            System.out.println("Error"+e.toString());
+            System.out.println("Error" + e.toString());
             return false;
-        } finally{
+        } finally {
             try {
                 con.close();
             } catch (SQLException e) {
@@ -145,5 +158,23 @@ public class AutorDAO {
             }
         }
     }
-    
+
+    public boolean validarNombre(String nombre) {
+        if (nombre == null || nombre.trim().isEmpty()) {
+            return false;
+        }
+        return nombre.matches("^[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]+$");
+    }
+
+    //LLAMADA A VALIDACIONES
+    public String validarAutorCompleto(Autor au) {
+        StringBuilder errores = new StringBuilder();
+        if (!validarNombre(au.getNombre())) {
+            errores.append("- Nombre solo puede contener letras\n");
+        }
+        if (!validarNombre(au.getApellido())) {
+            errores.append("- Apellido solo puede contener letras\n");
+        }
+        return errores.toString();
+    }
 }

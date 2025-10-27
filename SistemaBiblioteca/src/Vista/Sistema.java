@@ -1784,7 +1784,7 @@ public class Sistema extends javax.swing.JFrame {
 
         jPanel30.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel77.setText("AGREGAR/EDITAR EDITORIAL");
+        jLabel77.setText("AGREGAR/EDITAR AUTOR");
 
         jLabel78.setText("Nombre: ");
 
@@ -4018,10 +4018,10 @@ public class Sistema extends javax.swing.JFrame {
             error = editorial.RegistrarEditorial(ed);
             if (error == true) {
                 JOptionPane.showMessageDialog(null, "Editorial Registrada con Exito!!!");
+                LimpiarTable();
+                LimpiarEditorial();
+                ListarEditorial();
             }
-            LimpiarTable();
-            LimpiarEditorial();
-            ListarEditorial();
         } else {
             JOptionPane.showMessageDialog(null, "Los campos Nombre y Pais son obligatorios");
         }
@@ -4073,10 +4073,10 @@ public class Sistema extends javax.swing.JFrame {
             error = autor.RegistrarAutor(au);
             if (error == true) {
                 JOptionPane.showMessageDialog(null, "Autor Registrado con Exito!!!");
+                LimpiarTable();
+                LimpiarAutor();
+                ListarAutor();
             }
-            LimpiarTable();
-            LimpiarAutor();
-            ListarAutor();
         } else {
             JOptionPane.showMessageDialog(null, "Los campos Nombre y Pais son obligatorios");
         }
@@ -4173,16 +4173,19 @@ public class Sistema extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Seleccione una fila");
         } else {
             if (!"".equals(txtNombreEditorial.getText()) && !"".equals(cboxPaisEditorial.getSelectedItem())) {
+                boolean error;
                 ed.setNombre(txtNombreEditorial.getText());
                 ed.setId_Pais(editorial.ObtenerIdPais(cboxPaisEditorial.getSelectedItem().toString()));
                 ed.setDireccion(txtDireccionEditorial.getText());
                 ed.setTelefono(txtTelefonoEditorial.getText());
                 ed.setId_editorial(Integer.parseInt(txtIdEditorial.getText()));
-                editorial.ModificarEditorial(ed);
-                LimpiarTable();
-                LimpiarEditorial();
-                ListarEditorial();
-                JOptionPane.showMessageDialog(null, "Campos actualizados con exito");
+                error = editorial.ModificarEditorial(ed);
+                if (error == true) {
+                    JOptionPane.showMessageDialog(null, "Campos actualizados con exito");
+                    LimpiarTable();
+                    LimpiarEditorial();
+                    ListarEditorial();
+                }
             } else {
                 JOptionPane.showMessageDialog(null, "Los campos Nombre y Pais son obligatorios");
             }
@@ -4207,15 +4210,18 @@ public class Sistema extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Seleccione una fila");
         } else {
             if (!"".equals(txtNombreAutor.getText()) && !"".equals(cboxPaisAutor.getSelectedItem())) {
+                boolean error;
                 au.setNombre(txtNombreAutor.getText());
                 au.setId_pais(autor.ObtenerIdPais(cboxPaisAutor.getSelectedItem().toString()));
                 au.setApellido(txtApellidoAutor.getText());
                 au.setId_autor(Integer.parseInt(txtIdAutor.getText()));
-                autor.ModificarAutor(au);
-                LimpiarTable();
-                LimpiarAutor();
-                ListarAutor();
-                JOptionPane.showMessageDialog(null, "Campos actualizados con exito");
+                error = autor.ModificarAutor(au);
+                if (error == true) {
+                    JOptionPane.showMessageDialog(null, "Campos actualizados con exito");
+                    LimpiarTable();
+                    LimpiarAutor();
+                    ListarAutor();
+                }
             } else {
                 JOptionPane.showMessageDialog(null, "Los campos Nombre y Pais son obligatorios");
             }
