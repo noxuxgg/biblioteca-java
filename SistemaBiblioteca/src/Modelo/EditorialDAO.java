@@ -25,6 +25,11 @@ public class EditorialDAO {
     ResultSet rs;
 
     public boolean RegistrarEditorial(Editorial ed) {
+        String errores = validarEditorialCompleto(ed);
+        if (!errores.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Errores de validación:\n" + errores);
+            return false;
+        }
         String sql = "INSERT INTO editoriales (nombre,direccion,telefono,id_pais,estado) VALUES(?,?,?,?,?)";
         try {
             con = cn.getConnection();
@@ -71,29 +76,29 @@ public class EditorialDAO {
             }
         }
     }
-    
-    public void ConsultarPais(JComboBox pais){
-        String sql = "SELECT nombre FROM paises";
+
+    public void ConsultarPais(JComboBox pais) {
+        String sql = "SELECT nombre FROM paises WHERE estado = 1";
         try {
             con = cn.getConnection();
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 pais.addItem(rs.getString("nombre"));
             }
         } catch (SQLException e) {
             System.out.println(e.toString());;
         }
     }
-    
-    public List ListarEditorial(){
+
+    public List ListarEditorial() {
         List<Editorial> ListaEd = new ArrayList();
         String sql = "SELECT e.id_editorial, e.nombre, e.direccion, e.telefono, p.nombre FROM editoriales e, paises p WHERE p.id_pais = e.id_pais AND e.estado = 1";
         try {
             con = cn.getConnection();
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 Editorial ed = new Editorial();
                 ed.setId_editorial(rs.getInt("e.id_editorial"));
                 ed.setNombre(rs.getString("e.nombre"));
@@ -103,12 +108,12 @@ public class EditorialDAO {
                 ListaEd.add(ed);
             }
         } catch (SQLException e) {
-            System.out.println("Error"+ e.toString());
+            System.out.println("Error" + e.toString());
         }
         return ListaEd;
     }
-    
-    public boolean EliminarEditorial(int id){
+
+    public boolean EliminarEditorial(int id) {
         String sql = "UPDATE editoriales SET estado = 0 WHERE id_editorial = ?";
         try {
             ps = con.prepareStatement(sql);
@@ -116,9 +121,9 @@ public class EditorialDAO {
             ps.execute();
             return true;
         } catch (SQLException e) {
-            System.out.println("Error: "+e.toString());
+            System.out.println("Error: " + e.toString());
             return false;
-        }finally{
+        } finally {
             try {
                 con.close();
             } catch (Exception e) {
@@ -126,8 +131,13 @@ public class EditorialDAO {
             }
         }
     }
-    
-    public boolean ModificarEditorial(Editorial ed){
+
+    public boolean ModificarEditorial(Editorial ed) {
+        String errores = validarEditorialCompleto(ed);
+        if (!errores.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Errores de validación:\n" + errores);
+            return false;
+        }
         String sql = "UPDATE editoriales SET nombre = ?, direccion = ?, telefono = ?, id_pais = ? WHERE id_editorial = ?";
         try {
             con = cn.getConnection();
@@ -140,9 +150,9 @@ public class EditorialDAO {
             ps.execute();
             return true;
         } catch (SQLException e) {
-            System.out.println("Error"+e.toString());
+            System.out.println("Error" + e.toString());
             return false;
-        } finally{
+        } finally {
             try {
                 con.close();
             } catch (SQLException e) {
@@ -151,4 +161,69 @@ public class EditorialDAO {
         }
     }
 
+    public boolean validarNombre(String nombre) {
+        if (nombre == null || nombre.trim().isEmpty()) {
+            return false;
+        }
+        return nombre.matches("^[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]+$");
+    }
+
+    public boolean validarTelefono(String telefono) {
+        if (telefono == null || telefono.trim().isEmpty()) {
+            return true;
+        }
+        return telefono.matches("^((\\+\\d{1,3}\\s\\d{4,14})|(\\d[\\d\\s-]{4,}))$");
+    }
+
+    public boolean validarDireccion(String direccion) {
+        if (direccion == null || direccion.trim().isEmpty()) {
+            return true;
+        }
+        return direccion.matches("^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ\\s#.,-]+$");
+    }
+
+    //LLAMADA A VALIDACIONES
+    public String validarEditorialCompleto(Editorial ed) {
+        StringBuilder errores = new StringBuilder();
+
+        if (!validarNombre(ed.getNombre())) {
+            errores.append("- Nombre solo puede contener letras\n");
+        }
+        if (!validarTelefono(ed.getTelefono())) {
+            errores.append("- El telefono solo puede contener números\n");
+        }
+
+        if (!validarDireccion(ed.getDireccion())) {
+            errores.append("- La dirección tiene caracteres no permitidos\n");
+        }
+        return errores.toString();
+    }
+
+    public boolean existeEditorial(String telefonoEditorial) {
+        String sql = "SELECT telefono FROM editoriales WHERE estado = 1 AND telefono = ?";
+        String telefono = "";
+        try {
+            con = cn.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setString(1, telefonoEditorial);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                telefono = rs.getString("telefono");
+            }
+            if (telefono.equalsIgnoreCase(telefonoEditorial)) {
+                return true;
+            }
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error: " + e.toString());
+            return false;
+        } finally {
+            try {
+                con.close();
+            } catch (SQLException e) {
+                System.out.println(e.toString());
+            }
+        }
+        return false;
+    }
 }

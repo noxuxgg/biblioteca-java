@@ -1863,7 +1863,7 @@
                   <SubComponents>
                     <Component class="javax.swing.JLabel" name="jLabel77">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="AGREGAR/EDITAR EDITORIAL"/>
+                        <Property name="text" type="java.lang.String" value="AGREGAR/EDITAR AUTOR"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel78">
