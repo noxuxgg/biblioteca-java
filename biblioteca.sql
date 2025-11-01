@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 26-10-2025 a las 23:58:05
+-- Tiempo de generación: 01-11-2025 a las 20:32:26
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -44,7 +44,8 @@ INSERT INTO `autores` (`Id_autor`, `Nombre`, `Apellido`, `id_pais`, `estado`) VA
 (2, 'Alberto', 'Rodriguez ', 1, 1),
 (3, 'Raúl', 'Medina Rodriguez', 15, 1),
 (5, 'sffsfs', 'dsdfsdf', 6, 0),
-(6, 'Luis', 'Joyanes Aguilar', 1, 0);
+(6, 'Luis', 'Joyanes Aguilar', 1, 0),
+(8, 'Jorge Alfonso', 'Rodriguez Tanzi', 6, 1);
 
 -- --------------------------------------------------------
 
@@ -163,11 +164,13 @@ INSERT INTO `editoriales` (`Id_editorial`, `Nombre`, `Direccion`, `Telefono`, `i
 (11, 'Potosina Editoriales', '6 de agosto y Tarija', '', 1, 1),
 (12, 'Jabushins', '', '', 9, 1),
 (21, 'Jhonimsl', '', '', 10, 1),
-(22, 'Oxford edits', 'Oxford', '', 2, 1),
-(23, 'Maduro Editores', '', '', 7, 1),
+(22, 'Oxford edits', '', '52620', 2, 1),
+(23, 'Maduro Editoriale', '', '', 7, 1),
 (24, 'Nuevas Generaciones Editoriales', '', '', 6, 1),
 (25, 'Los andes ', 'La paz y Bolivia', '52-49353', 1, 1),
-(26, 'Potosina Editorial', '6 de agosto y Tarija', '', 5, 0);
+(26, 'Potosina Editorial', '6 de agosto y Tarija', '', 5, 0),
+(27, 'Pepito', '', '', 6, 1),
+(28, 'Fulanito', '', '', 12, 1);
 
 -- --------------------------------------------------------
 
@@ -260,19 +263,23 @@ CREATE TABLE `libro` (
   `stock` int(11) NOT NULL,
   `anio` int(11) NOT NULL,
   `Descripcion` varchar(200) NOT NULL,
-  `id_estado` int(50) NOT NULL
+  `id_estado` int(50) NOT NULL,
+  `tipo` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `libro`
 --
 
-INSERT INTO `libro` (`Id_libro`, `Titulo`, `Id_categoria`, `Id_editorial`, `Id_autor`, `Id_materia`, `Edicion`, `Estado`, `codigo`, `fechaRegistro`, `stock`, `anio`, `Descripcion`, `id_estado`) VALUES
-(4, 'Fundamentos de C++', 1, 25, 1, 8, '9na.', '1', 'P-1101', '2025-10-12', 1, 2000, 'KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK', 5),
-(6, 'El mundo de los Objetos', 1, 12, 3, 6, '10ma.', '1', 'P-1102', '2025-10-12', 4, 2003, '', 5),
-(11, 'Java', NULL, NULL, NULL, NULL, '', '1', 'P-1010', '2025-10-12', 2, 0, '', 5),
-(12, 'Programacion en C', 2, 10, 1, 6, '10ma', '1', 'P-1020', '2025-10-26', 3, 2020, 'Programacion', 5),
-(13, 'Python', 5, 21, 2, 8, '1ra.', '1', 'P-1022', '2025-10-26', 2, 1999, 'PYTHON', 5);
+INSERT INTO `libro` (`Id_libro`, `Titulo`, `Id_categoria`, `Id_editorial`, `Id_autor`, `Id_materia`, `Edicion`, `Estado`, `codigo`, `fechaRegistro`, `stock`, `anio`, `Descripcion`, `id_estado`, `tipo`) VALUES
+(4, 'Fundamentos de C++', 1, 25, 1, 8, '9na.', '1', 'P-1101', '2025-10-12', 1, 2000, 'KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK', 5, 'Copia'),
+(6, 'El mundo de los Objetos', 1, 12, 3, 6, '10ma.', '1', 'P-1102', '2025-10-12', 1, 2003, '', 5, 'Original'),
+(11, 'Java', 5, NULL, NULL, NULL, '', '1', 'P-1010', '2025-10-12', 1, 2020, '', 5, 'Copia'),
+(12, 'Programacion en C', 2, 10, 1, 6, '10m', '1', 'P-1020', '2025-10-26', 1, 2020, 'Programacion', 5, 'Copia'),
+(13, 'Python', NULL, 10, 1, NULL, '1ra.', '1', 'P-1022', '2025-10-26', 1, 1999, 'PYTHON', 5, 'Original'),
+(14, 'Chanchito Feliz', 5, NULL, NULL, NULL, '', '1', 'CH-1012', '2025-11-01', 1, 1998, '', 5, 'Copia'),
+(15, 'Chanchito Feliciano', NULL, NULL, NULL, 6, '9na', '1', 'P-10103', '2025-11-01', 1, 2000, 'aas@asf~4', 5, 'Copia'),
+(16, 'Puerquito', NULL, NULL, NULL, NULL, '4ta.', '1', 'P-202', '2025-11-01', 1, 2005, '', 5, 'Copia');
 
 -- --------------------------------------------------------
 
@@ -625,7 +632,7 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `autores`
 --
 ALTER TABLE `autores`
-  MODIFY `Id_autor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `Id_autor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `cargo`
@@ -655,7 +662,7 @@ ALTER TABLE `cliente`
 -- AUTO_INCREMENT de la tabla `editoriales`
 --
 ALTER TABLE `editoriales`
-  MODIFY `Id_editorial` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `Id_editorial` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT de la tabla `estadolibro`
@@ -685,7 +692,7 @@ ALTER TABLE `historial_libros`
 -- AUTO_INCREMENT de la tabla `libro`
 --
 ALTER TABLE `libro`
-  MODIFY `Id_libro` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `Id_libro` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT de la tabla `login`
