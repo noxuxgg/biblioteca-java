@@ -260,7 +260,7 @@
                               <Component id="jLabel10" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel9" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="7209" max="32767" attributes="0"/>
+                          <EmptySpace pref="7238" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel12" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -344,7 +344,7 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jPanel23" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="7168" max="32767" attributes="0"/>
+                          <EmptySpace pref="7187" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -696,10 +696,17 @@
                                                   </Group>
                                               </Group>
                                               <EmptySpace min="-2" pref="64" max="-2" attributes="0"/>
-                                              <Component id="txtIdLibro" min="-2" pref="32" max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Component id="txtIdLibro" min="-2" pref="32" max="-2" attributes="0"/>
+                                                  <Group type="102" attributes="0">
+                                                      <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                                      <Component id="cboxTipoLibro" min="-2" pref="132" max="-2" attributes="0"/>
+                                                  </Group>
+                                              </Group>
                                           </Group>
                                       </Group>
-                                      <EmptySpace pref="541" max="32767" attributes="0"/>
+                                      <EmptySpace pref="386" max="32767" attributes="0"/>
                                       <Group type="103" groupAlignment="1" attributes="0">
                                           <Group type="102" alignment="1" attributes="0">
                                               <Component id="jButton53" min="-2" max="-2" attributes="0"/>
@@ -725,14 +732,14 @@
                                           <Component id="jLabel90" min="-2" max="-2" attributes="0"/>
                                           <Component id="txtDescripcionLibro" min="-2" pref="644" max="-2" attributes="0"/>
                                       </Group>
-                                      <EmptySpace min="457" pref="822" max="32767" attributes="0"/>
+                                      <EmptySpace min="457" pref="841" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jScrollPane7" min="-2" pref="1453" max="-2" attributes="0"/>
-                              <EmptySpace min="0" pref="21" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="40" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -772,22 +779,30 @@
                                                   <Component id="txtIdLibro" alignment="3" min="-2" max="-2" attributes="0"/>
                                               </Group>
                                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                                              <Group type="103" groupAlignment="3" attributes="0">
-                                                  <Component id="jLabel87" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="txtAnioLibro" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="btnGuardarLibro" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              </Group>
-                                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                                              <Group type="103" groupAlignment="3" attributes="0">
-                                                  <Component id="jLabel88" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="txtEdicionLibro" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="btnEliminarLibro" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              </Group>
-                                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                                              <Group type="103" groupAlignment="3" attributes="0">
-                                                  <Component id="jLabel89" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="cboxCategoriaLibro" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="btnActualizarLibro" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Group type="102" attributes="0">
+                                                      <Group type="103" groupAlignment="3" attributes="0">
+                                                          <Component id="jLabel87" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                          <Component id="txtAnioLibro" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                          <Component id="btnGuardarLibro" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                      </Group>
+                                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                                      <Group type="103" groupAlignment="3" attributes="0">
+                                                          <Component id="jLabel88" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                          <Component id="txtEdicionLibro" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                          <Component id="btnEliminarLibro" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                      </Group>
+                                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                                      <Group type="103" groupAlignment="3" attributes="0">
+                                                          <Component id="jLabel89" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                          <Component id="cboxCategoriaLibro" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                          <Component id="btnActualizarLibro" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                      </Group>
+                                                  </Group>
+                                                  <Group type="103" alignment="1" groupAlignment="3" attributes="0">
+                                                      <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="cboxTipoLibro" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  </Group>
                                               </Group>
                                           </Group>
                                       </Group>
@@ -894,7 +909,7 @@
                         <Component class="javax.swing.JTable" name="TableLibro">
                           <Properties>
                             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                              <Table columnCount="13" rowCount="0">
+                              <Table columnCount="14" rowCount="0">
                                 <Column editable="true" title="ID" type="java.lang.Object"/>
                                 <Column editable="true" title="TITULO" type="java.lang.Object"/>
                                 <Column editable="true" title="COD" type="java.lang.Object"/>
@@ -908,6 +923,7 @@
                                 <Column editable="true" title="A&#xd1;O" type="java.lang.Object"/>
                                 <Column editable="true" title="EDICION" type="java.lang.Object"/>
                                 <Column editable="true" title="DESCRIPCION" type="java.lang.Object"/>
+                                <Column editable="true" title="Tipo" type="java.lang.Object"/>
                               </Table>
                             </Property>
                             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -932,7 +948,7 @@
                                   <Editor/>
                                   <Renderer/>
                                 </Column>
-                                <Column maxWidth="250" minWidth="-1" prefWidth="250" resizable="true">
+                                <Column maxWidth="170" minWidth="-1" prefWidth="170" resizable="true">
                                   <Title/>
                                   <Editor/>
                                   <Renderer/>
@@ -973,6 +989,11 @@
                                   <Renderer/>
                                 </Column>
                                 <Column maxWidth="200" minWidth="-1" prefWidth="150" resizable="true">
+                                  <Title/>
+                                  <Editor/>
+                                  <Renderer/>
+                                </Column>
+                                <Column maxWidth="200" minWidth="80" prefWidth="-1" resizable="true">
                                   <Title/>
                                   <Editor/>
                                   <Renderer/>
@@ -1092,6 +1113,9 @@
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JTextField" name="txtStockLibro">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="1"/>
+                      </Properties>
                     </Component>
                     <Component class="javax.swing.JButton" name="btnGuardarLibro">
                       <Properties>
@@ -1113,6 +1137,9 @@
                       <Properties>
                         <Property name="text" type="java.lang.String" value="Actualizar"/>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnActualizarLibroActionPerformed"/>
+                      </Events>
                     </Component>
                     <Component class="javax.swing.JButton" name="btnNuevoLibro">
                       <Properties>
@@ -1123,6 +1150,24 @@
                       </Events>
                     </Component>
                     <Component class="javax.swing.JTextField" name="txtIdLibro">
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="jLabel1">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Tipo Libro:"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JComboBox" name="cboxTipoLibro">
+                      <Properties>
+                        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                          <StringArray count="2">
+                            <StringItem index="0" value="Copia"/>
+                            <StringItem index="1" value="Original"/>
+                          </StringArray>
+                        </Property>
+                      </Properties>
+                      <AuxValues>
+                        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                      </AuxValues>
                     </Component>
                   </SubComponents>
                 </Container>
@@ -1150,7 +1195,7 @@
                               </Group>
                               <Component id="jLabel54" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="6705" max="32767" attributes="0"/>
+                          <EmptySpace pref="6722" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -1575,7 +1620,7 @@
                               </Group>
                               <Component id="jLabel75" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="6714" max="32767" attributes="0"/>
+                          <EmptySpace pref="6731" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -2060,7 +2105,7 @@
                                   <Component id="jScrollPane11" min="-2" pref="970" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace pref="6685" max="32767" attributes="0"/>
+                          <EmptySpace pref="6703" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -2454,7 +2499,7 @@
                               </Group>
                               <Group type="102" attributes="0">
                                   <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="4241" pref="8012" max="32767" attributes="0"/>
+                                  <EmptySpace min="4241" pref="8030" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -2875,7 +2920,7 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <EmptySpace min="0" pref="4505" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="4522" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
@@ -2921,7 +2966,7 @@
                               <Component id="jLabel33" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="jPanel20" alignment="0" min="-2" pref="853" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="7079" max="32767" attributes="0"/>
+                          <EmptySpace pref="7096" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -3310,7 +3355,7 @@
                                   <Component id="jPanel21" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace min="987" pref="7223" max="32767" attributes="0"/>
+                          <EmptySpace min="987" pref="7241" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -3644,7 +3689,7 @@
                               <Component id="jButton19" min="-2" max="-2" attributes="0"/>
                               <Component id="jButton20" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="7844" max="32767" attributes="0"/>
+                          <EmptySpace pref="7863" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -3712,7 +3757,7 @@
                           </Group>
                           <EmptySpace min="-2" pref="121" max="-2" attributes="0"/>
                           <Component id="jScrollPane8" min="-2" pref="711" max="-2" attributes="0"/>
-                          <EmptySpace pref="6856" max="32767" attributes="0"/>
+                          <EmptySpace pref="6873" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -3877,7 +3922,7 @@
                           </Group>
                           <EmptySpace min="-2" pref="79" max="-2" attributes="0"/>
                           <Component id="jScrollPane9" min="-2" pref="685" max="-2" attributes="0"/>
-                          <EmptySpace pref="6831" max="32767" attributes="0"/>
+                          <EmptySpace pref="6847" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -4052,7 +4097,7 @@
                           </Group>
                           <EmptySpace min="-2" pref="72" max="-2" attributes="0"/>
                           <Component id="jScrollPane10" min="-2" pref="637" max="-2" attributes="0"/>
-                          <EmptySpace pref="6959" max="32767" attributes="0"/>
+                          <EmptySpace pref="6976" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -4252,7 +4297,7 @@
                               </Group>
                               <Component id="jLabel59" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="41" max="32767" attributes="0"/>
+                          <EmptySpace pref="57" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jScrollPane12" min="-2" pref="1037" max="-2" attributes="0"/>
                               <Group type="102" attributes="0">
