@@ -77,7 +77,7 @@ public class AutorDAO {
     }
 
     public void ConsultarPais(JComboBox pais) {
-        String sql = "SELECT nombre FROM paises";
+        String sql = "SELECT nombre FROM paises WHERE estado = 1";
         try {
             con = cn.getConnection();
             ps = con.prepareStatement(sql);

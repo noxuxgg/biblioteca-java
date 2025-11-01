@@ -28,11 +28,12 @@ public class Libro {
     private String nombreMateria;
     private String nombreEstado;
     private String fecha;
+    private String tipo;
     
     public Libro() {
     }
 
-    public Libro(int id_libro, String titulo, int id_categoria, int id_editorial, int id_autor, int id_materia, String edicion, int estado, String codigo, int stock, int anio, String descripcion, int id_estado, String nombreCategoria, String nombreEditorial, String nombreAutor, String nombreMateria, String nombreEstado, String fecha) {
+    public Libro(int id_libro, String titulo, int id_categoria, int id_editorial, int id_autor, int id_materia, String edicion, int estado, String codigo, int stock, int anio, String descripcion, int id_estado, String nombreCategoria, String nombreEditorial, String nombreAutor, String nombreMateria, String nombreEstado, String fecha, String tipo) {
         this.id_libro = id_libro;
         this.titulo = titulo;
         this.id_categoria = id_categoria;
@@ -52,6 +53,7 @@ public class Libro {
         this.nombreMateria = nombreMateria;
         this.nombreEstado = nombreEstado;
         this.fecha = fecha;
+        this.tipo = tipo;
     }
 
     public int getId_libro() {
@@ -204,6 +206,27 @@ public class Libro {
 
     public void setFecha(String fecha) {
         this.fecha = fecha;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+    public void resetearValores() {
+        this.titulo = ""; // Cadena vacía
+        this.codigo = "";
+        this.edicion = "";
+        this.descripcion = "";
+        this.id_materia = 0;
+        this.id_categoria = 0;
+        this.id_editorial = 0;
+        this.id_autor = 0; 
+        this.stock = 0; 
+        this.anio = 0;
     }
 
    

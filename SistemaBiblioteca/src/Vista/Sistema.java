@@ -4,6 +4,7 @@
  */
 package Vista;
 
+import Modelo.AnioDocumentFilter;
 import Modelo.Autor;
 import Modelo.AutorDAO;
 import Modelo.Categoria;
@@ -55,6 +56,8 @@ import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfWriter;
+import javax.swing.text.AbstractDocument;
+
 
 /**
  *
@@ -88,7 +91,6 @@ public class Sistema extends javax.swing.JFrame {
     Multa mu = new Multa();
     MultaDAO multaDao = new MultaDAO();
     DefaultTableModel modeloMulta = new DefaultTableModel();
-
     //ESTO ES POR MULTA
     private static final float MULTA_POR_DIA = 2.0f; // puedes cambiar el monto diario
 
@@ -96,12 +98,15 @@ public class Sistema extends javax.swing.JFrame {
         initComponents();
         LimpiarTable();
         this.setLocationRelativeTo(null);
+        ((AbstractDocument) txtAnioLibro.getDocument()).setDocumentFilter(new AnioDocumentFilter());
         txtIdPais.setVisible(false);
         txtIdCategoria.setVisible(false);
         txtIdMateria.setVisible(false);
         txtIdAutor.setVisible(false);
         txtIdEditorial.setVisible(false);
         txtIdUsuario.setVisible(false);
+        txtStockLibro.setText("1");
+        txtStockLibro.setEditable(false);
         AutoCompleteDecorator.decorate(cboxPaisEditorial);
         editorial.ConsultarPais(cboxPaisEditorial);
         autor.ConsultarPais(cboxPaisAutor);
@@ -320,7 +325,7 @@ public class Sistema extends javax.swing.JFrame {
         LimpiarTable();
         List<Libro> ListarLibro = libro.ListarLibro();
         modelo = (DefaultTableModel) TableLibro.getModel();
-        Object[] obj = new Object[13];
+        Object[] obj = new Object[14];
         for (int i = 0; i < ListarLibro.size(); i++) {
             obj[0] = ListarLibro.get(i).getId_libro();
             obj[1] = ListarLibro.get(i).getTitulo();
@@ -335,6 +340,7 @@ public class Sistema extends javax.swing.JFrame {
             obj[10] = ListarLibro.get(i).getAnio();
             obj[11] = ListarLibro.get(i).getEdicion();
             obj[12] = ListarLibro.get(i).getDescripcion();
+            obj[13] = ListarLibro.get(i).getTipo();
             modelo.addRow(obj);
         }
         TableLibro.setModel(modelo);
@@ -520,6 +526,8 @@ public class Sistema extends javax.swing.JFrame {
         btnActualizarLibro = new javax.swing.JButton();
         btnNuevoLibro = new javax.swing.JButton();
         txtIdLibro = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        cboxTipoLibro = new javax.swing.JComboBox<>();
         jPanel6 = new javax.swing.JPanel();
         jLabel54 = new javax.swing.JLabel();
         jPanel25 = new javax.swing.JPanel();
@@ -875,7 +883,7 @@ public class Sistema extends javax.swing.JFrame {
                     .addComponent(jLabel3)
                     .addComponent(jLabel10)
                     .addComponent(jLabel9))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7209, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7238, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4)
                     .addComponent(jLabel12)
@@ -1077,7 +1085,7 @@ public class Sistema extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(7168, Short.MAX_VALUE))
+                .addContainerGap(7187, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1138,7 +1146,7 @@ public class Sistema extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "TITULO", "COD", "AUTOR", "EDITORIAL", "MATERIA", "CATEGORIA", "ESTADO", "STOCK", "FECHA", "AÑO", "EDICION", "DESCRIPCION"
+                "ID", "TITULO", "COD", "AUTOR", "EDITORIAL", "MATERIA", "CATEGORIA", "ESTADO", "STOCK", "FECHA", "AÑO", "EDICION", "DESCRIPCION", "Tipo"
             }
         ));
         TableLibro.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1156,8 +1164,8 @@ public class Sistema extends javax.swing.JFrame {
             TableLibro.getColumnModel().getColumn(2).setMaxWidth(200);
             TableLibro.getColumnModel().getColumn(3).setPreferredWidth(250);
             TableLibro.getColumnModel().getColumn(3).setMaxWidth(250);
-            TableLibro.getColumnModel().getColumn(4).setPreferredWidth(250);
-            TableLibro.getColumnModel().getColumn(4).setMaxWidth(250);
+            TableLibro.getColumnModel().getColumn(4).setPreferredWidth(170);
+            TableLibro.getColumnModel().getColumn(4).setMaxWidth(170);
             TableLibro.getColumnModel().getColumn(5).setPreferredWidth(250);
             TableLibro.getColumnModel().getColumn(5).setMaxWidth(250);
             TableLibro.getColumnModel().getColumn(6).setPreferredWidth(250);
@@ -1174,6 +1182,8 @@ public class Sistema extends javax.swing.JFrame {
             TableLibro.getColumnModel().getColumn(11).setMaxWidth(200);
             TableLibro.getColumnModel().getColumn(12).setPreferredWidth(150);
             TableLibro.getColumnModel().getColumn(12).setMaxWidth(200);
+            TableLibro.getColumnModel().getColumn(13).setMinWidth(80);
+            TableLibro.getColumnModel().getColumn(13).setMaxWidth(200);
         }
 
         jButton51.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/images (1)-30x30.png"))); // NOI18N
@@ -1213,6 +1223,8 @@ public class Sistema extends javax.swing.JFrame {
 
         Stock.setText("Stock:");
 
+        txtStockLibro.setText("1");
+
         btnGuardarLibro.setText("Guardar");
         btnGuardarLibro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1228,6 +1240,11 @@ public class Sistema extends javax.swing.JFrame {
         });
 
         btnActualizarLibro.setText("Actualizar");
+        btnActualizarLibro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarLibroActionPerformed(evt);
+            }
+        });
 
         btnNuevoLibro.setText("Nuevo");
         btnNuevoLibro.addActionListener(new java.awt.event.ActionListener() {
@@ -1235,6 +1252,10 @@ public class Sistema extends javax.swing.JFrame {
                 btnNuevoLibroActionPerformed(evt);
             }
         });
+
+        jLabel1.setText("Tipo Libro:");
+
+        cboxTipoLibro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Copia", "Original" }));
 
         javax.swing.GroupLayout jPanel31Layout = new javax.swing.GroupLayout(jPanel31);
         jPanel31.setLayout(jPanel31Layout);
@@ -1296,8 +1317,13 @@ public class Sistema extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(cboxEstadoLibro, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(64, 64, 64)
-                                .addComponent(txtIdLibro, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 541, Short.MAX_VALUE)
+                                .addGroup(jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtIdLibro, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel31Layout.createSequentialGroup()
+                                        .addComponent(jLabel1)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(cboxTipoLibro, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 386, Short.MAX_VALUE)
                         .addGroup(jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel31Layout.createSequentialGroup()
                                 .addComponent(jButton53)
@@ -1317,11 +1343,11 @@ public class Sistema extends javax.swing.JFrame {
                         .addGroup(jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel90)
                             .addComponent(txtDescripcionLibro, javax.swing.GroupLayout.PREFERRED_SIZE, 644, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(457, 822, Short.MAX_VALUE))))
+                        .addGap(457, 841, Short.MAX_VALUE))))
             .addGroup(jPanel31Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 1453, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 21, Short.MAX_VALUE))
+                .addGap(0, 40, Short.MAX_VALUE))
         );
         jPanel31Layout.setVerticalGroup(
             jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1353,20 +1379,25 @@ public class Sistema extends javax.swing.JFrame {
                                     .addComponent(cboxEditorialLibro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txtIdLibro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
-                                .addGroup(jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel87)
-                                    .addComponent(txtAnioLibro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btnGuardarLibro))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel88)
-                                    .addComponent(txtEdicionLibro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btnEliminarLibro))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel89)
-                                    .addComponent(cboxCategoriaLibro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btnActualizarLibro)))))
+                                .addGroup(jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel31Layout.createSequentialGroup()
+                                        .addGroup(jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                            .addComponent(jLabel87)
+                                            .addComponent(txtAnioLibro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(btnGuardarLibro))
+                                        .addGap(18, 18, 18)
+                                        .addGroup(jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                            .addComponent(jLabel88)
+                                            .addComponent(txtEdicionLibro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(btnEliminarLibro))
+                                        .addGap(18, 18, 18)
+                                        .addGroup(jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                            .addComponent(jLabel89)
+                                            .addComponent(cboxCategoriaLibro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(btnActualizarLibro)))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jLabel1)
+                                        .addComponent(cboxTipoLibro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                     .addComponent(jButton51)
                     .addComponent(jLabel57)
                     .addComponent(jButton53)
@@ -1663,7 +1694,7 @@ public class Sistema extends javax.swing.JFrame {
                         .addGap(104, 104, 104)
                         .addComponent(jPanel25, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel54))
-                .addContainerGap(6705, Short.MAX_VALUE))
+                .addContainerGap(6722, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1913,7 +1944,7 @@ public class Sistema extends javax.swing.JFrame {
                         .addGap(81, 81, 81)
                         .addComponent(jPanel29, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel75))
-                .addContainerGap(6714, Short.MAX_VALUE))
+                .addContainerGap(6731, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2176,7 +2207,7 @@ public class Sistema extends javax.swing.JFrame {
                                 .addComponent(btnActualizarPrestamo)))
                         .addGap(49, 49, 49)
                         .addComponent(jScrollPane11, javax.swing.GroupLayout.PREFERRED_SIZE, 970, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(6685, Short.MAX_VALUE))
+                .addContainerGap(6703, Short.MAX_VALUE))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2506,7 +2537,7 @@ public class Sistema extends javax.swing.JFrame {
         jPanel14.setLayout(jPanel14Layout);
         jPanel14Layout.setHorizontalGroup(
             jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 4505, Short.MAX_VALUE)
+            .addGap(0, 4522, Short.MAX_VALUE)
         );
         jPanel14Layout.setVerticalGroup(
             jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2539,7 +2570,7 @@ public class Sistema extends javax.swing.JFrame {
                         .addComponent(jPanel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel9Layout.createSequentialGroup()
                         .addComponent(jLabel8)
-                        .addGap(4241, 8012, Short.MAX_VALUE))))
+                        .addGap(4241, 8030, Short.MAX_VALUE))))
             .addGroup(jPanel9Layout.createSequentialGroup()
                 .addComponent(txtIdMulta, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
@@ -2788,7 +2819,7 @@ public class Sistema extends javax.swing.JFrame {
                         .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel33)
                     .addComponent(jPanel20, javax.swing.GroupLayout.PREFERRED_SIZE, 853, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(7079, Short.MAX_VALUE))
+                .addContainerGap(7096, Short.MAX_VALUE))
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2992,7 +3023,7 @@ public class Sistema extends javax.swing.JFrame {
                                 .addComponent(jLabel43)))
                         .addGap(107, 107, 107)
                         .addComponent(jPanel21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(987, 7223, Short.MAX_VALUE))
+                .addGap(987, 7241, Short.MAX_VALUE))
         );
         jPanel11Layout.setVerticalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -3059,7 +3090,7 @@ public class Sistema extends javax.swing.JFrame {
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton19)
                     .addComponent(jButton20))
-                .addContainerGap(7844, Short.MAX_VALUE))
+                .addContainerGap(7863, Short.MAX_VALUE))
         );
         jPanel12Layout.setVerticalGroup(
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -3152,7 +3183,7 @@ public class Sistema extends javax.swing.JFrame {
                             .addComponent(txtNombreCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(121, 121, 121)
                 .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 711, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(6856, Short.MAX_VALUE))
+                .addContainerGap(6873, Short.MAX_VALUE))
         );
         jPanel24Layout.setVerticalGroup(
             jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -3262,7 +3293,7 @@ public class Sistema extends javax.swing.JFrame {
                                     .addComponent(btnActualizarMateria, javax.swing.GroupLayout.Alignment.LEADING))))))
                 .addGap(79, 79, 79)
                 .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 685, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(6831, Short.MAX_VALUE))
+                .addContainerGap(6847, Short.MAX_VALUE))
         );
         jPanel26Layout.setVerticalGroup(
             jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -3375,7 +3406,7 @@ public class Sistema extends javax.swing.JFrame {
                             .addComponent(txtNombrePais, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(72, 72, 72)
                 .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 637, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(6959, Short.MAX_VALUE))
+                .addContainerGap(6976, Short.MAX_VALUE))
         );
         jPanel27Layout.setVerticalGroup(
             jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -3614,7 +3645,7 @@ public class Sistema extends javax.swing.JFrame {
                                         .addComponent(txtDomicilioUsuario)
                                         .addComponent(cboxTipoUsuario, 0, 215, Short.MAX_VALUE))))))
                     .addComponent(jLabel59))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
                 .addGroup(jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane12, javax.swing.GroupLayout.PREFERRED_SIZE, 1037, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel32Layout.createSequentialGroup()
@@ -3794,6 +3825,8 @@ public class Sistema extends javax.swing.JFrame {
             ListarAutor();
         } else if (seleccion.equals("Libros")) {
             jTabbedPane1.setSelectedIndex(2);
+
+            txtStockLibro.setText("1");
             fun.VaciarCombo(cboxAutorLibro);
             fun.VaciarCombo(cboxMateriaLibro);
             fun.VaciarCombo(cboxEditorialLibro);
@@ -4544,6 +4577,7 @@ public class Sistema extends javax.swing.JFrame {
     private void btnGuardarLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarLibroActionPerformed
         // TODO add your handling code here:
         if (!"".equals(txtTituloLibro.getText()) && !"".equals(txtCodigoLibro.getText()) && !"".equals(cboxEstadoLibro.getSelectedItem()) && !"".equals(txtStockLibro.getText()) && !"".equals(txtAnioLibro.getText())) {
+            boolean error;
             li.setTitulo(txtTituloLibro.getText());
             li.setCodigo(txtCodigoLibro.getText());
             if (!"".equals(cboxAutorLibro.getSelectedItem().toString())) {
@@ -4552,7 +4586,7 @@ public class Sistema extends javax.swing.JFrame {
             if (!"".equals(cboxMateriaLibro.getSelectedItem().toString())) {
                 li.setId_materia(libro.ObtenerIdMateria(cboxMateriaLibro.getSelectedItem().toString()));
             }
-            li.setStock(Integer.parseInt(txtStockLibro.getText()));
+            li.setStock(1);
             if (!"".equals(cboxEditorialLibro.getSelectedItem().toString())) {
                 li.setId_editorial(libro.ObtenerIdEditorial(cboxEditorialLibro.getSelectedItem().toString()));
             }
@@ -4568,13 +4602,15 @@ public class Sistema extends javax.swing.JFrame {
             }
             li.setDescripcion(txtDescripcionLibro.getText());
             li.setEstado(1);
-            System.out.println(li.getTitulo() + " " + li.getCodigo() + " " + li.getId_autor() + " " + li.getId_materia() + " " + li.getStock() + " " + li.getId_editorial() + " " + li.getAnio() + " " + li.getEdicion() + " " + li.getId_categoria() + " " + li.getId_estado() + " " + li.getDescripcion() + " " + li.getEstado());
-
-            libro.RegistrarLibro(li);
-            JOptionPane.showMessageDialog(null, "Libro Registrado con Exito!!!");
-            LimpiarTable();
-            LimpiarLibro();
-            ListarLibro();
+            li.setTipo(cboxTipoLibro.getSelectedItem().toString());
+            //System.out.println(li.getTitulo() + " " + li.getCodigo() + " " + li.getId_autor() + " " + li.getId_materia() + " " + li.getStock() + " " + li.getId_editorial() + " " + li.getAnio() + " " + li.getEdicion() + " " + li.getId_categoria() + " " + li.getId_estado() + " " + li.getDescripcion() + " " + li.getEstado());
+            error = libro.RegistrarLibro(li);
+            if (error == true) {
+                JOptionPane.showMessageDialog(null, "Libro Registrado con Exito!!!");
+                LimpiarTable();
+                LimpiarLibro();
+                ListarLibro();
+            }
         } else {
             JOptionPane.showMessageDialog(null, "Los campos Titulo, Código, Estado, Stock y Año son obligatorios");
         }
@@ -4588,21 +4624,36 @@ public class Sistema extends javax.swing.JFrame {
 
     private void TableLibroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TableLibroMouseClicked
         // TODO add your handling code here:
+        // autor, editorial, materia, categoria, edicion, descripcion
+        // categoria, editorial, autor, materia
+        li.resetearValores();
         LimpiarLibro();
         int fila = TableLibro.rowAtPoint(evt.getPoint());
         txtIdLibro.setText(TableLibro.getValueAt(fila, 0).toString());
         txtTituloLibro.setText(TableLibro.getValueAt(fila, 1).toString());
         txtCodigoLibro.setText(TableLibro.getValueAt(fila, 2).toString());
-        cboxAutorLibro.setSelectedItem(TableLibro.getValueAt(fila, 3).toString());
-        cboxEditorialLibro.setSelectedItem(TableLibro.getValueAt(fila, 4).toString());
-        cboxMateriaLibro.setSelectedItem(TableLibro.getValueAt(fila, 5).toString());
-        cboxCategoriaLibro.setSelectedItem(TableLibro.getValueAt(fila, 6).toString());
+        Object autor = TableLibro.getValueAt(fila, 3);
+        if (autor != null) {
+            cboxAutorLibro.setSelectedItem(autor.toString());
+        }
+        Object editorial = TableLibro.getValueAt(fila, 4);
+        if (editorial != null) {
+            cboxEditorialLibro.setSelectedItem(editorial.toString());
+        }
+        Object materia = TableLibro.getValueAt(fila, 5);
+        if (materia != null) {
+            cboxMateriaLibro.setSelectedItem(materia.toString());
+        }
+        Object categoria = TableLibro.getValueAt(fila, 6);
+        if (categoria != null) {
+            cboxCategoriaLibro.setSelectedItem(categoria.toString());
+        }
         cboxEstadoLibro.setSelectedItem(TableLibro.getValueAt(fila, 7).toString());
         txtStockLibro.setText(TableLibro.getValueAt(fila, 8).toString());
-        //Fecha
         txtAnioLibro.setText(TableLibro.getValueAt(fila, 10).toString());
         txtEdicionLibro.setText(TableLibro.getValueAt(fila, 11).toString());
         txtDescripcionLibro.setText(TableLibro.getValueAt(fila, 12).toString());
+        cboxTipoLibro.setSelectedItem(TableLibro.getValueAt(fila, 13).toString());
     }//GEN-LAST:event_TableLibroMouseClicked
 
     private void btnEliminarLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarLibroActionPerformed
@@ -5224,6 +5275,53 @@ public class Sistema extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_cboxEFiltroUsuarioItemStateChanged
 
+    private void btnActualizarLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarLibroActionPerformed
+        // TODO add your handling code here:
+        if ("".equals(txtIdLibro.getText())) {
+            JOptionPane.showMessageDialog(null, "Seleccione una fila");
+        } else {
+            if (!"".equals(txtTituloLibro.getText()) && !"".equals(txtCodigoLibro.getText()) && !"".equals(cboxEstadoLibro.getSelectedItem()) && !"".equals(txtStockLibro.getText()) && !"".equals(txtAnioLibro.getText())) {
+                boolean error;
+                li.setId_libro(Integer.parseInt(txtIdLibro.getText()));
+                li.setTitulo(txtTituloLibro.getText());
+                li.setCodigo(txtCodigoLibro.getText());
+                if (!"".equals(cboxAutorLibro.getSelectedItem().toString())) {
+                    li.setId_autor(libro.ObtenerIdAutor(cboxAutorLibro.getSelectedItem().toString()));
+                }
+                if (!"".equals(cboxMateriaLibro.getSelectedItem().toString())) {
+                    li.setId_materia(libro.ObtenerIdMateria(cboxMateriaLibro.getSelectedItem().toString()));
+                }
+                li.setStock(1);
+                if (!"".equals(cboxEditorialLibro.getSelectedItem().toString())) {
+                    li.setId_editorial(libro.ObtenerIdEditorial(cboxEditorialLibro.getSelectedItem().toString()));
+                }
+                if (!"".equals(txtAnioLibro.getText())) {
+                    li.setAnio(Integer.parseInt(txtAnioLibro.getText()));
+                }
+                li.setEdicion(txtEdicionLibro.getText());
+                if (!"".equals(cboxCategoriaLibro.getSelectedItem().toString())) {
+                    li.setId_categoria(libro.ObtenerIdCategoria(cboxCategoriaLibro.getSelectedItem().toString()));
+                }
+                if (!"".equals(cboxEstadoLibro.getSelectedItem().toString())) {
+                    li.setId_estado(libro.ObtenerIdEstado(cboxEstadoLibro.getSelectedItem().toString()));
+                }
+                li.setDescripcion(txtDescripcionLibro.getText());
+                li.setEstado(1);
+                li.setTipo(cboxTipoLibro.getSelectedItem().toString());
+                error = libro.ModificarLibro(li);
+                // System.out.println(li.getId_libro()+" "+li.getTitulo() + " " + li.getCodigo() + " " + li.getId_autor() + " " + li.getId_materia() + " " + li.getStock() + " " + li.getId_editorial() + " " + li.getAnio() + " " + li.getEdicion() + " " + li.getId_categoria() + " " + li.getId_estado() + " " + li.getDescripcion() + " " + li.getEstado()+" "+li.getTipo());
+                if (error == true) {
+                    JOptionPane.showMessageDialog(null, "Campos actualizados con exito");
+                    LimpiarTable();
+                    LimpiarLibro();
+                    ListarLibro();
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Los campos Titulo, Código, Estado, Stock y Año son obligatorios");
+            }
+        }
+    }//GEN-LAST:event_btnActualizarLibroActionPerformed
+
     public void ListarUsuario() {
         LimpiarTable();
         List<Usuario> ListarUsuario = usuario.ListarUsuario();
@@ -5363,6 +5461,7 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cboxMateriaLibro;
     private javax.swing.JComboBox<String> cboxPaisAutor;
     private javax.swing.JComboBox<String> cboxPaisEditorial;
+    private javax.swing.JComboBox<String> cboxTipoLibro;
     private javax.swing.JComboBox<String> cboxTipoUsuario;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
@@ -5404,6 +5503,7 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> jComboBox7;
     private javax.swing.JComboBox<String> jComboBox8;
     private javax.swing.JComboBox<String> jComboBox9;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel100;
     private javax.swing.JLabel jLabel11;
@@ -5648,7 +5748,6 @@ public class Sistema extends javax.swing.JFrame {
         txtIdLibro.setText("");
         txtTituloLibro.setText("");
         txtCodigoLibro.setText("");
-        txtStockLibro.setText("");
         cboxAutorLibro.setSelectedItem("");
         cboxMateriaLibro.setSelectedItem("");
         cboxEditorialLibro.setSelectedItem("");
