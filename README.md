@@ -40,8 +40,7 @@ Haz clic derecho sobre el archivo de la vista.
 
 Selecciona Run File (Ejecutar Archivo).
 
-✨ Software Made By
-Este software fue desarrollado por:
+✨ Software Made By:
 
 Adriana
 
