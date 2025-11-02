@@ -42,10 +42,10 @@ Selecciona Run File (Ejecutar Archivo).
 
 ✨ Software Made By:
 
-Adriana
+Adriana ADICCT
 
-Fernando
+Fernando NOXUXGG
 
-Henry
+Henry FATALBRU
 
 Israel
