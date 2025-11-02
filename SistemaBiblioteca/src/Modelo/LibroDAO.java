@@ -213,6 +213,20 @@ public class LibroDAO {
         }
     }
 
+    public void ConsultarNombre(JComboBox nombre) {
+        String sql = "SELECT titulo FROM libro";
+        try {
+            con = cn.getConnection();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                nombre.addItem(rs.getString("titulo"));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.toString());;
+        }
+    }
+
     public void ConsultarAutor(JComboBox autor) {
         String sql = "SELECT CONCAT(nombre,' ',apellido) FROM autores WHERE estado = 1";
         try {
@@ -487,4 +501,71 @@ public class LibroDAO {
         return errores.toString();
     }
 
+    // Titulo Autor Materia Estado
+    public List ListarLibro2() {
+        List<Libro> ListaLi = new ArrayList();
+        String sql = "SELECT l.codigo, l.titulo,CONCAT(a.nombre, ' ', a.apellido) autor, m.nombre materia, c.categoria, el.estado, l.tipo FROM libro l LEFT JOIN autores a ON l.id_autor = a.id_autor LEFT JOIN materia m ON l.id_materia = m.id_materia LEFT JOIN editoriales e ON l.id_editorial = e.id_editorial LEFT JOIN categoria c ON l.id_categoria = c.id_categoria LEFT JOIN estadolibro el ON l.id_estado = el.id_estado WHERE l.estado = 1;";
+        try {
+            con = cn.getConnection();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Libro li = new Libro();
+                li.setCodigo(rs.getString("codigo"));
+                li.setTitulo(rs.getString("titulo"));
+                li.setNombreAutor(rs.getString("autor"));
+                li.setNombreMateria(rs.getString("materia"));
+                li.setNombreCategoria(rs.getString("categoria"));
+                li.setNombreEstado(rs.getString("estado"));
+                li.setTipo(rs.getString("tipo"));
+                ListaLi.add(li);
+            }
+        } catch (SQLException e) {
+            System.out.println("Error" + e.toString());
+        }
+        return ListaLi;
+    }
+
+    public List ListarLibro3(Libro lib) {
+        List<Libro> ListaLi = new ArrayList();
+        String sql = "SELECT l.codigo, l.titulo,CONCAT(a.nombre, ' ', a.apellido) autor, m.nombre materia, c.categoria, el.estado, l.tipo FROM libro l LEFT JOIN autores a ON l.id_autor = a.id_autor LEFT JOIN materia m ON l.id_materia = m.id_materia LEFT JOIN editoriales e ON l.id_editorial = e.id_editorial LEFT JOIN categoria c ON l.id_categoria = c.id_categoria LEFT JOIN estadolibro el ON l.id_estado = el.id_estado WHERE l.estado = 1 AND (l.titulo = ? OR CONCAT(a.nombre, ' ', a.apellido) = ? OR m.nombre = ? OR c.categoria = ?);";
+        try {
+            con = cn.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setString(1, lib.getTitulo());
+            ps.setString(2, lib.getNombreAutor());
+            ps.setString(3, lib.getNombreMateria());
+            ps.setString(4, lib.getNombreCategoria());
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Libro li = new Libro();
+                li.setCodigo(rs.getString("codigo"));
+                li.setTitulo(rs.getString("titulo"));
+                li.setNombreAutor(rs.getString("autor"));
+                li.setNombreMateria(rs.getString("materia"));
+                li.setNombreCategoria(rs.getString("categoria"));
+                li.setNombreEstado(rs.getString("estado"));
+                li.setTipo(rs.getString("tipo"));
+                ListaLi.add(li);
+            }
+        } catch (SQLException e) {
+            System.out.println("Error" + e.toString());
+        }
+        return ListaLi;
+    }
+
+    public boolean validarSeleccionCombo(javax.swing.JComboBox<String> comboBox, String valor) {
+        if (valor == null || valor.trim().isEmpty()) {
+            return true;
+        }
+
+        for (int i = 0; i < comboBox.getItemCount(); i++) {
+            Object item = comboBox.getItemAt(i);
+            if (item != null && item.toString().trim().equalsIgnoreCase(valor.trim())) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

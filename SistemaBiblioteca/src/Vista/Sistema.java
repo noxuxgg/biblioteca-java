@@ -58,7 +58,6 @@ import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfWriter;
 import javax.swing.text.AbstractDocument;
 
-
 /**
  *
  * @author Henry Quispe
@@ -122,6 +121,15 @@ public class Sistema extends javax.swing.JFrame {
         AutoCompleteDecorator.decorate(cboxCategoriaLibro);
         libro.ConsultarEstado(cboxEstadoLibro);
         AutoCompleteDecorator.decorate(cboxEstadoLibro);
+
+        libro.ConsultarAutor(cboxAutorLibro2);
+        AutoCompleteDecorator.decorate(cboxAutorLibro2);
+        libro.ConsultarCategoria(cboxCategoriaLibro2);
+        AutoCompleteDecorator.decorate(cboxCategoriaLibro2);
+        libro.ConsultarNombre(cboxNombreLibro2);
+        AutoCompleteDecorator.decorate(cboxNombreLibro2);
+        libro.ConsultarMateria(cboxMateriaLibro2);
+        AutoCompleteDecorator.decorate(cboxMateriaLibro2);
 
         usuario.ConsultarCargo(cboxCargoUsuario);
         AutoCompleteDecorator.decorate(cboxCargoUsuario);
@@ -346,6 +354,47 @@ public class Sistema extends javax.swing.JFrame {
         TableLibro.setModel(modelo);
     }
 
+    public void ListarLibro2() {
+        LimpiarTable();
+        List<Libro> ListarLibro2 = libro.ListarLibro2();
+        modelo = (DefaultTableModel) TableLibro2.getModel();
+        Object[] obj = new Object[7];
+        for (int i = 0; i < ListarLibro2.size(); i++) {
+            obj[0] = ListarLibro2.get(i).getCodigo();
+            obj[1] = ListarLibro2.get(i).getTitulo();
+            obj[2] = ListarLibro2.get(i).getNombreAutor();
+            obj[3] = ListarLibro2.get(i).getNombreMateria();
+            obj[4] = ListarLibro2.get(i).getNombreCategoria();
+            obj[5] = ListarLibro2.get(i).getNombreEstado();
+            obj[6] = ListarLibro2.get(i).getTipo();
+            modelo.addRow(obj);
+        }
+        TableLibro2.setModel(modelo);
+    }
+
+    public void ListarLibro3() {
+        LimpiarTable();
+        Libro libro3 = new Libro();
+        libro3.setTitulo(cboxNombreLibro2.getSelectedItem().toString());
+        libro3.setNombreCategoria(cboxCategoriaLibro2.getSelectedItem().toString());
+        libro3.setNombreMateria(cboxMateriaLibro2.getSelectedItem().toString());
+        libro3.setNombreAutor(cboxAutorLibro2.getSelectedItem().toString());
+        List<Libro> ListarLibro3 = libro.ListarLibro3(libro3);
+        modelo = (DefaultTableModel) TableLibro2.getModel();
+        Object[] obj = new Object[7];
+        for (int i = 0; i < ListarLibro3.size(); i++) {
+            obj[0] = ListarLibro3.get(i).getCodigo();
+            obj[1] = ListarLibro3.get(i).getTitulo();
+            obj[2] = ListarLibro3.get(i).getNombreAutor();
+            obj[3] = ListarLibro3.get(i).getNombreMateria();
+            obj[4] = ListarLibro3.get(i).getNombreCategoria();
+            obj[5] = ListarLibro3.get(i).getNombreEstado();
+            obj[6] = ListarLibro3.get(i).getTipo();
+            modelo.addRow(obj);
+        }
+        TableLibro2.setModel(modelo);
+    }
+
     public void LimpiarTable() {
         for (int i = 0; i < modelo.getRowCount(); i++) {
             modelo.removeRow(i);
@@ -478,19 +527,24 @@ public class Sistema extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jPanel23 = new javax.swing.JPanel();
-        jTextField9 = new javax.swing.JTextField();
-        jPanel13 = new javax.swing.JPanel();
-        jButton21 = new javax.swing.JButton();
-        jButton22 = new javax.swing.JButton();
-        jButton23 = new javax.swing.JButton();
-        jButton24 = new javax.swing.JButton();
-        jButton25 = new javax.swing.JButton();
-        jButton26 = new javax.swing.JButton();
         jButton27 = new javax.swing.JButton();
-        jComboBox10 = new javax.swing.JComboBox<>();
         jButton28 = new javax.swing.JButton();
         jButton29 = new javax.swing.JButton();
-        jButton30 = new javax.swing.JButton();
+        jLabel17 = new javax.swing.JLabel();
+        jScrollPane14 = new javax.swing.JScrollPane();
+        TableLibro2 = new javax.swing.JTable();
+        cboxNombreLibro2 = new javax.swing.JComboBox<>();
+        jLabel18 = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
+        cboxAutorLibro2 = new javax.swing.JComboBox<>();
+        jLabel26 = new javax.swing.JLabel();
+        cboxMateriaLibro2 = new javax.swing.JComboBox<>();
+        jLabel27 = new javax.swing.JLabel();
+        cboxCategoriaLibro2 = new javax.swing.JComboBox<>();
+        btnBuscarLibro2 = new javax.swing.JButton();
+        btnMasPrestadoLibro2 = new javax.swing.JButton();
+        btnTodosLibro = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jPanel31 = new javax.swing.JPanel();
         jLabel81 = new javax.swing.JLabel();
@@ -531,13 +585,8 @@ public class Sistema extends javax.swing.JFrame {
         jPanel6 = new javax.swing.JPanel();
         jLabel54 = new javax.swing.JLabel();
         jPanel25 = new javax.swing.JPanel();
-        jLabel55 = new javax.swing.JLabel();
-        jTextField10 = new javax.swing.JTextField();
         jScrollPane5 = new javax.swing.JScrollPane();
         TableEditorial = new javax.swing.JTable();
-        jComboBox11 = new javax.swing.JComboBox<>();
-        jButton35 = new javax.swing.JButton();
-        jButton36 = new javax.swing.JButton();
         jButton37 = new javax.swing.JButton();
         jPanel28 = new javax.swing.JPanel();
         jLabel70 = new javax.swing.JLabel();
@@ -883,7 +932,7 @@ public class Sistema extends javax.swing.JFrame {
                     .addComponent(jLabel3)
                     .addComponent(jLabel10)
                     .addComponent(jLabel9))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7238, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8048, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4)
                     .addComponent(jLabel12)
@@ -914,77 +963,10 @@ public class Sistema extends javax.swing.JFrame {
 
         jPanel23.setBackground(new java.awt.Color(255, 255, 255));
 
-        jTextField9.setText("Search");
-        jTextField9.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField9ActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
-        jPanel13.setLayout(jPanel13Layout);
-        jPanel13Layout.setHorizontalGroup(
-            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        jPanel13Layout.setVerticalGroup(
-            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
-        jButton21.setText("Registrar prestamo");
-        jButton21.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton21ActionPerformed(evt);
-            }
-        });
-
-        jButton22.setText("Registrar Devolucion");
-        jButton22.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton22ActionPerformed(evt);
-            }
-        });
-
-        jButton23.setText("Dar de baja");
-        jButton23.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton23ActionPerformed(evt);
-            }
-        });
-
-        jButton24.setText("Editar");
-        jButton24.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton24ActionPerformed(evt);
-            }
-        });
-
-        jButton25.setText("Agregar editorial");
-        jButton25.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton25ActionPerformed(evt);
-            }
-        });
-
-        jButton26.setText("Agregar autor");
-        jButton26.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton26ActionPerformed(evt);
-            }
-        });
-
         jButton27.setText("Agregar libro");
         jButton27.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton27ActionPerformed(evt);
-            }
-        });
-
-        jComboBox10.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Autor", "Item 2", "Item 3", "Item 4" }));
-        jComboBox10.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox10ActionPerformed(evt);
             }
         });
 
@@ -1002,10 +984,64 @@ public class Sistema extends javax.swing.JFrame {
             }
         });
 
-        jButton30.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/images-30x30.png"))); // NOI18N
-        jButton30.addActionListener(new java.awt.event.ActionListener() {
+        jLabel17.setText("BUSQUEDA DE LIBROS");
+
+        TableLibro2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "CODIGO", "NOMBRE", "AUTOR", "MATERIA", "CATEGORIA", "ESTADO", "TIPO"
+            }
+        ));
+        jScrollPane14.setViewportView(TableLibro2);
+        if (TableLibro2.getColumnModel().getColumnCount() > 0) {
+            TableLibro2.getColumnModel().getColumn(0).setMinWidth(75);
+            TableLibro2.getColumnModel().getColumn(0).setMaxWidth(75);
+            TableLibro2.getColumnModel().getColumn(4).setMinWidth(120);
+            TableLibro2.getColumnModel().getColumn(4).setMaxWidth(120);
+            TableLibro2.getColumnModel().getColumn(5).setMinWidth(100);
+            TableLibro2.getColumnModel().getColumn(5).setMaxWidth(100);
+            TableLibro2.getColumnModel().getColumn(6).setMinWidth(100);
+            TableLibro2.getColumnModel().getColumn(6).setMaxWidth(100);
+        }
+
+        cboxNombreLibro2.setEditable(true);
+
+        jLabel18.setText("Nombre:");
+
+        jLabel22.setText("Autor:");
+
+        cboxAutorLibro2.setEditable(true);
+
+        jLabel26.setText("Materia:");
+
+        cboxMateriaLibro2.setEditable(true);
+
+        jLabel27.setText("Categoria:");
+
+        cboxCategoriaLibro2.setEditable(true);
+
+        btnBuscarLibro2.setText("Buscar");
+        btnBuscarLibro2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton30ActionPerformed(evt);
+                btnBuscarLibro2ActionPerformed(evt);
+            }
+        });
+
+        btnMasPrestadoLibro2.setText("Más prestados");
+
+        btnTodosLibro.setText("Todos los libros");
+        btnTodosLibro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTodosLibroActionPerformed(evt);
+            }
+        });
+
+        jButton1.setText("Limpiar Campos");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
             }
         });
 
@@ -1014,68 +1050,94 @@ public class Sistema extends javax.swing.JFrame {
         jPanel23Layout.setHorizontalGroup(
             jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel23Layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addGroup(jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jTextField9, javax.swing.GroupLayout.DEFAULT_SIZE, 524, Short.MAX_VALUE))
-                .addGap(45, 45, 45)
                 .addGroup(jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel23Layout.createSequentialGroup()
-                        .addComponent(jComboBox10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 70, Short.MAX_VALUE)
-                        .addComponent(jButton27)
-                        .addGap(127, 127, 127))
-                    .addGroup(jPanel23Layout.createSequentialGroup()
                         .addGroup(jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton21)
-                            .addComponent(jButton22)
-                            .addComponent(jButton23)
-                            .addComponent(jButton24)
-                            .addComponent(jButton25)
-                            .addComponent(jButton26)
                             .addGroup(jPanel23Layout.createSequentialGroup()
-                                .addComponent(jButton28)
+                                .addGap(88, 88, 88)
+                                .addGroup(jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel17)
+                                    .addGroup(jPanel23Layout.createSequentialGroup()
+                                        .addComponent(jButton28)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jButton29))))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel23Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jLabel26)
                                 .addGap(18, 18, 18)
-                                .addComponent(jButton29)
-                                .addGap(18, 18, 18)
-                                .addComponent(jButton30)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                .addComponent(cboxMateriaLibro2, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel23Layout.createSequentialGroup()
+                                .addGap(109, 109, 109)
+                                .addGroup(jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(btnMasPrestadoLibro2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnTodosLibro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnBuscarLibro2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE))))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel23Layout.createSequentialGroup()
+                        .addGap(0, 30, Short.MAX_VALUE)
+                        .addGroup(jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel23Layout.createSequentialGroup()
+                                .addGroup(jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel18)
+                                    .addComponent(jLabel22))
+                                .addGap(13, 13, 13))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel23Layout.createSequentialGroup()
+                                .addComponent(jLabel27)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                        .addGroup(jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(cboxCategoriaLibro2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cboxNombreLibro2, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cboxAutorLibro2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(27, 27, 27)))
+                .addComponent(jScrollPane14, javax.swing.GroupLayout.PREFERRED_SIZE, 1134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 75, Short.MAX_VALUE)
+                .addComponent(jButton27)
+                .addGap(127, 127, 127))
         );
         jPanel23Layout.setVerticalGroup(
             jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel23Layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel23Layout.createSequentialGroup()
-                        .addGap(27, 27, 27)
+                        .addGap(24, 24, 24)
+                        .addComponent(jLabel17)
+                        .addGap(18, 18, 18)
                         .addGroup(jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton30)
-                            .addGroup(jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jButton29)
-                                .addComponent(jButton28)))
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton21)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton22)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton23)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton24)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton25)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton26)
-                        .addGap(0, 210, Short.MAX_VALUE)))
-                .addContainerGap())
-            .addGroup(jPanel23Layout.createSequentialGroup()
-                .addGap(39, 39, 39)
-                .addGroup(jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton27)
-                    .addComponent(jComboBox10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(jPanel23Layout.createSequentialGroup()
+                                .addGroup(jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jButton28)
+                                    .addComponent(jButton29))
+                                .addGap(45, 45, 45)
+                                .addGroup(jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel18)
+                                    .addGroup(jPanel23Layout.createSequentialGroup()
+                                        .addComponent(cboxNombreLibro2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addGroup(jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                            .addComponent(cboxAutorLibro2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel22))
+                                        .addGap(18, 18, 18)
+                                        .addGroup(jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                            .addComponent(cboxMateriaLibro2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel26))
+                                        .addGap(15, 15, 15)
+                                        .addGroup(jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                            .addComponent(cboxCategoriaLibro2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel27))))
+                                .addGap(41, 41, 41)
+                                .addComponent(btnBuscarLibro2)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnMasPrestadoLibro2)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnTodosLibro)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButton1))
+                            .addComponent(jScrollPane14, javax.swing.GroupLayout.PREFERRED_SIZE, 438, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel23Layout.createSequentialGroup()
+                        .addGap(39, 39, 39)
+                        .addComponent(jButton27)))
+                .addContainerGap(83, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -1426,7 +1488,7 @@ public class Sistema extends javax.swing.JFrame {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel31, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(6644, Short.MAX_VALUE))
+                .addContainerGap(7454, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1441,15 +1503,6 @@ public class Sistema extends javax.swing.JFrame {
         jLabel54.setText("EDITORIAL");
 
         jPanel25.setBackground(new java.awt.Color(255, 255, 255));
-
-        jLabel55.setText("Filtrar por");
-
-        jTextField10.setText("Search");
-        jTextField10.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField10ActionPerformed(evt);
-            }
-        });
 
         TableEditorial.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -1470,27 +1523,6 @@ public class Sistema extends javax.swing.JFrame {
             TableEditorial.getColumnModel().getColumn(0).setMaxWidth(400);
         }
 
-        jComboBox11.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "buscar por", "Item 2", "Item 3", "Item 4" }));
-        jComboBox11.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox11ActionPerformed(evt);
-            }
-        });
-
-        jButton35.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/images-30x30.png"))); // NOI18N
-        jButton35.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton35ActionPerformed(evt);
-            }
-        });
-
-        jButton36.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/1126709-30x30.png"))); // NOI18N
-        jButton36.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton36ActionPerformed(evt);
-            }
-        });
-
         jButton37.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/images (1)-30x30.png"))); // NOI18N
         jButton37.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1503,40 +1535,17 @@ public class Sistema extends javax.swing.JFrame {
         jPanel25Layout.setHorizontalGroup(
             jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel25Layout.createSequentialGroup()
+                .addGap(15, 15, 15)
                 .addGroup(jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel25Layout.createSequentialGroup()
-                        .addGap(32, 32, 32)
-                        .addGroup(jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel55)
-                            .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, 524, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(28, 28, 28)
-                        .addComponent(jComboBox11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(28, 28, 28)
-                        .addComponent(jButton37)
-                        .addGap(26, 26, 26)
-                        .addComponent(jButton36)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton35))
-                    .addGroup(jPanel25Layout.createSequentialGroup()
-                        .addGap(15, 15, 15)
-                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 918, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jButton37)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 918, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(22, Short.MAX_VALUE))
         );
         jPanel25Layout.setVerticalGroup(
             jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel25Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton35)
-                    .addComponent(jButton36)
-                    .addGroup(jPanel25Layout.createSequentialGroup()
-                        .addComponent(jLabel55)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBox11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jButton37))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton37)
+                .addGap(19, 19, 19)
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 484, Short.MAX_VALUE)
                 .addContainerGap())
         );
@@ -1694,7 +1703,7 @@ public class Sistema extends javax.swing.JFrame {
                         .addGap(104, 104, 104)
                         .addComponent(jPanel25, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel54))
-                .addContainerGap(6722, Short.MAX_VALUE))
+                .addContainerGap(7532, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1944,7 +1953,7 @@ public class Sistema extends javax.swing.JFrame {
                         .addGap(81, 81, 81)
                         .addComponent(jPanel29, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel75))
-                .addContainerGap(6731, Short.MAX_VALUE))
+                .addContainerGap(7541, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2207,7 +2216,7 @@ public class Sistema extends javax.swing.JFrame {
                                 .addComponent(btnActualizarPrestamo)))
                         .addGap(49, 49, 49)
                         .addComponent(jScrollPane11, javax.swing.GroupLayout.PREFERRED_SIZE, 970, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(6703, Short.MAX_VALUE))
+                .addContainerGap(7513, Short.MAX_VALUE))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2570,7 +2579,7 @@ public class Sistema extends javax.swing.JFrame {
                         .addComponent(jPanel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel9Layout.createSequentialGroup()
                         .addComponent(jLabel8)
-                        .addGap(4241, 8030, Short.MAX_VALUE))))
+                        .addGap(4241, 8840, Short.MAX_VALUE))))
             .addGroup(jPanel9Layout.createSequentialGroup()
                 .addComponent(txtIdMulta, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
@@ -2819,7 +2828,7 @@ public class Sistema extends javax.swing.JFrame {
                         .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel33)
                     .addComponent(jPanel20, javax.swing.GroupLayout.PREFERRED_SIZE, 853, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(7096, Short.MAX_VALUE))
+                .addContainerGap(7906, Short.MAX_VALUE))
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -3023,7 +3032,7 @@ public class Sistema extends javax.swing.JFrame {
                                 .addComponent(jLabel43)))
                         .addGap(107, 107, 107)
                         .addComponent(jPanel21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(987, 7241, Short.MAX_VALUE))
+                .addGap(987, 8051, Short.MAX_VALUE))
         );
         jPanel11Layout.setVerticalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -3054,7 +3063,7 @@ public class Sistema extends javax.swing.JFrame {
                         .addComponent(jLabel43)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel11Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                         .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jButton18)
                             .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -3090,7 +3099,7 @@ public class Sistema extends javax.swing.JFrame {
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton19)
                     .addComponent(jButton20))
-                .addContainerGap(7863, Short.MAX_VALUE))
+                .addContainerGap(8673, Short.MAX_VALUE))
         );
         jPanel12Layout.setVerticalGroup(
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -3183,7 +3192,7 @@ public class Sistema extends javax.swing.JFrame {
                             .addComponent(txtNombreCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(121, 121, 121)
                 .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 711, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(6873, Short.MAX_VALUE))
+                .addContainerGap(7683, Short.MAX_VALUE))
         );
         jPanel24Layout.setVerticalGroup(
             jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -3293,7 +3302,7 @@ public class Sistema extends javax.swing.JFrame {
                                     .addComponent(btnActualizarMateria, javax.swing.GroupLayout.Alignment.LEADING))))))
                 .addGap(79, 79, 79)
                 .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 685, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(6847, Short.MAX_VALUE))
+                .addContainerGap(7657, Short.MAX_VALUE))
         );
         jPanel26Layout.setVerticalGroup(
             jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -3406,7 +3415,7 @@ public class Sistema extends javax.swing.JFrame {
                             .addComponent(txtNombrePais, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(72, 72, 72)
                 .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 637, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(6976, Short.MAX_VALUE))
+                .addContainerGap(7786, Short.MAX_VALUE))
         );
         jPanel27Layout.setVerticalGroup(
             jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -3645,7 +3654,7 @@ public class Sistema extends javax.swing.JFrame {
                                         .addComponent(txtDomicilioUsuario)
                                         .addComponent(cboxTipoUsuario, 0, 215, Short.MAX_VALUE))))))
                     .addComponent(jLabel59))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 105, Short.MAX_VALUE)
                 .addGroup(jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane12, javax.swing.GroupLayout.PREFERRED_SIZE, 1037, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel32Layout.createSequentialGroup()
@@ -3656,11 +3665,12 @@ public class Sistema extends javax.swing.JFrame {
                         .addComponent(jLabel100, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cboxFiltroValorUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(34, 34, 34)
-                        .addComponent(btnAplicarFiltroUsuario)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btngenerarpdfusuario)))
-                .addGap(6734, 6734, 6734))
+                        .addGap(228, 228, 228)))
+                .addGap(123, 123, 123)
+                .addComponent(btnAplicarFiltroUsuario)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btngenerarpdfusuario)
+                .addGap(7179, 7179, 7179))
         );
         jPanel32Layout.setVerticalGroup(
             jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -3668,21 +3678,17 @@ public class Sistema extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel32Layout.createSequentialGroup()
-                        .addGroup(jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel59)
-                            .addComponent(txtIdUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(27, 27, 27))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel32Layout.createSequentialGroup()
-                        .addGroup(jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnAplicarFiltroUsuario)
-                            .addComponent(cboxEFiltroUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cboxFiltroValorUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel99)
-                            .addComponent(jLabel100)
-                            .addComponent(btngenerarpdfusuario))
-                        .addGap(18, 18, 18)))
-                .addGroup(jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel32Layout.createSequentialGroup()
+                        .addGroup(jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel32Layout.createSequentialGroup()
+                                .addGroup(jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel59)
+                                    .addComponent(txtIdUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(27, 27, 27))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel32Layout.createSequentialGroup()
+                                .addGroup(jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(btnAplicarFiltroUsuario)
+                                    .addComponent(btngenerarpdfusuario))
+                                .addGap(18, 18, 18)))
                         .addGroup(jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel61)
                             .addComponent(txtCarnetUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -3726,8 +3732,16 @@ public class Sistema extends javax.swing.JFrame {
                         .addGroup(jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnNuevoUsuario)
                             .addComponent(btnEliminarUsuario)))
-                    .addComponent(jScrollPane12, javax.swing.GroupLayout.PREFERRED_SIZE, 427, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(160, Short.MAX_VALUE))
+                    .addGroup(jPanel32Layout.createSequentialGroup()
+                        .addGap(8, 8, 8)
+                        .addGroup(jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cboxEFiltroUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cboxFiltroValorUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel99)
+                            .addComponent(jLabel100))
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane12, javax.swing.GroupLayout.PREFERRED_SIZE, 427, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(161, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("tab14", jPanel32);
@@ -3870,6 +3884,22 @@ public class Sistema extends javax.swing.JFrame {
 
     private void btnReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportesActionPerformed
         // TODO add your handling code here:
+        jTabbedPane1.setSelectedIndex(1);
+
+        fun.VaciarCombo(cboxAutorLibro2);
+        fun.VaciarCombo(cboxMateriaLibro2);
+        fun.VaciarCombo(cboxCategoriaLibro2);
+        fun.VaciarCombo(cboxNombreLibro2);
+
+        libro.ConsultarAutor(cboxAutorLibro2);
+        libro.ConsultarMateria(cboxMateriaLibro2);
+        libro.ConsultarCategoria(cboxCategoriaLibro2);
+        libro.ConsultarNombre(cboxNombreLibro2);
+
+        LimpiarLibro2();
+        LimpiarTable();
+
+        ListarLibro2();
     }//GEN-LAST:event_btnReportesActionPerformed
 
     private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarActionPerformed
@@ -3993,21 +4023,14 @@ public class Sistema extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField8ActionPerformed
 
-    private void jButton21ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton21ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton21ActionPerformed
-
     private void jButton28ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton28ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton28ActionPerformed
 
     private void jButton29ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton29ActionPerformed
         // TODO add your handling code here:
+        pdfLibros();
     }//GEN-LAST:event_jButton29ActionPerformed
-
-    private void jButton30ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton30ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton30ActionPerformed
 
     private void btnEliminarEditorialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarEditorialActionPerformed
         // TODO add your handling code here:
@@ -4022,14 +4045,6 @@ public class Sistema extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_btnEliminarEditorialActionPerformed
-
-    private void jButton35ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton35ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton35ActionPerformed
-
-    private void jButton36ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton36ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton36ActionPerformed
 
     private void jButton37ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton37ActionPerformed
         // TODO add your handling code here:
@@ -4123,37 +4138,9 @@ public class Sistema extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton51ActionPerformed
 
-    private void jTextField9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField9ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField9ActionPerformed
-
-    private void jComboBox10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox10ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox10ActionPerformed
-
     private void jButton27ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton27ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton27ActionPerformed
-
-    private void jButton22ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton22ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton22ActionPerformed
-
-    private void jButton23ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton23ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton23ActionPerformed
-
-    private void jButton24ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton24ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton24ActionPerformed
-
-    private void jButton25ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton25ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton25ActionPerformed
-
-    private void jButton26ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton26ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton26ActionPerformed
 
     private void txtCodigoLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodigoLibroActionPerformed
         // TODO add your handling code here:
@@ -4173,19 +4160,12 @@ public class Sistema extends javax.swing.JFrame {
 
     private void jButton52ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton52ActionPerformed
         // TODO add your handling code here:
+        pdfLibros();
     }//GEN-LAST:event_jButton52ActionPerformed
 
     private void txtDescripcionLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDescripcionLibroActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtDescripcionLibroActionPerformed
-
-    private void jTextField10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField10ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField10ActionPerformed
-
-    private void jComboBox11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox11ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox11ActionPerformed
 
     private void btnNuevoEditorialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoEditorialActionPerformed
         // TODO add your handling code here:
@@ -5322,6 +5302,41 @@ public class Sistema extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnActualizarLibroActionPerformed
 
+    private void btnTodosLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTodosLibroActionPerformed
+        // TODO add your handling code here:
+        ListarLibro2();
+    }//GEN-LAST:event_btnTodosLibroActionPerformed
+
+    private void btnBuscarLibro2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarLibro2ActionPerformed
+        // TODO add your handling code here:
+        String titulo = cboxNombreLibro2.getSelectedItem() != null ? cboxNombreLibro2.getSelectedItem().toString() : "";
+        String categoria = cboxCategoriaLibro2.getSelectedItem() != null ? cboxCategoriaLibro2.getSelectedItem().toString() : "";
+        String materia = cboxMateriaLibro2.getSelectedItem() != null ? cboxMateriaLibro2.getSelectedItem().toString() : "";
+        String autor = cboxAutorLibro2.getSelectedItem() != null ? cboxAutorLibro2.getSelectedItem().toString() : "";
+        if (!libro.validarSeleccionCombo(cboxNombreLibro2, titulo)) {
+            JOptionPane.showMessageDialog(null, "El TÍTULO no es válido o no está en la lista.");
+            return;
+        }
+        if (!libro.validarSeleccionCombo(cboxCategoriaLibro2, categoria)) {
+            JOptionPane.showMessageDialog(null, "La CATEGORÍA no es válida o no está en la lista.");
+            return;
+        }
+        if (!libro.validarSeleccionCombo(cboxMateriaLibro2, materia)) {
+            JOptionPane.showMessageDialog(null, "La MATERIA no es válida o no está en la lista.");
+            return;
+        }
+        if (!libro.validarSeleccionCombo(cboxAutorLibro2, autor)) {
+            JOptionPane.showMessageDialog(null, "El AUTOR no es válido o no está en la lista.");
+            return;
+        }
+        ListarLibro3();
+    }//GEN-LAST:event_btnBuscarLibro2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        LimpiarLibro2();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     public void ListarUsuario() {
         LimpiarTable();
         List<Usuario> ListarUsuario = usuario.ListarUsuario();
@@ -5400,6 +5415,7 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JTable TableCategoria;
     private javax.swing.JTable TableEditorial;
     private javax.swing.JTable TableLibro;
+    private javax.swing.JTable TableLibro2;
     private javax.swing.JTable TableMateria;
     private javax.swing.JTable TablePais;
     private javax.swing.JTable TablePrestamo;
@@ -5414,6 +5430,7 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JButton btnAjuste;
     private javax.swing.JButton btnAnalisis;
     private javax.swing.JButton btnAplicarFiltroUsuario;
+    private javax.swing.JButton btnBuscarLibro2;
     private javax.swing.JButton btnBuscarprestamo;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnCerrar;
@@ -5436,6 +5453,7 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JButton btnGuardarUsuario;
     private javax.swing.JButton btnGuardarmulta;
     private javax.swing.JButton btnInicio;
+    private javax.swing.JButton btnMasPrestadoLibro2;
     private javax.swing.JButton btnModificarMulta;
     private javax.swing.JButton btnNuevaMulta;
     private javax.swing.JButton btnNuevoAutor;
@@ -5446,12 +5464,15 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JButton btnNuevoUsuario;
     private javax.swing.JButton btnPrestamo;
     private javax.swing.JButton btnReportes;
+    private javax.swing.JButton btnTodosLibro;
     private javax.swing.JButton btneleminarMulta;
     private javax.swing.JButton btngenerarpdfusuario;
     private javax.swing.JComboBox<String> cboxAutorLibro;
+    private javax.swing.JComboBox<String> cboxAutorLibro2;
     private javax.swing.JComboBox<String> cboxCargoUsuario;
     private javax.swing.JComboBox<String> cboxCarreraUsuario;
     private javax.swing.JComboBox<String> cboxCategoriaLibro;
+    private javax.swing.JComboBox<String> cboxCategoriaLibro2;
     private javax.swing.JComboBox<String> cboxEFiltroUsuario;
     private javax.swing.JComboBox<String> cboxEditorialLibro;
     private javax.swing.JComboBox<String> cboxEstadoLibro;
@@ -5459,10 +5480,13 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cboxFiltroValorUsuario;
     private javax.swing.JComboBox<String> cboxLibro;
     private javax.swing.JComboBox<String> cboxMateriaLibro;
+    private javax.swing.JComboBox<String> cboxMateriaLibro2;
+    private javax.swing.JComboBox<String> cboxNombreLibro2;
     private javax.swing.JComboBox<String> cboxPaisAutor;
     private javax.swing.JComboBox<String> cboxPaisEditorial;
     private javax.swing.JComboBox<String> cboxTipoLibro;
     private javax.swing.JComboBox<String> cboxTipoUsuario;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton13;
@@ -5473,20 +5497,11 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JButton jButton18;
     private javax.swing.JButton jButton19;
     private javax.swing.JButton jButton20;
-    private javax.swing.JButton jButton21;
-    private javax.swing.JButton jButton22;
-    private javax.swing.JButton jButton23;
-    private javax.swing.JButton jButton24;
-    private javax.swing.JButton jButton25;
-    private javax.swing.JButton jButton26;
     private javax.swing.JButton jButton27;
     private javax.swing.JButton jButton28;
     private javax.swing.JButton jButton29;
-    private javax.swing.JButton jButton30;
     private javax.swing.JButton jButton33;
     private javax.swing.JButton jButton34;
-    private javax.swing.JButton jButton35;
-    private javax.swing.JButton jButton36;
     private javax.swing.JButton jButton37;
     private javax.swing.JButton jButton44;
     private javax.swing.JButton jButton45;
@@ -5497,8 +5512,6 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton9;
     private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox10;
-    private javax.swing.JComboBox<String> jComboBox11;
     private javax.swing.JComboBox<String> jComboBox17;
     private javax.swing.JComboBox<String> jComboBox7;
     private javax.swing.JComboBox<String> jComboBox8;
@@ -5512,13 +5525,18 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel34;
@@ -5544,7 +5562,6 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel52;
     private javax.swing.JLabel jLabel53;
     private javax.swing.JLabel jLabel54;
-    private javax.swing.JLabel jLabel55;
     private javax.swing.JLabel jLabel56;
     private javax.swing.JLabel jLabel57;
     private javax.swing.JLabel jLabel58;
@@ -5598,7 +5615,6 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;
-    private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel14;
     private javax.swing.JPanel jPanel15;
     private javax.swing.JPanel jPanel16;
@@ -5632,6 +5648,7 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane11;
     private javax.swing.JScrollPane jScrollPane12;
     private javax.swing.JScrollPane jScrollPane13;
+    private javax.swing.JScrollPane jScrollPane14;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
@@ -5644,12 +5661,10 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JTable jTable2;
     private javax.swing.JTable jTable3;
     private javax.swing.JTable jTable4;
-    private javax.swing.JTextField jTextField10;
     private javax.swing.JTextField jTextField14;
     private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField jTextField7;
     private javax.swing.JTextField jTextField8;
-    private javax.swing.JTextField jTextField9;
     private javax.swing.JTable tableMultas;
     private javax.swing.JTable tableverprestamo;
     private javax.swing.JTextField txtAnioLibro;
@@ -5756,6 +5771,13 @@ public class Sistema extends javax.swing.JFrame {
         cboxCategoriaLibro.setSelectedItem("");
         cboxEstadoLibro.setSelectedItem("");
         txtDescripcionLibro.setText("");
+    }
+
+    private void LimpiarLibro2() {
+        cboxNombreLibro2.setSelectedItem("");
+        cboxAutorLibro2.setSelectedItem("");
+        cboxMateriaLibro2.setSelectedItem("");
+        cboxCategoriaLibro2.setSelectedItem("");
     }
 
     private void LimpiarPrestamo() {
@@ -5892,6 +5914,110 @@ public class Sistema extends javax.swing.JFrame {
             default:
                 // No hacer nada
                 break;
+        }
+    }
+
+    private void pdfLibros() {
+        try {
+            // Ruta del archivo
+            File file = new File("src/pdf/libro.pdf");
+            FileOutputStream archivo = new FileOutputStream(file);
+
+            // Documento horizontal (A4 landscape)
+            Document doc = new Document(PageSize.A4.rotate());
+            PdfWriter.getInstance(doc, archivo);
+            doc.open();
+
+            // Imagen del encabezado
+            Image img = Image.getInstance("src/Img/SISINf.png");
+            img.scaleToFit(90, 90);
+
+            // Fecha
+            Paragraph fecha = new Paragraph();
+            Font negrita = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.BOLD, BaseColor.BLUE);
+            fecha.add(Chunk.NEWLINE);
+            Date date = new Date();
+            fecha.add("Fecha: " + new SimpleDateFormat("dd-MM-yyyy").format(date) + "\n\n");
+
+            // ENCABEZADO
+            PdfPTable encabezado = new PdfPTable(4);
+            encabezado.setWidthPercentage(100);
+            encabezado.getDefaultCell().setBorder(0);
+
+            float[] columnasEncabezado = new float[]{20f, 30f, 70f, 40f};
+            encabezado.setWidths(columnasEncabezado);
+            encabezado.setHorizontalAlignment(Element.ALIGN_MIDDLE);
+
+            encabezado.addCell(img);
+            encabezado.addCell("");
+            encabezado.addCell(new Paragraph("\n\nSISTEMA DE BIBLIOTECA\nREPORTE DE LIBROS",
+                    new Font(Font.FontFamily.TIMES_ROMAN, 20, Font.BOLD)));
+            encabezado.setHorizontalAlignment(Element.ALIGN_MIDDLE);
+
+            encabezado.addCell(fecha);
+
+            doc.add(encabezado);
+
+            // Título principal
+            Paragraph titulo = new Paragraph();
+            titulo.add(Chunk.NEWLINE);
+            titulo.add(new Paragraph("LISTADO DE LIBROS\n\n",
+                    new Font(Font.FontFamily.TIMES_ROMAN, 14, Font.BOLD)));
+            titulo.setAlignment(Element.ALIGN_CENTER);
+            doc.add(titulo);
+
+            // Tabla de datos
+            PdfPTable tabla = new PdfPTable(TableLibro2.getColumnCount()); // 9 columnas
+            tabla.setWidthPercentage(100);
+            tabla.setSpacingBefore(10f);
+            tabla.setSpacingAfter(10f);
+
+            // Ajustar anchos de columnas (opcional)
+            float[] medidaCeldas = {20f, 40f, 40f, 40f, 40f, 20f, 20f};
+            tabla.setWidths(medidaCeldas);
+
+            // Encabezados de tabla
+            Font fontHeader = new Font(Font.FontFamily.HELVETICA, 10, Font.BOLD, BaseColor.WHITE);
+            PdfPCell celdaHeader;
+
+            for (int i = 0; i < TableLibro2.getColumnCount(); i++) {
+                celdaHeader = new PdfPCell(new Phrase(TableLibro2.getColumnName(i), fontHeader));
+                celdaHeader.setBackgroundColor(BaseColor.DARK_GRAY);
+                celdaHeader.setHorizontalAlignment(Element.ALIGN_CENTER);
+                celdaHeader.setPadding(5f);
+                tabla.addCell(celdaHeader);
+            }
+
+            // Fuente para los datos
+            Font fontDatos = new Font(Font.FontFamily.HELVETICA, 9);
+
+            // Recorrer filas de JTable
+            for (int i = 0; i < TableLibro2.getRowCount(); i++) {
+                for (int j = 0; j < TableLibro2.getColumnCount(); j++) {
+                    Object celdaObjeto = TableLibro2.getValueAt(i, j);
+                    String valorCelda;
+                    if (celdaObjeto != null) {
+                        valorCelda = celdaObjeto.toString();
+                    } else {
+                        valorCelda = "";
+                    }
+                    tabla.addCell(new Phrase(valorCelda, fontDatos));
+                }
+            }
+
+            // Titulo Autor Materia Estado
+            // Agregar tabla al documento
+            doc.add(tabla);
+
+            // Cerrar
+            doc.close();
+            archivo.close();
+
+            JOptionPane.showMessageDialog(null, "PDF generado correctamente en: " + file.getAbsolutePath());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error al generar PDF: " + e.getMessage());
         }
     }
 
