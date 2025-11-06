@@ -260,7 +260,7 @@
                               <Component id="jLabel10" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel9" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="8048" max="32767" attributes="0"/>
+                          <EmptySpace pref="8338" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel12" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -344,7 +344,7 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jPanel23" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="7187" max="32767" attributes="0"/>
+                          <EmptySpace pref="7477" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -702,7 +702,7 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jPanel31" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="7454" max="32767" attributes="0"/>
+                          <EmptySpace pref="7744" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -1146,6 +1146,9 @@
                       </Events>
                     </Component>
                     <Component class="javax.swing.JTextField" name="txtTituloLibro">
+                      <Events>
+                        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtTituloLibroKeyTyped"/>
+                      </Events>
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel57">
                       <Properties>
@@ -1300,7 +1303,7 @@
                               </Group>
                               <Component id="jLabel54" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="7532" max="32767" attributes="0"/>
+                          <EmptySpace pref="7822" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -1645,7 +1648,7 @@
                               </Group>
                               <Component id="jLabel75" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="7541" max="32767" attributes="0"/>
+                          <EmptySpace pref="7831" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -2031,8 +2034,7 @@
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
-                                  <Component id="btnEliminarPrestamo" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="79" max="-2" attributes="0"/>
                                   <Component id="jPanel17" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" attributes="0">
@@ -2104,7 +2106,6 @@
                                                       <EmptySpace type="separate" max="-2" attributes="0"/>
                                                       <Component id="txtidUsuarioPrestamo" min="-2" pref="121" max="-2" attributes="0"/>
                                                   </Group>
-                                                  <Component id="btnDevolucionPrestamo" alignment="1" min="-2" max="-2" attributes="0"/>
                                               </Group>
                                               <Group type="102" alignment="0" attributes="0">
                                                   <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
@@ -2121,16 +2122,28 @@
                                           <Component id="txtFechaDevolucion" min="-2" pref="169" max="-2" attributes="0"/>
                                       </Group>
                                       <Group type="102" alignment="0" attributes="0">
-                                          <Component id="btnGuardarPrestamo" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                                          <Component id="btnActualizarPrestamo" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="68" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Group type="102" alignment="0" attributes="0">
+                                                  <Component id="btnEliminarPrestamo" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace min="99" pref="99" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Group type="102" alignment="0" attributes="0">
+                                                  <Component id="btnGuardarPrestamo" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                                  <Component id="btnActualizarPrestamo" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                          </Group>
                                       </Group>
                                   </Group>
                                   <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
-                                  <Component id="jScrollPane11" min="-2" pref="970" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="1" attributes="0">
+                                      <Component id="jScrollPane11" min="-2" pref="970" max="-2" attributes="0"/>
+                                      <Component id="btnDevolucionPrestamo" min="-2" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
                           </Group>
-                          <EmptySpace pref="7513" max="32767" attributes="0"/>
+                          <EmptySpace pref="7803" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -2139,17 +2152,17 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                           <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
                               <Component id="jLabel14" min="-2" max="-2" attributes="0"/>
-                              <Component id="txtidPrestamo" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="txtidPrestamo" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="btnDevolucionPrestamo" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="jScrollPane11" min="-2" pref="354" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
-                              </Group>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jScrollPane11" alignment="0" min="-2" pref="354" max="-2" attributes="0"/>
                               <Group type="102" alignment="0" attributes="0">
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="jLabel15" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -2214,19 +2227,18 @@
                                       <Component id="jLabel98" min="-2" max="-2" attributes="0"/>
                                       <Component id="txtFechaDevolucion" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace max="32767" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="btnGuardarPrestamo" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="btnActualizarPrestamo" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="btnDevolucionPrestamo" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="btnEliminarPrestamo" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
                               </Group>
                           </Group>
+                          <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                           <Component id="jPanel17" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="52" max="32767" attributes="0"/>
+                          <EmptySpace pref="56" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -2332,6 +2344,7 @@
                 <Component class="javax.swing.JTextField" name="txtTituloPrestamo">
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtTituloPrestamoActionPerformed"/>
+                    <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtTituloPrestamoKeyPressed"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel94">
@@ -2524,7 +2537,7 @@
                               </Group>
                               <Group type="102" attributes="0">
                                   <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="4241" pref="8840" max="32767" attributes="0"/>
+                                  <EmptySpace min="4241" pref="9130" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -2945,7 +2958,7 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <EmptySpace min="0" pref="4522" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="5622" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
@@ -2991,7 +3004,7 @@
                               <Component id="jLabel33" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="jPanel20" alignment="0" min="-2" pref="853" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="7906" max="32767" attributes="0"/>
+                          <EmptySpace pref="8196" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -3380,7 +3393,7 @@
                                   <Component id="jPanel21" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace min="987" pref="8051" max="32767" attributes="0"/>
+                          <EmptySpace min="987" pref="8341" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -3714,7 +3727,7 @@
                               <Component id="jButton19" min="-2" max="-2" attributes="0"/>
                               <Component id="jButton20" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="8673" max="32767" attributes="0"/>
+                          <EmptySpace pref="8963" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -3782,7 +3795,7 @@
                           </Group>
                           <EmptySpace min="-2" pref="121" max="-2" attributes="0"/>
                           <Component id="jScrollPane8" min="-2" pref="711" max="-2" attributes="0"/>
-                          <EmptySpace pref="7683" max="32767" attributes="0"/>
+                          <EmptySpace pref="7973" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -3947,7 +3960,7 @@
                           </Group>
                           <EmptySpace min="-2" pref="79" max="-2" attributes="0"/>
                           <Component id="jScrollPane9" min="-2" pref="685" max="-2" attributes="0"/>
-                          <EmptySpace pref="7657" max="32767" attributes="0"/>
+                          <EmptySpace pref="7947" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -4122,7 +4135,7 @@
                           </Group>
                           <EmptySpace min="-2" pref="72" max="-2" attributes="0"/>
                           <Component id="jScrollPane10" min="-2" pref="637" max="-2" attributes="0"/>
-                          <EmptySpace pref="7786" max="32767" attributes="0"/>
+                          <EmptySpace pref="8076" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -4322,7 +4335,7 @@
                               </Group>
                               <Component id="jLabel59" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="105" max="32767" attributes="0"/>
+                          <EmptySpace pref="395" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jScrollPane12" min="-2" pref="1037" max="-2" attributes="0"/>
                               <Group type="102" alignment="0" attributes="0">
@@ -4333,7 +4346,6 @@
                                   <Component id="jLabel100" min="-2" pref="57" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="cboxFiltroValorUsuario" min="-2" pref="110" max="-2" attributes="0"/>
-                                  <EmptySpace min="228" pref="228" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace min="-2" pref="123" max="-2" attributes="0"/>

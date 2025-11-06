@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -21,6 +22,11 @@ public class PrestamoDAO {
     ResultSet rs;
     
     public boolean RegistrarPrestamo(Prestamo pre){
+        String errores = validarPrestamoCompleto(pre);
+        if (!errores.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Errores de validación:\n" + errores);
+            return false;
+        }
         //String sql = "INSERT INTO prestamos (id_prestamo,id_usuario,id_libro,fecha_prestamo,fecha_devolucion,estado) VALUES (?,?,?,?,?,?)";
         String sql = "INSERT INTO prestamos (id_prestamo,id_usuario,id_libro,fecha_devolucion) VALUES (?,?,?,?)";
         
@@ -135,15 +141,15 @@ public class PrestamoDAO {
     
     
         public boolean ModificarPrestamo(Prestamo pre){
-        String sql = "UPDATE prestamos SET id_usuario = ?, id_libro = ? WHERE id_prestamo = ?";
+        String sql = "UPDATE prestamos SET id_usuario = ?, id_libro = ?, fecha_prestamo = ?, fecha_devolucion = ? WHERE id_prestamo = ?";
         try {
             con = cn.getConnection();
             ps = con.prepareStatement(sql);
             ps.setInt(1, pre.getId_usuario());
             ps.setInt(2, pre.getId_libro());
-            //ps.setString(4, pre.getFecha_prestamo());
-          //  ps.setString(3, pre.getFecha_devolucion());
-            ps.setInt(3, pre.getId_prestamo());
+            ps.setString(3, pre.getFecha_prestamo());
+            ps.setString(4, pre.getFecha_devolucion());
+            ps.setInt(5, pre.getId_prestamo());
             ps.execute();
             return true;
         } catch (SQLException e) {
@@ -174,6 +180,7 @@ public Prestamo buscarPorId(int id) {
             p.setFecha_prestamo(rs.getString("Fecha_prestamo"));
             p.setFecha_devolucion(rs.getString("Fecha_devolucion"));
             p.setEstado(rs.getString("Estado"));
+           // p.setEstadoPrestamo(rs.getString("id_estado_devolucion"));
         }
     } catch (SQLException e) {
         System.out.println("Error al buscar préstamo: " + e.toString());
@@ -181,6 +188,30 @@ public Prestamo buscarPorId(int id) {
         try { con.close(); } catch (SQLException e) { System.out.println(e.toString()); }
     }
     return p;
+}
+
+public boolean validarCarnetPrestamo(String cod){
+    if (cod == null || cod.trim().isEmpty()){
+        return false;
+    }
+    return cod.matches("^\\d{5,8}(-\\d{1}[A-Z])?$");
+}
+
+public boolean validarCodigoPrestamo(String cod){
+    if(cod == null || cod.trim().isEmpty()){
+        return false;
+    }
+        return cod.matches("^[A-Z][\\-\\.]?\\d{2,5}$");
+}
+public String validarPrestamoCompleto(Prestamo pres){
+    StringBuilder errores=new StringBuilder();
+    if(!validarCarnetPrestamo(pres.getCarnetUsuario())){
+        errores.append("- Carnet solo puede contener numeros\n");
+    }
+    if(!validarCodigoPrestamo(pres.getCodigoLibro())){
+        errores.append("- Codigo del libro debe seguir el formato establecido");
+    }
+    return errores.toString();
 }
 
     

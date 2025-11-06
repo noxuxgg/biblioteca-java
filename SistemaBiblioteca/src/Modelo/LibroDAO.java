@@ -367,6 +367,26 @@ public class LibroDAO {
         }
         return libro;
     }
+    
+    public Libro BuscarLibroPorTitulo(String titulo) {
+        Libro libro = new Libro();
+        String sql = "SELECT * FROM libro WHERE titulo = ?";
+        try {
+            con = cn.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setString(1, titulo);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                libro.setId_libro(rs.getInt("id_libro"));
+                libro.setCodigo(rs.getString("codigo"));
+                libro.setEdicion(rs.getString("edicion"));
+                libro.setStock(rs.getInt("stock"));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.toString());
+        }
+        return libro;
+    }
 
     public Libro BuscarLibroPorId(int id) {
         Libro l = null;
