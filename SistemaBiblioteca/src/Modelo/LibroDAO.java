@@ -361,6 +361,7 @@ public class LibroDAO {
                 libro.setTitulo(rs.getString("titulo"));
                 libro.setEdicion(rs.getString("edicion"));
                 libro.setStock(rs.getInt("stock"));
+                libro.setId_estado(rs.getInt("id_estado"));
             }
         } catch (SQLException e) {
             System.out.println(e.toString());

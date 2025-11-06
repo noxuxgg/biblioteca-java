@@ -3973,6 +3973,9 @@ public class Sistema extends javax.swing.JFrame {
         String cod = txtUsuarioPrestamo.getText();
         us = usuario.BuscarUsuario(cod);
         if (us.getId_estado_prestamo() == 1) {
+            String codlibro2=txtCodigoPrestamo.getText();
+            li = libro.BuscarLibro(codlibro2);
+            if(li.getId_estado()==5){
             if (!"".equals(txtidUsuarioPrestamo.getText()) || !"".equals(txtidLibroPrestamo.getText()) || !"".equals(txtFechaDevolucion.getDateFormatString())) {
                 /*   // Crear formateador para MySQL (YYYY-MM-DD)
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -4015,18 +4018,28 @@ public class Sistema extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Se registro el prestamo correctamente");
                 //LimpiarTable();
                 //ListarPrestamo();
-                prestamo.RegistrarPrestamo(pre);
+                boolean errores;
+                errores = prestamo.RegistrarPrestamo(pre);
+                if (errores == true){
+                //prestamo.RegistrarPrestamo(pre);
                 String co = txtCodigoPrestamo.getText();
                 li = libro.BuscarLibro(co);
                 int StockActual = li.getStock() - 1;
+                int EstadoActual=li.getId_estado();
+                EstadoActual=2;
                 int idlibro = li.getId_libro();
-//                prestamo.ActualizarStockLibro(StockActual, idlibro);
+                  prestamo.ActualizarStockLibro(StockActual, idlibro);
+                  prestamo.ActualizarEstadoLibroPrestamo(EstadoActual, idlibro);
 
                 LimpiarTable();
                 LimpiarPrestamo();
                 ListarPrestamo();
+                }
             } else {
                 JOptionPane.showMessageDialog(null, "Los campos estan vacios");
+            }
+        }else{
+                JOptionPane.showMessageDialog(null,"El libro ya se encuentra en prestamo");
             }
         } else {
             JOptionPane.showMessageDialog(null, "El usuario no esta habilitado para realizar un prestamo");
@@ -4825,6 +4838,12 @@ public class Sistema extends javax.swing.JFrame {
         if ("".equals(txtidPrestamo.getText())) {
             JOptionPane.showMessageDialog(null, "Seleccione una fila");
         } else {
+            String co2 = txtCodigoPrestamo.getText();
+                li = libro.BuscarLibro(co2);
+                int StockActual2 = li.getStock() + 1;
+                int EstadoActual2 =li.getId_estado();
+                EstadoActual2=5;
+                int idlibro2 = li.getId_libro();
             if (!"".equals(txtUsuarioPrestamo.getText()) && !"".equals(txtCodigoPrestamo.getText()) && !"".equals(txtFechaDevolucion.getDateFormatString())) {
 
                  SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -4853,6 +4872,17 @@ public class Sistema extends javax.swing.JFrame {
                 pre.setId_prestamo(Integer.parseInt(txtidPrestamo.getText()));
                 error=prestamo.ModificarPrestamo(pre);
                 if (error==true){
+                    String co3 = txtCodigoPrestamo.getText();
+                li = libro.BuscarLibro(co3);
+                int StockActual3 = li.getStock() - 1;
+                int EstadoActual3 =li.getId_estado();
+                EstadoActual3=2;
+                int idlibro3 = li.getId_libro();
+                
+                 // prestamo.ActualizarStockLibro(StockActual2, idlibro2);
+                  //prestamo.ActualizarEstadoLibroPrestamo(EstadoActual2, idlibro2);
+                  //prestamo.ActualizarStockLibro(StockActual3, idlibro3);
+                  //prestamo.ActualizarEstadoLibroPrestamo(EstadoActual3, idlibro3);
                 LimpiarTable();
                 LimpiarPrestamo();
                 ListarPrestamo();
@@ -4938,10 +4968,10 @@ public class Sistema extends javax.swing.JFrame {
     private void btnDevolucionPrestamoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDevolucionPrestamoActionPerformed
         // TODO add your handling code here:
         if (!"".equals(txtidPrestamo.getText())) {
-            //int iden=Integer.parseInt(txtidPrestamo.getText());
-            //prestamo.buscarPorId(iden);
+            String iden=txtidPrestamo.getText();
+            pre=prestamo.BuscarPrestamo(iden);
             //JOptionPane.showMessageDialog(null, pre.getEstadoPrestamo());
-           //if(Integer.parseInt(pre2.getEstadoPrestamo())==1){
+           if(Integer.parseInt(pre.getEstadoPrestamo())==1){
             int pregunta = JOptionPane.showConfirmDialog(null, "Esta seguro de devolver el Prestamo Nro. " + txtidPrestamo.getText());
             if (pregunta == 0) {
                 int id = Integer.parseInt(txtidPrestamo.getText());
@@ -4949,15 +4979,18 @@ public class Sistema extends javax.swing.JFrame {
                 String co = txtCodigoPrestamo.getText();
                 li = libro.BuscarLibro(co);
                 int StockActual = li.getStock() + 1;
+                int EstadoActual = li.getId_estado();
+                EstadoActual=5;
                 int idlibro = li.getId_libro();
-                //prestamo.ActualizarStockLibro(StockActual, idlibro);
+                prestamo.ActualizarStockLibro(StockActual, idlibro);
+                prestamo.ActualizarEstadoLibroPrestamo(EstadoActual, idlibro);
                 LimpiarTable();
                 LimpiarPrestamo();
                 ListarPrestamo();
                 }
-          // }else{
-            //  JOptionPane.showMessageDialog(null, "El prestamo ya fue registrado como devuelto");  
-           // }
+           }else{
+              JOptionPane.showMessageDialog(null, "El prestamo ya fue registrado como devuelto");  
+            }
             
         } else {
             JOptionPane.showMessageDialog(null, "Debe seleccionar un Prestamo para registrar devolucion");

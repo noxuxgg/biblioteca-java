@@ -141,7 +141,12 @@ public class PrestamoDAO {
     
     
         public boolean ModificarPrestamo(Prestamo pre){
-        String sql = "UPDATE prestamos SET id_usuario = ?, id_libro = ?, fecha_prestamo = ?, fecha_devolucion = ? WHERE id_prestamo = ?";
+          String errores = validarPrestamoCompleto(pre);
+        if (!errores.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Errores de validación:\n" + errores);
+            return false;
+        }
+            String sql = "UPDATE prestamos SET id_usuario = ?, id_libro = ?, fecha_prestamo = ?, fecha_devolucion = ? WHERE id_prestamo = ?";
         try {
             con = cn.getConnection();
             ps = con.prepareStatement(sql);
@@ -163,6 +168,45 @@ public class PrestamoDAO {
             }
         }
     }
+        
+        
+        public boolean ActualizarEstadoLibroPrestamo(int estado, int cod){
+            String sql = "UPDATE libro SET id_estado = ? WHERE id_libro = ?";
+           try {
+            con = cn.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, estado);
+            ps.setInt(2, cod);
+            ps.execute();
+            return true;
+        } catch (SQLException e) {
+            System.out.println(e.toString());
+            return false;
+        }
+        }
+        public Prestamo BuscarPrestamo(String cod){
+            Prestamo prestamo = new Prestamo();
+            String sql = "SELECT * FROM prestamos where id_prestamo = ?";
+            try {
+                con = cn.getConnection();
+                ps = con.prepareStatement(sql);
+                ps.setString(1, cod);
+                rs = ps.executeQuery();
+                if(rs.next()){
+                    prestamo.setId_prestamo(rs.getInt("id_prestamo"));
+                    prestamo.setId_usuario(rs.getInt("id_usuario"));
+                    prestamo.setId_libro(rs.getInt("id_libro"));
+                    prestamo.setFecha_prestamo(rs.getString("fecha_prestamo"));
+                    prestamo.setFecha_devolucion(rs.getString("fecha_devolucion"));
+                    prestamo.setEstado(rs.getString("estado"));
+                    prestamo.setEstadoPrestamo(rs.getString("id_estado_devolucion"));
+                }
+                
+            } catch (SQLException e) {
+                System.out.println(e.toString());
+            }
+            return prestamo;
+        }
  //esto sirve para mi tabla ver prestamo en multa no borrar por favor 
 public Prestamo buscarPorId(int id) {
     Prestamo p = null;
@@ -192,14 +236,14 @@ public Prestamo buscarPorId(int id) {
 
 public boolean validarCarnetPrestamo(String cod){
     if (cod == null || cod.trim().isEmpty()){
-        return false;
+        return true;
     }
     return cod.matches("^\\d{5,8}(-\\d{1}[A-Z])?$");
 }
 
 public boolean validarCodigoPrestamo(String cod){
     if(cod == null || cod.trim().isEmpty()){
-        return false;
+        return true;
     }
         return cod.matches("^[A-Z][\\-\\.]?\\d{2,5}$");
 }
