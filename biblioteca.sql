@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 06-11-2025 a las 01:13:30
+-- Tiempo de generación: 06-11-2025 a las 23:59:38
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -276,10 +276,11 @@ INSERT INTO `libro` (`Id_libro`, `Titulo`, `Id_categoria`, `Id_editorial`, `Id_a
 (6, 'El mundo de los Objetos', 1, 12, 3, 6, '10ma.', '1', 'P-1102', '2025-10-12', 2, 2003, '', 5, 'Original'),
 (11, 'Java', 5, NULL, NULL, NULL, '', '1', 'P-1010', '2025-10-12', 1, 2020, '', 5, 'Copia'),
 (12, 'Programacion en C', 2, 10, 1, 6, '10m', '1', 'P-1020', '2025-10-26', 1, 2020, 'Programacion', 5, 'Copia'),
-(13, 'Python', NULL, 10, 1, NULL, '1ra.', '1', 'P-1022', '2025-10-26', 1, 1999, 'PYTHON', 5, 'Original'),
+(13, 'Python', NULL, 10, 1, NULL, '1ra.', '1', 'P-1022', '2025-10-26', 0, 1999, 'PYTHON', 2, 'Original'),
 (14, 'Chanchito Feliz', 5, NULL, NULL, NULL, '', '1', 'CH-1012', '2025-11-01', 1, 1998, '', 5, 'Copia'),
 (15, 'Chanchito Feliciano', NULL, NULL, NULL, 6, '9na', '1', 'P-10103', '2025-11-01', 1, 2000, 'aas@asf~4', 5, 'Copia'),
-(16, 'Puerquito', NULL, NULL, NULL, NULL, '4ta.', '1', 'P-202', '2025-11-01', 1, 2005, '', 5, 'Copia');
+(16, 'Puerquito', NULL, NULL, NULL, NULL, '4ta.', '1', 'P-202', '2025-11-01', 1, 2005, '', 5, 'Copia'),
+(17, 'Pruebas de Escritorio', 11, 23, 2, 6, '2da.', '1', 'P-1666', '2025-11-06', 0, 2005, 'Para probar la base datos :v', 2, 'Copia');
 
 -- --------------------------------------------------------
 
@@ -411,14 +412,16 @@ INSERT INTO `prestamos` (`Id_prestamo`, `Id_usuario`, `Id_libro`, `Fecha_prestam
 (10, 7, 6, '2025-10-19 16:36:05', '2025-10-25 16:36:04', '0', 1),
 (11, 7, 6, '2025-10-19 16:36:11', '2025-10-25 16:36:10', '1', 2),
 (12, 7, 6, '2025-10-19 16:36:35', '2025-10-25 16:36:34', '0', 1),
-(13, 6, 6, '2025-10-19 17:16:16', '2025-10-24 17:16:14', '1', 2),
+(13, 6, 11, '2025-11-06 14:02:05', '2025-11-08 14:02:05', '1', 2),
 (14, 7, 4, '2025-10-19 17:17:08', '2025-10-31 17:17:07', '1', 2),
 (15, 7, 6, '2025-10-20 19:16:25', '2025-10-30 19:16:24', '0', 1),
 (16, 7, 6, '2025-10-20 19:18:40', '2025-10-29 19:18:39', '0', 1),
 (17, 7, 6, '2025-10-20 19:23:22', '2025-10-29 19:23:21', '1', 2),
 (18, 7, 6, '2025-10-20 19:25:25', '2025-10-28 19:25:24', '1', 2),
 (19, 7, 6, '2025-10-20 19:30:13', '2025-10-27 19:30:12', '1', 2),
-(20, 7, 6, '2025-10-20 19:33:24', '2025-10-26 19:33:23', '1', 2);
+(20, 7, 6, '2025-10-20 19:33:24', '2025-10-26 19:33:23', '1', 2),
+(21, 6, 13, '2025-11-06 15:03:46', '2025-11-16 15:03:44', '1', 2),
+(22, 16, 13, '2025-11-06 16:57:30', '2025-11-08 16:57:30', '1', 2);
 
 -- --------------------------------------------------------
 
@@ -692,7 +695,7 @@ ALTER TABLE `historial_libros`
 -- AUTO_INCREMENT de la tabla `libro`
 --
 ALTER TABLE `libro`
-  MODIFY `Id_libro` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `Id_libro` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT de la tabla `login`
@@ -722,7 +725,7 @@ ALTER TABLE `paises`
 -- AUTO_INCREMENT de la tabla `prestamos`
 --
 ALTER TABLE `prestamos`
-  MODIFY `Id_prestamo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `Id_prestamo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT de la tabla `sancion`
