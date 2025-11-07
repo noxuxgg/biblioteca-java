@@ -25,6 +25,7 @@ import Modelo.UsuarioDAO;
 import Modelo.Multa;
 import Modelo.MultaDAO;
 import Modelo.login;
+import Reportes.Grafico;
 import com.itextpdf.text.Image;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
@@ -692,6 +693,7 @@ public class Sistema extends javax.swing.JFrame {
         btnActualizarPrestamo = new javax.swing.JButton();
         btnDevolucionPrestamo = new javax.swing.JButton();
         btnPrestamosPDF = new javax.swing.JButton();
+        btnGraficarPrestamo = new javax.swing.JButton();
         jPanel9 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         jPanel16 = new javax.swing.JPanel();
@@ -2183,6 +2185,13 @@ public class Sistema extends javax.swing.JFrame {
             }
         });
 
+        btnGraficarPrestamo.setText("Graficar");
+        btnGraficarPrestamo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGraficarPrestamoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
@@ -2271,7 +2280,9 @@ public class Sistema extends javax.swing.JFrame {
                                         .addComponent(btnEliminarPrestamo)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(btnPrestamosPDF)
-                                        .addGap(141, 141, 141)))))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(btnGraficarPrestamo)
+                                        .addGap(63, 63, 63)))))
                         .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jScrollPane11, javax.swing.GroupLayout.PREFERRED_SIZE, 970, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnDevolucionPrestamo))))
@@ -2340,17 +2351,18 @@ public class Sistema extends javax.swing.JFrame {
                         .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel98)
                             .addComponent(txtFechaDevolucion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnGuardarPrestamo)
                             .addComponent(btnActualizarPrestamo))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(20, 20, 20)
                         .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnEliminarPrestamo)
-                            .addComponent(btnPrestamosPDF))))
+                            .addComponent(btnPrestamosPDF)
+                            .addComponent(btnGraficarPrestamo))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(56, Short.MAX_VALUE))
+                .addContainerGap(54, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("tab6", jPanel8);
@@ -5495,6 +5507,11 @@ public class Sistema extends javax.swing.JFrame {
         pdfPrestamos();
     }//GEN-LAST:event_btnPrestamosPDFActionPerformed
 
+    private void btnGraficarPrestamoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGraficarPrestamoActionPerformed
+        // TODO add your handling code here:
+        Grafico.GraficarPrestamos("2025-10-18", "2025-11-07");
+    }//GEN-LAST:event_btnGraficarPrestamoActionPerformed
+
     public void ListarUsuario() {
         LimpiarTable();
         List<Usuario> ListarUsuario = usuario.ListarUsuario();
@@ -5612,6 +5629,7 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JButton btnEliminarPais;
     private javax.swing.JButton btnEliminarPrestamo;
     private javax.swing.JButton btnEliminarUsuario;
+    private javax.swing.JButton btnGraficarPrestamo;
     private javax.swing.JButton btnGuardarAutor;
     private javax.swing.JButton btnGuardarCategoria;
     private javax.swing.JButton btnGuardarEditorial;

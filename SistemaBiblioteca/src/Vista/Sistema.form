@@ -2139,7 +2139,9 @@
                                                   <Component id="btnEliminarPrestamo" min="-2" max="-2" attributes="0"/>
                                                   <EmptySpace max="32767" attributes="0"/>
                                                   <Component id="btnPrestamosPDF" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace min="-2" pref="141" max="-2" attributes="0"/>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="btnGraficarPrestamo" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace min="-2" pref="63" max="-2" attributes="0"/>
                                               </Group>
                                           </Group>
                                       </Group>
@@ -2234,21 +2236,22 @@
                                       <Component id="jLabel98" min="-2" max="-2" attributes="0"/>
                                       <Component id="txtFechaDevolucion" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="btnGuardarPrestamo" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="btnActualizarPrestamo" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="btnEliminarPrestamo" min="-2" max="-2" attributes="0"/>
                                       <Component id="btnPrestamosPDF" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="btnGraficarPrestamo" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jPanel17" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="56" max="32767" attributes="0"/>
+                          <EmptySpace pref="54" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -2524,6 +2527,14 @@
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPrestamosPDFActionPerformed"/>
+                  </Events>
+                </Component>
+                <Component class="javax.swing.JButton" name="btnGraficarPrestamo">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Graficar"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnGraficarPrestamoActionPerformed"/>
                   </Events>
                 </Component>
               </SubComponents>
