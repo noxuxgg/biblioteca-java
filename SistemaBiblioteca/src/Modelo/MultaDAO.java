@@ -130,4 +130,128 @@ public class MultaDAO {
         }
         return m;
     }
+    
+    public List<Multa> listarMultasPorCarnet(String carnet) {
+    List<Multa> lista = new ArrayList<>();
+    String sql = """
+        SELECT m.Id_multa, m.Id_prestamo, m.Id_usuario, m.Dias_retraso, m.Monto, m.Estado,
+               CONCAT(u.Nombre, ' ', u.Apellido) AS nombreUsuario,
+               l.Titulo AS nombreLibro
+        FROM multa m
+        INNER JOIN prestamos p ON m.Id_prestamo = p.Id_prestamo
+        INNER JOIN usuario u ON m.Id_usuario = u.Id_usuario
+        INNER JOIN libro l ON p.Id_libro = l.Id_libro
+        WHERE u.Carnet LIKE ?;
+    """;
+
+    try {
+        con = cn.getConnection();
+        ps = con.prepareStatement(sql);
+        ps.setString(1, "%" + carnet + "%");
+        rs = ps.executeQuery();
+
+        while (rs.next()) {
+            Multa m = new Multa();
+            m.setId_multa(rs.getInt("Id_multa"));
+            m.setId_prestamo(rs.getInt("Id_prestamo"));
+            m.setId_usuario(rs.getInt("Id_usuario"));
+            m.setDias_retraso(rs.getInt("Dias_retraso"));
+            m.setMonto(rs.getFloat("Monto"));
+            m.setEstado(rs.getString("Estado"));
+            m.setNombreUsuario(rs.getString("nombreUsuario"));
+            m.setNombreLibro(rs.getString("nombreLibro"));
+            lista.add(m);
+        }
+    } catch (SQLException e) {
+        System.out.println("Error al listar multas por carnet: " + e.toString());
+    }
+
+    return lista;
+    }
+    public List<Multa> listarMultasPorEstado(String estado) {
+    List<Multa> lista = new ArrayList<>();
+    String sql = """
+        SELECT m.Id_multa, m.Id_prestamo, m.Id_usuario, m.Dias_retraso, m.Monto, m.Estado,
+               CONCAT(u.Nombre, ' ', u.Apellido) AS nombreUsuario,
+               l.Titulo AS nombreLibro
+        FROM multa m
+        INNER JOIN prestamos p ON m.Id_prestamo = p.Id_prestamo
+        INNER JOIN usuario u ON m.Id_usuario = u.Id_usuario
+        INNER JOIN libro l ON p.Id_libro = l.Id_libro
+        WHERE m.Estado = ?;
+    """;
+
+    try {
+        con = cn.getConnection();
+        ps = con.prepareStatement(sql);
+        ps.setString(1, estado);
+        rs = ps.executeQuery();
+
+        while (rs.next()) {
+            Multa m = new Multa();
+            m.setId_multa(rs.getInt("Id_multa"));
+            m.setId_prestamo(rs.getInt("Id_prestamo"));
+            m.setId_usuario(rs.getInt("Id_usuario"));
+            m.setDias_retraso(rs.getInt("Dias_retraso"));
+            m.setMonto(rs.getFloat("Monto"));
+            m.setEstado(rs.getString("Estado"));
+            m.setNombreUsuario(rs.getString("nombreUsuario"));
+            m.setNombreLibro(rs.getString("nombreLibro"));
+            lista.add(m);
+        }
+    } catch (SQLException e) {
+        System.out.println("Error al listar multas por estado: " + e.toString());
+    }
+
+    return lista;
+   }
+    public List<Multa> listarMultasInactivas() {
+    return listarMultasPorEstado("Inactiva");
+    }
+    /**
+ * Busca una multa por ID con información completa (usuario y libro)
+ */
+public Multa buscarPorIdCompleto(int id) {
+    Multa m = null;
+    String sql = """
+        SELECT m.Id_multa, m.Id_prestamo, m.Id_usuario, m.Dias_retraso, 
+               m.Monto, m.Estado,
+               CONCAT(u.Nombre, ' ', u.Apellido) AS nombreUsuario,
+               l.Titulo AS nombreLibro
+        FROM multa m
+        INNER JOIN prestamos p ON m.Id_prestamo = p.Id_prestamo
+        INNER JOIN usuario u ON m.Id_usuario = u.Id_usuario
+        INNER JOIN libro l ON p.Id_libro = l.Id_libro
+        WHERE m.Id_multa = ?
+    """;
+    
+    try {
+        con = cn.getConnection();
+        ps = con.prepareStatement(sql);
+        ps.setInt(1, id);
+        rs = ps.executeQuery();
+        
+        if (rs.next()) {
+            m = new Multa();
+            m.setId_multa(rs.getInt("Id_multa"));
+            m.setId_prestamo(rs.getInt("Id_prestamo"));
+            m.setId_usuario(rs.getInt("Id_usuario"));
+            m.setDias_retraso(rs.getInt("Dias_retraso"));
+            m.setMonto(rs.getFloat("Monto"));
+            m.setEstado(rs.getString("Estado"));
+            m.setNombreUsuario(rs.getString("nombreUsuario"));
+            m.setNombreLibro(rs.getString("nombreLibro"));
+        }
+    } catch (SQLException e) {
+        System.out.println("Error al buscar multa completa: " + e.toString());
+    } finally {
+        try { 
+            if (con != null) con.close(); 
+        } catch (SQLException e) { 
+            System.out.println(e.toString()); 
+        }
+    }
+    return m;
+}
+
 }

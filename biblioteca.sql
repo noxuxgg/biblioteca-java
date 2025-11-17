@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 06-11-2025 a las 23:59:38
+-- Tiempo de generación: 17-11-2025 a las 07:23:49
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -233,6 +233,33 @@ INSERT INTO `estado_usuario` (`id_estado_usuario`, `estado_usuario`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `factura`
+--
+
+CREATE TABLE `factura` (
+  `Id_factura` int(11) NOT NULL,
+  `Id_multa_pagada` int(11) NOT NULL,
+  `Id_usuario` int(11) NOT NULL,
+  `Numero_factura` varchar(20) NOT NULL,
+  `Fecha_emision` datetime NOT NULL DEFAULT current_timestamp(),
+  `Monto` decimal(8,2) NOT NULL,
+  `Concepto` varchar(200) NOT NULL,
+  `Estado` varchar(20) NOT NULL DEFAULT 'Emitida'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `factura`
+--
+
+INSERT INTO `factura` (`Id_factura`, `Id_multa_pagada`, `Id_usuario`, `Numero_factura`, `Fecha_emision`, `Monto`, `Concepto`, `Estado`) VALUES
+(1, 5, 18, 'FACT-20251116-000005', '2025-11-16 21:42:13', 2.00, 'Pago de multa por 2 día(s) de retraso - Préstamo ID: 24', 'Emitida'),
+(4, 8, 19, 'FACT-20251117-000008', '2025-11-17 00:32:32', 5.00, 'Pago de multa por 5 día(s) de retraso - Préstamo ID: 8', 'Emitida'),
+(5, 9, 6, 'FACT-20251117-000009', '2025-11-17 01:20:14', 1.00, 'Pago de multa por 1 día(s) de retraso - Préstamo ID: 21', 'Emitida'),
+(6, 10, 16, 'FACT-20251117-000010', '2025-11-17 01:53:03', 7.00, 'Pago de multa por 7 día(s) de retraso - Préstamo ID: 22', 'Emitida');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `historial_libros`
 --
 
@@ -273,11 +300,11 @@ CREATE TABLE `libro` (
 
 INSERT INTO `libro` (`Id_libro`, `Titulo`, `Id_categoria`, `Id_editorial`, `Id_autor`, `Id_materia`, `Edicion`, `Estado`, `codigo`, `fechaRegistro`, `stock`, `anio`, `Descripcion`, `id_estado`, `tipo`) VALUES
 (4, 'Fundamentos de C++', 1, 25, 1, 8, '9na.', '1', 'P-1101', '2025-10-12', 1, 2000, 'KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK', 5, 'Copia'),
-(6, 'El mundo de los Objetos', 1, 12, 3, 6, '10ma.', '1', 'P-1102', '2025-10-12', 2, 2003, '', 5, 'Original'),
+(6, 'El mundo de los Objetos', 1, 12, 3, 6, '10ma.', '1', 'P-1102', '2025-10-12', 4, 2003, '', 5, 'Original'),
 (11, 'Java', 5, NULL, NULL, NULL, '', '1', 'P-1010', '2025-10-12', 1, 2020, '', 5, 'Copia'),
 (12, 'Programacion en C', 2, 10, 1, 6, '10m', '1', 'P-1020', '2025-10-26', 1, 2020, 'Programacion', 5, 'Copia'),
-(13, 'Python', NULL, 10, 1, NULL, '1ra.', '1', 'P-1022', '2025-10-26', 0, 1999, 'PYTHON', 2, 'Original'),
-(14, 'Chanchito Feliz', 5, NULL, NULL, NULL, '', '1', 'CH-1012', '2025-11-01', 1, 1998, '', 5, 'Copia'),
+(13, 'Python', NULL, 10, 1, NULL, '1ra.', '1', 'P-1022', '2025-10-26', 2, 1999, 'PYTHON', 5, 'Original'),
+(14, 'Chanchito Feliz', 5, NULL, NULL, NULL, '', '1', 'CH-1012', '2025-11-01', 4, 1998, '', 5, 'Copia'),
 (15, 'Chanchito Feliciano', NULL, NULL, NULL, 6, '9na', '1', 'P-10103', '2025-11-01', 1, 2000, 'aas@asf~4', 5, 'Copia'),
 (16, 'Puerquito', NULL, NULL, NULL, NULL, '4ta.', '1', 'P-202', '2025-11-01', 1, 2005, '', 5, 'Copia'),
 (17, 'Pruebas de Escritorio', 11, 23, 2, 6, '2da.', '1', 'P-1666', '2025-11-06', 0, 2005, 'Para probar la base datos :v', 2, 'Copia');
@@ -343,6 +370,40 @@ CREATE TABLE `multa` (
   `Estado` varchar(80) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `multa`
+--
+
+INSERT INTO `multa` (`Id_multa`, `Id_prestamo`, `Id_usuario`, `Dias_retraso`, `Monto`, `Estado`) VALUES
+(1, 24, 18, 2, 2.00, 'Pagada'),
+(2, 22, 16, 7, 7.00, 'Pagada'),
+(3, 17, 7, 17, 17.00, 'Activa'),
+(4, 8, 19, 5, 5.00, 'Pagada'),
+(5, 21, 6, 1, 1.00, 'Pagada');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `multa_pagada`
+--
+
+CREATE TABLE `multa_pagada` (
+  `Id_multa_pagada` int(11) NOT NULL,
+  `Id_multa` int(11) NOT NULL,
+  `Fecha` datetime NOT NULL,
+  `Estado` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `multa_pagada`
+--
+
+INSERT INTO `multa_pagada` (`Id_multa_pagada`, `Id_multa`, `Fecha`, `Estado`) VALUES
+(5, 1, '2025-11-17 01:42:13', 1),
+(8, 4, '2025-11-17 04:32:32', 1),
+(9, 5, '2025-11-17 05:20:14', 1),
+(10, 2, '2025-11-17 05:53:03', 1);
+
 -- --------------------------------------------------------
 
 --
@@ -407,7 +468,7 @@ CREATE TABLE `prestamos` (
 
 INSERT INTO `prestamos` (`Id_prestamo`, `Id_usuario`, `Id_libro`, `Fecha_prestamo`, `Fecha_devolucion`, `Estado`, `Id_estado_devolucion`) VALUES
 (7, 7, 6, '2025-10-19 14:00:28', '2025-10-19 14:30:28', '1', 2),
-(8, 5, 11, '2025-11-05 19:32:30', '2025-11-06 19:32:30', '1', 2),
+(8, 19, 14, '2025-11-14 23:09:24', '2025-11-12 23:09:24', '1', 2),
 (9, 6, 11, '2025-10-19 16:33:46', '2025-10-24 16:33:45', '1', 2),
 (10, 7, 6, '2025-10-19 16:36:05', '2025-10-25 16:36:04', '0', 1),
 (11, 7, 6, '2025-10-19 16:36:11', '2025-10-25 16:36:10', '1', 2),
@@ -418,10 +479,12 @@ INSERT INTO `prestamos` (`Id_prestamo`, `Id_usuario`, `Id_libro`, `Fecha_prestam
 (16, 7, 6, '2025-10-20 19:18:40', '2025-10-29 19:18:39', '0', 1),
 (17, 7, 6, '2025-10-20 19:23:22', '2025-10-29 19:23:21', '1', 2),
 (18, 7, 6, '2025-10-20 19:25:25', '2025-10-28 19:25:24', '1', 2),
-(19, 7, 6, '2025-10-20 19:30:13', '2025-10-27 19:30:12', '1', 2),
-(20, 7, 6, '2025-10-20 19:33:24', '2025-10-26 19:33:23', '1', 2),
+(19, 7, 6, '2025-10-20 19:30:13', '2025-11-16 19:30:12', '1', 2),
+(20, 18, 14, '2025-11-14 23:05:59', '2025-11-12 23:05:59', '1', 2),
 (21, 6, 13, '2025-11-06 15:03:46', '2025-11-16 15:03:44', '1', 2),
-(22, 16, 13, '2025-11-06 16:57:30', '2025-11-08 16:57:30', '1', 2);
+(22, 16, 13, '2025-11-06 16:57:30', '2025-11-08 16:57:30', '1', 2),
+(23, 20, 13, '2025-11-17 01:25:19', '2025-11-20 01:25:19', '1', 2),
+(24, 18, 14, '2025-11-10 23:11:55', '2025-11-12 23:11:55', '1', 2);
 
 -- --------------------------------------------------------
 
@@ -485,10 +548,13 @@ CREATE TABLE `usuario` (
 INSERT INTO `usuario` (`Id_usuario`, `Carnet`, `Nombre`, `Apellido`, `Domicilo`, `Id_tipo_usuario`, `Telefono`, `id_cargo`, `id_carrera`, `Estado`, `id_estado_usuario`) VALUES
 (5, '7278371', 'Juan Marco', 'Mercedes Canaviri', 'Av. al valle entre junin y ayacucho Nro578', 2, '74821147', 3, 2, 1, 2),
 (6, '5489632', 'Maria', 'Campero Rodriguez', 'La plata entre villaroel y 6 de agosto Nro 67', 2, '61278854', 3, 1, 1, 1),
-(7, '48658454', 'Carla', 'Rocha Quispe', 'Pagado entre soria galvarro y ayacucho Nro 40', 2, '58421154', 3, 1, 0, 1),
+(7, '48658454', 'Carla', 'Rocha Quispe', 'Pagado entre soria galvarro y ayacucho Nro 40', 2, '58421154', 3, 1, 1, 1),
 (15, '7274931', 'Adriana', 'Choquecallata Troncoso', 'Av. Villaroel y Ayachucho #35', 2, '63814471', 3, 2, 1, 1),
 (16, '5689451', 'Juana Azurduy', 'De padilla', 'Av terracota, calle Linares #54', 2, '78945211', 3, 1, 1, 1),
-(17, '2412344', 'ADFADFAFDFD', 'ADFAFDAFDADF', 'ADFADFADFAFD', 2, '65353230', 2, 2, 1, 1);
+(17, '2412344', 'asdfssdfa', 'ADFAFDAFDADF', 'ADFADFADFAFD', 2, '65353230', 2, 2, 1, 1),
+(18, '7389062', 'Israel ', 'Lima Condori', 'Zona Socamani ', 2, '68319277', 3, 1, 1, 1),
+(19, '7654321', 'Jhonatan', 'Lima Condori', 'cerca', 2, '61826899', 3, 1, 1, 1),
+(20, '7894561', 'Indiara Sulma', 'Jacinto Mamani', 'por allisds', 2, '78945612', 3, 1, 1, 1);
 
 --
 -- Índices para tablas volcadas
@@ -552,6 +618,14 @@ ALTER TABLE `estado_usuario`
   ADD PRIMARY KEY (`id_estado_usuario`);
 
 --
+-- Indices de la tabla `factura`
+--
+ALTER TABLE `factura`
+  ADD PRIMARY KEY (`Id_factura`),
+  ADD KEY `fk_factura_multa_pagada` (`Id_multa_pagada`),
+  ADD KEY `fk_factura_usuario` (`Id_usuario`);
+
+--
 -- Indices de la tabla `historial_libros`
 --
 ALTER TABLE `historial_libros`
@@ -588,6 +662,13 @@ ALTER TABLE `multa`
   ADD PRIMARY KEY (`Id_multa`),
   ADD KEY `Fkprestamo` (`Id_prestamo`),
   ADD KEY `Id_usuario` (`Id_usuario`);
+
+--
+-- Indices de la tabla `multa_pagada`
+--
+ALTER TABLE `multa_pagada`
+  ADD PRIMARY KEY (`Id_multa_pagada`),
+  ADD KEY `Id_multa` (`Id_multa`);
 
 --
 -- Indices de la tabla `paises`
@@ -686,6 +767,12 @@ ALTER TABLE `estado_usuario`
   MODIFY `id_estado_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
+-- AUTO_INCREMENT de la tabla `factura`
+--
+ALTER TABLE `factura`
+  MODIFY `Id_factura` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
 -- AUTO_INCREMENT de la tabla `historial_libros`
 --
 ALTER TABLE `historial_libros`
@@ -713,7 +800,13 @@ ALTER TABLE `materia`
 -- AUTO_INCREMENT de la tabla `multa`
 --
 ALTER TABLE `multa`
-  MODIFY `Id_multa` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id_multa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT de la tabla `multa_pagada`
+--
+ALTER TABLE `multa_pagada`
+  MODIFY `Id_multa_pagada` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `paises`
@@ -725,7 +818,7 @@ ALTER TABLE `paises`
 -- AUTO_INCREMENT de la tabla `prestamos`
 --
 ALTER TABLE `prestamos`
-  MODIFY `Id_prestamo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `Id_prestamo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT de la tabla `sancion`
@@ -743,7 +836,7 @@ ALTER TABLE `tipo_usuario`
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `Id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `Id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- Restricciones para tablas volcadas
@@ -768,6 +861,13 @@ ALTER TABLE `editoriales`
   ADD CONSTRAINT `editoriales_ibfk_1` FOREIGN KEY (`id_pais`) REFERENCES `paises` (`id_pais`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
+-- Filtros para la tabla `factura`
+--
+ALTER TABLE `factura`
+  ADD CONSTRAINT `fk_factura_multa_pagada` FOREIGN KEY (`Id_multa_pagada`) REFERENCES `multa_pagada` (`Id_multa_pagada`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_factura_usuario` FOREIGN KEY (`Id_usuario`) REFERENCES `usuario` (`Id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Filtros para la tabla `historial_libros`
 --
 ALTER TABLE `historial_libros`
@@ -789,6 +889,12 @@ ALTER TABLE `libro`
 ALTER TABLE `multa`
   ADD CONSTRAINT `multa_ibfk_1` FOREIGN KEY (`Id_prestamo`) REFERENCES `prestamos` (`Id_prestamo`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `multa_ibfk_2` FOREIGN KEY (`Id_usuario`) REFERENCES `usuario` (`Id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `multa_pagada`
+--
+ALTER TABLE `multa_pagada`
+  ADD CONSTRAINT `multa_pagada_ibfk_1` FOREIGN KEY (`Id_multa`) REFERENCES `multa` (`Id_multa`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `prestamos`
