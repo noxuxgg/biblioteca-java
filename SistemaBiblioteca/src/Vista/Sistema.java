@@ -95,11 +95,6 @@ public class Sistema extends javax.swing.JFrame {
     DefaultTableModel modeloMulta = new DefaultTableModel();
     Multa_pagada mp = new Multa_pagada();
     Multa_pagadaDAO multaPagadaDao = new Multa_pagadaDAO();
-    
-
-    
-    
- 
 
     public Sistema() {
         initComponents();
@@ -147,9 +142,7 @@ public class Sistema extends javax.swing.JFrame {
         AutoCompleteDecorator.decorate(cboxTipoUsuario);
         usuario.ConsultarEstadoUsuario(cboxEstadoPrestamoUsuario);
         AutoCompleteDecorator.decorate(cboxEstadoPrestamoUsuario);
-  
-        
-        
+
         //PRESTAMO
         txtNombrePrestamo.setEditable(false);
         txtApellidoPrestamo.setEditable(false);
@@ -165,9 +158,8 @@ public class Sistema extends javax.swing.JFrame {
         TitulosLibros = obtenerListaTitulos();
         String[] arrayTitulos = TitulosLibros.toArray(new String[0]);
         JList listaSugerenciasPrestamo = new JList(arrayTitulos);
-        AutoCompleteDecorator.decorate(listaSugerenciasPrestamo, txtTituloPrestamo,ObjectToStringConverter.DEFAULT_IMPLEMENTATION);
+        AutoCompleteDecorator.decorate(listaSugerenciasPrestamo, txtTituloPrestamo, ObjectToStringConverter.DEFAULT_IMPLEMENTATION);
         //txtTituloPrestamo.getCaret().setSelectionVisible(false);
-
 
         // Llenar los valores iniciales según el filtro seleccionado
         actualizarComboValorUsuario();
@@ -211,8 +203,6 @@ public class Sistema extends javax.swing.JFrame {
         AutoCompleteDecorator.decorate(cboxTipoUsuario);
         usuario.ConsultarEstadoUsuario(cboxEstadoPrestamoUsuario);
         AutoCompleteDecorator.decorate(cboxEstadoPrestamoUsuario);
-        
-       
 
         // Llenar los valores iniciales según el filtro seleccionado
         actualizarComboValorUsuario();
@@ -226,7 +216,7 @@ public class Sistema extends javax.swing.JFrame {
         } else if ("normal".equals(tipo)) {
             // USUARIO NORMAL
             btnPrestamo.setEnabled(false);
-    
+
             btnGuardarUsuario.setEnabled(false);
             btnEliminarUsuario.setEnabled(false);
             btnReportes.setEnabled(false);
@@ -415,136 +405,134 @@ public class Sistema extends javax.swing.JFrame {
     }
     //DESDE AQUI COMIENZA MULTAS
 
-   
-    
     public void listarTodasLasMultas() {
 
-    DefaultTableModel modelo = (DefaultTableModel) TableMultasUsuario.getModel();
-    modelo.setRowCount(0);
+        DefaultTableModel modelo = (DefaultTableModel) TableMultasUsuario.getModel();
+        modelo.setRowCount(0);
 
-    List<Multa> lista = multaDao.listarMultas(); // ← trae TODAS
+        List<Multa> lista = multaDao.listarMultas(); // ← trae TODAS
 
-    for (Multa m : lista) {
-        modelo.addRow(new Object[]{
-            m.getId_multa(),
-            m.getId_prestamo(),
-            m.getId_usuario(),
-            m.getNombreUsuario(),
-            m.getNombreLibro(),
-            m.getDias_retraso(),
-            m.getMonto(),
-            m.getEstado()
-        });
+        for (Multa m : lista) {
+            modelo.addRow(new Object[]{
+                m.getId_multa(),
+                m.getId_prestamo(),
+                m.getId_usuario(),
+                m.getNombreUsuario(),
+                m.getNombreLibro(),
+                m.getDias_retraso(),
+                m.getMonto(),
+                m.getEstado()
+            });
+        }
     }
-   }
 
-  
-  
     public void listarMultasUsuario(String carnet) {
-    DefaultTableModel modelo = (DefaultTableModel) TableMultasUsuario.getModel();
-    modelo.setRowCount(0);
+        DefaultTableModel modelo = (DefaultTableModel) TableMultasUsuario.getModel();
+        modelo.setRowCount(0);
 
-    List<Multa> lista = multaDao.listarMultasPorCarnet(carnet);
+        List<Multa> lista = multaDao.listarMultasPorCarnet(carnet);
 
-    for (Multa m : lista) {
-        modelo.addRow(new Object[]{
-            m.getId_multa(),
-            m.getId_prestamo(),
-            m.getId_usuario(),
-            m.getNombreUsuario(),
-            m.getNombreLibro(),
-            m.getDias_retraso(),
-            m.getMonto(),
-            m.getEstado()
-        });
+        for (Multa m : lista) {
+            modelo.addRow(new Object[]{
+                m.getId_multa(),
+                m.getId_prestamo(),
+                m.getId_usuario(),
+                m.getNombreUsuario(),
+                m.getNombreLibro(),
+                m.getDias_retraso(),
+                m.getMonto(),
+                m.getEstado()
+            });
+        }
     }
-    } 
-    
-    
+
     public void listarMultasPagadas() {
-    DefaultTableModel modelo = (DefaultTableModel) tableMultaspagadas.getModel();
-    modelo.setRowCount(0);
+        DefaultTableModel modelo = (DefaultTableModel) tableMultaspagadas.getModel();
+        modelo.setRowCount(0);
 
-    List<Multa> lista = multaDao.listarMultasPorEstado("Pagada");
+        List<Multa> lista = multaDao.listarMultasPorEstado("Pagada");
 
-    for (Multa m : lista) {
-        modelo.addRow(new Object[]{
-            m.getId_multa(),
-            m.getId_prestamo(),
-            m.getId_usuario(),
-            m.getNombreUsuario(),
-            m.getNombreLibro(),
-            m.getDias_retraso(),
-            m.getMonto(),
-            m.getEstado()
-        });
+        for (Multa m : lista) {
+            modelo.addRow(new Object[]{
+                m.getId_multa(),
+                m.getId_prestamo(),
+                m.getId_usuario(),
+                m.getNombreUsuario(),
+                m.getNombreLibro(),
+                m.getDias_retraso(),
+                m.getMonto(),
+                m.getEstado()
+            });
+        }
     }
-    }
+
     public void listarMultasSinPagar() {
-      DefaultTableModel modelo = (DefaultTableModel) TableMultassinpagar.getModel();
-    modelo.setRowCount(0);
+        DefaultTableModel modelo = (DefaultTableModel) TableMultassinpagar.getModel();
+        modelo.setRowCount(0);
 
-    List<Multa> lista = multaDao.listarMultasPorEstado("Activa");
+        List<Multa> lista = multaDao.listarMultasPorEstado("Activa");
 
-    for (Multa m : lista) {
-        modelo.addRow(new Object[]{
-            m.getId_multa(),
-            m.getId_prestamo(),
-            m.getId_usuario(),
-            m.getNombreUsuario(),
-            m.getNombreLibro(),
-            m.getDias_retraso(),
-            m.getMonto(),
-            m.getEstado()
-        });
+        for (Multa m : lista) {
+            modelo.addRow(new Object[]{
+                m.getId_multa(),
+                m.getId_prestamo(),
+                m.getId_usuario(),
+                m.getNombreUsuario(),
+                m.getNombreLibro(),
+                m.getDias_retraso(),
+                m.getMonto(),
+                m.getEstado()
+            });
+        }
     }
-    }
+
     public Integer obtenerIdMultaSeleccionada() {
 
-    // Tabla 1
-    int fila = TableMultasUsuario.getSelectedRow();
-    if (fila != -1) {
-        return Integer.valueOf(TableMultasUsuario.getValueAt(fila, 0).toString());
+        // Tabla 1
+        int fila = TableMultasUsuario.getSelectedRow();
+        if (fila != -1) {
+            return Integer.valueOf(TableMultasUsuario.getValueAt(fila, 0).toString());
+        }
+
+        // Tabla 2
+        fila = tableMultaspagadas.getSelectedRow();
+        if (fila != -1) {
+            return Integer.valueOf(tableMultaspagadas.getValueAt(fila, 0).toString());
+        }
+
+        // Tabla 3
+        fila = TableMultassinpagar.getSelectedRow();
+        if (fila != -1) {
+            return Integer.valueOf(TableMultassinpagar.getValueAt(fila, 0).toString());
+        }
+
+        return null; // No seleccionó nada
     }
 
-    // Tabla 2
-    fila = tableMultaspagadas.getSelectedRow();
-    if (fila != -1) {
-        return Integer.valueOf(tableMultaspagadas.getValueAt(fila, 0).toString());
-    }
-
-    // Tabla 3
-    fila = TableMultassinpagar.getSelectedRow();
-    if (fila != -1) {
-        return Integer.valueOf(TableMultassinpagar.getValueAt(fila, 0).toString());
-    }
-
-    return null; // No seleccionó nada
-    }
     public void listarMultasPagadasEnTabla() {
-    DefaultTableModel modelo = (DefaultTableModel) tableMultaspagadas.getModel();
-    modelo.setRowCount(0);
+        DefaultTableModel modelo = (DefaultTableModel) tableMultaspagadas.getModel();
+        modelo.setRowCount(0);
 
-    List<Multa_pagada> lista = multaPagadaDao.listarPagosPagados(); // Estado = 1
+        List<Multa_pagada> lista = multaPagadaDao.listarPagosPagados(); // Estado = 1
 
-    for (Multa_pagada mp : lista) {
-        modelo.addRow(new Object[]{
-            mp.getId_multa_pagada(),  // ID del pago
-            mp.getId_multa(),         // ID de la multa original
-            mp.getIdPrestamo(),       // ID del préstamo (si lo agregaste)
-            mp.getNombreCompletoUsuario(),
-            mp.getTituloLibro(),
-            mp.getDiasRetraso(),
-            mp.getMontoFormateado(),
-            mp.getFechaFormateada()  // Fecha del pago
-        });
+        for (Multa_pagada mp : lista) {
+            modelo.addRow(new Object[]{
+                mp.getId_multa_pagada(), // ID del pago
+                mp.getId_multa(), // ID de la multa original
+                mp.getIdPrestamo(), // ID del préstamo (si lo agregaste)
+                mp.getNombreCompletoUsuario(),
+                mp.getTituloLibro(),
+                mp.getDiasRetraso(),
+                mp.getMontoFormateado(),
+                mp.getFechaFormateada() // Fecha del pago
+            });
+        }
     }
-    }
-    
+
     // ========== MÉTODO 2: Buscar por carnet (AMBAS TABLAS) ==========
-/**
- * Busca multas Y pagos por carnet y los muestra en TableMultasUsuario
- */
+    /**
+     * Busca multas Y pagos por carnet y los muestra en TableMultasUsuario
+     */
     public void listarMultasYPagosPorCarnet(String carnet) {
         DefaultTableModel modelo = (DefaultTableModel) TableMultasUsuario.getModel();
         modelo.setRowCount(0);
@@ -553,7 +541,7 @@ public class Sistema extends javax.swing.JFrame {
         List<Multa> listMultas = multaDao.listarMultasPorCarnet(carnet);
         for (Multa m : listMultas) {
             modelo.addRow(new Object[]{
-                "M-" + m.getId_multa(),  // Identificador con prefijo M-
+                "M-" + m.getId_multa(), // Identificador con prefijo M-
                 m.getId_prestamo(),
                 m.getId_usuario(),
                 m.getNombreUsuario(),
@@ -564,241 +552,233 @@ public class Sistema extends javax.swing.JFrame {
             });
         }
 
-    // 2. BUSCAR PAGOS DE MULTAS
-    List<Multa_pagada> listPagos = multaPagadaDao.listarPagosPorCarnet(carnet);
-    for (Multa_pagada mp : listPagos) {
-        modelo.addRow(new Object[]{
-            "P-" + mp.getId_multa_pagada(),  // Identificador con prefijo P-
-            mp.getIdPrestamo(),
-            mp.getId_multa(),  // Aquí mostramos el ID de la multa original
-            mp.getNombreCompletoUsuario(),
-            mp.getTituloLibro(),
-            mp.getDiasRetraso(),
-            mp.getMontoFormateado(),
-            mp.getEstadoTexto() + " (" + mp.getFechaFormateada() + ")"
-        });
-    }
+        // 2. BUSCAR PAGOS DE MULTAS
+        List<Multa_pagada> listPagos = multaPagadaDao.listarPagosPorCarnet(carnet);
+        for (Multa_pagada mp : listPagos) {
+            modelo.addRow(new Object[]{
+                "P-" + mp.getId_multa_pagada(), // Identificador con prefijo P-
+                mp.getIdPrestamo(),
+                mp.getId_multa(), // Aquí mostramos el ID de la multa original
+                mp.getNombreCompletoUsuario(),
+                mp.getTituloLibro(),
+                mp.getDiasRetraso(),
+                mp.getMontoFormateado(),
+                mp.getEstadoTexto() + " (" + mp.getFechaFormateada() + ")"
+            });
+        }
     }
     // ========== MÉTODO 3: Obtener ID seleccionado (detecta si es Multa o Pago) ==========
-/**
- * Retorna el ID y tipo de registro seleccionado
- * @return Array [tipo, id] donde tipo = "MULTA" o "PAGO"
- */
-public String[] obtenerIdYTipoSeleccionado() {
-   int fila;
-    String idStr;
 
-    // ✅ Verificar TableMultasUsuario (puede tener multas activas Y pagos)
-    fila = TableMultasUsuario.getSelectedRow();
-    if (fila != -1) {
-        idStr = TableMultasUsuario.getValueAt(fila, 0).toString();
-        if (idStr.startsWith("M-")) {
-            return new String[]{"MULTA", idStr.substring(2)};
-        } else if (idStr.startsWith("P-")) {
-            return new String[]{"PAGO", idStr.substring(2)};
-        } else {
-            // Si no tiene prefijo, asumir que es multa
-            return new String[]{"MULTA", idStr};
+    /**
+     * Retorna el ID y tipo de registro seleccionado
+     *
+     * @return Array [tipo, id] donde tipo = "MULTA" o "PAGO"
+     */
+    public String[] obtenerIdYTipoSeleccionado() {
+        int fila;
+        String idStr;
+
+        // ✅ Verificar TableMultasUsuario (puede tener multas activas Y pagos)
+        fila = TableMultasUsuario.getSelectedRow();
+        if (fila != -1) {
+            idStr = TableMultasUsuario.getValueAt(fila, 0).toString();
+            if (idStr.startsWith("M-")) {
+                return new String[]{"MULTA", idStr.substring(2)};
+            } else if (idStr.startsWith("P-")) {
+                return new String[]{"PAGO", idStr.substring(2)};
+            } else {
+                // Si no tiene prefijo, asumir que es multa
+                return new String[]{"MULTA", idStr};
+            }
+        }
+
+        // ✅ Verificar TableMultassinpagar (solo multas activas)
+        fila = TableMultassinpagar.getSelectedRow();
+        if (fila != -1) {
+            idStr = TableMultassinpagar.getValueAt(fila, 0).toString();
+            if (idStr.startsWith("M-")) {
+                return new String[]{"MULTA", idStr.substring(2)};
+            } else {
+                return new String[]{"MULTA", idStr};
+            }
+        }
+
+        // ❌ NO verificar tableMultaspagadas - solo se usa para generar facturas
+        return null; // No seleccionó nada en las tablas permitidas
+    }
+
+    private void generarFacturaPDF(Multa_pagada mp) {
+        Document documento = new Document();
+
+        try {
+            // Crear directorio si no existe
+            String directorioFacturas = "src/Factura";
+            File directorio = new File(directorioFacturas);
+            if (!directorio.exists()) {
+                directorio.mkdirs();
+                System.out.println("Directorio creado: " + directorioFacturas);
+            }
+
+            // Ruta completa del archivo
+            String ruta = directorioFacturas + "/Factura_" + mp.getNumeroFactura() + ".pdf";
+
+            PdfWriter.getInstance(documento, new FileOutputStream(ruta));
+            documento.open();
+
+            // ENCABEZADO
+            Image logo = Image.getInstance("src/Img/SISINf.png"); // Ajusta la ruta
+            logo.scaleToFit(100, 100);
+            logo.setAlignment(Element.ALIGN_CENTER);
+            documento.add(logo);
+
+            Paragraph titulo = new Paragraph("FACTURA DE PAGO DE MULTA\n\n",
+                    FontFactory.getFont(FontFactory.HELVETICA_BOLD, 18, BaseColor.BLACK));
+            titulo.setAlignment(Element.ALIGN_CENTER);
+            documento.add(titulo);
+
+            // INFORMACIÓN DE LA FACTURA
+            documento.add(new Paragraph("Número de Factura: " + mp.getNumeroFactura(),
+                    FontFactory.getFont(FontFactory.HELVETICA_BOLD, 12)));
+            documento.add(new Paragraph("Fecha de Emisión: " + mp.getFechaFormateada()));
+            documento.add(new Paragraph("\n"));
+
+            // DATOS DEL CLIENTE
+            Paragraph datosCliente = new Paragraph("DATOS DEL USUARIO",
+                    FontFactory.getFont(FontFactory.HELVETICA_BOLD, 14, BaseColor.DARK_GRAY));
+            documento.add(datosCliente);
+
+            PdfPTable tablaCliente = new PdfPTable(2);
+            tablaCliente.setWidthPercentage(100);
+            tablaCliente.setWidths(new float[]{1, 2});
+
+            tablaCliente.addCell("Nombre:");
+            tablaCliente.addCell(mp.getNombreCompletoUsuario());
+            tablaCliente.addCell("Carnet:");
+            tablaCliente.addCell(mp.getCarnetUsuario());
+            tablaCliente.addCell("Teléfono:");
+            tablaCliente.addCell(mp.getTelefonoUsuario());
+            tablaCliente.addCell("Domicilio:");
+            tablaCliente.addCell(mp.getDomicilioUsuario());
+
+            documento.add(tablaCliente);
+            documento.add(new Paragraph("\n"));
+
+            // DETALLE DEL PAGO
+            Paragraph detalle = new Paragraph("DETALLE DEL PAGO",
+                    FontFactory.getFont(FontFactory.HELVETICA_BOLD, 14, BaseColor.DARK_GRAY));
+            documento.add(detalle);
+
+            PdfPTable tablaDetalle = new PdfPTable(4);
+            tablaDetalle.setWidthPercentage(100);
+            tablaDetalle.setWidths(new float[]{3, 2, 1, 1});
+
+            // Encabezados
+            PdfPCell celda = new PdfPCell(new Phrase("Libro",
+                    FontFactory.getFont(FontFactory.HELVETICA_BOLD, 10)));
+            celda.setBackgroundColor(BaseColor.LIGHT_GRAY);
+            tablaDetalle.addCell(celda);
+
+            celda = new PdfPCell(new Phrase("Concepto",
+                    FontFactory.getFont(FontFactory.HELVETICA_BOLD, 10)));
+            celda.setBackgroundColor(BaseColor.LIGHT_GRAY);
+            tablaDetalle.addCell(celda);
+
+            celda = new PdfPCell(new Phrase("Días",
+                    FontFactory.getFont(FontFactory.HELVETICA_BOLD, 10)));
+            celda.setBackgroundColor(BaseColor.LIGHT_GRAY);
+            tablaDetalle.addCell(celda);
+
+            celda = new PdfPCell(new Phrase("Monto",
+                    FontFactory.getFont(FontFactory.HELVETICA_BOLD, 10)));
+            celda.setBackgroundColor(BaseColor.LIGHT_GRAY);
+            tablaDetalle.addCell(celda);
+
+            // Datos
+            tablaDetalle.addCell(mp.getTituloLibro());
+            tablaDetalle.addCell("Multa por retraso");
+            tablaDetalle.addCell(String.valueOf(mp.getDiasRetraso()));
+            tablaDetalle.addCell(mp.getMontoFormateado());
+
+            documento.add(tablaDetalle);
+            documento.add(new Paragraph("\n"));
+
+            // TOTAL
+            PdfPTable tablaTotal = new PdfPTable(2);
+            tablaTotal.setWidthPercentage(50);
+            tablaTotal.setHorizontalAlignment(Element.ALIGN_RIGHT);
+
+            PdfPCell celdaTotal = new PdfPCell(new Phrase("TOTAL:",
+                    FontFactory.getFont(FontFactory.HELVETICA_BOLD, 14)));
+            celdaTotal.setBorder(Rectangle.NO_BORDER);
+            celdaTotal.setHorizontalAlignment(Element.ALIGN_RIGHT);
+            tablaTotal.addCell(celdaTotal);
+
+            celdaTotal = new PdfPCell(new Phrase(mp.getMontoFormateado(),
+                    FontFactory.getFont(FontFactory.HELVETICA_BOLD, 14)));
+            celdaTotal.setBackgroundColor(BaseColor.YELLOW);
+            celdaTotal.setHorizontalAlignment(Element.ALIGN_CENTER);
+            tablaTotal.addCell(celdaTotal);
+
+            documento.add(tablaTotal);
+
+            // PIE DE PÁGINA
+            documento.add(new Paragraph("\n\n"));
+            Paragraph pie = new Paragraph(
+                    "___________________________________\n\n"
+                    + "Gracias por su pago\n"
+                    + "Sistema de Gestión Realizado por intrepidos\n"
+                    + new SimpleDateFormat("dd/MM/yyyy HH:mm").format(new Date()),
+                    FontFactory.getFont(FontFactory.HELVETICA, 9, BaseColor.GRAY));
+            pie.setAlignment(Element.ALIGN_CENTER);
+            documento.add(pie);
+
+            documento.close();
+
+            JOptionPane.showMessageDialog(null,
+                    "Factura generada exitosamente en:\n" + ruta);
+
+            // Abrir el PDF automáticamente
+            java.awt.Desktop.getDesktop().open(new File(ruta));
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null,
+                    "Error al generar factura: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 
-    // ✅ Verificar TableMultassinpagar (solo multas activas)
-    fila = TableMultassinpagar.getSelectedRow();
-    if (fila != -1) {
-        idStr = TableMultassinpagar.getValueAt(fila, 0).toString();
-        if (idStr.startsWith("M-")) {
-            return new String[]{"MULTA", idStr.substring(2)};
-        } else {
-            return new String[]{"MULTA", idStr};
-        }
+    private void agregarCeldaEncabezadoReporte(PdfPTable tabla, String texto) {
+        PdfPCell celda = new PdfPCell(new Phrase(texto,
+                FontFactory.getFont(FontFactory.HELVETICA_BOLD, 9, BaseColor.WHITE)));
+        celda.setBackgroundColor(BaseColor.DARK_GRAY);
+        celda.setHorizontalAlignment(Element.ALIGN_CENTER);
+        celda.setVerticalAlignment(Element.ALIGN_MIDDLE);
+        celda.setPadding(5);
+        tabla.addCell(celda);
     }
 
-    // ❌ NO verificar tableMultaspagadas - solo se usa para generar facturas
-
-    return null; // No seleccionó nada en las tablas permitidas
-}
-
-private void generarFacturaPDF(Multa_pagada mp) {
-    Document documento = new Document();
-    
-    try {
-        // Crear directorio si no existe
-        String directorioFacturas = "src/Factura";
-        File directorio = new File(directorioFacturas);
-        if (!directorio.exists()) {
-            directorio.mkdirs();
-            System.out.println("Directorio creado: " + directorioFacturas);
-        }
-        
-        // Ruta completa del archivo
-        String ruta = directorioFacturas + "/Factura_" + mp.getNumeroFactura() + ".pdf";
-        
-        PdfWriter.getInstance(documento, new FileOutputStream(ruta));
-        documento.open();
-
-
-        // ENCABEZADO
-        Image logo = Image.getInstance("src/Img/SISINf.png"); // Ajusta la ruta
-        logo.scaleToFit(100, 100);
-        logo.setAlignment(Element.ALIGN_CENTER);
-        documento.add(logo);
-
-        Paragraph titulo = new Paragraph("FACTURA DE PAGO DE MULTA\n\n",
-                FontFactory.getFont(FontFactory.HELVETICA_BOLD, 18, BaseColor.BLACK));
-        titulo.setAlignment(Element.ALIGN_CENTER);
-        documento.add(titulo);
-
-        // INFORMACIÓN DE LA FACTURA
-        documento.add(new Paragraph("Número de Factura: " + mp.getNumeroFactura(),
-                FontFactory.getFont(FontFactory.HELVETICA_BOLD, 12)));
-        documento.add(new Paragraph("Fecha de Emisión: " + mp.getFechaFormateada()));
-        documento.add(new Paragraph("\n"));
-
-        // DATOS DEL CLIENTE
-        Paragraph datosCliente = new Paragraph("DATOS DEL USUARIO",
-                FontFactory.getFont(FontFactory.HELVETICA_BOLD, 14, BaseColor.DARK_GRAY));
-        documento.add(datosCliente);
-        
-        PdfPTable tablaCliente = new PdfPTable(2);
-        tablaCliente.setWidthPercentage(100);
-        tablaCliente.setWidths(new float[]{1, 2});
-        
-        tablaCliente.addCell("Nombre:");
-        tablaCliente.addCell(mp.getNombreCompletoUsuario());
-        tablaCliente.addCell("Carnet:");
-        tablaCliente.addCell(mp.getCarnetUsuario());
-        tablaCliente.addCell("Teléfono:");
-        tablaCliente.addCell(mp.getTelefonoUsuario());
-        tablaCliente.addCell("Domicilio:");
-        tablaCliente.addCell(mp.getDomicilioUsuario());
-        
-        documento.add(tablaCliente);
-        documento.add(new Paragraph("\n"));
-
-        // DETALLE DEL PAGO
-        Paragraph detalle = new Paragraph("DETALLE DEL PAGO",
-                FontFactory.getFont(FontFactory.HELVETICA_BOLD, 14, BaseColor.DARK_GRAY));
-        documento.add(detalle);
-        
-        PdfPTable tablaDetalle = new PdfPTable(4);
-        tablaDetalle.setWidthPercentage(100);
-        tablaDetalle.setWidths(new float[]{3, 2, 1, 1});
-        
-        // Encabezados
-        PdfPCell celda = new PdfPCell(new Phrase("Libro",
+    /**
+     * Agrega celda de resumen para reportes
+     */
+    private void agregarCeldaResumenReporte(PdfPTable tabla, String etiqueta, String valor, BaseColor colorFondo) {
+        PdfPCell celdaLabel = new PdfPCell(new Phrase(etiqueta,
                 FontFactory.getFont(FontFactory.HELVETICA_BOLD, 10)));
-        celda.setBackgroundColor(BaseColor.LIGHT_GRAY);
-        tablaDetalle.addCell(celda);
-        
-        celda = new PdfPCell(new Phrase("Concepto",
-                FontFactory.getFont(FontFactory.HELVETICA_BOLD, 10)));
-        celda.setBackgroundColor(BaseColor.LIGHT_GRAY);
-        tablaDetalle.addCell(celda);
-        
-        celda = new PdfPCell(new Phrase("Días",
-                FontFactory.getFont(FontFactory.HELVETICA_BOLD, 10)));
-        celda.setBackgroundColor(BaseColor.LIGHT_GRAY);
-        tablaDetalle.addCell(celda);
-        
-        celda = new PdfPCell(new Phrase("Monto",
-                FontFactory.getFont(FontFactory.HELVETICA_BOLD, 10)));
-        celda.setBackgroundColor(BaseColor.LIGHT_GRAY);
-        tablaDetalle.addCell(celda);
+        celdaLabel.setBorder(Rectangle.NO_BORDER);
+        celdaLabel.setHorizontalAlignment(Element.ALIGN_RIGHT);
+        celdaLabel.setPadding(5);
+        celdaLabel.setBackgroundColor(colorFondo);
+        tabla.addCell(celdaLabel);
 
-        // Datos
-        tablaDetalle.addCell(mp.getTituloLibro());
-        tablaDetalle.addCell("Multa por retraso");
-        tablaDetalle.addCell(String.valueOf(mp.getDiasRetraso()));
-        tablaDetalle.addCell(mp.getMontoFormateado());
-
-        documento.add(tablaDetalle);
-        documento.add(new Paragraph("\n"));
-
-        // TOTAL
-        PdfPTable tablaTotal = new PdfPTable(2);
-        tablaTotal.setWidthPercentage(50);
-        tablaTotal.setHorizontalAlignment(Element.ALIGN_RIGHT);
-        
-        PdfPCell celdaTotal = new PdfPCell(new Phrase("TOTAL:",
-                FontFactory.getFont(FontFactory.HELVETICA_BOLD, 14)));
-        celdaTotal.setBorder(Rectangle.NO_BORDER);
-        celdaTotal.setHorizontalAlignment(Element.ALIGN_RIGHT);
-        tablaTotal.addCell(celdaTotal);
-        
-        celdaTotal = new PdfPCell(new Phrase(mp.getMontoFormateado(),
-                FontFactory.getFont(FontFactory.HELVETICA_BOLD, 14)));
-        celdaTotal.setBackgroundColor(BaseColor.YELLOW);
-        celdaTotal.setHorizontalAlignment(Element.ALIGN_CENTER);
-        tablaTotal.addCell(celdaTotal);
-        
-        documento.add(tablaTotal);
-
-        // PIE DE PÁGINA
-        documento.add(new Paragraph("\n\n"));
-        Paragraph pie = new Paragraph(
-            "___________________________________\n\n" +
-            "Gracias por su pago\n" +
-            "Sistema de Gestión Realizado por intrepidos\n" +
-            new SimpleDateFormat("dd/MM/yyyy HH:mm").format(new Date()),
-            FontFactory.getFont(FontFactory.HELVETICA, 9, BaseColor.GRAY));
-        pie.setAlignment(Element.ALIGN_CENTER);
-        documento.add(pie);
-
-        documento.close();
-
-        JOptionPane.showMessageDialog(null, 
-            "Factura generada exitosamente en:\n" + ruta);
-
-        // Abrir el PDF automáticamente
-        java.awt.Desktop.getDesktop().open(new File(ruta));
-
-    } catch (Exception e) {
-        JOptionPane.showMessageDialog(null, 
-            "Error al generar factura: " + e.getMessage());
-        e.printStackTrace();
+        PdfPCell celdaValor = new PdfPCell(new Phrase(valor,
+                FontFactory.getFont(FontFactory.HELVETICA, 10)));
+        celdaValor.setBorder(Rectangle.NO_BORDER);
+        celdaValor.setHorizontalAlignment(Element.ALIGN_CENTER);
+        celdaValor.setPadding(5);
+        celdaValor.setBackgroundColor(colorFondo);
+        tabla.addCell(celdaValor);
     }
-}
 
-
-private void agregarCeldaEncabezadoReporte(PdfPTable tabla, String texto) {
-    PdfPCell celda = new PdfPCell(new Phrase(texto,
-        FontFactory.getFont(FontFactory.HELVETICA_BOLD, 9, BaseColor.WHITE)));
-    celda.setBackgroundColor(BaseColor.DARK_GRAY);
-    celda.setHorizontalAlignment(Element.ALIGN_CENTER);
-    celda.setVerticalAlignment(Element.ALIGN_MIDDLE);
-    celda.setPadding(5);
-    tabla.addCell(celda);
-}
-
-/**
- * Agrega celda de resumen para reportes
- */
-private void agregarCeldaResumenReporte(PdfPTable tabla, String etiqueta, String valor, BaseColor colorFondo) {
-    PdfPCell celdaLabel = new PdfPCell(new Phrase(etiqueta,
-        FontFactory.getFont(FontFactory.HELVETICA_BOLD, 10)));
-    celdaLabel.setBorder(Rectangle.NO_BORDER);
-    celdaLabel.setHorizontalAlignment(Element.ALIGN_RIGHT);
-    celdaLabel.setPadding(5);
-    celdaLabel.setBackgroundColor(colorFondo);
-    tabla.addCell(celdaLabel);
-
-    PdfPCell celdaValor = new PdfPCell(new Phrase(valor,
-        FontFactory.getFont(FontFactory.HELVETICA, 10)));
-    celdaValor.setBorder(Rectangle.NO_BORDER);
-    celdaValor.setHorizontalAlignment(Element.ALIGN_CENTER);
-    celdaValor.setPadding(5);
-    celdaValor.setBackgroundColor(colorFondo);
-    tabla.addCell(celdaValor);
-}
-    
-    
-    
-    
-    
-    
-  
     //HASTA AQUI SON LAS MULTAS
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -2691,8 +2671,7 @@ private void agregarCeldaResumenReporte(PdfPTable tabla, String etiqueta, String
                         .addGap(65, 65, 65)
                         .addComponent(btnPagarMulta)
                         .addGap(56, 56, 56)
-                        .addComponent(btnGenerarFactura)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(btnGenerarFactura)))
                 .addGap(229, 229, 229))
             .addGroup(jPanel20Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
@@ -2795,9 +2774,8 @@ private void agregarCeldaResumenReporte(PdfPTable tabla, String etiqueta, String
                     .addComponent(jScrollPane13, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel34Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel34Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel8)
-                        .addComponent(btnReporMultasPagadas))
+                    .addComponent(btnReporMultasPagadas)
+                    .addComponent(jLabel8)
                     .addComponent(btnReporMultasSinPagadas))
                 .addContainerGap(22, Short.MAX_VALUE))
         );
@@ -3878,7 +3856,7 @@ private void agregarCeldaResumenReporte(PdfPTable tabla, String etiqueta, String
 
     private void btnReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportesActionPerformed
         // TODO add your handling code here:
-         jTabbedPane1.setSelectedIndex(7); 
+        jTabbedPane1.setSelectedIndex(7);
 
         fun.VaciarCombo(cboxAutorLibro2);
         fun.VaciarCombo(cboxMateriaLibro2);
@@ -3956,17 +3934,17 @@ private void agregarCeldaResumenReporte(PdfPTable tabla, String etiqueta, String
                 // Llenar los valores según el filtro
                 switch (filtroSeleccionado) {
                     case "Tipo Usuario":
-                    usuario.ConsultarTipoUsuario(cboxFiltroValorUsuario);
-                    break;
+                        usuario.ConsultarTipoUsuario(cboxFiltroValorUsuario);
+                        break;
                     case "Cargo":
-                    usuario.ConsultarCargo(cboxFiltroValorUsuario);
-                    break;
+                        usuario.ConsultarCargo(cboxFiltroValorUsuario);
+                        break;
                     case "Carrera":
-                    usuario.ConsultarCarreras(cboxFiltroValorUsuario);
-                    break;
+                        usuario.ConsultarCarreras(cboxFiltroValorUsuario);
+                        break;
                     case "Estado Préstamo":
-                    usuario.ConsultarEstadoUsuario(cboxFiltroValorUsuario);
-                    break;
+                        usuario.ConsultarEstadoUsuario(cboxFiltroValorUsuario);
+                        break;
                 }
             }
         }
@@ -4056,13 +4034,13 @@ private void agregarCeldaResumenReporte(PdfPTable tabla, String etiqueta, String
         if (!"".equals(txtIdUsuario.getText())) {
             String nombreCompleto = txtNombreUsuario.getText() + " " + txtApellidoUsuario.getText();
             int pregunta = JOptionPane.showConfirmDialog(
-                null,
-                "¿Está seguro de eliminar al usuario:\n"
-                + "Nombre: " + nombreCompleto + "\n"
-                + "Carnet: " + txtCarnetUsuario.getText(),
-                "Confirmar Eliminación",
-                JOptionPane.YES_NO_OPTION,
-                JOptionPane.WARNING_MESSAGE
+                    null,
+                    "¿Está seguro de eliminar al usuario:\n"
+                    + "Nombre: " + nombreCompleto + "\n"
+                    + "Carnet: " + txtCarnetUsuario.getText(),
+                    "Confirmar Eliminación",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.WARNING_MESSAGE
             );
 
             if (pregunta == JOptionPane.YES_OPTION) {
@@ -4092,13 +4070,13 @@ private void agregarCeldaResumenReporte(PdfPTable tabla, String etiqueta, String
             JOptionPane.showMessageDialog(null, "Seleccione una fila");
         } else {
             if (!"".equals(txtCarnetUsuario.getText())
-                && !"".equals(txtNombreUsuario.getText())
-                && !"".equals(txtApellidoUsuario.getText())
-                && !"".equals(txtDomicilioUsuario.getText())
-                && !"".equals(txtTelefonoUsuario.getText())
-                && !"".equals(cboxTipoUsuario.getSelectedItem())
-                && !"".equals(cboxCargoUsuario.getSelectedItem())
-                && !"".equals(cboxCarreraUsuario.getSelectedItem())) {
+                    && !"".equals(txtNombreUsuario.getText())
+                    && !"".equals(txtApellidoUsuario.getText())
+                    && !"".equals(txtDomicilioUsuario.getText())
+                    && !"".equals(txtTelefonoUsuario.getText())
+                    && !"".equals(cboxTipoUsuario.getSelectedItem())
+                    && !"".equals(cboxCargoUsuario.getSelectedItem())
+                    && !"".equals(cboxCarreraUsuario.getSelectedItem())) {
 
                 us.setCarnet(txtCarnetUsuario.getText());
                 us.setNombre(txtNombreUsuario.getText());
@@ -4129,14 +4107,14 @@ private void agregarCeldaResumenReporte(PdfPTable tabla, String etiqueta, String
 
     private void btnGuardarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarUsuarioActionPerformed
         if (!"".equals(txtCarnetUsuario.getText())
-            && !"".equals(txtNombreUsuario.getText())
-            && !"".equals(txtApellidoUsuario.getText())
-            && !"".equals(txtDomicilioUsuario.getText())
-            && !"".equals(cboxTipoUsuario.getSelectedItem())
-            && !"".equals(txtTelefonoUsuario.getText())
-            && !"".equals(cboxCargoUsuario.getSelectedItem())
-            && !"".equals(cboxCarreraUsuario.getSelectedItem())
-            && !"".equals(cboxEstadoPrestamoUsuario.getSelectedItem())) {
+                && !"".equals(txtNombreUsuario.getText())
+                && !"".equals(txtApellidoUsuario.getText())
+                && !"".equals(txtDomicilioUsuario.getText())
+                && !"".equals(cboxTipoUsuario.getSelectedItem())
+                && !"".equals(txtTelefonoUsuario.getText())
+                && !"".equals(cboxCargoUsuario.getSelectedItem())
+                && !"".equals(cboxCarreraUsuario.getSelectedItem())
+                && !"".equals(cboxEstadoPrestamoUsuario.getSelectedItem())) {
 
             String carnet = txtCarnetUsuario.getText();
             if (usuario.existeCarnet(carnet)) {
@@ -4486,203 +4464,203 @@ private void agregarCeldaResumenReporte(PdfPTable tabla, String etiqueta, String
     private void btnActulizarMultasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActulizarMultasActionPerformed
         actualizarTodasLasTablas();
         JOptionPane.showMessageDialog(null, "Tablas actualizadas");
+    }
+
+    public void actualizarTodasLasTablas() {
+        String carnet = txtBuscarCarnetMul.getText().trim();
+
+        if (!carnet.isEmpty()) {
+            listarMultasYPagosPorCarnet(carnet);
+        } else {
+            listarTodasLasMultas();
         }
 
-        public void actualizarTodasLasTablas() {
-            String carnet = txtBuscarCarnetMul.getText().trim();
-
-            if (!carnet.isEmpty()) {
-                listarMultasYPagosPorCarnet(carnet);
-            } else {
-                listarTodasLasMultas();
-            }
-
-            listarMultasPagadasEnTabla();
-            listarMultasSinPagar();        // TODO add your handling code here:
+        listarMultasPagadasEnTabla();
+        listarMultasSinPagar();        // TODO add your handling code here:
     }//GEN-LAST:event_btnActulizarMultasActionPerformed
 
     private void btnGenerarFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarFacturaActionPerformed
         // Solo permite seleccionar de la tabla de multas pagadas
-    int fila = tableMultaspagadas.getSelectedRow();
+        int fila = tableMultaspagadas.getSelectedRow();
 
-    if (fila == -1) {
-        JOptionPane.showMessageDialog(null, 
-            "⚠️ Seleccione un PAGO de la tabla de MULTAS PAGADAS\n\n" +
-            "Esta opción solo genera facturas de pagos ya registrados",
-            "Sin selección",
-            JOptionPane.WARNING_MESSAGE);
-        return;
-    }
-
-    try {
-        int idPago = Integer.parseInt(tableMultaspagadas.getValueAt(fila, 0).toString());
-
-        // Obtener datos completos del pago para la factura
-        Multa_pagada mp = multaPagadaDao.obtenerDatosFactura(idPago);
-
-        if (mp == null) {
-            JOptionPane.showMessageDialog(null, 
-                "❌ Error: No se encontraron datos del pago\n\n" +
-                "ID de pago: " + idPago,
-                "Error",
-                JOptionPane.ERROR_MESSAGE);
+        if (fila == -1) {
+            JOptionPane.showMessageDialog(null,
+                    "⚠️ Seleccione un PAGO de la tabla de MULTAS PAGADAS\n\n"
+                    + "Esta opción solo genera facturas de pagos ya registrados",
+                    "Sin selección",
+                    JOptionPane.WARNING_MESSAGE);
             return;
         }
 
-        // Verificar que tenga todos los datos necesarios
-        if (mp.getNumeroFactura() == null || mp.getNumeroFactura().isEmpty()) {
-            JOptionPane.showMessageDialog(null, 
-                "️ Este pago no tiene factura asociada\n\n" +
-                "Puede ser un registro antiguo sin factura",
-                "Sin factura",
-                JOptionPane.WARNING_MESSAGE);
-            return;
-        }
+        try {
+            int idPago = Integer.parseInt(tableMultaspagadas.getValueAt(fila, 0).toString());
 
-        // Generar PDF de la factura
-        generarFacturaPDF(mp);
-        
-    } catch (NumberFormatException e) {
-        JOptionPane.showMessageDialog(null, 
-            "Error al leer el ID del pago seleccionado",
-            "Error",
-            JOptionPane.ERROR_MESSAGE);
-    }
+            // Obtener datos completos del pago para la factura
+            Multa_pagada mp = multaPagadaDao.obtenerDatosFactura(idPago);
+
+            if (mp == null) {
+                JOptionPane.showMessageDialog(null,
+                        "❌ Error: No se encontraron datos del pago\n\n"
+                        + "ID de pago: " + idPago,
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            // Verificar que tenga todos los datos necesarios
+            if (mp.getNumeroFactura() == null || mp.getNumeroFactura().isEmpty()) {
+                JOptionPane.showMessageDialog(null,
+                        "️ Este pago no tiene factura asociada\n\n"
+                        + "Puede ser un registro antiguo sin factura",
+                        "Sin factura",
+                        JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            // Generar PDF de la factura
+            generarFacturaPDF(mp);
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null,
+                    "Error al leer el ID del pago seleccionado",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnGenerarFacturaActionPerformed
 
     private void btnPagarMultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPagarMultaActionPerformed
-       String[] resultado = obtenerIdYTipoSeleccionado();
+        String[] resultado = obtenerIdYTipoSeleccionado();
 
-    if (resultado == null) {
-        JOptionPane.showMessageDialog(null, 
-            "Seleccione una multa activa para pagar\n\n" +
-            "Puede seleccionar desde:\n" +
-            "• Tabla de Todas las Multas\n" +
-            "• Tabla de Multas Sin Pagar",
-            "Sin selección",
-            JOptionPane.WARNING_MESSAGE);
-        return;
-    }
-
-    // Verificar que sea una MULTA, no un PAGO
-    if (!resultado[0].equals("MULTA")) {
-        JOptionPane.showMessageDialog(null, 
-            " Seleccione una MULTA activa, no un pago ya registrado",
-            "Selección incorrecta",
-            JOptionPane.WARNING_MESSAGE);
-        return;
-    }
-
-    int idMulta = Integer.parseInt(resultado[1]);
-
-    // Buscar información de la multa
-    Multa multa = multaDao.buscarPorIdCompleto(idMulta);
-
-    if (multa == null) {
-        JOptionPane.showMessageDialog(null, 
-            "❌ No se encontró la multa seleccionada");
-        return;
-    }
-
-    // Validar que la multa esté en estado "Activa"
-    if (!multa.getEstado().equals("Activa")) {
-        JOptionPane.showMessageDialog(null, 
-            "⚠️ Esta multa ya fue pagada o está inactiva\n" +
-            "Estado actual: " + multa.getEstado(),
-            "Multa no disponible",
-            JOptionPane.WARNING_MESSAGE);
-        return;
-    }
-
-    // Confirmar pago con información detallada
-    int confirm = JOptionPane.showConfirmDialog(null,
-        "💰 ¿CONFIRMAR PAGO DE MULTA?\n\n" +
-        "═══════════════════════════════\n" +
-        "ID Multa:       #" + idMulta + "\n" +
-        "Usuario:        " + multa.getNombreUsuario() + "\n" +
-        "Libro:          " + multa.getNombreLibro() + "\n" +
-        "Días retraso:   " + multa.getDias_retraso() + "\n" +
-        "Monto a pagar:  " + String.format("%.2f Bs", multa.getMonto()) + "\n" +
-        "═══════════════════════════════",
-        "Confirmar Pago",
-        JOptionPane.YES_NO_OPTION,
-        JOptionPane.QUESTION_MESSAGE);
-
-    if (confirm != JOptionPane.YES_OPTION) {
-        return; // Usuario canceló
-    }
-
-    // Crear registro de pago
-    Multa_pagada mp = new Multa_pagada();
-    mp.setId_multa(idMulta);
-    mp.setFecha(new Timestamp(System.currentTimeMillis()));
-    mp.setEstado(1);
-
-    // Registrar pago en la base de datos
-    if (multaPagadaDao.registrarPagoMulta(mp)) {
-        JOptionPane.showMessageDialog(null, 
-            "✅ PAGO REGISTRADO EXITOSAMENTE\n\n" +
-            "✓ Multa marcada como pagada\n" +
-            "✓ Factura generada automáticamente en la base de datos\n" +
-            "✓ Estado actualizado correctamente",
-            "Pago Exitoso",
-            JOptionPane.INFORMATION_MESSAGE);
-
-        // Preguntar si desea generar el PDF de la factura
-        int verFactura = JOptionPane.showConfirmDialog(null,
-            "📄 ¿Desea generar el PDF de la factura ahora?",
-            "Generar Factura PDF",
-            JOptionPane.YES_NO_OPTION,
-            JOptionPane.QUESTION_MESSAGE);
-
-        if (verFactura == JOptionPane.YES_OPTION) {
-            // Buscar el pago recién creado usando el ID de la multa
-            List<Multa_pagada> pagos = multaPagadaDao.listarPagosMultas();
-            Multa_pagada pagoEncontrado = null;
-            
-            // Buscar el pago más reciente de esta multa
-            for (Multa_pagada p : pagos) {
-                if (p.getId_multa() == idMulta) {
-                    pagoEncontrado = p;
-                    break;
-                }
-            }
-            
-            if (pagoEncontrado != null) {
-                // Obtener datos completos para la factura
-                Multa_pagada pagoCompleto = multaPagadaDao.obtenerDatosFactura(
-                    pagoEncontrado.getId_multa_pagada());
-                
-                if (pagoCompleto != null) {
-                    // Debug info (opcional - puedes comentar estas líneas)
-                    System.out.println("=== DATOS PARA FACTURA ===");
-                    System.out.println("Nombre: " + pagoCompleto.getNombreCompletoUsuario());
-                    System.out.println("Carnet: " + pagoCompleto.getCarnetUsuario());
-                    System.out.println("Monto: " + pagoCompleto.getMontoFormateado());
-                    System.out.println("Libro: " + pagoCompleto.getTituloLibro());
-                    System.out.println("========================");
-                    
-                    generarFacturaPDF(pagoCompleto);
-                } else {
-                    JOptionPane.showMessageDialog(null, 
-                        "⚠️ Error: No se pudieron obtener datos completos para la factura");
-                }
-            } else {
-                JOptionPane.showMessageDialog(null, 
-                    "⚠️ Error: No se encontró el pago registrado");
-            }
+        if (resultado == null) {
+            JOptionPane.showMessageDialog(null,
+                    "Seleccione una multa activa para pagar\n\n"
+                    + "Puede seleccionar desde:\n"
+                    + "• Tabla de Todas las Multas\n"
+                    + "• Tabla de Multas Sin Pagar",
+                    "Sin selección",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
         }
 
-        // Actualizar todas las tablas
-        actualizarTodasLasTablas();
-        
-    } else {
-        JOptionPane.showMessageDialog(null, 
-            "❌ Error al registrar el pago\n\n" +
-            "Por favor, intente nuevamente o contacte al administrador",
-            "Error",
-            JOptionPane.ERROR_MESSAGE);
-    }
+        // Verificar que sea una MULTA, no un PAGO
+        if (!resultado[0].equals("MULTA")) {
+            JOptionPane.showMessageDialog(null,
+                    " Seleccione una MULTA activa, no un pago ya registrado",
+                    "Selección incorrecta",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        int idMulta = Integer.parseInt(resultado[1]);
+
+        // Buscar información de la multa
+        Multa multa = multaDao.buscarPorIdCompleto(idMulta);
+
+        if (multa == null) {
+            JOptionPane.showMessageDialog(null,
+                    "❌ No se encontró la multa seleccionada");
+            return;
+        }
+
+        // Validar que la multa esté en estado "Activa"
+        if (!multa.getEstado().equals("Activa")) {
+            JOptionPane.showMessageDialog(null,
+                    "⚠️ Esta multa ya fue pagada o está inactiva\n"
+                    + "Estado actual: " + multa.getEstado(),
+                    "Multa no disponible",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        // Confirmar pago con información detallada
+        int confirm = JOptionPane.showConfirmDialog(null,
+                "💰 ¿CONFIRMAR PAGO DE MULTA?\n\n"
+                + "═══════════════════════════════\n"
+                + "ID Multa:       #" + idMulta + "\n"
+                + "Usuario:        " + multa.getNombreUsuario() + "\n"
+                + "Libro:          " + multa.getNombreLibro() + "\n"
+                + "Días retraso:   " + multa.getDias_retraso() + "\n"
+                + "Monto a pagar:  " + String.format("%.2f Bs", multa.getMonto()) + "\n"
+                + "═══════════════════════════════",
+                "Confirmar Pago",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE);
+
+        if (confirm != JOptionPane.YES_OPTION) {
+            return; // Usuario canceló
+        }
+
+        // Crear registro de pago
+        Multa_pagada mp = new Multa_pagada();
+        mp.setId_multa(idMulta);
+        mp.setFecha(new Timestamp(System.currentTimeMillis()));
+        mp.setEstado(1);
+
+        // Registrar pago en la base de datos
+        if (multaPagadaDao.registrarPagoMulta(mp)) {
+            JOptionPane.showMessageDialog(null,
+                    "✅ PAGO REGISTRADO EXITOSAMENTE\n\n"
+                    + "✓ Multa marcada como pagada\n"
+                    + "✓ Factura generada automáticamente en la base de datos\n"
+                    + "✓ Estado actualizado correctamente",
+                    "Pago Exitoso",
+                    JOptionPane.INFORMATION_MESSAGE);
+
+            // Preguntar si desea generar el PDF de la factura
+            int verFactura = JOptionPane.showConfirmDialog(null,
+                    "📄 ¿Desea generar el PDF de la factura ahora?",
+                    "Generar Factura PDF",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.QUESTION_MESSAGE);
+
+            if (verFactura == JOptionPane.YES_OPTION) {
+                // Buscar el pago recién creado usando el ID de la multa
+                List<Multa_pagada> pagos = multaPagadaDao.listarPagosMultas();
+                Multa_pagada pagoEncontrado = null;
+
+                // Buscar el pago más reciente de esta multa
+                for (Multa_pagada p : pagos) {
+                    if (p.getId_multa() == idMulta) {
+                        pagoEncontrado = p;
+                        break;
+                    }
+                }
+
+                if (pagoEncontrado != null) {
+                    // Obtener datos completos para la factura
+                    Multa_pagada pagoCompleto = multaPagadaDao.obtenerDatosFactura(
+                            pagoEncontrado.getId_multa_pagada());
+
+                    if (pagoCompleto != null) {
+                        // Debug info (opcional - puedes comentar estas líneas)
+                        System.out.println("=== DATOS PARA FACTURA ===");
+                        System.out.println("Nombre: " + pagoCompleto.getNombreCompletoUsuario());
+                        System.out.println("Carnet: " + pagoCompleto.getCarnetUsuario());
+                        System.out.println("Monto: " + pagoCompleto.getMontoFormateado());
+                        System.out.println("Libro: " + pagoCompleto.getTituloLibro());
+                        System.out.println("========================");
+
+                        generarFacturaPDF(pagoCompleto);
+                    } else {
+                        JOptionPane.showMessageDialog(null,
+                                "⚠️ Error: No se pudieron obtener datos completos para la factura");
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null,
+                            "⚠️ Error: No se encontró el pago registrado");
+                }
+            }
+
+            // Actualizar todas las tablas
+            actualizarTodasLasTablas();
+
+        } else {
+            JOptionPane.showMessageDialog(null,
+                    "❌ Error al registrar el pago\n\n"
+                    + "Por favor, intente nuevamente o contacte al administrador",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnPagarMultaActionPerformed
 
     private void btnBuscarCarnetMulActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarCarnetMulActionPerformed
@@ -4711,194 +4689,194 @@ private void agregarCeldaResumenReporte(PdfPTable tabla, String etiqueta, String
     }//GEN-LAST:event_btnPrestamosPDFActionPerformed
 
     private void btnDevolucionPrestamoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDevolucionPrestamoActionPerformed
-      // Validar que hay un préstamo seleccionado
-    if (txtidPrestamo.getText().trim().isEmpty()) {
-        JOptionPane.showMessageDialog(null,
-            " Debe seleccionar un préstamo para registrar la devolución",
-            "Sin selección",
-            JOptionPane.WARNING_MESSAGE);
-        return;
-    }
-
-    String iden = txtidPrestamo.getText().trim();
-    pre = prestamo.BuscarPrestamo(iden);
-
-    if (pre == null) {
-        JOptionPane.showMessageDialog(null,
-            "No se encontró el préstamo con ID: " + iden,
-            "Préstamo no encontrado",
-            JOptionPane.ERROR_MESSAGE);
-        return;
-    }
-
-    // Verificar que el préstamo no esté ya devuelto
-    if (Integer.parseInt(pre.getEstadoPrestamo()) != 1) {
-        JOptionPane.showMessageDialog(null,
-            " Este préstamo ya fue registrado como devuelto\n\n" +
-            "ID Préstamo: " + iden,
-            "Préstamo ya devuelto",
-            JOptionPane.WARNING_MESSAGE);
-        return;
-    }
-
-    // === CALCULAR MULTA ANTES DE CONFIRMAR ===
-    int diasRetraso = 0;
-    float montoMulta = 0;
-    boolean tieneMulta = false;
-
-    try {
-        DateTimeFormatter formato = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        LocalDateTime fechaDevolucionDT = LocalDateTime.parse(pre.getFecha_devolucion(), formato);
-        LocalDate fechaLimite = fechaDevolucionDT.toLocalDate();
-        LocalDate hoy = LocalDate.now();
-        
-        long dias = ChronoUnit.DAYS.between(fechaLimite, hoy);
-        
-        if (dias > 0) {
-            diasRetraso = (int) dias;
-            montoMulta = diasRetraso * 1.0f; // 1 Bs por día
-            tieneMulta = true;
-        }
-    } catch (Exception e) {
-        System.out.println("Error al calcular días de retraso: " + e.getMessage());
-    }
-
-    // === CONFIRMAR DEVOLUCIÓN (CON INFO DE MULTA) ===
-    String mensajeConfirmacion;
-    
-    if (tieneMulta) {
-        mensajeConfirmacion = 
-            " CONFIRMAR DEVOLUCIÓN CON MULTA\n\n" +
-            "═════════════════════════════════\n" +
-            "ID Préstamo:      " + iden + "\n" +
-            "Días de retraso:  " + diasRetraso + " día(s)\n" +
-            "Multa a generar:  " + String.format("%.2f Bs", montoMulta) + "\n" +
-            "═════════════════════════════════\n\n" +
-            "Se generará automáticamente una MULTA por retraso.\n" +
-            "¿Desea continuar con la devolución?";
-    } else {
-        mensajeConfirmacion = 
-            "CONFIRMAR DEVOLUCIÓN A TIEMPO\n\n" +
-            "═════════════════════════════════\n" +
-            "ID Préstamo: " + iden + "\n" +
-            "Estado:      Sin retraso ✓\n" +
-            "═════════════════════════════════\n\n" +
-            "¿Desea registrar la devolución?";
-    }
-
-    int pregunta = JOptionPane.showConfirmDialog(null,
-        mensajeConfirmacion,
-        "Confirmar Devolución",
-        JOptionPane.YES_NO_OPTION,
-        tieneMulta ? JOptionPane.WARNING_MESSAGE : JOptionPane.QUESTION_MESSAGE);
-
-    if (pregunta != JOptionPane.YES_OPTION) {
-        return; // Usuario canceló
-    }
-
-    // === PROCESAR DEVOLUCIÓN ===
-    try {
-        int idPrestamo = Integer.parseInt(iden);
-
-        // 1. Registrar devolución en la base de datos
-        boolean devolucionExitosa = prestamo.DevolverPrestamo(idPrestamo);
-
-        if (!devolucionExitosa) {
+        // Validar que hay un préstamo seleccionado
+        if (txtidPrestamo.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(null,
-                "Error al registrar la devolución en la base de datos",
-                "Error",
-                JOptionPane.ERROR_MESSAGE);
+                    " Debe seleccionar un préstamo para registrar la devolución",
+                    "Sin selección",
+                    JOptionPane.WARNING_MESSAGE);
             return;
         }
 
-        // 2. Generar multa automáticamente SI HAY RETRASO
-        boolean multaRegistrada = false;
-        if (tieneMulta) {
-            Multa m = new Multa();
-            m.setId_prestamo(idPrestamo);
-            m.setId_usuario(pre.getId_usuario());
-            m.setDias_retraso(diasRetraso);
-            m.setMonto(montoMulta);
-            m.setEstado("Activa");
+        String iden = txtidPrestamo.getText().trim();
+        pre = prestamo.BuscarPrestamo(iden);
 
-            MultaDAO multaDAO = new MultaDAO();
-            multaRegistrada = multaDAO.registrarMulta(m);
+        if (pre == null) {
+            JOptionPane.showMessageDialog(null,
+                    "No se encontró el préstamo con ID: " + iden,
+                    "Préstamo no encontrado",
+                    JOptionPane.ERROR_MESSAGE);
+            return;
+        }
 
-            if (!multaRegistrada) {
-                JOptionPane.showMessageDialog(null,
-                    " Advertencia: La devolución se registró pero hubo un error al generar la multa\n\n" +
-                    "Deberá registrar la multa manualmente",
-                    "Advertencia",
+        // Verificar que el préstamo no esté ya devuelto
+        if (Integer.parseInt(pre.getEstadoPrestamo()) != 1) {
+            JOptionPane.showMessageDialog(null,
+                    " Este préstamo ya fue registrado como devuelto\n\n"
+                    + "ID Préstamo: " + iden,
+                    "Préstamo ya devuelto",
                     JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        // === CALCULAR MULTA ANTES DE CONFIRMAR ===
+        int diasRetraso = 0;
+        float montoMulta = 0;
+        boolean tieneMulta = false;
+
+        try {
+            DateTimeFormatter formato = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            LocalDateTime fechaDevolucionDT = LocalDateTime.parse(pre.getFecha_devolucion(), formato);
+            LocalDate fechaLimite = fechaDevolucionDT.toLocalDate();
+            LocalDate hoy = LocalDate.now();
+
+            long dias = ChronoUnit.DAYS.between(fechaLimite, hoy);
+
+            if (dias > 0) {
+                diasRetraso = (int) dias;
+                montoMulta = diasRetraso * 1.0f; // 1 Bs por día
+                tieneMulta = true;
             }
+        } catch (Exception e) {
+            System.out.println("Error al calcular días de retraso: " + e.getMessage());
         }
 
-        // 3. Actualizar stock y estado del libro
-        String codigoLibro = txtCodigoPrestamo.getText().trim();
-        li = libro.BuscarLibro(codigoLibro);
+        // === CONFIRMAR DEVOLUCIÓN (CON INFO DE MULTA) ===
+        String mensajeConfirmacion;
 
-        if (li != null) {
-            int nuevoStock = li.getStock() + 1;
-            prestamo.ActualizarStockLibro(nuevoStock, li.getId_libro());
-            prestamo.ActualizarEstadoLibroPrestamo(5, li.getId_libro()); // estado 5 = Disponible
-        }
-
-        // 4. Mostrar mensaje de éxito
-        String mensajeExito;
-        if (tieneMulta && multaRegistrada) {
-            mensajeExito = 
-                "DEVOLUCIÓN REGISTRADA EXITOSAMENTE\n\n" +
-                "═════════════════════════════════\n" +
-                " Préstamo marcado como devuelto\n" +
-                "Stock del libro actualizado\n" +
-                " MULTA GENERADA:\n" +
-                "   • Días de retraso: " + diasRetraso + "\n" +
-                "   • Monto: " + String.format("%.2f Bs", montoMulta) + "\n" +
-                "   • Estado: Activa (pendiente de pago)\n" +
-                "═════════════════════════════════\n\n" +
-                "El usuario deberá pagar la multa antes de realizar nuevos préstamos.";
+        if (tieneMulta) {
+            mensajeConfirmacion
+                    = " CONFIRMAR DEVOLUCIÓN CON MULTA\n\n"
+                    + "═════════════════════════════════\n"
+                    + "ID Préstamo:      " + iden + "\n"
+                    + "Días de retraso:  " + diasRetraso + " día(s)\n"
+                    + "Multa a generar:  " + String.format("%.2f Bs", montoMulta) + "\n"
+                    + "═════════════════════════════════\n\n"
+                    + "Se generará automáticamente una MULTA por retraso.\n"
+                    + "¿Desea continuar con la devolución?";
         } else {
-            mensajeExito = 
-                "DEVOLUCIÓN REGISTRADA EXITOSAMENTE\n\n" +
-                "═════════════════════════════════\n" +
-                "Préstamo devuelto a tiempo\n" +
-                "Stock del libro actualizado\n" +
-                "Sin multas generadas\n" +
-                "═════════════════════════════════";
+            mensajeConfirmacion
+                    = "CONFIRMAR DEVOLUCIÓN A TIEMPO\n\n"
+                    + "═════════════════════════════════\n"
+                    + "ID Préstamo: " + iden + "\n"
+                    + "Estado:      Sin retraso ✓\n"
+                    + "═════════════════════════════════\n\n"
+                    + "¿Desea registrar la devolución?";
         }
 
-        JOptionPane.showMessageDialog(null,
-            mensajeExito,
-            "Devolución Exitosa",
-            JOptionPane.INFORMATION_MESSAGE);
+        int pregunta = JOptionPane.showConfirmDialog(null,
+                mensajeConfirmacion,
+                "Confirmar Devolución",
+                JOptionPane.YES_NO_OPTION,
+                tieneMulta ? JOptionPane.WARNING_MESSAGE : JOptionPane.QUESTION_MESSAGE);
 
-        // 5. Limpiar y actualizar tablas
-        LimpiarTable();
-        LimpiarPrestamo();
-        ListarPrestamo();
-        
-        // 6. Si hay multas en el sistema, actualizar también esas tablas
-        if (tieneMulta && multaRegistrada) {
-            // Actualizar las tablas de multas si están visibles
-            try {
-                actualizarTodasLasTablas(); // Este método actualiza las tablas de multas
-            } catch (Exception e) {
-                System.out.println("No se pudieron actualizar tablas de multas: " + e.getMessage());
+        if (pregunta != JOptionPane.YES_OPTION) {
+            return; // Usuario canceló
+        }
+
+        // === PROCESAR DEVOLUCIÓN ===
+        try {
+            int idPrestamo = Integer.parseInt(iden);
+
+            // 1. Registrar devolución en la base de datos
+            boolean devolucionExitosa = prestamo.DevolverPrestamo(idPrestamo);
+
+            if (!devolucionExitosa) {
+                JOptionPane.showMessageDialog(null,
+                        "Error al registrar la devolución en la base de datos",
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE);
+                return;
             }
-        }
 
-    } catch (NumberFormatException e) {
-        JOptionPane.showMessageDialog(null,
-            "❌ Error: El ID del préstamo no es válido\n\n" + e.getMessage(),
-            "Error",
-            JOptionPane.ERROR_MESSAGE);
-    } catch (Exception e) {
-        JOptionPane.showMessageDialog(null,
-            "❌ Error inesperado al procesar la devolución:\n\n" + e.getMessage(),
-            "Error",
-            JOptionPane.ERROR_MESSAGE);
-        e.printStackTrace();
-    }
+            // 2. Generar multa automáticamente SI HAY RETRASO
+            boolean multaRegistrada = false;
+            if (tieneMulta) {
+                Multa m = new Multa();
+                m.setId_prestamo(idPrestamo);
+                m.setId_usuario(pre.getId_usuario());
+                m.setDias_retraso(diasRetraso);
+                m.setMonto(montoMulta);
+                m.setEstado("Activa");
+
+                MultaDAO multaDAO = new MultaDAO();
+                multaRegistrada = multaDAO.registrarMulta(m);
+
+                if (!multaRegistrada) {
+                    JOptionPane.showMessageDialog(null,
+                            " Advertencia: La devolución se registró pero hubo un error al generar la multa\n\n"
+                            + "Deberá registrar la multa manualmente",
+                            "Advertencia",
+                            JOptionPane.WARNING_MESSAGE);
+                }
+            }
+
+            // 3. Actualizar stock y estado del libro
+            String codigoLibro = txtCodigoPrestamo.getText().trim();
+            li = libro.BuscarLibro(codigoLibro);
+
+            if (li != null) {
+                int nuevoStock = li.getStock() + 1;
+                prestamo.ActualizarStockLibro(nuevoStock, li.getId_libro());
+                prestamo.ActualizarEstadoLibroPrestamo(5, li.getId_libro()); // estado 5 = Disponible
+            }
+
+            // 4. Mostrar mensaje de éxito
+            String mensajeExito;
+            if (tieneMulta && multaRegistrada) {
+                mensajeExito
+                        = "DEVOLUCIÓN REGISTRADA EXITOSAMENTE\n\n"
+                        + "═════════════════════════════════\n"
+                        + " Préstamo marcado como devuelto\n"
+                        + "Stock del libro actualizado\n"
+                        + " MULTA GENERADA:\n"
+                        + "   • Días de retraso: " + diasRetraso + "\n"
+                        + "   • Monto: " + String.format("%.2f Bs", montoMulta) + "\n"
+                        + "   • Estado: Activa (pendiente de pago)\n"
+                        + "═════════════════════════════════\n\n"
+                        + "El usuario deberá pagar la multa antes de realizar nuevos préstamos.";
+            } else {
+                mensajeExito
+                        = "DEVOLUCIÓN REGISTRADA EXITOSAMENTE\n\n"
+                        + "═════════════════════════════════\n"
+                        + "Préstamo devuelto a tiempo\n"
+                        + "Stock del libro actualizado\n"
+                        + "Sin multas generadas\n"
+                        + "═════════════════════════════════";
+            }
+
+            JOptionPane.showMessageDialog(null,
+                    mensajeExito,
+                    "Devolución Exitosa",
+                    JOptionPane.INFORMATION_MESSAGE);
+
+            // 5. Limpiar y actualizar tablas
+            LimpiarTable();
+            LimpiarPrestamo();
+            ListarPrestamo();
+
+            // 6. Si hay multas en el sistema, actualizar también esas tablas
+            if (tieneMulta && multaRegistrada) {
+                // Actualizar las tablas de multas si están visibles
+                try {
+                    actualizarTodasLasTablas(); // Este método actualiza las tablas de multas
+                } catch (Exception e) {
+                    System.out.println("No se pudieron actualizar tablas de multas: " + e.getMessage());
+                }
+            }
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null,
+                    "❌ Error: El ID del préstamo no es válido\n\n" + e.getMessage(),
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null,
+                    "❌ Error inesperado al procesar la devolución:\n\n" + e.getMessage(),
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_btnDevolucionPrestamoActionPerformed
 
     private void btnActualizarPrestamoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarPrestamoActionPerformed
@@ -4909,8 +4887,8 @@ private void agregarCeldaResumenReporte(PdfPTable tabla, String etiqueta, String
             String co2 = txtCodigoPrestamo.getText();
             li = libro.BuscarLibro(co2);
             int StockActual2 = li.getStock() + 1;
-            int EstadoActual2 =li.getId_estado();
-            EstadoActual2=5;
+            int EstadoActual2 = li.getId_estado();
+            EstadoActual2 = 5;
             int idlibro2 = li.getId_libro();
             if (!"".equals(txtUsuarioPrestamo.getText()) && !"".equals(txtCodigoPrestamo.getText()) && !"".equals(txtFechaDevolucion.getDateFormatString())) {
 
@@ -4938,13 +4916,13 @@ private void agregarCeldaResumenReporte(PdfPTable tabla, String etiqueta, String
                 pre.setFecha_devolucion(fechaDevolucionFormateada);
                 //pre.setFecha_devolucion(fechaDevolucionFormateada);
                 pre.setId_prestamo(Integer.parseInt(txtidPrestamo.getText()));
-                error=prestamo.ModificarPrestamo(pre);
-                if (error==true){
+                error = prestamo.ModificarPrestamo(pre);
+                if (error == true) {
                     String co3 = txtCodigoPrestamo.getText();
                     li = libro.BuscarLibro(co3);
                     int StockActual3 = li.getStock() - 1;
-                    int EstadoActual3 =li.getId_estado();
-                    EstadoActual3=2;
+                    int EstadoActual3 = li.getId_estado();
+                    EstadoActual3 = 2;
                     int idlibro3 = li.getId_libro();
 
                     // prestamo.ActualizarStockLibro(StockActual2, idlibro2);
@@ -4956,7 +4934,7 @@ private void agregarCeldaResumenReporte(PdfPTable tabla, String etiqueta, String
                     ListarPrestamo();
                     JOptionPane.showMessageDialog(null, "Campos actualizados con exito");
                 }
-            }else {
+            } else {
                 JOptionPane.showMessageDialog(null, "Los campos Carnet y Codigo Libro son obligatorios");
             }
         }
@@ -4988,9 +4966,9 @@ private void agregarCeldaResumenReporte(PdfPTable tabla, String etiqueta, String
         String cod = txtUsuarioPrestamo.getText();
         us = usuario.BuscarUsuario(cod);
         if (us.getId_estado_prestamo() == 1) {
-            String codlibro2=txtCodigoPrestamo.getText();
+            String codlibro2 = txtCodigoPrestamo.getText();
             li = libro.BuscarLibro(codlibro2);
-            if(li.getId_estado()==5){
+            if (li.getId_estado() == 5) {
                 if (!"".equals(txtidUsuarioPrestamo.getText()) || !"".equals(txtidLibroPrestamo.getText()) || !"".equals(txtFechaDevolucion.getDateFormatString())) {
                     /*   // Crear formateador para MySQL (YYYY-MM-DD)
                     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -5002,7 +4980,7 @@ private void agregarCeldaResumenReporte(PdfPTable tabla, String etiqueta, String
                     // Fecha de devolución (del JDateChooser)
                     Date fechaDev = txtFechaDevolucion.getDate();
                     String fechaDevolucionFormateada = sdf.format(fechaDev);
-                    */
+                     */
 
                     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
@@ -5034,13 +5012,13 @@ private void agregarCeldaResumenReporte(PdfPTable tabla, String etiqueta, String
                     //ListarPrestamo();
                     boolean errores;
                     errores = prestamo.RegistrarPrestamo(pre);
-                    if (errores == true){
+                    if (errores == true) {
                         //prestamo.RegistrarPrestamo(pre);
                         String co = txtCodigoPrestamo.getText();
                         li = libro.BuscarLibro(co);
                         int StockActual = li.getStock() - 1;
-                        int EstadoActual=li.getId_estado();
-                        EstadoActual=2;
+                        int EstadoActual = li.getId_estado();
+                        EstadoActual = 2;
                         int idlibro = li.getId_libro();
                         prestamo.ActualizarStockLibro(StockActual, idlibro);
                         prestamo.ActualizarEstadoLibroPrestamo(EstadoActual, idlibro);
@@ -5052,8 +5030,8 @@ private void agregarCeldaResumenReporte(PdfPTable tabla, String etiqueta, String
                 } else {
                     JOptionPane.showMessageDialog(null, "Los campos estan vacios");
                 }
-            }else{
-                JOptionPane.showMessageDialog(null,"El libro ya se encuentra en prestamo");
+            } else {
+                JOptionPane.showMessageDialog(null, "El libro ya se encuentra en prestamo");
             }
         } else {
             JOptionPane.showMessageDialog(null, "El usuario no esta habilitado para realizar un prestamo");
@@ -5091,7 +5069,7 @@ private void agregarCeldaResumenReporte(PdfPTable tabla, String etiqueta, String
             if (!"".equals(txtTituloPrestamo.getText())) {
                 String titulo = txtTituloPrestamo.getText();
                 li = libro.BuscarLibroPorTitulo(titulo);
-                if (li.getCodigo()!= null) {
+                if (li.getCodigo() != null) {
                     txtidLibroPrestamo.setText("" + li.getId_libro());
                     txtCodigoPrestamo.setText("" + li.getCodigo());
                     txtEdicionPrestamo.setText("" + li.getEdicion());
@@ -5182,28 +5160,28 @@ private void agregarCeldaResumenReporte(PdfPTable tabla, String etiqueta, String
                 us = usuario.BuscarUsuario(cod);
                 // String errores = prestamo.validarCarnetPres(cod);
                 // if (!errores.isEmpty()) {
-                    //   JOptionPane.showMessageDialog(null, "Errores de validación:\n" + errores);
-                    //}else{
-                    if (us.getNombre() != null) {
-                        txtidUsuarioPrestamo.setText("" + us.getId_usuario());
-                        txtNombrePrestamo.setText("" + us.getNombre());
-                        txtApellidoPrestamo.setText("" + us.getApellido());
-                        txtTelefonoPrestamo.setText("" + us.getTelefono());
-                        txtDomicilioPrestamo.setText("" + us.getDomicilio());
-                        //REQUESTFOCUS
+                //   JOptionPane.showMessageDialog(null, "Errores de validación:\n" + errores);
+                //}else{
+                if (us.getNombre() != null) {
+                    txtidUsuarioPrestamo.setText("" + us.getId_usuario());
+                    txtNombrePrestamo.setText("" + us.getNombre());
+                    txtApellidoPrestamo.setText("" + us.getApellido());
+                    txtTelefonoPrestamo.setText("" + us.getTelefono());
+                    txtDomicilioPrestamo.setText("" + us.getDomicilio());
+                    //REQUESTFOCUS
 
-                    } else {
-                        //REQUESTFOCUS
-                        JOptionPane.showMessageDialog(null, "El usuario no esta registrado");
-                        txtidUsuarioPrestamo.setText("");
-                        txtNombrePrestamo.setText("");
-                        txtApellidoPrestamo.setText("");
-                        txtTelefonoPrestamo.setText("");
-                        txtDomicilioPrestamo.setText("");
-                        txtUsuarioPrestamo.requestFocus();
-                    }
+                } else {
+                    //REQUESTFOCUS
+                    JOptionPane.showMessageDialog(null, "El usuario no esta registrado");
+                    txtidUsuarioPrestamo.setText("");
+                    txtNombrePrestamo.setText("");
+                    txtApellidoPrestamo.setText("");
+                    txtTelefonoPrestamo.setText("");
+                    txtDomicilioPrestamo.setText("");
+                    txtUsuarioPrestamo.requestFocus();
+                }
 
-                    //}
+                //}
             } else {
                 JOptionPane.showMessageDialog(null, "Ingrese el carnet del usuario");
                 txtUsuarioPrestamo.requestFocus();
@@ -5535,7 +5513,7 @@ private void agregarCeldaResumenReporte(PdfPTable tabla, String etiqueta, String
 
     private void jButton52ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton52ActionPerformed
         // TODO add your handling code here:
-        pdfLibros();
+        pdfLibrosOtro();
     }//GEN-LAST:event_jButton52ActionPerformed
 
     private void jButton51ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton51ActionPerformed
@@ -5641,505 +5619,505 @@ private void agregarCeldaResumenReporte(PdfPTable tabla, String etiqueta, String
     }//GEN-LAST:event_jButton27ActionPerformed
 
     private void btnReporMultasPagadasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReporMultasPagadasActionPerformed
-       // Obtener todas las multas pagadas
-    List<Multa_pagada> lista = multaPagadaDao.listarPagosPagados();
+        // Obtener todas las multas pagadas
+        List<Multa_pagada> lista = multaPagadaDao.listarPagosPagados();
 
-    if (lista.isEmpty()) {
-        JOptionPane.showMessageDialog(null,
-            "No hay multas pagadas registradas en el sistema",
-            "Sin registros",
-            JOptionPane.WARNING_MESSAGE);
-        return;
-    }
-
-    Document documento = new Document(PageSize.A4.rotate()); // Horizontal
-
-    try {
-        // Crear directorio si no existe
-        String dirReportes = "src/Pdf";
-        File dir = new File(dirReportes);
-        if (!dir.exists()) {
-            dir.mkdirs();
+        if (lista.isEmpty()) {
+            JOptionPane.showMessageDialog(null,
+                    "No hay multas pagadas registradas en el sistema",
+                    "Sin registros",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
         }
 
-        // Nombre del archivo con fecha y hora
-        String fecha = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String ruta = dirReportes + "/Reporte_Multas_PAGADAS_" + fecha + ".pdf";
+        Document documento = new Document(PageSize.A4.rotate()); // Horizontal
 
-        PdfWriter.getInstance(documento, new FileOutputStream(ruta));
-        documento.open();
-
-        // ========== LOGO Y ENCABEZADO ==========
         try {
-            Image logo = Image.getInstance("src/Img/SISINf.png");
-            logo.scaleToFit(80, 80);
-            logo.setAlignment(Element.ALIGN_CENTER);
-            documento.add(logo);
-        } catch (Exception e) {
-            System.out.println("Logo no encontrado: " + e.getMessage());
-        }
+            // Crear directorio si no existe
+            String dirReportes = "src/Pdf";
+            File dir = new File(dirReportes);
+            if (!dir.exists()) {
+                dir.mkdirs();
+            }
 
-        // TÍTULO
-        Paragraph titulo = new Paragraph("REPORTE DE MULTAS PAGADAS\n",
-            FontFactory.getFont(FontFactory.HELVETICA_BOLD, 18, BaseColor.DARK_GRAY));
-        titulo.setAlignment(Element.ALIGN_CENTER);
-        documento.add(titulo);
+            // Nombre del archivo con fecha y hora
+            String fecha = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+            String ruta = dirReportes + "/Reporte_Multas_PAGADAS_" + fecha + ".pdf";
 
-        Paragraph subtitulo = new Paragraph("Sistema de Gestión Bibliotecaria\n\n",
-            FontFactory.getFont(FontFactory.HELVETICA, 12, BaseColor.GRAY));
-        subtitulo.setAlignment(Element.ALIGN_CENTER);
-        documento.add(subtitulo);
+            PdfWriter.getInstance(documento, new FileOutputStream(ruta));
+            documento.open();
 
-        // FECHA DE GENERACIÓN
-        Paragraph fechaGen = new Paragraph(
-            "Fecha de generación: " + new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(new Date()) + "\n\n",
-            FontFactory.getFont(FontFactory.HELVETICA, 10, BaseColor.BLACK));
-        fechaGen.setAlignment(Element.ALIGN_RIGHT);
-        documento.add(fechaGen);
-
-        documento.add(new Paragraph("\n"));
-
-        // ========== TABLA DE MULTAS PAGADAS ==========
-        PdfPTable tabla = new PdfPTable(9);
-        tabla.setWidthPercentage(100);
-        tabla.setWidths(new float[]{0.7f, 0.8f, 1f, 2f, 2.2f, 0.8f, 1f, 1.5f, 2f});
-
-        // ENCABEZADOS
-        agregarCeldaEncabezadoReporte(tabla, "ID");
-        agregarCeldaEncabezadoReporte(tabla, "Multa");
-        agregarCeldaEncabezadoReporte(tabla, "Préstamo");
-        agregarCeldaEncabezadoReporte(tabla, "Usuario");
-        agregarCeldaEncabezadoReporte(tabla, "Libro");
-        agregarCeldaEncabezadoReporte(tabla, "Días");
-        agregarCeldaEncabezadoReporte(tabla, "Monto");
-        agregarCeldaEncabezadoReporte(tabla, "Num. Factura");
-        agregarCeldaEncabezadoReporte(tabla, "Fecha Pago");
-
-        // DATOS Y CÁLCULO DE TOTALES
-        float totalRecaudado = 0;
-        int totalDias = 0;
-
-        // Agrupar por mes para estadísticas
-        Map<String, Float> recaudadoPorMes = new HashMap<>();
-        Map<String, Integer> pagosPorMes = new HashMap<>();
-
-        SimpleDateFormat mesAnio = new SimpleDateFormat("MM/yyyy");
-
-        for (Multa_pagada mp : lista) {
-            // ID Pago
-            PdfPCell celda = new PdfPCell(new Phrase(String.valueOf(mp.getId_multa_pagada()),
-                FontFactory.getFont(FontFactory.HELVETICA, 8)));
-            celda.setHorizontalAlignment(Element.ALIGN_CENTER);
-            tabla.addCell(celda);
-
-            // ID Multa
-            celda = new PdfPCell(new Phrase(String.valueOf(mp.getId_multa()),
-                FontFactory.getFont(FontFactory.HELVETICA, 8)));
-            celda.setHorizontalAlignment(Element.ALIGN_CENTER);
-            tabla.addCell(celda);
-
-            // ID Préstamo
-            celda = new PdfPCell(new Phrase(String.valueOf(mp.getIdPrestamo()),
-                FontFactory.getFont(FontFactory.HELVETICA, 8)));
-            celda.setHorizontalAlignment(Element.ALIGN_CENTER);
-            tabla.addCell(celda);
-
-            // Usuario
-            tabla.addCell(new Phrase(mp.getNombreCompletoUsuario(),
-                FontFactory.getFont(FontFactory.HELVETICA, 8)));
-
-            // Libro
-            tabla.addCell(new Phrase(mp.getTituloLibro() != null ? mp.getTituloLibro() : "N/A",
-                FontFactory.getFont(FontFactory.HELVETICA, 8)));
-
-            // Días de retraso
-            celda = new PdfPCell(new Phrase(String.valueOf(mp.getDiasRetraso()),
-                FontFactory.getFont(FontFactory.HELVETICA, 8)));
-            celda.setHorizontalAlignment(Element.ALIGN_CENTER);
-            tabla.addCell(celda);
-
-            // Monto
-            celda = new PdfPCell(new Phrase(mp.getMontoFormateado(),
-                FontFactory.getFont(FontFactory.HELVETICA_BOLD, 8)));
-            celda.setHorizontalAlignment(Element.ALIGN_RIGHT);
-            celda.setBackgroundColor(new BaseColor(230, 255, 230)); // Verde claro
-            tabla.addCell(celda);
-
-            // Número de factura
-            tabla.addCell(new Phrase(mp.getNumeroFactura() != null ? mp.getNumeroFactura() : "N/A",
-                FontFactory.getFont(FontFactory.HELVETICA, 7)));
-
-            // Fecha de pago
-            String fechaPago = mp.getFechaFormateada();
-            tabla.addCell(new Phrase(fechaPago,
-                FontFactory.getFont(FontFactory.HELVETICA, 8)));
-
-            // Acumular totales
-            totalRecaudado += mp.getMontoPagado();
-            totalDias += mp.getDiasRetraso();
-
-            // Agrupar por mes
+            // ========== LOGO Y ENCABEZADO ==========
             try {
-                String mes = mesAnio.format(mp.getFecha());
-                recaudadoPorMes.put(mes, recaudadoPorMes.getOrDefault(mes, 0f) + mp.getMontoPagado());
-                pagosPorMes.put(mes, pagosPorMes.getOrDefault(mes, 0) + 1);
+                Image logo = Image.getInstance("src/Img/SISINf.png");
+                logo.scaleToFit(80, 80);
+                logo.setAlignment(Element.ALIGN_CENTER);
+                documento.add(logo);
             } catch (Exception e) {
-                System.out.println("Error al agrupar por mes: " + e.getMessage());
+                System.out.println("Logo no encontrado: " + e.getMessage());
             }
-        }
 
-        documento.add(tabla);
+            // TÍTULO
+            Paragraph titulo = new Paragraph("REPORTE DE MULTAS PAGADAS\n",
+                    FontFactory.getFont(FontFactory.HELVETICA_BOLD, 18, BaseColor.DARK_GRAY));
+            titulo.setAlignment(Element.ALIGN_CENTER);
+            documento.add(titulo);
 
-        // ========== RESUMEN POR MES ==========
-        if (!recaudadoPorMes.isEmpty()) {
+            Paragraph subtitulo = new Paragraph("Sistema de Gestión Bibliotecaria\n\n",
+                    FontFactory.getFont(FontFactory.HELVETICA, 12, BaseColor.GRAY));
+            subtitulo.setAlignment(Element.ALIGN_CENTER);
+            documento.add(subtitulo);
+
+            // FECHA DE GENERACIÓN
+            Paragraph fechaGen = new Paragraph(
+                    "Fecha de generación: " + new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(new Date()) + "\n\n",
+                    FontFactory.getFont(FontFactory.HELVETICA, 10, BaseColor.BLACK));
+            fechaGen.setAlignment(Element.ALIGN_RIGHT);
+            documento.add(fechaGen);
+
             documento.add(new Paragraph("\n"));
-            
-            Paragraph tituloMeses = new Paragraph("RECAUDACIÓN POR MES",
-                FontFactory.getFont(FontFactory.HELVETICA_BOLD, 12, BaseColor.DARK_GRAY));
-            tituloMeses.setAlignment(Element.ALIGN_CENTER);
-            documento.add(tituloMeses);
-            documento.add(new Paragraph("\n"));
 
-            PdfPTable tablaMeses = new PdfPTable(3);
-            tablaMeses.setWidthPercentage(60);
-            tablaMeses.setHorizontalAlignment(Element.ALIGN_CENTER);
+            // ========== TABLA DE MULTAS PAGADAS ==========
+            PdfPTable tabla = new PdfPTable(9);
+            tabla.setWidthPercentage(100);
+            tabla.setWidths(new float[]{0.7f, 0.8f, 1f, 2f, 2.2f, 0.8f, 1f, 1.5f, 2f});
 
-            // Encabezados
-            agregarCeldaEncabezadoReporte(tablaMeses, "Mes/Año");
-            agregarCeldaEncabezadoReporte(tablaMeses, "Cantidad");
-            agregarCeldaEncabezadoReporte(tablaMeses, "Monto Recaudado");
+            // ENCABEZADOS
+            agregarCeldaEncabezadoReporte(tabla, "ID");
+            agregarCeldaEncabezadoReporte(tabla, "Multa");
+            agregarCeldaEncabezadoReporte(tabla, "Préstamo");
+            agregarCeldaEncabezadoReporte(tabla, "Usuario");
+            agregarCeldaEncabezadoReporte(tabla, "Libro");
+            agregarCeldaEncabezadoReporte(tabla, "Días");
+            agregarCeldaEncabezadoReporte(tabla, "Monto");
+            agregarCeldaEncabezadoReporte(tabla, "Num. Factura");
+            agregarCeldaEncabezadoReporte(tabla, "Fecha Pago");
 
-            // Ordenar meses
-            List<String> mesesOrdenados = new ArrayList<>(recaudadoPorMes.keySet());
-            Collections.sort(mesesOrdenados);
+            // DATOS Y CÁLCULO DE TOTALES
+            float totalRecaudado = 0;
+            int totalDias = 0;
 
-            for (String mes : mesesOrdenados) {
-                PdfPCell celda = new PdfPCell(new Phrase(mes,
-                    FontFactory.getFont(FontFactory.HELVETICA, 10)));
+            // Agrupar por mes para estadísticas
+            Map<String, Float> recaudadoPorMes = new HashMap<>();
+            Map<String, Integer> pagosPorMes = new HashMap<>();
+
+            SimpleDateFormat mesAnio = new SimpleDateFormat("MM/yyyy");
+
+            for (Multa_pagada mp : lista) {
+                // ID Pago
+                PdfPCell celda = new PdfPCell(new Phrase(String.valueOf(mp.getId_multa_pagada()),
+                        FontFactory.getFont(FontFactory.HELVETICA, 8)));
                 celda.setHorizontalAlignment(Element.ALIGN_CENTER);
-                celda.setPadding(5);
-                tablaMeses.addCell(celda);
+                tabla.addCell(celda);
 
-                celda = new PdfPCell(new Phrase(String.valueOf(pagosPorMes.get(mes)),
-                    FontFactory.getFont(FontFactory.HELVETICA, 10)));
+                // ID Multa
+                celda = new PdfPCell(new Phrase(String.valueOf(mp.getId_multa()),
+                        FontFactory.getFont(FontFactory.HELVETICA, 8)));
                 celda.setHorizontalAlignment(Element.ALIGN_CENTER);
-                celda.setPadding(5);
-                tablaMeses.addCell(celda);
+                tabla.addCell(celda);
 
-                celda = new PdfPCell(new Phrase(String.format("%.2f Bs", recaudadoPorMes.get(mes)),
-                    FontFactory.getFont(FontFactory.HELVETICA_BOLD, 10)));
+                // ID Préstamo
+                celda = new PdfPCell(new Phrase(String.valueOf(mp.getIdPrestamo()),
+                        FontFactory.getFont(FontFactory.HELVETICA, 8)));
+                celda.setHorizontalAlignment(Element.ALIGN_CENTER);
+                tabla.addCell(celda);
+
+                // Usuario
+                tabla.addCell(new Phrase(mp.getNombreCompletoUsuario(),
+                        FontFactory.getFont(FontFactory.HELVETICA, 8)));
+
+                // Libro
+                tabla.addCell(new Phrase(mp.getTituloLibro() != null ? mp.getTituloLibro() : "N/A",
+                        FontFactory.getFont(FontFactory.HELVETICA, 8)));
+
+                // Días de retraso
+                celda = new PdfPCell(new Phrase(String.valueOf(mp.getDiasRetraso()),
+                        FontFactory.getFont(FontFactory.HELVETICA, 8)));
+                celda.setHorizontalAlignment(Element.ALIGN_CENTER);
+                tabla.addCell(celda);
+
+                // Monto
+                celda = new PdfPCell(new Phrase(mp.getMontoFormateado(),
+                        FontFactory.getFont(FontFactory.HELVETICA_BOLD, 8)));
                 celda.setHorizontalAlignment(Element.ALIGN_RIGHT);
-                celda.setPadding(5);
-                celda.setBackgroundColor(new BaseColor(230, 255, 230));
-                tablaMeses.addCell(celda);
+                celda.setBackgroundColor(new BaseColor(230, 255, 230)); // Verde claro
+                tabla.addCell(celda);
+
+                // Número de factura
+                tabla.addCell(new Phrase(mp.getNumeroFactura() != null ? mp.getNumeroFactura() : "N/A",
+                        FontFactory.getFont(FontFactory.HELVETICA, 7)));
+
+                // Fecha de pago
+                String fechaPago = mp.getFechaFormateada();
+                tabla.addCell(new Phrase(fechaPago,
+                        FontFactory.getFont(FontFactory.HELVETICA, 8)));
+
+                // Acumular totales
+                totalRecaudado += mp.getMontoPagado();
+                totalDias += mp.getDiasRetraso();
+
+                // Agrupar por mes
+                try {
+                    String mes = mesAnio.format(mp.getFecha());
+                    recaudadoPorMes.put(mes, recaudadoPorMes.getOrDefault(mes, 0f) + mp.getMontoPagado());
+                    pagosPorMes.put(mes, pagosPorMes.getOrDefault(mes, 0) + 1);
+                } catch (Exception e) {
+                    System.out.println("Error al agrupar por mes: " + e.getMessage());
+                }
             }
 
-            documento.add(tablaMeses);
+            documento.add(tabla);
+
+            // ========== RESUMEN POR MES ==========
+            if (!recaudadoPorMes.isEmpty()) {
+                documento.add(new Paragraph("\n"));
+
+                Paragraph tituloMeses = new Paragraph("RECAUDACIÓN POR MES",
+                        FontFactory.getFont(FontFactory.HELVETICA_BOLD, 12, BaseColor.DARK_GRAY));
+                tituloMeses.setAlignment(Element.ALIGN_CENTER);
+                documento.add(tituloMeses);
+                documento.add(new Paragraph("\n"));
+
+                PdfPTable tablaMeses = new PdfPTable(3);
+                tablaMeses.setWidthPercentage(60);
+                tablaMeses.setHorizontalAlignment(Element.ALIGN_CENTER);
+
+                // Encabezados
+                agregarCeldaEncabezadoReporte(tablaMeses, "Mes/Año");
+                agregarCeldaEncabezadoReporte(tablaMeses, "Cantidad");
+                agregarCeldaEncabezadoReporte(tablaMeses, "Monto Recaudado");
+
+                // Ordenar meses
+                List<String> mesesOrdenados = new ArrayList<>(recaudadoPorMes.keySet());
+                Collections.sort(mesesOrdenados);
+
+                for (String mes : mesesOrdenados) {
+                    PdfPCell celda = new PdfPCell(new Phrase(mes,
+                            FontFactory.getFont(FontFactory.HELVETICA, 10)));
+                    celda.setHorizontalAlignment(Element.ALIGN_CENTER);
+                    celda.setPadding(5);
+                    tablaMeses.addCell(celda);
+
+                    celda = new PdfPCell(new Phrase(String.valueOf(pagosPorMes.get(mes)),
+                            FontFactory.getFont(FontFactory.HELVETICA, 10)));
+                    celda.setHorizontalAlignment(Element.ALIGN_CENTER);
+                    celda.setPadding(5);
+                    tablaMeses.addCell(celda);
+
+                    celda = new PdfPCell(new Phrase(String.format("%.2f Bs", recaudadoPorMes.get(mes)),
+                            FontFactory.getFont(FontFactory.HELVETICA_BOLD, 10)));
+                    celda.setHorizontalAlignment(Element.ALIGN_RIGHT);
+                    celda.setPadding(5);
+                    celda.setBackgroundColor(new BaseColor(230, 255, 230));
+                    tablaMeses.addCell(celda);
+                }
+
+                documento.add(tablaMeses);
+            }
+
+            // ========== RESUMEN GENERAL ==========
+            documento.add(new Paragraph("\n"));
+
+            PdfPTable tablaResumen = new PdfPTable(2);
+            tablaResumen.setWidthPercentage(60);
+            tablaResumen.setHorizontalAlignment(Element.ALIGN_RIGHT);
+
+            // Total de pagos
+            agregarCeldaResumenReporte(tablaResumen, "Total de multas pagadas:",
+                    String.valueOf(lista.size()), BaseColor.LIGHT_GRAY);
+
+            // Total de días
+            agregarCeldaResumenReporte(tablaResumen, "Total días de retraso:",
+                    String.valueOf(totalDias), BaseColor.LIGHT_GRAY);
+
+            // Promedio
+            float promedioRecaudado = lista.size() > 0 ? totalRecaudado / lista.size() : 0;
+            agregarCeldaResumenReporte(tablaResumen, "Promedio por multa:",
+                    String.format("%.2f Bs", promedioRecaudado), BaseColor.LIGHT_GRAY);
+
+            // TOTAL RECAUDADO (destacado)
+            PdfPCell celdaLabel = new PdfPCell(new Phrase("TOTAL RECAUDADO:",
+                    FontFactory.getFont(FontFactory.HELVETICA_BOLD, 13)));
+            celdaLabel.setBorder(Rectangle.BOX);
+            celdaLabel.setHorizontalAlignment(Element.ALIGN_RIGHT);
+            celdaLabel.setPadding(8);
+            celdaLabel.setBackgroundColor(new BaseColor(200, 255, 200));
+            tablaResumen.addCell(celdaLabel);
+
+            PdfPCell celdaValor = new PdfPCell(new Phrase(String.format("%.2f Bs", totalRecaudado),
+                    FontFactory.getFont(FontFactory.HELVETICA_BOLD, 13)));
+            celdaValor.setBorder(Rectangle.BOX);
+            celdaValor.setHorizontalAlignment(Element.ALIGN_CENTER);
+            celdaValor.setPadding(8);
+            celdaValor.setBackgroundColor(BaseColor.YELLOW);
+            tablaResumen.addCell(celdaValor);
+
+            documento.add(tablaResumen);
+
+            // ========== PIE DE PÁGINA ==========
+            documento.add(new Paragraph("\n\n"));
+            Paragraph pie = new Paragraph(
+                    "___________________________________________\n\n"
+                    + "Este reporte incluye todas las multas pagadas registradas en el sistema.\n"
+                    + "Sistema de Gestión Bibliotecaria - Reportes Automáticos\n"
+                    + "Generado por: Los intrepidos",
+                    FontFactory.getFont(FontFactory.HELVETICA, 8, BaseColor.GRAY));
+            pie.setAlignment(Element.ALIGN_CENTER);
+            documento.add(pie);
+
+            documento.close();
+
+            // ========== MENSAJE DE ÉXITO ==========
+            String mensajeExito = String.format(
+                    "✅ REPORTE GENERADO EXITOSAMENTE\n\n"
+                    + "════════════════════════════════\n"
+                    + "Total de pagos:      %d\n"
+                    + "Total días retraso:  %d\n"
+                    + "Total recaudado:     %.2f Bs\n"
+                    + "Promedio por pago:   %.2f Bs\n"
+                    + "Meses registrados:   %d\n"
+                    + "════════════════════════════════\n\n"
+                    + "Archivo guardado en:\n%s",
+                    lista.size(),
+                    totalDias,
+                    totalRecaudado,
+                    promedioRecaudado,
+                    recaudadoPorMes.size(),
+                    ruta
+            );
+
+            JOptionPane.showMessageDialog(null, mensajeExito,
+                    "Reporte Generado", JOptionPane.INFORMATION_MESSAGE);
+
+            // Abrir el PDF automáticamente
+            java.awt.Desktop.getDesktop().open(new File(ruta));
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null,
+                    "❌ Error al generar el reporte:\n\n" + e.getMessage(),
+                    "Error", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
         }
-
-        // ========== RESUMEN GENERAL ==========
-        documento.add(new Paragraph("\n"));
-
-        PdfPTable tablaResumen = new PdfPTable(2);
-        tablaResumen.setWidthPercentage(60);
-        tablaResumen.setHorizontalAlignment(Element.ALIGN_RIGHT);
-
-        // Total de pagos
-        agregarCeldaResumenReporte(tablaResumen, "Total de multas pagadas:", 
-            String.valueOf(lista.size()), BaseColor.LIGHT_GRAY);
-
-        // Total de días
-        agregarCeldaResumenReporte(tablaResumen, "Total días de retraso:", 
-            String.valueOf(totalDias), BaseColor.LIGHT_GRAY);
-
-        // Promedio
-        float promedioRecaudado = lista.size() > 0 ? totalRecaudado / lista.size() : 0;
-        agregarCeldaResumenReporte(tablaResumen, "Promedio por multa:", 
-            String.format("%.2f Bs", promedioRecaudado), BaseColor.LIGHT_GRAY);
-
-        // TOTAL RECAUDADO (destacado)
-        PdfPCell celdaLabel = new PdfPCell(new Phrase("TOTAL RECAUDADO:",
-            FontFactory.getFont(FontFactory.HELVETICA_BOLD, 13)));
-        celdaLabel.setBorder(Rectangle.BOX);
-        celdaLabel.setHorizontalAlignment(Element.ALIGN_RIGHT);
-        celdaLabel.setPadding(8);
-        celdaLabel.setBackgroundColor(new BaseColor(200, 255, 200));
-        tablaResumen.addCell(celdaLabel);
-
-        PdfPCell celdaValor = new PdfPCell(new Phrase(String.format("%.2f Bs", totalRecaudado),
-            FontFactory.getFont(FontFactory.HELVETICA_BOLD, 13)));
-        celdaValor.setBorder(Rectangle.BOX);
-        celdaValor.setHorizontalAlignment(Element.ALIGN_CENTER);
-        celdaValor.setPadding(8);
-        celdaValor.setBackgroundColor(BaseColor.YELLOW);
-        tablaResumen.addCell(celdaValor);
-
-        documento.add(tablaResumen);
-
-        // ========== PIE DE PÁGINA ==========
-        documento.add(new Paragraph("\n\n"));
-        Paragraph pie = new Paragraph(
-            "___________________________________________\n\n" +
-            "Este reporte incluye todas las multas pagadas registradas en el sistema.\n" +
-            "Sistema de Gestión Bibliotecaria - Reportes Automáticos\n" +
-            "Generado por: Los intrepidos",
-            FontFactory.getFont(FontFactory.HELVETICA, 8, BaseColor.GRAY));
-        pie.setAlignment(Element.ALIGN_CENTER);
-        documento.add(pie);
-
-        documento.close();
-
-        // ========== MENSAJE DE ÉXITO ==========
-        String mensajeExito = String.format(
-            "✅ REPORTE GENERADO EXITOSAMENTE\n\n" +
-            "════════════════════════════════\n" +
-            "Total de pagos:      %d\n" +
-            "Total días retraso:  %d\n" +
-            "Total recaudado:     %.2f Bs\n" +
-            "Promedio por pago:   %.2f Bs\n" +
-            "Meses registrados:   %d\n" +
-            "════════════════════════════════\n\n" +
-            "Archivo guardado en:\n%s",
-            lista.size(),
-            totalDias,
-            totalRecaudado,
-            promedioRecaudado,
-            recaudadoPorMes.size(),
-            ruta
-        );
-
-        JOptionPane.showMessageDialog(null, mensajeExito,
-            "Reporte Generado", JOptionPane.INFORMATION_MESSAGE);
-
-        // Abrir el PDF automáticamente
-        java.awt.Desktop.getDesktop().open(new File(ruta));
-
-    } catch (Exception e) {
-        JOptionPane.showMessageDialog(null,
-            "❌ Error al generar el reporte:\n\n" + e.getMessage(),
-            "Error", JOptionPane.ERROR_MESSAGE);
-        e.printStackTrace();
-    }
     }//GEN-LAST:event_btnReporMultasPagadasActionPerformed
 
     private void btnReporMultasSinPagadasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReporMultasSinPagadasActionPerformed
-      List<Multa> lista = multaDao.listarMultasPorEstado("Activa");
+        List<Multa> lista = multaDao.listarMultasPorEstado("Activa");
 
-    if (lista.isEmpty()) {
-        JOptionPane.showMessageDialog(null, 
-            "¡Excelente! No hay multas pendientes de pago",
-            "Sin multas pendientes",
-            JOptionPane.INFORMATION_MESSAGE);
-        return;
-    }
-
-    Document documento = new Document(PageSize.A4.rotate()); // Horizontal
-
-    try {
-        // Crear directorio si no existe
-        String dirReportes = "src/Pdf";
-        File dir = new File(dirReportes);
-        if (!dir.exists()) {
-            dir.mkdirs();
-            System.out.println("Directorio creado: " + dirReportes);
+        if (lista.isEmpty()) {
+            JOptionPane.showMessageDialog(null,
+                    "¡Excelente! No hay multas pendientes de pago",
+                    "Sin multas pendientes",
+                    JOptionPane.INFORMATION_MESSAGE);
+            return;
         }
 
-        // Nombre del archivo con fecha y hora
-        String fecha = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String ruta = dirReportes + "/Reporte_Multas_SIN_PAGAR_" + fecha + ".pdf";
+        Document documento = new Document(PageSize.A4.rotate()); // Horizontal
 
-        PdfWriter.getInstance(documento, new FileOutputStream(ruta));
-        documento.open();
-
-        // ========== LOGO Y ENCABEZADO ==========
         try {
-            Image logo = Image.getInstance("src/Img/SISINf.png");
-            logo.scaleToFit(80, 80);
-            logo.setAlignment(Element.ALIGN_CENTER);
-            documento.add(logo);
+            // Crear directorio si no existe
+            String dirReportes = "src/Pdf";
+            File dir = new File(dirReportes);
+            if (!dir.exists()) {
+                dir.mkdirs();
+                System.out.println("Directorio creado: " + dirReportes);
+            }
+
+            // Nombre del archivo con fecha y hora
+            String fecha = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+            String ruta = dirReportes + "/Reporte_Multas_SIN_PAGAR_" + fecha + ".pdf";
+
+            PdfWriter.getInstance(documento, new FileOutputStream(ruta));
+            documento.open();
+
+            // ========== LOGO Y ENCABEZADO ==========
+            try {
+                Image logo = Image.getInstance("src/Img/SISINf.png");
+                logo.scaleToFit(80, 80);
+                logo.setAlignment(Element.ALIGN_CENTER);
+                documento.add(logo);
+            } catch (Exception e) {
+                System.out.println("Logo no encontrado: " + e.getMessage());
+            }
+
+            // TÍTULO
+            Paragraph titulo = new Paragraph("REPORTE DE MULTAS SIN PAGAR\n",
+                    FontFactory.getFont(FontFactory.HELVETICA_BOLD, 18, BaseColor.DARK_GRAY));
+            titulo.setAlignment(Element.ALIGN_CENTER);
+            documento.add(titulo);
+
+            Paragraph subtitulo = new Paragraph("Sistema de Gestión Bibliotecaria\n\n",
+                    FontFactory.getFont(FontFactory.HELVETICA, 12, BaseColor.GRAY));
+            subtitulo.setAlignment(Element.ALIGN_CENTER);
+            documento.add(subtitulo);
+
+            // FECHA DE GENERACIÓN
+            Paragraph fechaGen = new Paragraph(
+                    "Fecha de generación: " + new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(new Date()) + "\n\n",
+                    FontFactory.getFont(FontFactory.HELVETICA, 10, BaseColor.BLACK));
+            fechaGen.setAlignment(Element.ALIGN_RIGHT);
+            documento.add(fechaGen);
+
+            documento.add(new Paragraph("\n"));
+
+            // ========== TABLA DE MULTAS ==========
+            PdfPTable tabla = new PdfPTable(8);
+            tabla.setWidthPercentage(100);
+            tabla.setWidths(new float[]{0.7f, 1f, 2f, 2.5f, 1f, 1f, 1.2f, 1.3f});
+
+            // ENCABEZADOS
+            agregarCeldaEncabezadoReporte(tabla, "ID");
+            agregarCeldaEncabezadoReporte(tabla, "Préstamo");
+            agregarCeldaEncabezadoReporte(tabla, "Usuario");
+            agregarCeldaEncabezadoReporte(tabla, "Libro");
+            agregarCeldaEncabezadoReporte(tabla, "ID Usuario");
+            agregarCeldaEncabezadoReporte(tabla, "Días");
+            agregarCeldaEncabezadoReporte(tabla, "Monto");
+            agregarCeldaEncabezadoReporte(tabla, "Estado");
+
+            // DATOS Y CÁLCULO DE TOTALES
+            float totalMonto = 0;
+            int totalDias = 0;
+
+            for (Multa m : lista) {
+                // ID Multa
+                PdfPCell celda = new PdfPCell(new Phrase(String.valueOf(m.getId_multa()),
+                        FontFactory.getFont(FontFactory.HELVETICA, 9)));
+                celda.setHorizontalAlignment(Element.ALIGN_CENTER);
+                tabla.addCell(celda);
+
+                // ID Préstamo
+                celda = new PdfPCell(new Phrase(String.valueOf(m.getId_prestamo()),
+                        FontFactory.getFont(FontFactory.HELVETICA, 9)));
+                celda.setHorizontalAlignment(Element.ALIGN_CENTER);
+                tabla.addCell(celda);
+
+                // Usuario
+                tabla.addCell(new Phrase(m.getNombreUsuario() != null ? m.getNombreUsuario() : "N/A",
+                        FontFactory.getFont(FontFactory.HELVETICA, 9)));
+
+                // Libro
+                tabla.addCell(new Phrase(m.getNombreLibro() != null ? m.getNombreLibro() : "N/A",
+                        FontFactory.getFont(FontFactory.HELVETICA, 9)));
+
+                // ID Usuario
+                celda = new PdfPCell(new Phrase(String.valueOf(m.getId_usuario()),
+                        FontFactory.getFont(FontFactory.HELVETICA, 9)));
+                celda.setHorizontalAlignment(Element.ALIGN_CENTER);
+                tabla.addCell(celda);
+
+                // Días de retraso
+                celda = new PdfPCell(new Phrase(String.valueOf(m.getDias_retraso()),
+                        FontFactory.getFont(FontFactory.HELVETICA, 9)));
+                celda.setHorizontalAlignment(Element.ALIGN_CENTER);
+                celda.setBackgroundColor(new BaseColor(255, 230, 230)); // Rosa claro
+                tabla.addCell(celda);
+
+                // Monto
+                celda = new PdfPCell(new Phrase(String.format("%.2f Bs", m.getMonto()),
+                        FontFactory.getFont(FontFactory.HELVETICA_BOLD, 9)));
+                celda.setHorizontalAlignment(Element.ALIGN_RIGHT);
+                tabla.addCell(celda);
+
+                // Estado
+                celda = new PdfPCell(new Phrase(m.getEstado(),
+                        FontFactory.getFont(FontFactory.HELVETICA, 9, BaseColor.RED)));
+                celda.setHorizontalAlignment(Element.ALIGN_CENTER);
+                celda.setBackgroundColor(new BaseColor(255, 240, 240));
+                tabla.addCell(celda);
+
+                // Acumular totales
+                totalMonto += m.getMonto();
+                totalDias += m.getDias_retraso();
+            }
+
+            documento.add(tabla);
+
+            // ========== RESUMEN Y TOTALES ==========
+            documento.add(new Paragraph("\n"));
+
+            PdfPTable tablaResumen = new PdfPTable(2);
+            tablaResumen.setWidthPercentage(60);
+            tablaResumen.setHorizontalAlignment(Element.ALIGN_RIGHT);
+
+            // Total de multas
+            agregarCeldaResumenReporte(tablaResumen, "Total de multas sin pagar:",
+                    String.valueOf(lista.size()), BaseColor.LIGHT_GRAY);
+
+            // Total de días acumulados
+            agregarCeldaResumenReporte(tablaResumen, "Total días de retraso acumulados:",
+                    String.valueOf(totalDias), BaseColor.LIGHT_GRAY);
+
+            // Monto promedio
+            float montoPromedio = lista.size() > 0 ? totalMonto / lista.size() : 0;
+            agregarCeldaResumenReporte(tablaResumen, "Monto promedio por multa:",
+                    String.format("%.2f Bs", montoPromedio), BaseColor.LIGHT_GRAY);
+
+            // TOTAL A RECAUDAR (destacado)
+            PdfPCell celdaLabel = new PdfPCell(new Phrase("TOTAL A RECAUDAR:",
+                    FontFactory.getFont(FontFactory.HELVETICA_BOLD, 13)));
+            celdaLabel.setBorder(Rectangle.BOX);
+            celdaLabel.setHorizontalAlignment(Element.ALIGN_RIGHT);
+            celdaLabel.setPadding(8);
+            celdaLabel.setBackgroundColor(new BaseColor(255, 200, 200));
+            tablaResumen.addCell(celdaLabel);
+
+            PdfPCell celdaValor = new PdfPCell(new Phrase(String.format("%.2f Bs", totalMonto),
+                    FontFactory.getFont(FontFactory.HELVETICA_BOLD, 13)));
+            celdaValor.setBorder(Rectangle.BOX);
+            celdaValor.setHorizontalAlignment(Element.ALIGN_CENTER);
+            celdaValor.setPadding(8);
+            celdaValor.setBackgroundColor(BaseColor.YELLOW);
+            tablaResumen.addCell(celdaValor);
+
+            documento.add(tablaResumen);
+
+            // ========== PIE DE PÁGINA ==========
+            documento.add(new Paragraph("\n\n"));
+            Paragraph pie = new Paragraph(
+                    "___________________________________________\n\n"
+                    + "Este reporte muestra todas las multas pendientes de pago al momento de su generación.\n"
+                    + "Sistema de Gestión Bibliotecaria - Reportes Automáticos\n"
+                    + "Generado por: Los intrepidos",
+                    FontFactory.getFont(FontFactory.HELVETICA, 8, BaseColor.GRAY));
+            pie.setAlignment(Element.ALIGN_CENTER);
+            documento.add(pie);
+
+            documento.close();
+
+            // ========== MENSAJE DE ÉXITO ==========
+            String mensajeExito = String.format(
+                    "✅ REPORTE GENERADO EXITOSAMENTE\n\n"
+                    + "════════════════════════════════\n"
+                    + "Total de multas:     %d\n"
+                    + "Total días retraso:  %d\n"
+                    + "Total a recaudar:    %.2f Bs\n"
+                    + "Promedio por multa:  %.2f Bs\n"
+                    + "════════════════════════════════\n\n"
+                    + "Archivo guardado en:\n%s",
+                    lista.size(),
+                    totalDias,
+                    totalMonto,
+                    montoPromedio,
+                    ruta
+            );
+
+            JOptionPane.showMessageDialog(null, mensajeExito,
+                    "Reporte Generado", JOptionPane.INFORMATION_MESSAGE);
+
+            // Abrir el PDF automáticamente
+            java.awt.Desktop.getDesktop().open(new File(ruta));
+
         } catch (Exception e) {
-            System.out.println("Logo no encontrado: " + e.getMessage());
+            JOptionPane.showMessageDialog(null,
+                    "Error al generar el reporte:\n\n" + e.getMessage(),
+                    "Error", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
         }
-
-        // TÍTULO
-        Paragraph titulo = new Paragraph("REPORTE DE MULTAS SIN PAGAR\n",
-            FontFactory.getFont(FontFactory.HELVETICA_BOLD, 18, BaseColor.DARK_GRAY));
-        titulo.setAlignment(Element.ALIGN_CENTER);
-        documento.add(titulo);
-
-        Paragraph subtitulo = new Paragraph("Sistema de Gestión Bibliotecaria\n\n",
-            FontFactory.getFont(FontFactory.HELVETICA, 12, BaseColor.GRAY));
-        subtitulo.setAlignment(Element.ALIGN_CENTER);
-        documento.add(subtitulo);
-
-        // FECHA DE GENERACIÓN
-        Paragraph fechaGen = new Paragraph(
-            "Fecha de generación: " + new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(new Date()) + "\n\n",
-            FontFactory.getFont(FontFactory.HELVETICA, 10, BaseColor.BLACK));
-        fechaGen.setAlignment(Element.ALIGN_RIGHT);
-        documento.add(fechaGen);
-
-        documento.add(new Paragraph("\n"));
-
-        // ========== TABLA DE MULTAS ==========
-        PdfPTable tabla = new PdfPTable(8);
-        tabla.setWidthPercentage(100);
-        tabla.setWidths(new float[]{0.7f, 1f, 2f, 2.5f, 1f, 1f, 1.2f, 1.3f});
-
-        // ENCABEZADOS
-        agregarCeldaEncabezadoReporte(tabla, "ID");
-        agregarCeldaEncabezadoReporte(tabla, "Préstamo");
-        agregarCeldaEncabezadoReporte(tabla, "Usuario");
-        agregarCeldaEncabezadoReporte(tabla, "Libro");
-        agregarCeldaEncabezadoReporte(tabla, "ID Usuario");
-        agregarCeldaEncabezadoReporte(tabla, "Días");
-        agregarCeldaEncabezadoReporte(tabla, "Monto");
-        agregarCeldaEncabezadoReporte(tabla, "Estado");
-
-        // DATOS Y CÁLCULO DE TOTALES
-        float totalMonto = 0;
-        int totalDias = 0;
-
-        for (Multa m : lista) {
-            // ID Multa
-            PdfPCell celda = new PdfPCell(new Phrase(String.valueOf(m.getId_multa()),
-                FontFactory.getFont(FontFactory.HELVETICA, 9)));
-            celda.setHorizontalAlignment(Element.ALIGN_CENTER);
-            tabla.addCell(celda);
-
-            // ID Préstamo
-            celda = new PdfPCell(new Phrase(String.valueOf(m.getId_prestamo()),
-                FontFactory.getFont(FontFactory.HELVETICA, 9)));
-            celda.setHorizontalAlignment(Element.ALIGN_CENTER);
-            tabla.addCell(celda);
-
-            // Usuario
-            tabla.addCell(new Phrase(m.getNombreUsuario() != null ? m.getNombreUsuario() : "N/A",
-                FontFactory.getFont(FontFactory.HELVETICA, 9)));
-
-            // Libro
-            tabla.addCell(new Phrase(m.getNombreLibro() != null ? m.getNombreLibro() : "N/A",
-                FontFactory.getFont(FontFactory.HELVETICA, 9)));
-
-            // ID Usuario
-            celda = new PdfPCell(new Phrase(String.valueOf(m.getId_usuario()),
-                FontFactory.getFont(FontFactory.HELVETICA, 9)));
-            celda.setHorizontalAlignment(Element.ALIGN_CENTER);
-            tabla.addCell(celda);
-
-            // Días de retraso
-            celda = new PdfPCell(new Phrase(String.valueOf(m.getDias_retraso()),
-                FontFactory.getFont(FontFactory.HELVETICA, 9)));
-            celda.setHorizontalAlignment(Element.ALIGN_CENTER);
-            celda.setBackgroundColor(new BaseColor(255, 230, 230)); // Rosa claro
-            tabla.addCell(celda);
-
-            // Monto
-            celda = new PdfPCell(new Phrase(String.format("%.2f Bs", m.getMonto()),
-                FontFactory.getFont(FontFactory.HELVETICA_BOLD, 9)));
-            celda.setHorizontalAlignment(Element.ALIGN_RIGHT);
-            tabla.addCell(celda);
-
-            // Estado
-            celda = new PdfPCell(new Phrase(m.getEstado(),
-                FontFactory.getFont(FontFactory.HELVETICA, 9, BaseColor.RED)));
-            celda.setHorizontalAlignment(Element.ALIGN_CENTER);
-            celda.setBackgroundColor(new BaseColor(255, 240, 240));
-            tabla.addCell(celda);
-
-            // Acumular totales
-            totalMonto += m.getMonto();
-            totalDias += m.getDias_retraso();
-        }
-
-        documento.add(tabla);
-
-        // ========== RESUMEN Y TOTALES ==========
-        documento.add(new Paragraph("\n"));
-
-        PdfPTable tablaResumen = new PdfPTable(2);
-        tablaResumen.setWidthPercentage(60);
-        tablaResumen.setHorizontalAlignment(Element.ALIGN_RIGHT);
-
-        // Total de multas
-        agregarCeldaResumenReporte(tablaResumen, "Total de multas sin pagar:", 
-            String.valueOf(lista.size()), BaseColor.LIGHT_GRAY);
-
-        // Total de días acumulados
-        agregarCeldaResumenReporte(tablaResumen, "Total días de retraso acumulados:", 
-            String.valueOf(totalDias), BaseColor.LIGHT_GRAY);
-
-        // Monto promedio
-        float montoPromedio = lista.size() > 0 ? totalMonto / lista.size() : 0;
-        agregarCeldaResumenReporte(tablaResumen, "Monto promedio por multa:", 
-            String.format("%.2f Bs", montoPromedio), BaseColor.LIGHT_GRAY);
-
-        // TOTAL A RECAUDAR (destacado)
-        PdfPCell celdaLabel = new PdfPCell(new Phrase("TOTAL A RECAUDAR:",
-            FontFactory.getFont(FontFactory.HELVETICA_BOLD, 13)));
-        celdaLabel.setBorder(Rectangle.BOX);
-        celdaLabel.setHorizontalAlignment(Element.ALIGN_RIGHT);
-        celdaLabel.setPadding(8);
-        celdaLabel.setBackgroundColor(new BaseColor(255, 200, 200));
-        tablaResumen.addCell(celdaLabel);
-
-        PdfPCell celdaValor = new PdfPCell(new Phrase(String.format("%.2f Bs", totalMonto),
-            FontFactory.getFont(FontFactory.HELVETICA_BOLD, 13)));
-        celdaValor.setBorder(Rectangle.BOX);
-        celdaValor.setHorizontalAlignment(Element.ALIGN_CENTER);
-        celdaValor.setPadding(8);
-        celdaValor.setBackgroundColor(BaseColor.YELLOW);
-        tablaResumen.addCell(celdaValor);
-
-        documento.add(tablaResumen);
-
-        // ========== PIE DE PÁGINA ==========
-        documento.add(new Paragraph("\n\n"));
-        Paragraph pie = new Paragraph(
-            "___________________________________________\n\n" +
-            "Este reporte muestra todas las multas pendientes de pago al momento de su generación.\n" +
-            "Sistema de Gestión Bibliotecaria - Reportes Automáticos\n" +
-            "Generado por: Los intrepidos",
-            FontFactory.getFont(FontFactory.HELVETICA, 8, BaseColor.GRAY));
-        pie.setAlignment(Element.ALIGN_CENTER);
-        documento.add(pie);
-
-        documento.close();
-
-        // ========== MENSAJE DE ÉXITO ==========
-        String mensajeExito = String.format(
-            "✅ REPORTE GENERADO EXITOSAMENTE\n\n" +
-            "════════════════════════════════\n" +
-            "Total de multas:     %d\n" +
-            "Total días retraso:  %d\n" +
-            "Total a recaudar:    %.2f Bs\n" +
-            "Promedio por multa:  %.2f Bs\n" +
-            "════════════════════════════════\n\n" +
-            "Archivo guardado en:\n%s",
-            lista.size(),
-            totalDias,
-            totalMonto,
-            montoPromedio,
-            ruta
-        );
-
-        JOptionPane.showMessageDialog(null, mensajeExito,
-            "Reporte Generado", JOptionPane.INFORMATION_MESSAGE);
-
-        // Abrir el PDF automáticamente
-        java.awt.Desktop.getDesktop().open(new File(ruta));
-
-    } catch (Exception e) {
-        JOptionPane.showMessageDialog(null,
-            "Error al generar el reporte:\n\n" + e.getMessage(),
-            "Error", JOptionPane.ERROR_MESSAGE);
-        e.printStackTrace();
-    }
     }//GEN-LAST:event_btnReporMultasSinPagadasActionPerformed
 
     private void btnMultasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMultasActionPerformed
         // TODO add your handling code here:
-         jTabbedPane1.setSelectedIndex(6); 
+        jTabbedPane1.setSelectedIndex(6);
     }//GEN-LAST:event_btnMultasActionPerformed
 
     public void ListarUsuario() {
@@ -6182,17 +6160,17 @@ private void agregarCeldaResumenReporte(PdfPTable tabla, String etiqueta, String
         }
         TablePrestamo.setModel(modelo);
     }
-    
-      public List<String> obtenerListaTitulos() {
-    List<String> listaTitulos = new ArrayList();
-    List<Libro> listarLibro = libro.ListarLibro();
-    
-    for (int i = 0; i < listarLibro.size(); i++) {
-        listaTitulos.add(listarLibro.get(i).getTitulo());
+
+    public List<String> obtenerListaTitulos() {
+        List<String> listaTitulos = new ArrayList();
+        List<Libro> listarLibro = libro.ListarLibro();
+
+        for (int i = 0; i < listarLibro.size(); i++) {
+            listaTitulos.add(listarLibro.get(i).getTitulo());
+        }
+
+        return listaTitulos;
     }
-    
-    return listaTitulos;
-}
 
     /**
      * @param args the command line arguments
@@ -6710,6 +6688,92 @@ private void agregarCeldaResumenReporte(PdfPTable tabla, String etiqueta, String
         }
     }
 
+    private void pdfLibrosOtro() {
+        try {
+            String fechaHora = new SimpleDateFormat("dd-MM-yyyy_HH-mm-ss").format(new Date());
+            File file = new File("src/pdf/libroReporte_" + fechaHora + ".pdf");
+
+            FileOutputStream archivo = new FileOutputStream(file);
+
+            Document doc = new Document(PageSize.A4.rotate());
+            PdfWriter.getInstance(doc, archivo);
+            doc.open();
+
+            Image img = Image.getInstance("src/Img/SISINf.png");
+            img.scaleToFit(90, 90);
+
+            Paragraph fecha = new Paragraph();
+            Font negrita = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.BOLD, BaseColor.BLUE);
+            fecha.add(Chunk.NEWLINE);
+            Date date = new Date();
+            fecha.add("Fecha: " + new SimpleDateFormat("dd-MM-yyyy").format(date) + "\n\n");
+
+            PdfPTable encabezado = new PdfPTable(4);
+            encabezado.setWidthPercentage(100);
+            encabezado.getDefaultCell().setBorder(0);
+            float[] columnasEncabezado = new float[]{20f, 30f, 70f, 40f};
+            encabezado.setWidths(columnasEncabezado);
+            encabezado.setHorizontalAlignment(Element.ALIGN_MIDDLE);
+
+            encabezado.addCell(img);
+            encabezado.addCell("");
+            encabezado.addCell(new Paragraph("\n\nSISTEMA DE BIBLIOTECA\nREPORTE DE LIBROS",
+                    new Font(Font.FontFamily.TIMES_ROMAN, 20, Font.BOLD)));
+            encabezado.setHorizontalAlignment(Element.ALIGN_MIDDLE);
+            encabezado.addCell(fecha);
+
+            doc.add(encabezado);
+
+            Paragraph titulo = new Paragraph();
+            titulo.add(Chunk.NEWLINE);
+            titulo.add(new Paragraph("LISTADO DE LIBROS\n\n",
+                    new Font(Font.FontFamily.TIMES_ROMAN, 14, Font.BOLD)));
+            titulo.setAlignment(Element.ALIGN_CENTER);
+            doc.add(titulo);
+
+            int[] columnasPermitidas = {0, 1, 3, 5, 7, 9, 13};
+
+            PdfPTable tabla = new PdfPTable(columnasPermitidas.length);
+            tabla.setWidthPercentage(100);
+            tabla.setSpacingBefore(10f);
+            tabla.setSpacingAfter(10f);
+
+            float[] anchos = {5f, 40f, 40f, 40f, 15f, 15f, 15f};
+            tabla.setWidths(anchos);
+
+            Font fontHeader = new Font(Font.FontFamily.HELVETICA, 10, Font.BOLD, BaseColor.WHITE);
+
+            for (int col : columnasPermitidas) {
+                PdfPCell celdaHeader = new PdfPCell(new Phrase(TableLibro.getColumnName(col), fontHeader));
+                celdaHeader.setBackgroundColor(BaseColor.DARK_GRAY);
+                celdaHeader.setHorizontalAlignment(Element.ALIGN_CENTER);
+                celdaHeader.setPadding(5f);
+                tabla.addCell(celdaHeader);
+            }
+
+            Font fontDatos = new Font(Font.FontFamily.HELVETICA, 9);
+
+            for (int i = 0; i < TableLibro.getRowCount(); i++) {
+                for (int col : columnasPermitidas) {
+                    Object celdaObjeto = TableLibro.getValueAt(i, col);
+                    String valorCelda = (celdaObjeto != null) ? celdaObjeto.toString() : "";
+                    tabla.addCell(new Phrase(valorCelda, fontDatos));
+                }
+            }
+
+            doc.add(tabla);
+
+            doc.close();
+            archivo.close();
+
+            JOptionPane.showMessageDialog(null, "PDF generado correctamente en: " + file.getAbsolutePath());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error al generar PDF: " + e.getMessage());
+        }
+    }
+
     private void pdfLibros() {
         try {
             // Ruta del archivo
@@ -6813,131 +6877,130 @@ private void agregarCeldaResumenReporte(PdfPTable tabla, String etiqueta, String
             JOptionPane.showMessageDialog(null, "Error al generar PDF: " + e.getMessage());
         }
     }
-    
-    
+
     private void pdfPrestamos() {
-    try {
-        // Ruta del archivo
-        File file = new File("src/pdf/prestamos.pdf");
-        FileOutputStream archivo = new FileOutputStream(file);
+        try {
+            // Ruta del archivo
+            File file = new File("src/pdf/prestamos.pdf");
+            FileOutputStream archivo = new FileOutputStream(file);
 
-        // Documento horizontal (A4 landscape)
-        Document doc = new Document(PageSize.A4.rotate());
-        PdfWriter.getInstance(doc, archivo);
-        doc.open();
+            // Documento horizontal (A4 landscape)
+            Document doc = new Document(PageSize.A4.rotate());
+            PdfWriter.getInstance(doc, archivo);
+            doc.open();
 
-        // Imagen del encabezado
-        Image img = Image.getInstance("src/Img/SISINf.png");
-        img.scaleToFit(90, 90);
+            // Imagen del encabezado
+            Image img = Image.getInstance("src/Img/SISINf.png");
+            img.scaleToFit(90, 90);
 
-        // Fecha
-        Paragraph fecha = new Paragraph();
-        Font negrita = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.BOLD, BaseColor.BLUE);
-        fecha.add(Chunk.NEWLINE);
-        Date date = new Date();
-        fecha.add("Fecha: " + new SimpleDateFormat("dd-MM-yyyy").format(date) + "\n\n");
+            // Fecha
+            Paragraph fecha = new Paragraph();
+            Font negrita = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.BOLD, BaseColor.BLUE);
+            fecha.add(Chunk.NEWLINE);
+            Date date = new Date();
+            fecha.add("Fecha: " + new SimpleDateFormat("dd-MM-yyyy").format(date) + "\n\n");
 
-        // ENCABEZADO
-        PdfPTable encabezado = new PdfPTable(4);
-        encabezado.setWidthPercentage(100);
-        encabezado.getDefaultCell().setBorder(0);
+            // ENCABEZADO
+            PdfPTable encabezado = new PdfPTable(4);
+            encabezado.setWidthPercentage(100);
+            encabezado.getDefaultCell().setBorder(0);
 
-        float[] columnasEncabezado = new float[]{20f, 30f, 70f, 40f};
-        encabezado.setWidths(columnasEncabezado);
-        encabezado.setHorizontalAlignment(Element.ALIGN_MIDDLE);
+            float[] columnasEncabezado = new float[]{20f, 30f, 70f, 40f};
+            encabezado.setWidths(columnasEncabezado);
+            encabezado.setHorizontalAlignment(Element.ALIGN_MIDDLE);
 
-        encabezado.addCell(img);
-        encabezado.addCell("");
-        encabezado.addCell(new Paragraph("\n\nSISTEMA DE BIBLIOTECA\nREPORTE DE PRÉSTAMOS",
-                new Font(Font.FontFamily.TIMES_ROMAN, 20, Font.BOLD)));
-        encabezado.setHorizontalAlignment(Element.ALIGN_MIDDLE);
+            encabezado.addCell(img);
+            encabezado.addCell("");
+            encabezado.addCell(new Paragraph("\n\nSISTEMA DE BIBLIOTECA\nREPORTE DE PRÉSTAMOS",
+                    new Font(Font.FontFamily.TIMES_ROMAN, 20, Font.BOLD)));
+            encabezado.setHorizontalAlignment(Element.ALIGN_MIDDLE);
 
-        encabezado.addCell(fecha);
+            encabezado.addCell(fecha);
 
-        doc.add(encabezado);
+            doc.add(encabezado);
 
-        // Título principal
-        Paragraph titulo = new Paragraph();
-        titulo.add(Chunk.NEWLINE);
-        titulo.add(new Paragraph("LISTADO DE PRÉSTAMOS\n\n",
-                new Font(Font.FontFamily.TIMES_ROMAN, 14, Font.BOLD)));
-        titulo.setAlignment(Element.ALIGN_CENTER);
-        doc.add(titulo);
+            // Título principal
+            Paragraph titulo = new Paragraph();
+            titulo.add(Chunk.NEWLINE);
+            titulo.add(new Paragraph("LISTADO DE PRÉSTAMOS\n\n",
+                    new Font(Font.FontFamily.TIMES_ROMAN, 14, Font.BOLD)));
+            titulo.setAlignment(Element.ALIGN_CENTER);
+            doc.add(titulo);
 
-        // Tabla de datos - AJUSTADA PARA PRÉSTAMOS
-        PdfPTable tabla = new PdfPTable(8); // 8 columnas para préstamos
-        tabla.setWidthPercentage(100);
-        tabla.setSpacingBefore(10f);
-        tabla.setSpacingAfter(10f);
+            // Tabla de datos - AJUSTADA PARA PRÉSTAMOS
+            PdfPTable tabla = new PdfPTable(8); // 8 columnas para préstamos
+            tabla.setWidthPercentage(100);
+            tabla.setSpacingBefore(10f);
+            tabla.setSpacingAfter(10f);
 
-        // Ajustar anchos de columnas para préstamos
-        float[] medidaCeldas = {15f, 25f, 40f, 25f, 40f, 30f, 30f, 30f};
-        tabla.setWidths(medidaCeldas);
+            // Ajustar anchos de columnas para préstamos
+            float[] medidaCeldas = {15f, 25f, 40f, 25f, 40f, 30f, 30f, 30f};
+            tabla.setWidths(medidaCeldas);
 
-        // Encabezados de tabla PRÉSTAMOS
-        Font fontHeader = new Font(Font.FontFamily.HELVETICA, 10, Font.BOLD, BaseColor.WHITE);
-        PdfPCell celdaHeader;
+            // Encabezados de tabla PRÉSTAMOS
+            Font fontHeader = new Font(Font.FontFamily.HELVETICA, 10, Font.BOLD, BaseColor.WHITE);
+            PdfPCell celdaHeader;
 
-        // Definir encabezados manualmente para préstamos
-        String[] encabezadosPrestamos = {
-            "ID_Prestamo", "Carnet", "Nombre", "Código Libro", 
-            "Libro", "Fecha Préstamo", "Fecha Devolución", "Estado"
-        };
+            // Definir encabezados manualmente para préstamos
+            String[] encabezadosPrestamos = {
+                "ID_Prestamo", "Carnet", "Nombre", "Código Libro",
+                "Libro", "Fecha Préstamo", "Fecha Devolución", "Estado"
+            };
 
-        for (String encabezadoStr : encabezadosPrestamos) {
-            celdaHeader = new PdfPCell(new Phrase(encabezadoStr, fontHeader));
-            celdaHeader.setBackgroundColor(BaseColor.DARK_GRAY);
-            celdaHeader.setHorizontalAlignment(Element.ALIGN_CENTER);
-            celdaHeader.setPadding(5f);
-            tabla.addCell(celdaHeader);
-        }
-
-        // Fuente para los datos
-        Font fontDatos = new Font(Font.FontFamily.HELVETICA, 8);
-
-        // Recorrer filas de TablePrestamo
-        for (int i = 0; i < TablePrestamo.getRowCount(); i++) {
-            for (int j = 0; j < TablePrestamo.getColumnCount(); j++) {
-                Object celdaObjeto = TablePrestamo.getValueAt(i, j);
-                String valorCelda;
-                if (celdaObjeto != null) {
-                    valorCelda = celdaObjeto.toString();
-                    
-                    // Acortar texto muy largo para mejor visualización
-                    if (valorCelda.length() > 30) {
-                        valorCelda = valorCelda.substring(0, 27) + "...";
-                    }
-                } else {
-                    valorCelda = "";
-                }
-                
-                PdfPCell celda = new PdfPCell(new Phrase(valorCelda, fontDatos));
-                celda.setPadding(3f);
-                tabla.addCell(celda);
+            for (String encabezadoStr : encabezadosPrestamos) {
+                celdaHeader = new PdfPCell(new Phrase(encabezadoStr, fontHeader));
+                celdaHeader.setBackgroundColor(BaseColor.DARK_GRAY);
+                celdaHeader.setHorizontalAlignment(Element.ALIGN_CENTER);
+                celdaHeader.setPadding(5f);
+                tabla.addCell(celdaHeader);
             }
+
+            // Fuente para los datos
+            Font fontDatos = new Font(Font.FontFamily.HELVETICA, 8);
+
+            // Recorrer filas de TablePrestamo
+            for (int i = 0; i < TablePrestamo.getRowCount(); i++) {
+                for (int j = 0; j < TablePrestamo.getColumnCount(); j++) {
+                    Object celdaObjeto = TablePrestamo.getValueAt(i, j);
+                    String valorCelda;
+                    if (celdaObjeto != null) {
+                        valorCelda = celdaObjeto.toString();
+
+                        // Acortar texto muy largo para mejor visualización
+                        if (valorCelda.length() > 30) {
+                            valorCelda = valorCelda.substring(0, 27) + "...";
+                        }
+                    } else {
+                        valorCelda = "";
+                    }
+
+                    PdfPCell celda = new PdfPCell(new Phrase(valorCelda, fontDatos));
+                    celda.setPadding(3f);
+                    tabla.addCell(celda);
+                }
+            }
+
+            // Agregar tabla al documento
+            doc.add(tabla);
+
+            // Pie de página con estadísticas
+            Paragraph estadisticas = new Paragraph();
+            estadisticas.add(Chunk.NEWLINE);
+            estadisticas.add("Total de préstamos: " + TablePrestamo.getRowCount());
+            estadisticas.setAlignment(Element.ALIGN_RIGHT);
+            doc.add(estadisticas);
+
+            // Cerrar
+            doc.close();
+            archivo.close();
+
+            JOptionPane.showMessageDialog(null, "PDF de préstamos generado correctamente en: " + file.getAbsolutePath());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error al generar PDF de préstamos: " + e.getMessage());
         }
-
-        // Agregar tabla al documento
-        doc.add(tabla);
-
-        // Pie de página con estadísticas
-        Paragraph estadisticas = new Paragraph();
-        estadisticas.add(Chunk.NEWLINE);
-        estadisticas.add("Total de préstamos: " + TablePrestamo.getRowCount());
-        estadisticas.setAlignment(Element.ALIGN_RIGHT);
-        doc.add(estadisticas);
-
-        // Cerrar
-        doc.close();
-        archivo.close();
-
-        JOptionPane.showMessageDialog(null, "PDF de préstamos generado correctamente en: " + file.getAbsolutePath());
-
-    } catch (Exception e) {
-        e.printStackTrace();
-        JOptionPane.showMessageDialog(null, "Error al generar PDF de préstamos: " + e.getMessage());
     }
-}
 
     class txtBuscarCarnet {
 
