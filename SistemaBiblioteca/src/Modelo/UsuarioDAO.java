@@ -408,7 +408,7 @@ public class UsuarioDAO {
     
     public boolean validarDomicilio(String domicilio) {
         // Letras, números, espacios y caracteres especiales comunes en direcciones
-        return domicilio != null && domicilio.matches("^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ\\s#.,-]+$");
+        return domicilio != null && domicilio.matches("^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ\\s#.,-°]+$");
     }
     //LLAMADA A VALIDACIONES
     public String validarUsuarioCompleto(Usuario us) {

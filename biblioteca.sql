@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 17-11-2025 a las 07:23:49
+-- Tiempo de generación: 18-11-2025 a las 04:10:48
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -20,6 +20,8 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `biblioteca`
 --
+CREATE DATABASE IF NOT EXISTS `biblioteca` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `biblioteca`;
 
 -- --------------------------------------------------------
 
@@ -44,8 +46,7 @@ INSERT INTO `autores` (`Id_autor`, `Nombre`, `Apellido`, `id_pais`, `estado`) VA
 (2, 'Alberto', 'Rodriguez ', 1, 1),
 (3, 'Raúl', 'Medina Rodriguez', 15, 1),
 (5, 'sffsfs', 'dsdfsdf', 6, 0),
-(6, 'Luis', 'Joyanes Aguilar', 1, 0),
-(8, 'Jorge Alfonso', 'Rodriguez Tanzi', 6, 1);
+(6, 'Luis', 'Joyanes Aguilar', 1, 0);
 
 -- --------------------------------------------------------
 
@@ -107,13 +108,10 @@ INSERT INTO `categoria` (`Id_categoria`, `Categoria`, `estado`) VALUES
 (2, 'Proyecto de Grado', 1),
 (3, 'Trabajo de Investigacion', 1),
 (4, 'Articulo Cientifico', 1),
-(5, 'Trabajo titulado', 1),
+(5, 'Informe laboratorio', 1),
 (6, 'Trabajo de Curso', 1),
 (7, 'Proyecto de Curso', 1),
-(8, 'Revista Cientifica', 0),
-(9, 'Proyecto de grado', 0),
-(10, 'Proyecto de GRADO', 0),
-(11, 'Libro  ', 1);
+(8, 'Revista Cientifica', 0);
 
 -- --------------------------------------------------------
 
@@ -164,13 +162,11 @@ INSERT INTO `editoriales` (`Id_editorial`, `Nombre`, `Direccion`, `Telefono`, `i
 (11, 'Potosina Editoriales', '6 de agosto y Tarija', '', 1, 1),
 (12, 'Jabushins', '', '', 9, 1),
 (21, 'Jhonimsl', '', '', 10, 1),
-(22, 'Oxford edits', '', '52620', 2, 1),
-(23, 'Maduro Editoriale', '', '', 7, 1),
+(22, 'Oxford edits', 'Oxford', '', 2, 1),
+(23, 'Maduro Editores', '', '', 7, 1),
 (24, 'Nuevas Generaciones Editoriales', '', '', 6, 1),
 (25, 'Los andes ', 'La paz y Bolivia', '52-49353', 1, 1),
-(26, 'Potosina Editorial', '6 de agosto y Tarija', '', 5, 0),
-(27, 'Pepito', '', '', 6, 1),
-(28, 'Fulanito', '', '', 12, 1);
+(26, 'Potosina Editorial', '6 de agosto y Tarija', '', 5, 0);
 
 -- --------------------------------------------------------
 
@@ -233,33 +229,6 @@ INSERT INTO `estado_usuario` (`id_estado_usuario`, `estado_usuario`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `factura`
---
-
-CREATE TABLE `factura` (
-  `Id_factura` int(11) NOT NULL,
-  `Id_multa_pagada` int(11) NOT NULL,
-  `Id_usuario` int(11) NOT NULL,
-  `Numero_factura` varchar(20) NOT NULL,
-  `Fecha_emision` datetime NOT NULL DEFAULT current_timestamp(),
-  `Monto` decimal(8,2) NOT NULL,
-  `Concepto` varchar(200) NOT NULL,
-  `Estado` varchar(20) NOT NULL DEFAULT 'Emitida'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Volcado de datos para la tabla `factura`
---
-
-INSERT INTO `factura` (`Id_factura`, `Id_multa_pagada`, `Id_usuario`, `Numero_factura`, `Fecha_emision`, `Monto`, `Concepto`, `Estado`) VALUES
-(1, 5, 18, 'FACT-20251116-000005', '2025-11-16 21:42:13', 2.00, 'Pago de multa por 2 día(s) de retraso - Préstamo ID: 24', 'Emitida'),
-(4, 8, 19, 'FACT-20251117-000008', '2025-11-17 00:32:32', 5.00, 'Pago de multa por 5 día(s) de retraso - Préstamo ID: 8', 'Emitida'),
-(5, 9, 6, 'FACT-20251117-000009', '2025-11-17 01:20:14', 1.00, 'Pago de multa por 1 día(s) de retraso - Préstamo ID: 21', 'Emitida'),
-(6, 10, 16, 'FACT-20251117-000010', '2025-11-17 01:53:03', 7.00, 'Pago de multa por 7 día(s) de retraso - Préstamo ID: 22', 'Emitida');
-
--- --------------------------------------------------------
-
---
 -- Estructura de tabla para la tabla `historial_libros`
 --
 
@@ -290,24 +259,17 @@ CREATE TABLE `libro` (
   `stock` int(11) NOT NULL,
   `anio` int(11) NOT NULL,
   `Descripcion` varchar(200) NOT NULL,
-  `id_estado` int(50) NOT NULL,
-  `tipo` varchar(10) NOT NULL
+  `id_estado` int(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `libro`
 --
 
-INSERT INTO `libro` (`Id_libro`, `Titulo`, `Id_categoria`, `Id_editorial`, `Id_autor`, `Id_materia`, `Edicion`, `Estado`, `codigo`, `fechaRegistro`, `stock`, `anio`, `Descripcion`, `id_estado`, `tipo`) VALUES
-(4, 'Fundamentos de C++', 1, 25, 1, 8, '9na.', '1', 'P-1101', '2025-10-12', 1, 2000, 'KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK', 5, 'Copia'),
-(6, 'El mundo de los Objetos', 1, 12, 3, 6, '10ma.', '1', 'P-1102', '2025-10-12', 4, 2003, '', 5, 'Original'),
-(11, 'Java', 5, NULL, NULL, NULL, '', '1', 'P-1010', '2025-10-12', 1, 2020, '', 5, 'Copia'),
-(12, 'Programacion en C', 2, 10, 1, 6, '10m', '1', 'P-1020', '2025-10-26', 1, 2020, 'Programacion', 5, 'Copia'),
-(13, 'Python', NULL, 10, 1, NULL, '1ra.', '1', 'P-1022', '2025-10-26', 2, 1999, 'PYTHON', 5, 'Original'),
-(14, 'Chanchito Feliz', 5, NULL, NULL, NULL, '', '1', 'CH-1012', '2025-11-01', 4, 1998, '', 5, 'Copia'),
-(15, 'Chanchito Feliciano', NULL, NULL, NULL, 6, '9na', '1', 'P-10103', '2025-11-01', 1, 2000, 'aas@asf~4', 5, 'Copia'),
-(16, 'Puerquito', NULL, NULL, NULL, NULL, '4ta.', '1', 'P-202', '2025-11-01', 1, 2005, '', 5, 'Copia'),
-(17, 'Pruebas de Escritorio', 11, 23, 2, 6, '2da.', '1', 'P-1666', '2025-11-06', 0, 2005, 'Para probar la base datos :v', 2, 'Copia');
+INSERT INTO `libro` (`Id_libro`, `Titulo`, `Id_categoria`, `Id_editorial`, `Id_autor`, `Id_materia`, `Edicion`, `Estado`, `codigo`, `fechaRegistro`, `stock`, `anio`, `Descripcion`, `id_estado`) VALUES
+(4, 'Fundamentos de C++', 1, 25, 1, 8, '9na.', '1', 'P-1101', '2025-10-12', 1, 2000, 'KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK', 5),
+(6, 'El mundo de los Objetos', 1, 12, 3, 6, '10ma.', '1', 'P-1102', '2025-10-12', 4, 2003, '', 5),
+(11, 'Java', NULL, NULL, NULL, NULL, '', '1', 'P-1010', '2025-10-12', 2, 0, '', 5);
 
 -- --------------------------------------------------------
 
@@ -352,8 +314,7 @@ INSERT INTO `materia` (`Id_materia`, `sigla`, `Nombre`, `estado`) VALUES
 (4, 'INF-1210', 'Análisis Discreto', 1),
 (6, 'SIS-2210', 'Metodología de la Programación II', 1),
 (7, 'SIS-2430', 'Programación Gráfica', 1),
-(8, 'SIS-1110', 'Metodología de la Programación I', 1),
-(9, 'MAT-1207', 'Ecuaciones Diferenciales', 1);
+(8, 'SIS-1110', 'Metodología de la Programación I', 1);
 
 -- --------------------------------------------------------
 
@@ -369,40 +330,6 @@ CREATE TABLE `multa` (
   `Monto` decimal(8,2) NOT NULL,
   `Estado` varchar(80) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Volcado de datos para la tabla `multa`
---
-
-INSERT INTO `multa` (`Id_multa`, `Id_prestamo`, `Id_usuario`, `Dias_retraso`, `Monto`, `Estado`) VALUES
-(1, 24, 18, 2, 2.00, 'Pagada'),
-(2, 22, 16, 7, 7.00, 'Pagada'),
-(3, 17, 7, 17, 17.00, 'Activa'),
-(4, 8, 19, 5, 5.00, 'Pagada'),
-(5, 21, 6, 1, 1.00, 'Pagada');
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `multa_pagada`
---
-
-CREATE TABLE `multa_pagada` (
-  `Id_multa_pagada` int(11) NOT NULL,
-  `Id_multa` int(11) NOT NULL,
-  `Fecha` datetime NOT NULL,
-  `Estado` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Volcado de datos para la tabla `multa_pagada`
---
-
-INSERT INTO `multa_pagada` (`Id_multa_pagada`, `Id_multa`, `Fecha`, `Estado`) VALUES
-(5, 1, '2025-11-17 01:42:13', 1),
-(8, 4, '2025-11-17 04:32:32', 1),
-(9, 5, '2025-11-17 05:20:14', 1),
-(10, 2, '2025-11-17 05:53:03', 1);
 
 -- --------------------------------------------------------
 
@@ -436,15 +363,7 @@ INSERT INTO `paises` (`id_pais`, `nombre`, `estado`) VALUES
 (14, 'Colombia', 1),
 (15, 'Puerto Rico', 1),
 (16, 'Noruega', 1),
-(17, 'Venezuela', 1),
-(18, 'Perú', 1),
-(19, 'CHINA JAPON', 0),
-(20, 'CHINA JAPON', 0),
-(21, 'Senegal', 1),
-(22, 'Bolivia', 0),
-(23, 'Challapampita', 0),
-(24, '      d', 0),
-(25, 'Rumania', 1);
+(17, 'Venezuela', 1);
 
 -- --------------------------------------------------------
 
@@ -468,23 +387,19 @@ CREATE TABLE `prestamos` (
 
 INSERT INTO `prestamos` (`Id_prestamo`, `Id_usuario`, `Id_libro`, `Fecha_prestamo`, `Fecha_devolucion`, `Estado`, `Id_estado_devolucion`) VALUES
 (7, 7, 6, '2025-10-19 14:00:28', '2025-10-19 14:30:28', '1', 2),
-(8, 19, 14, '2025-11-14 23:09:24', '2025-11-12 23:09:24', '1', 2),
-(9, 6, 11, '2025-10-19 16:33:46', '2025-10-24 16:33:45', '1', 2),
+(8, 5, 4, '2025-10-19 16:28:46', '2025-10-21 16:28:45', '1', 1),
+(9, 6, 11, '2025-10-19 16:33:46', '2025-10-24 16:33:45', '1', 1),
 (10, 7, 6, '2025-10-19 16:36:05', '2025-10-25 16:36:04', '0', 1),
-(11, 7, 6, '2025-10-19 16:36:11', '2025-10-25 16:36:10', '1', 2),
+(11, 7, 6, '2025-10-19 16:36:11', '2025-10-25 16:36:10', '1', 1),
 (12, 7, 6, '2025-10-19 16:36:35', '2025-10-25 16:36:34', '0', 1),
-(13, 6, 11, '2025-11-06 14:02:05', '2025-11-08 14:02:05', '1', 2),
-(14, 7, 4, '2025-10-19 17:17:08', '2025-10-31 17:17:07', '1', 2),
+(13, 6, 6, '2025-10-19 17:16:16', '2025-10-24 17:16:14', '1', 2),
+(14, 7, 4, '2025-10-19 17:17:08', '2025-10-31 17:17:07', '1', 1),
 (15, 7, 6, '2025-10-20 19:16:25', '2025-10-30 19:16:24', '0', 1),
 (16, 7, 6, '2025-10-20 19:18:40', '2025-10-29 19:18:39', '0', 1),
-(17, 7, 6, '2025-10-20 19:23:22', '2025-10-29 19:23:21', '1', 2),
-(18, 7, 6, '2025-10-20 19:25:25', '2025-10-28 19:25:24', '1', 2),
-(19, 7, 6, '2025-10-20 19:30:13', '2025-11-16 19:30:12', '1', 2),
-(20, 18, 14, '2025-11-14 23:05:59', '2025-11-12 23:05:59', '1', 2),
-(21, 6, 13, '2025-11-06 15:03:46', '2025-11-16 15:03:44', '1', 2),
-(22, 16, 13, '2025-11-06 16:57:30', '2025-11-08 16:57:30', '1', 2),
-(23, 20, 13, '2025-11-17 01:25:19', '2025-11-20 01:25:19', '1', 2),
-(24, 18, 14, '2025-11-10 23:11:55', '2025-11-12 23:11:55', '1', 2);
+(17, 7, 6, '2025-10-20 19:23:22', '2025-10-29 19:23:21', '1', 1),
+(18, 7, 6, '2025-10-20 19:25:25', '2025-10-28 19:25:24', '1', 1),
+(19, 7, 6, '2025-10-20 19:30:13', '2025-10-27 19:30:12', '1', 1),
+(20, 7, 6, '2025-10-20 19:33:24', '2025-10-26 19:33:23', '1', 2);
 
 -- --------------------------------------------------------
 
@@ -548,13 +463,10 @@ CREATE TABLE `usuario` (
 INSERT INTO `usuario` (`Id_usuario`, `Carnet`, `Nombre`, `Apellido`, `Domicilo`, `Id_tipo_usuario`, `Telefono`, `id_cargo`, `id_carrera`, `Estado`, `id_estado_usuario`) VALUES
 (5, '7278371', 'Juan Marco', 'Mercedes Canaviri', 'Av. al valle entre junin y ayacucho Nro578', 2, '74821147', 3, 2, 1, 2),
 (6, '5489632', 'Maria', 'Campero Rodriguez', 'La plata entre villaroel y 6 de agosto Nro 67', 2, '61278854', 3, 1, 1, 1),
-(7, '48658454', 'Carla', 'Rocha Quispe', 'Pagado entre soria galvarro y ayacucho Nro 40', 2, '58421154', 3, 1, 1, 1),
+(7, '48658454', 'Carla', 'Rocha Quispe', 'Pagado entre soria galvarro y ayacucho Nro 40', 2, '58421154', 3, 1, 0, 1),
 (15, '7274931', 'Adriana', 'Choquecallata Troncoso', 'Av. Villaroel y Ayachucho #35', 2, '63814471', 3, 2, 1, 1),
-(16, '5689451', 'Juana Azurduy', 'De padilla', 'Av terracota, calle Linares #54', 2, '78945211', 3, 1, 1, 1),
-(17, '2412344', 'asdfssdfa', 'ADFAFDAFDADF', 'ADFADFADFAFD', 2, '65353230', 2, 2, 1, 1),
-(18, '7389062', 'Israel ', 'Lima Condori', 'Zona Socamani ', 2, '68319277', 3, 1, 1, 1),
-(19, '7654321', 'Jhonatan', 'Lima Condori', 'cerca', 2, '61826899', 3, 1, 1, 1),
-(20, '7894561', 'Indiara Sulma', 'Jacinto Mamani', 'por allisds', 2, '78945612', 3, 1, 1, 1);
+(16, '5689451', 'Juana Azurduy', 'De padilla', 'Av terracota, calle Linares NRO°54', 2, '78945211', 3, 1, 1, 1),
+(17, '4559451', 'juan carlos', 'bodoque', 'Av cabello, calle Linares NRO°10', 2, '78945211', 3, 1, 1, 1);
 
 --
 -- Índices para tablas volcadas
@@ -618,14 +530,6 @@ ALTER TABLE `estado_usuario`
   ADD PRIMARY KEY (`id_estado_usuario`);
 
 --
--- Indices de la tabla `factura`
---
-ALTER TABLE `factura`
-  ADD PRIMARY KEY (`Id_factura`),
-  ADD KEY `fk_factura_multa_pagada` (`Id_multa_pagada`),
-  ADD KEY `fk_factura_usuario` (`Id_usuario`);
-
---
 -- Indices de la tabla `historial_libros`
 --
 ALTER TABLE `historial_libros`
@@ -662,13 +566,6 @@ ALTER TABLE `multa`
   ADD PRIMARY KEY (`Id_multa`),
   ADD KEY `Fkprestamo` (`Id_prestamo`),
   ADD KEY `Id_usuario` (`Id_usuario`);
-
---
--- Indices de la tabla `multa_pagada`
---
-ALTER TABLE `multa_pagada`
-  ADD PRIMARY KEY (`Id_multa_pagada`),
-  ADD KEY `Id_multa` (`Id_multa`);
 
 --
 -- Indices de la tabla `paises`
@@ -716,7 +613,7 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `autores`
 --
 ALTER TABLE `autores`
-  MODIFY `Id_autor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `Id_autor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `cargo`
@@ -734,7 +631,7 @@ ALTER TABLE `carrera`
 -- AUTO_INCREMENT de la tabla `categoria`
 --
 ALTER TABLE `categoria`
-  MODIFY `Id_categoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `Id_categoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `cliente`
@@ -746,7 +643,7 @@ ALTER TABLE `cliente`
 -- AUTO_INCREMENT de la tabla `editoriales`
 --
 ALTER TABLE `editoriales`
-  MODIFY `Id_editorial` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `Id_editorial` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT de la tabla `estadolibro`
@@ -767,12 +664,6 @@ ALTER TABLE `estado_usuario`
   MODIFY `id_estado_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT de la tabla `factura`
---
-ALTER TABLE `factura`
-  MODIFY `Id_factura` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
---
 -- AUTO_INCREMENT de la tabla `historial_libros`
 --
 ALTER TABLE `historial_libros`
@@ -782,7 +673,7 @@ ALTER TABLE `historial_libros`
 -- AUTO_INCREMENT de la tabla `libro`
 --
 ALTER TABLE `libro`
-  MODIFY `Id_libro` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `Id_libro` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de la tabla `login`
@@ -794,31 +685,25 @@ ALTER TABLE `login`
 -- AUTO_INCREMENT de la tabla `materia`
 --
 ALTER TABLE `materia`
-  MODIFY `Id_materia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `Id_materia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `multa`
 --
 ALTER TABLE `multa`
-  MODIFY `Id_multa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
--- AUTO_INCREMENT de la tabla `multa_pagada`
---
-ALTER TABLE `multa_pagada`
-  MODIFY `Id_multa_pagada` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `Id_multa` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `paises`
 --
 ALTER TABLE `paises`
-  MODIFY `id_pais` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id_pais` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT de la tabla `prestamos`
 --
 ALTER TABLE `prestamos`
-  MODIFY `Id_prestamo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `Id_prestamo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT de la tabla `sancion`
@@ -836,7 +721,7 @@ ALTER TABLE `tipo_usuario`
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `Id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `Id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- Restricciones para tablas volcadas
@@ -859,13 +744,6 @@ ALTER TABLE `cliente`
 --
 ALTER TABLE `editoriales`
   ADD CONSTRAINT `editoriales_ibfk_1` FOREIGN KEY (`id_pais`) REFERENCES `paises` (`id_pais`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Filtros para la tabla `factura`
---
-ALTER TABLE `factura`
-  ADD CONSTRAINT `fk_factura_multa_pagada` FOREIGN KEY (`Id_multa_pagada`) REFERENCES `multa_pagada` (`Id_multa_pagada`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_factura_usuario` FOREIGN KEY (`Id_usuario`) REFERENCES `usuario` (`Id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `historial_libros`
@@ -891,12 +769,6 @@ ALTER TABLE `multa`
   ADD CONSTRAINT `multa_ibfk_2` FOREIGN KEY (`Id_usuario`) REFERENCES `usuario` (`Id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Filtros para la tabla `multa_pagada`
---
-ALTER TABLE `multa_pagada`
-  ADD CONSTRAINT `multa_pagada_ibfk_1` FOREIGN KEY (`Id_multa`) REFERENCES `multa` (`Id_multa`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
 -- Filtros para la tabla `prestamos`
 --
 ALTER TABLE `prestamos`
@@ -918,6 +790,462 @@ ALTER TABLE `usuario`
   ADD CONSTRAINT `usuario_ibfk_2` FOREIGN KEY (`id_cargo`) REFERENCES `cargo` (`id_cargo`),
   ADD CONSTRAINT `usuario_ibfk_3` FOREIGN KEY (`id_carrera`) REFERENCES `carrera` (`id_carrera`),
   ADD CONSTRAINT `usuario_ibfk_4` FOREIGN KEY (`id_estado_usuario`) REFERENCES `estado_usuario` (`id_estado_usuario`);
+--
+-- Base de datos: `phpmyadmin`
+--
+CREATE DATABASE IF NOT EXISTS `phpmyadmin` DEFAULT CHARACTER SET utf8 COLLATE utf8_bin;
+USE `phpmyadmin`;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `pma__bookmark`
+--
+
+CREATE TABLE `pma__bookmark` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `dbase` varchar(255) NOT NULL DEFAULT '',
+  `user` varchar(255) NOT NULL DEFAULT '',
+  `label` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '',
+  `query` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Bookmarks';
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `pma__central_columns`
+--
+
+CREATE TABLE `pma__central_columns` (
+  `db_name` varchar(64) NOT NULL,
+  `col_name` varchar(64) NOT NULL,
+  `col_type` varchar(64) NOT NULL,
+  `col_length` text DEFAULT NULL,
+  `col_collation` varchar(64) NOT NULL,
+  `col_isNull` tinyint(1) NOT NULL,
+  `col_extra` varchar(255) DEFAULT '',
+  `col_default` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Central list of columns';
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `pma__column_info`
+--
+
+CREATE TABLE `pma__column_info` (
+  `id` int(5) UNSIGNED NOT NULL,
+  `db_name` varchar(64) NOT NULL DEFAULT '',
+  `table_name` varchar(64) NOT NULL DEFAULT '',
+  `column_name` varchar(64) NOT NULL DEFAULT '',
+  `comment` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '',
+  `mimetype` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '',
+  `transformation` varchar(255) NOT NULL DEFAULT '',
+  `transformation_options` varchar(255) NOT NULL DEFAULT '',
+  `input_transformation` varchar(255) NOT NULL DEFAULT '',
+  `input_transformation_options` varchar(255) NOT NULL DEFAULT ''
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Column information for phpMyAdmin';
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `pma__designer_settings`
+--
+
+CREATE TABLE `pma__designer_settings` (
+  `username` varchar(64) NOT NULL,
+  `settings_data` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Settings related to Designer';
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `pma__export_templates`
+--
+
+CREATE TABLE `pma__export_templates` (
+  `id` int(5) UNSIGNED NOT NULL,
+  `username` varchar(64) NOT NULL,
+  `export_type` varchar(10) NOT NULL,
+  `template_name` varchar(64) NOT NULL,
+  `template_data` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Saved export templates';
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `pma__favorite`
+--
+
+CREATE TABLE `pma__favorite` (
+  `username` varchar(64) NOT NULL,
+  `tables` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Favorite tables';
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `pma__history`
+--
+
+CREATE TABLE `pma__history` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `username` varchar(64) NOT NULL DEFAULT '',
+  `db` varchar(64) NOT NULL DEFAULT '',
+  `table` varchar(64) NOT NULL DEFAULT '',
+  `timevalue` timestamp NOT NULL DEFAULT current_timestamp(),
+  `sqlquery` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='SQL history for phpMyAdmin';
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `pma__navigationhiding`
+--
+
+CREATE TABLE `pma__navigationhiding` (
+  `username` varchar(64) NOT NULL,
+  `item_name` varchar(64) NOT NULL,
+  `item_type` varchar(64) NOT NULL,
+  `db_name` varchar(64) NOT NULL,
+  `table_name` varchar(64) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Hidden items of navigation tree';
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `pma__pdf_pages`
+--
+
+CREATE TABLE `pma__pdf_pages` (
+  `db_name` varchar(64) NOT NULL DEFAULT '',
+  `page_nr` int(10) UNSIGNED NOT NULL,
+  `page_descr` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT ''
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='PDF relation pages for phpMyAdmin';
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `pma__recent`
+--
+
+CREATE TABLE `pma__recent` (
+  `username` varchar(64) NOT NULL,
+  `tables` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Recently accessed tables';
+
+--
+-- Volcado de datos para la tabla `pma__recent`
+--
+
+INSERT INTO `pma__recent` (`username`, `tables`) VALUES
+('root', '[{\"db\":\"biblioteca\",\"table\":\"cliente\"},{\"db\":\"biblioteca\",\"table\":\"tipo_usuario\"},{\"db\":\"biblioteca\",\"table\":\"estadolibro\"},{\"db\":\"biblioteca\",\"table\":\"usuario\"}]');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `pma__relation`
+--
+
+CREATE TABLE `pma__relation` (
+  `master_db` varchar(64) NOT NULL DEFAULT '',
+  `master_table` varchar(64) NOT NULL DEFAULT '',
+  `master_field` varchar(64) NOT NULL DEFAULT '',
+  `foreign_db` varchar(64) NOT NULL DEFAULT '',
+  `foreign_table` varchar(64) NOT NULL DEFAULT '',
+  `foreign_field` varchar(64) NOT NULL DEFAULT ''
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Relation table';
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `pma__savedsearches`
+--
+
+CREATE TABLE `pma__savedsearches` (
+  `id` int(5) UNSIGNED NOT NULL,
+  `username` varchar(64) NOT NULL DEFAULT '',
+  `db_name` varchar(64) NOT NULL DEFAULT '',
+  `search_name` varchar(64) NOT NULL DEFAULT '',
+  `search_data` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Saved searches';
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `pma__table_coords`
+--
+
+CREATE TABLE `pma__table_coords` (
+  `db_name` varchar(64) NOT NULL DEFAULT '',
+  `table_name` varchar(64) NOT NULL DEFAULT '',
+  `pdf_page_number` int(11) NOT NULL DEFAULT 0,
+  `x` float UNSIGNED NOT NULL DEFAULT 0,
+  `y` float UNSIGNED NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Table coordinates for phpMyAdmin PDF output';
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `pma__table_info`
+--
+
+CREATE TABLE `pma__table_info` (
+  `db_name` varchar(64) NOT NULL DEFAULT '',
+  `table_name` varchar(64) NOT NULL DEFAULT '',
+  `display_field` varchar(64) NOT NULL DEFAULT ''
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Table information for phpMyAdmin';
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `pma__table_uiprefs`
+--
+
+CREATE TABLE `pma__table_uiprefs` (
+  `username` varchar(64) NOT NULL,
+  `db_name` varchar(64) NOT NULL,
+  `table_name` varchar(64) NOT NULL,
+  `prefs` text NOT NULL,
+  `last_update` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Tables'' UI preferences';
+
+--
+-- Volcado de datos para la tabla `pma__table_uiprefs`
+--
+
+INSERT INTO `pma__table_uiprefs` (`username`, `db_name`, `table_name`, `prefs`, `last_update`) VALUES
+('root', 'biblioteca', 'tipo_usuario', '{\"CREATE_TIME\":\"2025-10-24 21:55:40\",\"col_order\":[1,0],\"col_visib\":[1,1]}', '2025-10-25 18:37:48');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `pma__tracking`
+--
+
+CREATE TABLE `pma__tracking` (
+  `db_name` varchar(64) NOT NULL,
+  `table_name` varchar(64) NOT NULL,
+  `version` int(10) UNSIGNED NOT NULL,
+  `date_created` datetime NOT NULL,
+  `date_updated` datetime NOT NULL,
+  `schema_snapshot` text NOT NULL,
+  `schema_sql` text DEFAULT NULL,
+  `data_sql` longtext DEFAULT NULL,
+  `tracking` set('UPDATE','REPLACE','INSERT','DELETE','TRUNCATE','CREATE DATABASE','ALTER DATABASE','DROP DATABASE','CREATE TABLE','ALTER TABLE','RENAME TABLE','DROP TABLE','CREATE INDEX','DROP INDEX','CREATE VIEW','ALTER VIEW','DROP VIEW') DEFAULT NULL,
+  `tracking_active` int(1) UNSIGNED NOT NULL DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Database changes tracking for phpMyAdmin';
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `pma__userconfig`
+--
+
+CREATE TABLE `pma__userconfig` (
+  `username` varchar(64) NOT NULL,
+  `timevalue` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `config_data` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='User preferences storage for phpMyAdmin';
+
+--
+-- Volcado de datos para la tabla `pma__userconfig`
+--
+
+INSERT INTO `pma__userconfig` (`username`, `timevalue`, `config_data`) VALUES
+('root', '2025-11-18 03:03:47', '{\"Console\\/Mode\":\"collapse\",\"lang\":\"es\",\"NavigationWidth\":0}');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `pma__usergroups`
+--
+
+CREATE TABLE `pma__usergroups` (
+  `usergroup` varchar(64) NOT NULL,
+  `tab` varchar(64) NOT NULL,
+  `allowed` enum('Y','N') NOT NULL DEFAULT 'N'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='User groups with configured menu items';
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `pma__users`
+--
+
+CREATE TABLE `pma__users` (
+  `username` varchar(64) NOT NULL,
+  `usergroup` varchar(64) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Users and their assignments to user groups';
+
+--
+-- Índices para tablas volcadas
+--
+
+--
+-- Indices de la tabla `pma__bookmark`
+--
+ALTER TABLE `pma__bookmark`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `pma__central_columns`
+--
+ALTER TABLE `pma__central_columns`
+  ADD PRIMARY KEY (`db_name`,`col_name`);
+
+--
+-- Indices de la tabla `pma__column_info`
+--
+ALTER TABLE `pma__column_info`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `db_name` (`db_name`,`table_name`,`column_name`);
+
+--
+-- Indices de la tabla `pma__designer_settings`
+--
+ALTER TABLE `pma__designer_settings`
+  ADD PRIMARY KEY (`username`);
+
+--
+-- Indices de la tabla `pma__export_templates`
+--
+ALTER TABLE `pma__export_templates`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `u_user_type_template` (`username`,`export_type`,`template_name`);
+
+--
+-- Indices de la tabla `pma__favorite`
+--
+ALTER TABLE `pma__favorite`
+  ADD PRIMARY KEY (`username`);
+
+--
+-- Indices de la tabla `pma__history`
+--
+ALTER TABLE `pma__history`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `username` (`username`,`db`,`table`,`timevalue`);
+
+--
+-- Indices de la tabla `pma__navigationhiding`
+--
+ALTER TABLE `pma__navigationhiding`
+  ADD PRIMARY KEY (`username`,`item_name`,`item_type`,`db_name`,`table_name`);
+
+--
+-- Indices de la tabla `pma__pdf_pages`
+--
+ALTER TABLE `pma__pdf_pages`
+  ADD PRIMARY KEY (`page_nr`),
+  ADD KEY `db_name` (`db_name`);
+
+--
+-- Indices de la tabla `pma__recent`
+--
+ALTER TABLE `pma__recent`
+  ADD PRIMARY KEY (`username`);
+
+--
+-- Indices de la tabla `pma__relation`
+--
+ALTER TABLE `pma__relation`
+  ADD PRIMARY KEY (`master_db`,`master_table`,`master_field`),
+  ADD KEY `foreign_field` (`foreign_db`,`foreign_table`);
+
+--
+-- Indices de la tabla `pma__savedsearches`
+--
+ALTER TABLE `pma__savedsearches`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `u_savedsearches_username_dbname` (`username`,`db_name`,`search_name`);
+
+--
+-- Indices de la tabla `pma__table_coords`
+--
+ALTER TABLE `pma__table_coords`
+  ADD PRIMARY KEY (`db_name`,`table_name`,`pdf_page_number`);
+
+--
+-- Indices de la tabla `pma__table_info`
+--
+ALTER TABLE `pma__table_info`
+  ADD PRIMARY KEY (`db_name`,`table_name`);
+
+--
+-- Indices de la tabla `pma__table_uiprefs`
+--
+ALTER TABLE `pma__table_uiprefs`
+  ADD PRIMARY KEY (`username`,`db_name`,`table_name`);
+
+--
+-- Indices de la tabla `pma__tracking`
+--
+ALTER TABLE `pma__tracking`
+  ADD PRIMARY KEY (`db_name`,`table_name`,`version`);
+
+--
+-- Indices de la tabla `pma__userconfig`
+--
+ALTER TABLE `pma__userconfig`
+  ADD PRIMARY KEY (`username`);
+
+--
+-- Indices de la tabla `pma__usergroups`
+--
+ALTER TABLE `pma__usergroups`
+  ADD PRIMARY KEY (`usergroup`,`tab`,`allowed`);
+
+--
+-- Indices de la tabla `pma__users`
+--
+ALTER TABLE `pma__users`
+  ADD PRIMARY KEY (`username`,`usergroup`);
+
+--
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `pma__bookmark`
+--
+ALTER TABLE `pma__bookmark`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `pma__column_info`
+--
+ALTER TABLE `pma__column_info`
+  MODIFY `id` int(5) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `pma__export_templates`
+--
+ALTER TABLE `pma__export_templates`
+  MODIFY `id` int(5) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `pma__history`
+--
+ALTER TABLE `pma__history`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `pma__pdf_pages`
+--
+ALTER TABLE `pma__pdf_pages`
+  MODIFY `page_nr` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `pma__savedsearches`
+--
+ALTER TABLE `pma__savedsearches`
+  MODIFY `id` int(5) UNSIGNED NOT NULL AUTO_INCREMENT;
+--
+-- Base de datos: `test`
+--
+CREATE DATABASE IF NOT EXISTS `test` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `test`;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
