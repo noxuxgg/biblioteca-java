@@ -9,6 +9,7 @@ import Modelo.Autor;
 import Modelo.AutorDAO;
 import Modelo.Categoria;
 import Modelo.CategoriaDAO;
+import Modelo.Conexion;
 import Modelo.Editorial;
 import Modelo.EditorialDAO;
 import Modelo.FuncionesExtra;
@@ -59,6 +60,10 @@ import java.time.temporal.ChronoUnit;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Collections;
+import java.sql.PreparedStatement;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 //</editor-fold>
 /**
@@ -5014,6 +5019,7 @@ public class Sistema extends javax.swing.JFrame {
                     errores = prestamo.RegistrarPrestamo(pre);
                     if (errores == true) {
                         //prestamo.RegistrarPrestamo(pre);
+                        generarBoletaUltimoPrestamo();
                         String co = txtCodigoPrestamo.getText();
                         li = libro.BuscarLibro(co);
                         int StockActual = li.getStock() - 1;
@@ -7001,6 +7007,127 @@ public class Sistema extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Error al generar PDF de préstamos: " + e.getMessage());
         }
     }
+    public void generarBoletaUltimoPrestamo() {
+    try {
+        Connection con;
+        Conexion cn = new Conexion();
+        PreparedStatement ps;
+        ResultSet rs;
+
+        // Consulta para obtener el ÚLTIMO préstamo registrado
+        String sql = "SELECT " +
+                     "p.id_prestamo, " +
+                     "l.titulo, " +
+                     "a.nombre as autor, " +
+                     "CONCAT(u.nombre, ' ', u.apellido) as nombre_completo, " +
+                     "c.nombre as carrera, " +
+                     "u.domicilo, " +
+                     "u.telefono, " +
+                     "u.carnet, " +
+                     "p.fecha_prestamo " +
+                     "FROM prestamos p " +
+                     "INNER JOIN libro l ON p.id_libro = l.id_libro " +
+                     "INNER JOIN autores a ON l.id_autor = a.id_autor " +
+                     "INNER JOIN usuario u ON p.id_usuario = u.id_usuario " +
+                     "INNER JOIN carrera c ON u.id_carrera = c.id_carrera " +
+                     "ORDER BY p.id_prestamo DESC " +
+                     "LIMIT 1";
+
+        con = cn.getConnection();
+        ps = con.prepareStatement(sql);
+        rs = ps.executeQuery();
+
+        if (rs.next()) {
+            // Crear el documento PDF
+            int idPrestamo = rs.getInt("id_prestamo");
+            String nombreArchivo = "boleta_prestamo_" + idPrestamo + ".pdf";
+            File file = new File("src/pdf/" + nombreArchivo);
+            FileOutputStream archivo = new FileOutputStream(file);
+            Document doc = new Document();
+            PdfWriter.getInstance(doc, archivo);
+            doc.open();
+
+            // Fuentes
+            Font fontNegrita = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.BOLD);
+            Font fontNormal = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.NORMAL);
+            Font fontTitulo = new Font(Font.FontFamily.TIMES_ROMAN, 14, Font.BOLD);
+            Font fontNumero = new Font(Font.FontFamily.TIMES_ROMAN, 11, Font.BOLD, BaseColor.BLACK);
+
+            // Títulos centrados
+            Paragraph universidad = new Paragraph("UNIVERSIDAD TECNICA DE ORURO", fontTitulo);
+            universidad.setAlignment(Element.ALIGN_CENTER);
+            doc.add(universidad);
+
+            Paragraph departamento = new Paragraph("DEPARTAMENTO DE BIBLIOTECAS", fontTitulo);
+            departamento.setAlignment(Element.ALIGN_CENTER);
+            doc.add(departamento);
+
+            doc.add(Chunk.NEWLINE);
+
+            // Tabla para "BOLETA DE PEDIDO" y "Nro de Préstamo"
+            PdfPTable tablaTitulo = new PdfPTable(2);
+            tablaTitulo.setWidthPercentage(100);
+            tablaTitulo.setWidths(new float[]{70f, 30f}); // 70% izquierda, 30% derecha
+
+            // "BOLETA DE PEDIDO" alineado a la izquierda
+            PdfPCell celdaBoleta = new PdfPCell(new Phrase("BOLETA DE PEDIDO", fontTitulo));
+            celdaBoleta.setBorder(PdfPCell.NO_BORDER);
+            celdaBoleta.setHorizontalAlignment(Element.ALIGN_LEFT);
+            tablaTitulo.addCell(celdaBoleta);
+
+            // "Nro de Préstamo" alineado a la derecha
+            PdfPCell celdaNumero = new PdfPCell(new Phrase("Nro de Prestamo: " + idPrestamo, fontNumero));
+            celdaNumero.setBorder(PdfPCell.NO_BORDER);
+            celdaNumero.setHorizontalAlignment(Element.ALIGN_RIGHT);
+            tablaTitulo.addCell(celdaNumero);
+
+            doc.add(tablaTitulo);
+            doc.add(Chunk.NEWLINE);
+
+            // Obtener fecha actual
+            SimpleDateFormat sdf = new SimpleDateFormat("dd 'de' MMMM 'de' yyyy");
+            String fechaActual = sdf.format(new Date());
+
+            // Datos del préstamo en la misma línea
+            agregarCampo(doc, "Autor: ", (rs.getString("autor") != null ? rs.getString("autor") : "No especificado"), fontNegrita, fontNormal);
+            agregarCampo(doc, "Título: ", rs.getString("titulo"), fontNegrita, fontNormal);
+            agregarCampo(doc, "Nombre y apellidos de lector: ", rs.getString("nombre_completo"), fontNegrita, fontNormal);
+            agregarCampo(doc, "Facultad o Colegio: ", rs.getString("carrera"), fontNegrita, fontNormal);
+            agregarCampo(doc, "Domicilio: ", rs.getString("domicilo"), fontNegrita, fontNormal);
+            agregarCampo(doc, "Teléfono Nº: ", rs.getString("telefono"), fontNegrita, fontNormal);
+            agregarCampo(doc, "Carnet Nº: ", rs.getString("carnet"), fontNegrita, fontNormal);
+            agregarCampo(doc, "Fecha de préstamo: ", rs.getString("fecha_prestamo"), fontNegrita, fontNormal);
+            
+            doc.add(new Paragraph("Oruro, " + fechaActual + "\n", fontNegrita));
+
+            // Espacio para firma
+            doc.add(Chunk.NEWLINE);
+            doc.add(new Paragraph("Firma del lector: __________________________", fontNegrita));
+
+            doc.close();
+            archivo.close();
+
+            JOptionPane.showMessageDialog(null, 
+                "Boleta generada correctamente para el préstamo #" + idPrestamo + 
+                "\nArchivo: " + file.getAbsolutePath());
+
+        } else {
+            JOptionPane.showMessageDialog(null, "No se encontraron préstamos registrados");
+        }
+
+    } catch (Exception e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(null, "Error al generar boleta: " + e.getMessage());
+    }
+}
+
+// Método para agregar campos en la misma línea
+private void agregarCampo(Document doc, String etiqueta, String valor, Font fontNegrita, Font fontNormal) throws DocumentException {
+    Paragraph p = new Paragraph();
+    p.add(new Chunk(etiqueta, fontNegrita));
+    p.add(new Chunk(valor, fontNormal));
+    doc.add(p);
+}
 
     class txtBuscarCarnet {
 
