@@ -387,10 +387,14 @@ public class UsuarioDAO {
     //VALIDACIONES
     
     public boolean validarCarnet(String carnet) {
-        // Solo números y exactamente 7 dígitos
-        return carnet != null && carnet.matches("\\d{7}");
-    }
-    
+    // Acepta:
+    // - 7 u 8 dígitos solos
+    // - 7 u 8 dígitos seguidos de opcional espacio/guion y un sufijo tipo "A1"
+    return carnet != null && carnet.matches(
+            "^\\d{7,8}(\\s*-?\\s*[A-Za-z0-9]{1,3})?$"
+    );
+}
+
     public boolean validarNombre(String nombre) {
         // Solo letras (incluyendo acentos y ñ) y espacios
         return nombre != null && nombre.matches("^[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]+$");
