@@ -75,5 +75,58 @@ public class Grafico {
         System.out.println("Error en gráfica: " + e.toString());
     }
 }
+    public static void GraficarLibrosMasPrestados(){
+    Connection con;
+    Conexion cn = new Conexion();
+    PreparedStatement ps;
+    ResultSet rs;
+    try {
+        String sql = "SELECT l.titulo, COUNT(p.id_prestamo) as cantidad " +
+                     "FROM prestamos p " +
+                     "INNER JOIN libro l ON p.id_libro = l.id_libro " +
+                     "WHERE p.estado = 1 " +
+                     "GROUP BY l.titulo " +
+                     "ORDER BY cantidad DESC " +
+                     "LIMIT 10";
+        
+        con = cn.getConnection();
+        ps = con.prepareStatement(sql);
+        rs = ps.executeQuery();
+        
+        DefaultPieDataset dataset = new DefaultPieDataset();
+        
+        while(rs.next()){
+            String tituloLibro = rs.getString("titulo");
+            int cantidad = rs.getInt("cantidad");
+            
+            if(tituloLibro.length() > 20){
+                tituloLibro = tituloLibro.substring(0, 17) + "...";
+            }
+            
+            dataset.setValue(tituloLibro, cantidad);
+        }
+        
+        JFreeChart chart = ChartFactory.createPieChart(
+            "Top 10 Libros Más Prestados", 
+            dataset, 
+            true, 
+            true, 
+            false
+        );
+        
+        PiePlot plot = (PiePlot) chart.getPlot();
+        plot.setSectionOutlinesVisible(false);
+        plot.setLabelGenerator(new StandardPieSectionLabelGenerator("{0}: {1}"));
+        plot.setSimpleLabels(true);
+        
+        ChartFrame frame = new ChartFrame("Reporte de Libros Más Prestados", chart);
+        frame.setSize(1000, 500);
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+        
+    } catch(SQLException e) {
+        System.out.println("Error en gráfica: " + e.toString());
+    }
+}
     
 }
