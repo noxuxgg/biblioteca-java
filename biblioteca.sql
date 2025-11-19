@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 17-11-2025 a las 07:23:49
+-- Tiempo de generación: 19-11-2025 a las 03:12:27
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -260,19 +260,6 @@ INSERT INTO `factura` (`Id_factura`, `Id_multa_pagada`, `Id_usuario`, `Numero_fa
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `historial_libros`
---
-
-CREATE TABLE `historial_libros` (
-  `Id_historial` int(11) NOT NULL,
-  `Id_libro` int(11) NOT NULL,
-  `Accion` varchar(100) NOT NULL,
-  `Fecha` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
 -- Estructura de tabla para la tabla `libro`
 --
 
@@ -489,21 +476,6 @@ INSERT INTO `prestamos` (`Id_prestamo`, `Id_usuario`, `Id_libro`, `Fecha_prestam
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `sancion`
---
-
-CREATE TABLE `sancion` (
-  `Id_sancion` int(11) NOT NULL,
-  `Id_usuario` int(11) NOT NULL,
-  `Motivo` text NOT NULL,
-  `Fecha_unicio` date NOT NULL,
-  `Fecha_fin` date NOT NULL,
-  `Estado` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
 -- Estructura de tabla para la tabla `tipo_usuario`
 --
 
@@ -626,13 +598,6 @@ ALTER TABLE `factura`
   ADD KEY `fk_factura_usuario` (`Id_usuario`);
 
 --
--- Indices de la tabla `historial_libros`
---
-ALTER TABLE `historial_libros`
-  ADD PRIMARY KEY (`Id_historial`),
-  ADD KEY `FkLibro` (`Id_libro`);
-
---
 -- Indices de la tabla `libro`
 --
 ALTER TABLE `libro`
@@ -684,13 +649,6 @@ ALTER TABLE `prestamos`
   ADD KEY `FKusuario` (`Id_usuario`),
   ADD KEY `Fklibro` (`Id_libro`),
   ADD KEY `FKdevolucion` (`Id_estado_devolucion`);
-
---
--- Indices de la tabla `sancion`
---
-ALTER TABLE `sancion`
-  ADD PRIMARY KEY (`Id_sancion`),
-  ADD KEY `FK` (`Id_usuario`);
 
 --
 -- Indices de la tabla `tipo_usuario`
@@ -773,12 +731,6 @@ ALTER TABLE `factura`
   MODIFY `Id_factura` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT de la tabla `historial_libros`
---
-ALTER TABLE `historial_libros`
-  MODIFY `Id_historial` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT de la tabla `libro`
 --
 ALTER TABLE `libro`
@@ -819,12 +771,6 @@ ALTER TABLE `paises`
 --
 ALTER TABLE `prestamos`
   MODIFY `Id_prestamo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
-
---
--- AUTO_INCREMENT de la tabla `sancion`
---
-ALTER TABLE `sancion`
-  MODIFY `Id_sancion` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `tipo_usuario`
@@ -868,12 +814,6 @@ ALTER TABLE `factura`
   ADD CONSTRAINT `fk_factura_usuario` FOREIGN KEY (`Id_usuario`) REFERENCES `usuario` (`Id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Filtros para la tabla `historial_libros`
---
-ALTER TABLE `historial_libros`
-  ADD CONSTRAINT `historial_libros_ibfk_1` FOREIGN KEY (`Id_libro`) REFERENCES `libro` (`Id_libro`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
 -- Filtros para la tabla `libro`
 --
 ALTER TABLE `libro`
@@ -903,12 +843,6 @@ ALTER TABLE `prestamos`
   ADD CONSTRAINT `prestamos_ibfk_1` FOREIGN KEY (`Id_usuario`) REFERENCES `usuario` (`Id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `prestamos_ibfk_2` FOREIGN KEY (`Id_libro`) REFERENCES `libro` (`Id_libro`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `prestamos_ibfk_3` FOREIGN KEY (`Id_estado_devolucion`) REFERENCES `estado_devolucion` (`id_estado_devolucion`) ON UPDATE CASCADE;
-
---
--- Filtros para la tabla `sancion`
---
-ALTER TABLE `sancion`
-  ADD CONSTRAINT `sancion_ibfk_1` FOREIGN KEY (`Id_usuario`) REFERENCES `usuario` (`Id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `usuario`
