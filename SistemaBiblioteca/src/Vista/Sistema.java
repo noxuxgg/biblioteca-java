@@ -63,7 +63,10 @@ import java.util.Collections;
 import java.sql.PreparedStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.SQLException;
+import Reportes.GraficoMultas;
+import java.text.SimpleDateFormat;
+import javax.swing.JOptionPane;
+import java.util.List;
 
 //</editor-fold>
 /**
@@ -173,6 +176,18 @@ public class Sistema extends javax.swing.JFrame {
         listarTodasLasMultas();    // Tabla principal de multas
         listarMultasPagadasEnTabla();     // Tabla de pagadas
         listarMultasSinPagar();    // Tabla de sin pagar
+   // Llenar los valores iniciales según el filtro seleccionado
+        actualizarComboValorUsuario();
+        //privilegios
+        inicializarComboGraficosMultas();
+        txtFechaInicioGraficoMultas.getDateEditor().setEnabled(false);
+        txtFechaFinGraficoMultas.getDateEditor().setEnabled(false);
+    
+        // 🔹 Ocultar campos de fecha inicialmente
+        txtFechaInicioGraficoMultas.setVisible(false);
+       txtFechaFinGraficoMultas.setVisible(false);
+       lblfechainicio.setVisible(false);
+       lblfechafin.setVisible(false);
 
     }
 
@@ -214,6 +229,13 @@ public class Sistema extends javax.swing.JFrame {
         // Llenar los valores iniciales según el filtro seleccionado
         actualizarComboValorUsuario();
         //privilegios
+        inicializarComboGraficosMultas();
+        txtFechaInicioGraficoMultas.getDateEditor().setEnabled(false);
+        txtFechaFinGraficoMultas.getDateEditor().setEnabled(false);
+    
+        // 🔹 Ocultar campos de fecha inicialmente
+        txtFechaInicioGraficoMultas.setVisible(false);
+       txtFechaFinGraficoMultas.setVisible(false);
 
         String tipo = (priv.getTipo() != null) ? priv.getTipo().toLowerCase() : "desconocido";
 
@@ -784,7 +806,84 @@ public class Sistema extends javax.swing.JFrame {
         celdaValor.setBackgroundColor(colorFondo);
         tabla.addCell(celdaValor);
     }
+private void inicializarComboGraficosMultas() {
+    comboxGraficoMulta.removeAllItems();
+    comboxGraficoMulta.addItem("-- Seleccione un tipo de gráfico --");
+    comboxGraficoMulta.addItem("Estado de Multas (Pagadas vs Activas)");
+    comboxGraficoMulta.addItem("Usuarios con Más Multas (Top 10)");
+    comboxGraficoMulta.addItem("Recaudación Mensual");
+    comboxGraficoMulta.addItem("Multas por Periodo (requiere fechas)");
+    comboxGraficoMulta.addItem("Libros que Generan Más Multas");
+    comboxGraficoMulta.addItem("Distribución de Montos");
+    comboxGraficoMulta.addItem("Promedio de Días de Retraso");
+    
+    comboxGraficoMulta.setSelectedIndex(0);
+}
+/**
+ * Valida las fechas y genera el gráfico de multas por periodo
+ */
+private void generarGraficoMultasPorPeriodo() {
+    // Validar que las fechas estén seleccionadas
+    if (txtFechaInicioGraficoMultas.getDate() == null || 
+        txtFechaFinGraficoMultas.getDate() == null) {
+        
+        JOptionPane.showMessageDialog(null, 
+            "⚠️ Debe seleccionar ambas fechas (inicio y fin)\n\n" +
+            "Este gráfico analiza las multas generadas en un periodo específico.",
+            "Fechas requeridas",
+            JOptionPane.WARNING_MESSAGE);
+        return;
+    }
+    
+    try {
+        // Convertir fechas a formato YYYY-MM-DD
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String fechaInicio = sdf.format(txtFechaInicioGraficoMultas.getDate());
+        String fechaFin = sdf.format(txtFechaFinGraficoMultas.getDate());
+        
+        // Validar que fecha inicio sea menor o igual a fecha fin
+        if (txtFechaInicioGraficoMultas.getDate().after(txtFechaFinGraficoMultas.getDate())) {
+            JOptionPane.showMessageDialog(null, 
+                " La fecha inicial debe ser anterior o igual a la fecha final\n\n" +
+                "Fecha inicio: " + fechaInicio + "\n" +
+                "Fecha fin: " + fechaFin,
+                "Fechas incorrectas",
+                JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        // Validar que el rango no sea muy grande (opcional)
+        long diffDias = (txtFechaFinGraficoMultas.getDate().getTime() - 
+                        txtFechaInicioGraficoMultas.getDate().getTime()) / (1000 * 60 * 60 * 24);
+        
+        if (diffDias > 365) {
+            int confirm = JOptionPane.showConfirmDialog(null, 
+                "El rango seleccionado es mayor a 1 año (" + diffDias + " días)\n\n" +
+                "Esto podría hacer el gráfico difícil de leer.\n" +
+                "¿Desea continuar de todas formas?",
+                "Rango amplio",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.WARNING_MESSAGE);
+            
+            if (confirm != JOptionPane.YES_OPTION) {
+                return;
+            }
+        }
+        
+        // Generar el gráfico
+        GraficoMultas.GraficarMultasPorFechas(fechaInicio, fechaFin);
+        
+        System.out.println(" Gráfico generado para el periodo: " + fechaInicio + " a " + fechaFin);
+        
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, 
+            "Error al procesar las fechas:\n\n" + e.getMessage(),
+            "Error",
+            JOptionPane.ERROR_MESSAGE);
+        e.printStackTrace();
+    }
 
+}
     //HASTA AQUI SON LAS MULTAS
     /**
      * This method is called from within the constructor to initialize the form.
@@ -974,11 +1073,18 @@ public class Sistema extends javax.swing.JFrame {
         tableMultaspagadas = new javax.swing.JTable();
         jScrollPane4 = new javax.swing.JScrollPane();
         TableMultassinpagar = new javax.swing.JTable();
-        btnReporMultasPagadas = new javax.swing.JButton();
-        jLabel8 = new javax.swing.JLabel();
-        btnReporMultasSinPagadas = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
+        jPanel9 = new javax.swing.JPanel();
+        comboxGraficoMulta = new javax.swing.JComboBox<>();
+        lblfechainicio = new javax.swing.JLabel();
+        lblfechafin = new javax.swing.JLabel();
+        btnGenerarGraficoMulta = new javax.swing.JButton();
+        txtFechaInicioGraficoMultas = new com.toedter.calendar.JDateChooser();
+        txtFechaFinGraficoMultas = new com.toedter.calendar.JDateChooser();
+        jLabel8 = new javax.swing.JLabel();
+        btnReporMultasPagadas = new javax.swing.JButton();
+        btnReporMultasSinPagadas = new javax.swing.JButton();
         jPanel11 = new javax.swing.JPanel();
         jLabel35 = new javax.swing.JLabel();
         jLabel36 = new javax.swing.JLabel();
@@ -1199,7 +1305,7 @@ public class Sistema extends javax.swing.JFrame {
                     .addComponent(jLabel3)
                     .addComponent(jLabel10)
                     .addComponent(jLabel9))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8448, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8550, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4)
                     .addComponent(jLabel12)
@@ -1414,7 +1520,7 @@ public class Sistema extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(7587, Short.MAX_VALUE))
+                .addContainerGap(7699, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1761,7 +1867,7 @@ public class Sistema extends javax.swing.JFrame {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel31, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(7854, Short.MAX_VALUE))
+                .addContainerGap(7965, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1976,7 +2082,7 @@ public class Sistema extends javax.swing.JFrame {
                         .addGap(104, 104, 104)
                         .addComponent(jPanel25, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel54))
-                .addContainerGap(7932, Short.MAX_VALUE))
+                .addContainerGap(8046, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2226,7 +2332,7 @@ public class Sistema extends javax.swing.JFrame {
                         .addGap(81, 81, 81)
                         .addComponent(jPanel29, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel75))
-                .addContainerGap(7941, Short.MAX_VALUE))
+                .addContainerGap(8055, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2535,7 +2641,7 @@ public class Sistema extends javax.swing.JFrame {
                                 .addComponent(btnPrestamosPDF)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btnDevolucionPrestamo)))))
-                .addContainerGap(7913, Short.MAX_VALUE))
+                .addContainerGap(8044, Short.MAX_VALUE))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2713,9 +2819,9 @@ public class Sistema extends javax.swing.JFrame {
             .addGroup(jPanel20Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 708, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33)
+                .addGap(18, 18, 18)
                 .addComponent(btnActulizarMultas)
-                .addGap(146, 146, 146))
+                .addGap(161, 161, 161))
         );
         jPanel20Layout.setVerticalGroup(
             jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2766,40 +2872,15 @@ public class Sistema extends javax.swing.JFrame {
         ));
         jScrollPane4.setViewportView(TableMultassinpagar);
 
-        btnReporMultasPagadas.setText("Multas pagadas");
-        btnReporMultasPagadas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnReporMultasPagadasActionPerformed(evt);
-            }
-        });
-
-        jLabel8.setText("Generar reporte de:");
-
-        btnReporMultasSinPagadas.setText("Multas sin pagar");
-        btnReporMultasSinPagadas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnReporMultasSinPagadasActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel34Layout = new javax.swing.GroupLayout(jPanel34);
         jPanel34.setLayout(jPanel34Layout);
         jPanel34Layout.setHorizontalGroup(
             jPanel34Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel34Layout.createSequentialGroup()
-                .addGroup(jPanel34Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel34Layout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addComponent(jScrollPane13, javax.swing.GroupLayout.PREFERRED_SIZE, 473, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(28, 28, 28)
-                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel34Layout.createSequentialGroup()
-                        .addGap(168, 168, 168)
-                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(31, 31, 31)
-                        .addComponent(btnReporMultasPagadas, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(79, 79, 79)
-                        .addComponent(btnReporMultasSinPagadas, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(31, 31, 31)
+                .addComponent(jScrollPane13, javax.swing.GroupLayout.PREFERRED_SIZE, 473, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(28, 28, 28)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(41, Short.MAX_VALUE))
         );
         jPanel34Layout.setVerticalGroup(
@@ -2809,17 +2890,103 @@ public class Sistema extends javax.swing.JFrame {
                 .addGroup(jPanel34Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane13, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel34Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnReporMultasPagadas)
-                    .addComponent(jLabel8)
-                    .addComponent(btnReporMultasSinPagadas))
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(63, Short.MAX_VALUE))
         );
 
         jLabel7.setText("MULTAS PAGADAS");
 
         jLabel13.setText("MULTAS SIN PAGAR");
+
+        jPanel9.setBackground(new java.awt.Color(255, 255, 255));
+
+        comboxGraficoMulta.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "seleccionar", "Estado de Multas", "Usuarios con Más Multa", "Recaudación Mensual", "Multa por Periodo", "Libros que Generan Más Multas", "Distribución de Montos" }));
+        comboxGraficoMulta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboxGraficoMultaActionPerformed(evt);
+            }
+        });
+
+        lblfechainicio.setText("Fecha de inicio:");
+
+        lblfechafin.setText("Fecha Fin:");
+
+        btnGenerarGraficoMulta.setText("Generar Grafico");
+        btnGenerarGraficoMulta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGenerarGraficoMultaActionPerformed(evt);
+            }
+        });
+
+        jLabel8.setText("Generar reporte de:");
+
+        btnReporMultasPagadas.setText("Multas pagadas");
+        btnReporMultasPagadas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReporMultasPagadasActionPerformed(evt);
+            }
+        });
+
+        btnReporMultasSinPagadas.setText("Multas sin pagar");
+        btnReporMultasSinPagadas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReporMultasSinPagadasActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
+        jPanel9.setLayout(jPanel9Layout);
+        jPanel9Layout.setHorizontalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addComponent(comboxGraficoMulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(33, 33, 33)
+                        .addComponent(btnGenerarGraficoMulta))
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel9Layout.createSequentialGroup()
+                                .addComponent(lblfechainicio, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtFechaInicioGraficoMultas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel9Layout.createSequentialGroup()
+                                .addGap(14, 14, 14)
+                                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnReporMultasPagadas, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnReporMultasSinPagadas, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel9Layout.createSequentialGroup()
+                                .addComponent(lblfechafin, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtFechaFinGraficoMultas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(50, Short.MAX_VALUE))
+        );
+        jPanel9Layout.setVerticalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txtFechaFinGraficoMultas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(comboxGraficoMulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnGenerarGraficoMulta))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(lblfechainicio)
+                                .addComponent(lblfechafin))
+                            .addComponent(txtFechaInicioGraficoMultas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(43, 43, 43)
+                .addComponent(jLabel8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnReporMultasPagadas)
+                    .addComponent(btnReporMultasSinPagadas))
+                .addContainerGap(33, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
@@ -2828,14 +2995,17 @@ public class Sistema extends javax.swing.JFrame {
             .addGroup(jPanel10Layout.createSequentialGroup()
                 .addGap(28, 28, 28)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel33)
                     .addComponent(jPanel34, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel10Layout.createSequentialGroup()
                         .addComponent(jLabel7)
                         .addGap(436, 436, 436)
                         .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel33)
-                    .addComponent(jPanel20, javax.swing.GroupLayout.PREFERRED_SIZE, 853, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(8306, Short.MAX_VALUE))
+                    .addGroup(jPanel10Layout.createSequentialGroup()
+                        .addComponent(jPanel20, javax.swing.GroupLayout.PREFERRED_SIZE, 853, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(112, 112, 112)
+                        .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(8075, Short.MAX_VALUE))
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2843,7 +3013,9 @@ public class Sistema extends javax.swing.JFrame {
                 .addGap(24, 24, 24)
                 .addComponent(jLabel33)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(12, 12, 12)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
@@ -3039,7 +3211,7 @@ public class Sistema extends javax.swing.JFrame {
                                 .addComponent(jLabel43)))
                         .addGap(107, 107, 107)
                         .addComponent(jPanel21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(987, 8451, Short.MAX_VALUE))
+                .addGap(987, 8564, Short.MAX_VALUE))
         );
         jPanel11Layout.setVerticalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -3106,7 +3278,7 @@ public class Sistema extends javax.swing.JFrame {
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton19)
                     .addComponent(jButton20))
-                .addContainerGap(9073, Short.MAX_VALUE))
+                .addContainerGap(9185, Short.MAX_VALUE))
         );
         jPanel12Layout.setVerticalGroup(
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -3199,7 +3371,7 @@ public class Sistema extends javax.swing.JFrame {
                             .addComponent(txtNombreCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(121, 121, 121)
                 .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 711, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(8083, Short.MAX_VALUE))
+                .addContainerGap(8197, Short.MAX_VALUE))
         );
         jPanel24Layout.setVerticalGroup(
             jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -3309,7 +3481,7 @@ public class Sistema extends javax.swing.JFrame {
                                     .addComponent(btnActualizarMateria, javax.swing.GroupLayout.Alignment.LEADING))))))
                 .addGap(79, 79, 79)
                 .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 685, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(8057, Short.MAX_VALUE))
+                .addContainerGap(8171, Short.MAX_VALUE))
         );
         jPanel26Layout.setVerticalGroup(
             jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -3422,7 +3594,7 @@ public class Sistema extends javax.swing.JFrame {
                             .addComponent(txtNombrePais, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(72, 72, 72)
                 .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 637, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(8186, Short.MAX_VALUE))
+                .addContainerGap(8300, Short.MAX_VALUE))
         );
         jPanel27Layout.setVerticalGroup(
             jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -3663,7 +3835,7 @@ public class Sistema extends javax.swing.JFrame {
                     .addComponent(jLabel59))
                 .addGroup(jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel32Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 296, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 411, Short.MAX_VALUE)
                         .addComponent(jLabel99, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(27, 27, 27)
                         .addComponent(cboxEFiltroUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -4595,14 +4767,14 @@ public class Sistema extends javax.swing.JFrame {
 
         if (multa == null) {
             JOptionPane.showMessageDialog(null,
-                    "❌ No se encontró la multa seleccionada");
+                    "No se encontró la multa seleccionada");
             return;
         }
 
         // Validar que la multa esté en estado "Activa"
         if (!multa.getEstado().equals("Activa")) {
             JOptionPane.showMessageDialog(null,
-                    "⚠️ Esta multa ya fue pagada o está inactiva\n"
+                    " Esta multa ya fue pagada o está inactiva\n"
                     + "Estado actual: " + multa.getEstado(),
                     "Multa no disponible",
                     JOptionPane.WARNING_MESSAGE);
@@ -4611,7 +4783,7 @@ public class Sistema extends javax.swing.JFrame {
 
         // Confirmar pago con información detallada
         int confirm = JOptionPane.showConfirmDialog(null,
-                "💰 ¿CONFIRMAR PAGO DE MULTA?\n\n"
+                "¿CONFIRMAR PAGO DE MULTA?\n\n"
                 + "═══════════════════════════════\n"
                 + "ID Multa:       #" + idMulta + "\n"
                 + "Usuario:        " + multa.getNombreUsuario() + "\n"
@@ -4636,7 +4808,7 @@ public class Sistema extends javax.swing.JFrame {
         // Registrar pago en la base de datos
         if (multaPagadaDao.registrarPagoMulta(mp)) {
             JOptionPane.showMessageDialog(null,
-                    "✅ PAGO REGISTRADO EXITOSAMENTE\n\n"
+                    "PAGO REGISTRADO EXITOSAMENTE\n\n"
                     + "✓ Multa marcada como pagada\n"
                     + "✓ Factura generada automáticamente en la base de datos\n"
                     + "✓ Estado actualizado correctamente",
@@ -4645,7 +4817,7 @@ public class Sistema extends javax.swing.JFrame {
 
             // Preguntar si desea generar el PDF de la factura
             int verFactura = JOptionPane.showConfirmDialog(null,
-                    "📄 ¿Desea generar el PDF de la factura ahora?",
+                    "¿Desea generar el PDF de la factura ahora?",
                     "Generar Factura PDF",
                     JOptionPane.YES_NO_OPTION,
                     JOptionPane.QUESTION_MESSAGE);
@@ -4680,11 +4852,11 @@ public class Sistema extends javax.swing.JFrame {
                         generarFacturaPDF(pagoCompleto);
                     } else {
                         JOptionPane.showMessageDialog(null,
-                                "⚠️ Error: No se pudieron obtener datos completos para la factura");
+                                "Error: No se pudieron obtener datos completos para la factura");
                     }
                 } else {
                     JOptionPane.showMessageDialog(null,
-                            "⚠️ Error: No se encontró el pago registrado");
+                            "Error: No se encontró el pago registrado");
                 }
             }
 
@@ -4693,8 +4865,8 @@ public class Sistema extends javax.swing.JFrame {
 
         } else {
             JOptionPane.showMessageDialog(null,
-                    "❌ Error al registrar el pago\n\n"
-                    + "Por favor, intente nuevamente o contacte al administrador",
+                    "Error al registrar el pago\n\n"
+                    + "Por favor, intente nuevamente o contacte al soporte",
                     "Error",
                     JOptionPane.ERROR_MESSAGE);
         }
@@ -6181,6 +6353,71 @@ public class Sistema extends javax.swing.JFrame {
         Grafico.GraficarLibrosMasPrestados();
     }//GEN-LAST:event_btnGraficarLibrosPrestamoActionPerformed
 
+    private void comboxGraficoMultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboxGraficoMultaActionPerformed
+         String seleccion = (String) comboxGraficoMulta.getSelectedItem();
+    
+    // Si selecciona "Multas por Periodo", mostrar campos de fecha
+    if (seleccion != null && seleccion.contains("Multas por Periodo")) {
+        txtFechaInicioGraficoMultas.setVisible(true);
+        txtFechaFinGraficoMultas.setVisible(true);
+         lblfechainicio.setVisible(true);
+          lblfechafin.setVisible(true);
+    } else {
+        // Ocultar campos de fecha para las demás opciones
+        txtFechaInicioGraficoMultas.setVisible(false);
+        txtFechaFinGraficoMultas.setVisible(false);
+        lblfechainicio.setVisible(false);
+          lblfechafin.setVisible(false);
+    }
+    }//GEN-LAST:event_comboxGraficoMultaActionPerformed
+
+    private void btnGenerarGraficoMultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarGraficoMultaActionPerformed
+
+
+    String seleccion = (String) comboxGraficoMulta.getSelectedItem();
+    
+    // Validar que se haya seleccionado una opción
+    if (seleccion == null || seleccion.startsWith("--")) {
+        JOptionPane.showMessageDialog(null, 
+            "️ Por favor, seleccione un tipo de gráfico",
+            "Selección requerida",
+            JOptionPane.WARNING_MESSAGE);
+        return;
+    }
+    
+    try {
+        // Generar el gráfico según la selección
+        if (seleccion.contains("Estado de Multas")) {
+            GraficoMultas.GraficarEstadoMultas();
+            
+        } else if (seleccion.contains("Usuarios con Más Multas")) {
+            GraficoMultas.GraficarUsuariosConMasMultas();
+            
+        } else if (seleccion.contains("Recaudación Mensual")) {
+            GraficoMultas.GraficarRecaudacionMensual();
+            
+        } else if (seleccion.contains("Multas por Periodo")) {
+            generarGraficoMultasPorPeriodo();
+            
+        } else if (seleccion.contains("Libros que Generan Más Multas")) {
+            GraficoMultas.GraficarLibrosConMasMultas();
+            
+        } else if (seleccion.contains("Distribución de Montos")) {
+            GraficoMultas.GraficarDistribucionMontos();
+            
+        } else if (seleccion.contains("Promedio de Días de Retraso")) {
+            GraficoMultas.GraficarPromedioDiasRetraso();
+        }
+        
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, 
+            "Error al generar el gráfico:\n\n" + e.getMessage(),
+            "Error",
+            JOptionPane.ERROR_MESSAGE);
+        e.printStackTrace();
+    }        // TODO add your handling code here:
+    }//GEN-LAST:event_btnGenerarGraficoMultaActionPerformed
+
     public void ListarUsuario() {
         LimpiarTable();
         List<Usuario> ListarUsuario = usuario.ListarUsuario();
@@ -6300,6 +6537,7 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JButton btnEliminarPrestamo;
     private javax.swing.JButton btnEliminarUsuario;
     private javax.swing.JButton btnGenerarFactura;
+    private javax.swing.JButton btnGenerarGraficoMulta;
     private javax.swing.JButton btnGraficarLibrosPrestamo;
     private javax.swing.JButton btnGraficarPrestamo;
     private javax.swing.JButton btnGuardarAutor;
@@ -6346,6 +6584,7 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cboxPaisEditorial;
     private javax.swing.JComboBox<String> cboxTipoLibro;
     private javax.swing.JComboBox<String> cboxTipoUsuario;
+    private javax.swing.JComboBox<String> comboxGraficoMulta;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton16;
     private javax.swing.JButton jButton17;
@@ -6486,6 +6725,7 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane10;
     private javax.swing.JScrollPane jScrollPane11;
     private javax.swing.JScrollPane jScrollPane12;
@@ -6502,6 +6742,8 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField14;
     private javax.swing.JTextField jTextField7;
     private javax.swing.JTextField jTextField8;
+    private javax.swing.JLabel lblfechafin;
+    private javax.swing.JLabel lblfechainicio;
     private javax.swing.JTable tableMultaspagadas;
     private javax.swing.JTextField txtAnioLibro;
     private javax.swing.JTextField txtApellidoAutor;
@@ -6518,6 +6760,8 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JTextField txtEdicionLibro;
     private javax.swing.JTextField txtEdicionPrestamo;
     private com.toedter.calendar.JDateChooser txtFechaDevolucion;
+    private com.toedter.calendar.JDateChooser txtFechaFinGraficoMultas;
+    private com.toedter.calendar.JDateChooser txtFechaInicioGraficoMultas;
     private javax.swing.JTextField txtIdAutor;
     private javax.swing.JTextField txtIdCategoria;
     private javax.swing.JTextField txtIdEditorial;

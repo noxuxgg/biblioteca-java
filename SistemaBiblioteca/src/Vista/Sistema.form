@@ -252,7 +252,7 @@
                               <Component id="jLabel10" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel9" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="8448" max="32767" attributes="0"/>
+                          <EmptySpace pref="8550" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel12" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -336,7 +336,7 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jPanel23" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="7587" max="32767" attributes="0"/>
+                          <EmptySpace pref="7699" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -694,7 +694,7 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jPanel31" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="7854" max="32767" attributes="0"/>
+                          <EmptySpace pref="7965" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -1295,7 +1295,7 @@
                               </Group>
                               <Component id="jLabel54" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="7932" max="32767" attributes="0"/>
+                          <EmptySpace pref="8046" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -1640,7 +1640,7 @@
                               </Group>
                               <Component id="jLabel75" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="7941" max="32767" attributes="0"/>
+                          <EmptySpace pref="8055" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -2151,7 +2151,7 @@
                                   </Group>
                               </Group>
                           </Group>
-                          <EmptySpace pref="7913" max="32767" attributes="0"/>
+                          <EmptySpace pref="8044" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -2593,16 +2593,20 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jLabel33" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="jPanel34" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Group type="102" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
                                   <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="436" max="-2" attributes="0"/>
                                   <Component id="jLabel13" min="-2" pref="116" max="-2" attributes="0"/>
                               </Group>
-                              <Component id="jLabel33" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="jPanel20" alignment="0" min="-2" pref="853" max="-2" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="jPanel20" min="-2" pref="853" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="112" max="-2" attributes="0"/>
+                                  <Component id="jPanel9" min="-2" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
-                          <EmptySpace pref="8306" max="32767" attributes="0"/>
+                          <EmptySpace pref="8075" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -2612,7 +2616,10 @@
                           <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
                           <Component id="jLabel33" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jPanel20" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Component id="jPanel20" min="-2" max="-2" attributes="0"/>
+                              <Component id="jPanel9" min="-2" max="-2" attributes="0"/>
+                          </Group>
                           <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -2667,9 +2674,9 @@
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                               <Component id="jScrollPane2" min="-2" pref="708" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="btnActulizarMultas" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="146" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="161" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -2788,22 +2795,10 @@
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
-                                      <Component id="jScrollPane13" min="-2" pref="473" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
-                                      <Component id="jScrollPane4" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace min="-2" pref="168" max="-2" attributes="0"/>
-                                      <Component id="jLabel8" min="-2" pref="111" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
-                                      <Component id="btnReporMultasPagadas" min="-2" pref="135" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="79" max="-2" attributes="0"/>
-                                      <Component id="btnReporMultasSinPagadas" min="-2" pref="127" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
+                              <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
+                              <Component id="jScrollPane13" min="-2" pref="473" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+                              <Component id="jScrollPane4" min="-2" max="-2" attributes="0"/>
                               <EmptySpace pref="41" max="32767" attributes="0"/>
                           </Group>
                       </Group>
@@ -2816,13 +2811,7 @@
                                   <Component id="jScrollPane4" min="-2" pref="133" max="-2" attributes="0"/>
                                   <Component id="jScrollPane13" min="-2" pref="133" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="btnReporMultasPagadas" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
-                                  <Component id="btnReporMultasSinPagadas" alignment="0" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace pref="22" max="32767" attributes="0"/>
+                              <EmptySpace pref="63" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -2915,27 +2904,6 @@
                         </Component>
                       </SubComponents>
                     </Container>
-                    <Component class="javax.swing.JButton" name="btnReporMultasPagadas">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="Multas pagadas"/>
-                      </Properties>
-                      <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnReporMultasPagadasActionPerformed"/>
-                      </Events>
-                    </Component>
-                    <Component class="javax.swing.JLabel" name="jLabel8">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="Generar reporte de:"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JButton" name="btnReporMultasSinPagadas">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="Multas sin pagar"/>
-                      </Properties>
-                      <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnReporMultasSinPagadasActionPerformed"/>
-                      </Events>
-                    </Component>
                   </SubComponents>
                 </Container>
                 <Component class="javax.swing.JLabel" name="jLabel7">
@@ -2948,6 +2916,153 @@
                     <Property name="text" type="java.lang.String" value="MULTAS SIN PAGAR"/>
                   </Properties>
                 </Component>
+                <Container class="javax.swing.JPanel" name="jPanel9">
+                  <Properties>
+                    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                    </Property>
+                  </Properties>
+
+                  <Layout>
+                    <DimensionLayout dim="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="comboxGraficoMulta" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
+                                      <Component id="btnGenerarGraficoMulta" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Component id="lblfechainicio" min="-2" pref="90" max="-2" attributes="0"/>
+                                              <EmptySpace min="-2" max="-2" attributes="0"/>
+                                              <Component id="txtFechaInicioGraficoMultas" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Component id="jLabel8" min="-2" pref="111" max="-2" attributes="0"/>
+                                                  <Component id="btnReporMultasPagadas" alignment="0" min="-2" pref="135" max="-2" attributes="0"/>
+                                              </Group>
+                                          </Group>
+                                      </Group>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="btnReporMultasSinPagadas" min="-2" pref="127" max="-2" attributes="0"/>
+                                          <Group type="102" attributes="0">
+                                              <Component id="lblfechafin" min="-2" pref="59" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="txtFechaFinGraficoMultas" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                  </Group>
+                              </Group>
+                              <EmptySpace pref="50" max="32767" attributes="0"/>
+                          </Group>
+                      </Group>
+                    </DimensionLayout>
+                    <DimensionLayout dim="1">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Component id="txtFechaFinGraficoMultas" alignment="1" min="-2" max="-2" attributes="0"/>
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <Group type="103" groupAlignment="1" attributes="0">
+                                          <Component id="comboxGraficoMulta" min="-2" max="-2" attributes="0"/>
+                                          <Component id="btnGenerarGraficoMulta" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="1" attributes="0">
+                                          <Group type="103" groupAlignment="3" attributes="0">
+                                              <Component id="lblfechainicio" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              <Component id="lblfechafin" alignment="1" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Component id="txtFechaInicioGraficoMultas" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                              </Group>
+                              <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
+                              <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="btnReporMultasPagadas" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="btnReporMultasSinPagadas" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace pref="33" max="32767" attributes="0"/>
+                          </Group>
+                      </Group>
+                    </DimensionLayout>
+                  </Layout>
+                  <SubComponents>
+                    <Component class="javax.swing.JComboBox" name="comboxGraficoMulta">
+                      <Properties>
+                        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                          <StringArray count="7">
+                            <StringItem index="0" value="seleccionar"/>
+                            <StringItem index="1" value="Estado de Multas"/>
+                            <StringItem index="2" value="Usuarios con M&#xe1;s Multa"/>
+                            <StringItem index="3" value="Recaudaci&#xf3;n Mensual"/>
+                            <StringItem index="4" value="Multa por Periodo"/>
+                            <StringItem index="5" value="Libros que Generan M&#xe1;s Multas"/>
+                            <StringItem index="6" value="Distribuci&#xf3;n de Montos"/>
+                          </StringArray>
+                        </Property>
+                      </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="comboxGraficoMultaActionPerformed"/>
+                      </Events>
+                      <AuxValues>
+                        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                      </AuxValues>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="lblfechainicio">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Fecha de inicio:"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="lblfechafin">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Fecha Fin:"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JButton" name="btnGenerarGraficoMulta">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Generar Grafico"/>
+                      </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnGenerarGraficoMultaActionPerformed"/>
+                      </Events>
+                    </Component>
+                    <Component class="com.toedter.calendar.JDateChooser" name="txtFechaInicioGraficoMultas">
+                    </Component>
+                    <Component class="com.toedter.calendar.JDateChooser" name="txtFechaFinGraficoMultas">
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="jLabel8">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Generar reporte de:"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JButton" name="btnReporMultasPagadas">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Multas pagadas"/>
+                      </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnReporMultasPagadasActionPerformed"/>
+                      </Events>
+                    </Component>
+                    <Component class="javax.swing.JButton" name="btnReporMultasSinPagadas">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Multas sin pagar"/>
+                      </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnReporMultasSinPagadasActionPerformed"/>
+                      </Events>
+                    </Component>
+                  </SubComponents>
+                </Container>
               </SubComponents>
             </Container>
             <Container class="javax.swing.JPanel" name="jPanel11">
@@ -3008,7 +3123,7 @@
                                   <Component id="jPanel21" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace min="987" pref="8451" max="32767" attributes="0"/>
+                          <EmptySpace min="987" pref="8564" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -3342,7 +3457,7 @@
                               <Component id="jButton19" min="-2" max="-2" attributes="0"/>
                               <Component id="jButton20" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="9073" max="32767" attributes="0"/>
+                          <EmptySpace pref="9185" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -3410,7 +3525,7 @@
                           </Group>
                           <EmptySpace min="-2" pref="121" max="-2" attributes="0"/>
                           <Component id="jScrollPane8" min="-2" pref="711" max="-2" attributes="0"/>
-                          <EmptySpace pref="8083" max="32767" attributes="0"/>
+                          <EmptySpace pref="8197" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -3575,7 +3690,7 @@
                           </Group>
                           <EmptySpace min="-2" pref="79" max="-2" attributes="0"/>
                           <Component id="jScrollPane9" min="-2" pref="685" max="-2" attributes="0"/>
-                          <EmptySpace pref="8057" max="32767" attributes="0"/>
+                          <EmptySpace pref="8171" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -3750,7 +3865,7 @@
                           </Group>
                           <EmptySpace min="-2" pref="72" max="-2" attributes="0"/>
                           <Component id="jScrollPane10" min="-2" pref="637" max="-2" attributes="0"/>
-                          <EmptySpace pref="8186" max="32767" attributes="0"/>
+                          <EmptySpace pref="8300" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -3952,7 +4067,7 @@
                           </Group>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
-                                  <EmptySpace pref="296" max="32767" attributes="0"/>
+                                  <EmptySpace pref="411" max="32767" attributes="0"/>
                                   <Component id="jLabel99" min="-2" pref="57" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                                   <Component id="cboxEFiltroUsuario" min="-2" pref="110" max="-2" attributes="0"/>
