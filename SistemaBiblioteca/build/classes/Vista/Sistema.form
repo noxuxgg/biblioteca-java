@@ -32,6 +32,13 @@
         </DimensionLayout>
       </Layout>
     </Container>
+    <Component class="com.raven.swing.TimePicker" name="objectoHora">
+      <Properties>
+        <Property name="displayText" type="javax.swing.JTextField" editor="org.netbeans.modules.form.ComponentChooserEditor">
+          <ComponentRef name="txtHoraPrestamo"/>
+        </Property>
+      </Properties>
+    </Component>
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
@@ -2095,6 +2102,11 @@
                                               <Component id="txtStockPrestamo" max="32767" attributes="0"/>
                                               <Component id="txtEdicionPrestamo" min="-2" pref="131" max="-2" attributes="0"/>
                                           </Group>
+                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="txtHoraPrestamo" min="-2" pref="84" max="-2" attributes="0"/>
+                                              <Component id="btnHoraPrestamo" min="-2" pref="158" max="-2" attributes="0"/>
+                                          </Group>
                                       </Group>
                                       <Group type="102" alignment="0" attributes="0">
                                           <Group type="103" groupAlignment="0" attributes="0">
@@ -2151,7 +2163,7 @@
                                   </Group>
                               </Group>
                           </Group>
-                          <EmptySpace pref="8044" max="32767" attributes="0"/>
+                          <EmptySpace pref="8071" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -2224,6 +2236,7 @@
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="jLabel94" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="txtEdicionPrestamo" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="txtHoraPrestamo" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" alignment="0" attributes="0">
@@ -2232,7 +2245,10 @@
                                       </Group>
                                       <Group type="102" alignment="0" attributes="0">
                                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                                          <Component id="txtStockPrestamo" min="-2" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="3" attributes="0">
+                                              <Component id="txtStockPrestamo" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              <Component id="btnHoraPrestamo" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          </Group>
                                       </Group>
                                   </Group>
                                   <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
@@ -2575,6 +2591,16 @@
                 <Component class="com.toedter.calendar.JDateChooser" name="txtRangoInferiorFechaGrafico">
                 </Component>
                 <Component class="com.toedter.calendar.JDateChooser" name="txtRangoSuperiorFechaGrafico">
+                </Component>
+                <Component class="javax.swing.JTextField" name="txtHoraPrestamo">
+                </Component>
+                <Component class="javax.swing.JButton" name="btnHoraPrestamo">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Seleccionar Hora"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnHoraPrestamoActionPerformed"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -2976,9 +3002,9 @@
                                       </Group>
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="1" attributes="0">
-                                          <Group type="103" groupAlignment="3" attributes="0">
-                                              <Component id="lblfechainicio" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
                                               <Component id="lblfechafin" alignment="1" min="-2" max="-2" attributes="0"/>
+                                              <Component id="lblfechainicio" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                           <Component id="txtFechaInicioGraficoMultas" min="-2" max="-2" attributes="0"/>
                                       </Group>

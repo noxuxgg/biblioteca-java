@@ -164,6 +164,8 @@ public class Sistema extends javax.swing.JFrame {
         txtFechaDevolucion.getDateEditor().setEnabled(false);
         txtRangoInferiorFechaGrafico.getDateEditor().setEnabled(false);
         txtRangoSuperiorFechaGrafico.getDateEditor().setEnabled(false);
+        txtHoraPrestamo.setEditable(false);
+        objectoHora.set24hourMode(true);
         List<String> TitulosLibros = new ArrayList();
         TitulosLibros = obtenerListaTitulos();
         String[] arrayTitulos = TitulosLibros.toArray(new String[0]);
@@ -896,6 +898,7 @@ private void generarGraficoMultasPorPeriodo() {
 
         jPanel15 = new javax.swing.JPanel();
         jPanel19 = new javax.swing.JPanel();
+        objectoHora = new com.raven.swing.TimePicker();
         jLabel2 = new javax.swing.JLabel();
         jLabelBiblioteca = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
@@ -1056,6 +1059,8 @@ private void generarGraficoMultasPorPeriodo() {
         jLabel19 = new javax.swing.JLabel();
         txtRangoInferiorFechaGrafico = new com.toedter.calendar.JDateChooser();
         txtRangoSuperiorFechaGrafico = new com.toedter.calendar.JDateChooser();
+        txtHoraPrestamo = new javax.swing.JTextField();
+        btnHoraPrestamo = new javax.swing.JButton();
         jPanel10 = new javax.swing.JPanel();
         jLabel33 = new javax.swing.JLabel();
         jPanel20 = new javax.swing.JPanel();
@@ -1205,6 +1210,8 @@ private void generarGraficoMultasPorPeriodo() {
             jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 100, Short.MAX_VALUE)
         );
+
+        objectoHora.setDisplayText(txtHoraPrestamo);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -2542,6 +2549,13 @@ private void generarGraficoMultasPorPeriodo() {
 
         jLabel19.setText("Rango de fechas:");
 
+        btnHoraPrestamo.setText("Seleccionar Hora");
+        btnHoraPrestamo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHoraPrestamoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
@@ -2601,7 +2615,11 @@ private void generarGraficoMultasPorPeriodo() {
                                 .addGap(48, 48, 48)
                                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(txtStockPrestamo)
-                                    .addComponent(txtEdicionPrestamo, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(txtEdicionPrestamo, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtHoraPrestamo, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnHoraPrestamo, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(jPanel8Layout.createSequentialGroup()
                                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel92)
@@ -2641,7 +2659,7 @@ private void generarGraficoMultasPorPeriodo() {
                                 .addComponent(btnPrestamosPDF)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btnDevolucionPrestamo)))))
-                .addContainerGap(8044, Short.MAX_VALUE))
+                .addContainerGap(8071, Short.MAX_VALUE))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2697,14 +2715,17 @@ private void generarGraficoMultasPorPeriodo() {
                         .addGap(18, 18, 18)
                         .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel94)
-                            .addComponent(txtEdicionPrestamo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtEdicionPrestamo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtHoraPrestamo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel8Layout.createSequentialGroup()
                                 .addGap(28, 28, 28)
                                 .addComponent(jLabel95))
                             .addGroup(jPanel8Layout.createSequentialGroup()
                                 .addGap(18, 18, 18)
-                                .addComponent(txtStockPrestamo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(txtStockPrestamo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnHoraPrestamo))))
                         .addGap(14, 14, 14)
                         .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel8Layout.createSequentialGroup()
@@ -2975,9 +2996,9 @@ private void generarGraficoMultasPorPeriodo() {
                             .addComponent(btnGenerarGraficoMulta))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(lblfechainicio)
-                                .addComponent(lblfechafin))
+                            .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(lblfechafin, javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(lblfechainicio))
                             .addComponent(txtFechaInicioGraficoMultas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(43, 43, 43)
                 .addComponent(jLabel8)
@@ -5208,7 +5229,7 @@ private void generarGraficoMultasPorPeriodo() {
                     Date fechaDev = txtFechaDevolucion.getDate();
                     String fechaDevolucionFormateada = sdf.format(fechaDev);
                      */
-
+/*AQUI COMIENZA EL COMENTARIO
                     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
                     // Obtener fecha del JDateChooser y hora actual
@@ -5228,6 +5249,35 @@ private void generarGraficoMultasPorPeriodo() {
                     calSeleccionada.set(Calendar.SECOND, calHoraActual.get(Calendar.SECOND));
 
                     String fechaDevolucionFormateada = sdf.format(calSeleccionada.getTime());
+                    COMENTARIO HECHO EL 19 DE NOVIEMBRE DEL 2025 PARA IMPLEMENTAR HORA
+                    */ 
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+                    // Obtener fecha del JDateChooser
+                    Date fechaSeleccionada = txtFechaDevolucion.getDate();
+
+                    // Obtener hora del txtHoraPrestamo
+                    String horaSeleccionada = txtHoraPrestamo.getText().trim();
+
+                    // Combinar fecha seleccionada con hora del textfield
+                    Calendar calendario = Calendar.getInstance();
+                    calendario.setTime(fechaSeleccionada);
+
+                    // Parsear la hora del textfield (formato HH:mm o HH:mm:ss)
+                    if (!horaSeleccionada.isEmpty()) {
+                        String[] partesHora = horaSeleccionada.split(":");
+                        if (partesHora.length >= 2) {
+                            int hora = Integer.parseInt(partesHora[0]);
+                            int minuto = Integer.parseInt(partesHora[1]);
+                            int segundo = partesHora.length > 2 ? Integer.parseInt(partesHora[2]) : 0;
+
+                            calendario.set(Calendar.HOUR_OF_DAY, hora);
+                            calendario.set(Calendar.MINUTE, minuto);
+                            calendario.set(Calendar.SECOND, segundo);
+                        }
+                    }
+
+                    String fechaDevolucionFormateada = sdf.format(calendario.getTime());
                     pre.setId_usuario(Integer.parseInt(txtidUsuarioPrestamo.getText()));
                     pre.setId_libro(Integer.parseInt(txtidLibroPrestamo.getText()));
                     pre.setFecha_devolucion(fechaDevolucionFormateada);
@@ -6418,6 +6468,11 @@ private void generarGraficoMultasPorPeriodo() {
     }        // TODO add your handling code here:
     }//GEN-LAST:event_btnGenerarGraficoMultaActionPerformed
 
+    private void btnHoraPrestamoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHoraPrestamoActionPerformed
+        // TODO add your handling code here:
+        objectoHora.showPopup(this, 100, 100);
+    }//GEN-LAST:event_btnHoraPrestamoActionPerformed
+
     public void ListarUsuario() {
         LimpiarTable();
         List<Usuario> ListarUsuario = usuario.ListarUsuario();
@@ -6548,6 +6603,7 @@ private void generarGraficoMultasPorPeriodo() {
     private javax.swing.JButton btnGuardarPais;
     private javax.swing.JButton btnGuardarPrestamo;
     private javax.swing.JButton btnGuardarUsuario;
+    private javax.swing.JButton btnHoraPrestamo;
     private javax.swing.JButton btnInicio;
     private javax.swing.JButton btnMasPrestadoLibro2;
     private javax.swing.JButton btnMultas;
@@ -6744,6 +6800,7 @@ private void generarGraficoMultasPorPeriodo() {
     private javax.swing.JTextField jTextField8;
     private javax.swing.JLabel lblfechafin;
     private javax.swing.JLabel lblfechainicio;
+    private com.raven.swing.TimePicker objectoHora;
     private javax.swing.JTable tableMultaspagadas;
     private javax.swing.JTextField txtAnioLibro;
     private javax.swing.JTextField txtApellidoAutor;
@@ -6762,6 +6819,7 @@ private void generarGraficoMultasPorPeriodo() {
     private com.toedter.calendar.JDateChooser txtFechaDevolucion;
     private com.toedter.calendar.JDateChooser txtFechaFinGraficoMultas;
     private com.toedter.calendar.JDateChooser txtFechaInicioGraficoMultas;
+    private javax.swing.JTextField txtHoraPrestamo;
     private javax.swing.JTextField txtIdAutor;
     private javax.swing.JTextField txtIdCategoria;
     private javax.swing.JTextField txtIdEditorial;
