@@ -52,15 +52,14 @@ public class UsuarioDAO {
             ps.setInt(11, us.getId_estado_prestamo());
             ps.execute();
             return true;
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al registrar usuario: " + e.toString());
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null,
+                "ERROR en UsuarioDAO -> RegistrarUsuario\n" +
+                "Mensaje SQL: " + e.getMessage(),
+                "Error SQL",
+                JOptionPane.ERROR_MESSAGE
+            );
             return false;
-        } finally {
-            try {
-                con.close();
-            } catch (SQLException e) {
-                System.out.println("Error al cerrar conexión: " + e.toString());
-            }
         }
     }
     
@@ -170,8 +169,14 @@ public class UsuarioDAO {
                 tipoUsuario.addItem(rs.getString("Tipo_usuario"));
             }
         } catch (SQLException e) {
-            System.out.println("Error al consultar tipo usuario: " + e.toString());
-        } finally {
+            JOptionPane.showMessageDialog(null,
+                "ERROR en UsuarioDAO -> ConsultarTipoUsuario\n" +
+                "Mensaje SQL: " + e.getMessage(),
+                "Error SQL",
+                JOptionPane.ERROR_MESSAGE
+            );
+        }
+        finally {
             try {
                 if (con != null) con.close();
             } catch (SQLException e) {
@@ -377,7 +382,12 @@ public class UsuarioDAO {
                 u.setApellido(rs.getString("Apellido"));
             }
         } catch (SQLException e) {
-            System.out.println("Error al buscar usuario: " + e.toString());
+            JOptionPane.showMessageDialog(null,
+                "ERROR en UsuarioDAO -> BuscarUsuario\n" +
+                "Mensaje SQL: " + e.getMessage(),
+                "Error SQL",
+                JOptionPane.ERROR_MESSAGE
+            );
         } finally {
             try { con.close(); } catch (SQLException e) {}
         }
@@ -390,30 +400,40 @@ public class UsuarioDAO {
     // Acepta:
     // - 7 u 8 dígitos solos
     // - 7 u 8 dígitos seguidos de opcional espacio/guion y un sufijo tipo "A1"
-    return carnet != null && carnet.matches(
+    return noVacio(carnet) && carnet.matches(
             "^\\d{7,8}(\\s*-?\\s*[A-Za-z0-9]{1,3})?$"
     );
 }
 
     public boolean validarNombre(String nombre) {
-        // Solo letras (incluyendo acentos y ñ) y espacios
-        return nombre != null && nombre.matches("^[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]+$");
+        return noVacio(nombre)
+            && nombre.length() <= 50
+            && nombre.matches("^[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]+$");
     }
+
     
     public boolean validarApellido(String apellido) {
-        // Solo letras (incluyendo acentos y ñ) y espacios
-        return apellido != null && apellido.matches("^[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]+$");
+        return noVacio(apellido)
+            && apellido.length() <= 50
+            && apellido.matches("^[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]+$");
     }
+
     
     public boolean validarTelefono(String telefono) {
         // Empieza con 6 o 7, y exactamente 8 dígitos
-        return telefono != null && telefono.matches("^[67]\\d{7}$");
+        return noVacio(telefono) && telefono.matches("^[67]\\d{7}$");
     }
     
     public boolean validarDomicilio(String domicilio) {
-        // Letras, números, espacios y caracteres especiales comunes en direcciones
-        return domicilio != null && domicilio.matches("^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ\\s#.,-°]+$");
+        return noVacio(domicilio) 
+            && domicilio.length() <= 150
+            && domicilio.matches("^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ\\s#.,-°]+$");
     }
+
+    private boolean noVacio(String texto) {
+        return texto != null && !texto.trim().isEmpty();
+    }
+
     //LLAMADA A VALIDACIONES
     public String validarUsuarioCompleto(Usuario us) {
         StringBuilder errores = new StringBuilder();
@@ -423,19 +443,19 @@ public class UsuarioDAO {
         }
         
         if (!validarNombre(us.getNombre())) {
-            errores.append("- Nombre solo puede contener letras\n");
+            errores.append("- Nombre solo puede contener letras y tener máximo 50 caracteres\n");
         }
-        
+
         if (!validarApellido(us.getApellido())) {
-            errores.append("- Apellido solo puede contener letras\n");
+            errores.append("- Apellido solo puede contener letras y tener máximo 50 caracteres\n");
+        }
+
+        if (!validarDomicilio(us.getDomicilio())) {
+            errores.append("- Domicilio inválido o demasiado largo (máximo 150 caracteres)\n");
         }
         
         if (!validarTelefono(us.getTelefono())) {
             errores.append("- Teléfono debe empezar con 6 o 7 y tener 8 dígitos\n");
-        }
-        
-        if (!validarDomicilio(us.getDomicilio())) {
-            errores.append("- Domicilio contiene caracteres no válidos\n");
         }
         
         return errores.toString();

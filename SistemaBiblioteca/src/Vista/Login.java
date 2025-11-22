@@ -7,13 +7,17 @@ package Vista;
 import Modelo.LoginDAO;
 import Modelo.login;
 import javax.swing.JOptionPane;
+import java.awt.Graphics;
+import java.awt.Image;
+import javax.swing.ImageIcon;
+import javax.swing.JPanel;
 
 /**
  *
  * @author Henry Quispe
  */
 public class Login extends javax.swing.JFrame {
-    
+    private int intentosFallidos = 0;
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Login.class.getName());
     
     login lg = new login();
@@ -27,27 +31,60 @@ public class Login extends javax.swing.JFrame {
     public Login() {
         initComponents();
         this.setLocationRelativeTo(null);
+        limpiarCampos();
     }
     
+    public void limpiarCampos() {
+        txtUsuario.setText("");
+        txtCorreo.setText("");
+        txtPassword.setText("");
+        intentosFallidos = 0;
+    }
     
-    public void validar(){
+    public void validar() {
         String nombre = txtUsuario.getText();
         String correo = txtCorreo.getText();
         String password = String.valueOf(txtPassword.getPassword());
-        if(!"".equals(correo) || !"".equals(password)){
+
+        if (!"".equals(correo) && !"".equals(password)) {
             lg = login.log(nombre, correo, password);
-            if(lg.getNombre()!=null && lg.getCorreo()!=null && lg.getPassword()!=null){
+            if (lg.getNombre() != null && lg.getCorreo() != null && lg.getPassword() != null) {
                 Sistema sis = new Sistema(lg);
                 sis.setVisible(true);
                 dispose();
+            } else {
+                intentosFallidos++;
+                if (intentosFallidos >= 3) {
+                    JOptionPane.showMessageDialog(null, "Has excedido el número máximo de intentos. Volviendo a la pantalla de inicio.");
+                    this.dispose();
+                    // Abrir splashscreen
+                    SplashScreen splash = new SplashScreen();
+                    splash.setVisible(true);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Las credenciales son incorrectas. Intento " + intentosFallidos + " de 3.");
+                }
             }
-            else{
-                JOptionPane.showMessageDialog(null, "Las credenciales son incorrectas");
-            }
-        }else{
+        } else {
             JOptionPane.showMessageDialog(null, "Los campos son obligatorios");
         }
     }
+    
+   public class FondoPanel extends JPanel {
+        private Image imagen;
+
+        public FondoPanel(String rutaImagen) {
+            // Carga la imagen desde la ruta o recurso
+            imagen = new ImageIcon(getClass().getResource(rutaImagen)).getImage();
+        }
+
+        @Override
+        protected void paintComponent(Graphics g) {
+            super.paintComponent(g);
+            // Dibuja la imagen escalada al tamaño del panel
+            g.drawImage(imagen, 0, 0, getWidth(), getHeight(), this);
+        }
+    }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -71,12 +108,17 @@ public class Login extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBackground(new java.awt.Color(255, 0, 51));
+        jPanel1.setForeground(new java.awt.Color(0, 0, 204));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/1077063.png"))); // NOI18N
 
+        jLabel2.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("USUARIO");
 
+        jLabel3.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("CONTRASEÑA");
 
         txtPassword.addActionListener(new java.awt.event.ActionListener() {
@@ -85,8 +127,13 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
+        jLabel4.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("CORREO");
 
+        jButton1.setBackground(new java.awt.Color(0, 0, 204));
+        jButton1.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("INICIAR SESION");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -101,6 +148,7 @@ public class Login extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(376, 376, 376)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
                     .addComponent(jLabel4)
                     .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -109,12 +157,8 @@ public class Login extends javax.swing.JFrame {
                         .addComponent(txtUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 187, Short.MAX_VALUE)
                         .addComponent(txtPassword)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                    .addGap(6, 6, 6)
-                                    .addComponent(jButton1)
-                                    .addGap(15, 15, 15))
-                                .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING))
+                            .addGap(33, 33, 33)
+                            .addComponent(jLabel1)
                             .addGap(25, 25, 25))))
                 .addContainerGap(347, Short.MAX_VALUE))
         );
@@ -137,7 +181,7 @@ public class Login extends javax.swing.JFrame {
                 .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(40, 40, 40)
                 .addComponent(jButton1)
-                .addContainerGap(413, Short.MAX_VALUE))
+                .addContainerGap(405, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 910, 850));

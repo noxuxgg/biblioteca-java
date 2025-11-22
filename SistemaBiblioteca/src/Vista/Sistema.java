@@ -7029,7 +7029,15 @@ private void generarGraficoMultasPorPeriodo() {
     }
 //auxiliar para filtrar
     private void actualizarComboValorUsuario() {
-        String filtro = cboxEFiltroUsuario.getSelectedItem().toString();
+        Object seleccionado = cboxEFiltroUsuario.getSelectedItem();
+
+        if (seleccionado == null) {
+            // Puede ser mostrar mensaje o simplemente salir
+            System.out.println("No hay ningún filtro seleccionado.");
+            return; // salir para evitar error
+        }
+
+        String filtro = seleccionado.toString();
 
         // Limpiar el combo antes de llenarlo
         cboxFiltroValorUsuario.removeAllItems();
@@ -7052,6 +7060,7 @@ private void generarGraficoMultasPorPeriodo() {
                 break;
         }
     }
+
 
     private void pdfLibrosOtro() {
         try {
