@@ -174,11 +174,18 @@ public class Sistema extends javax.swing.JFrame {
         //txtTituloPrestamo.getCaret().setSelectionVisible(false);
 
         // Llenar los valores iniciales según el filtro seleccionado
-        actualizarComboValorUsuario();
         listarTodasLasMultas();    // Tabla principal de multas
         listarMultasPagadasEnTabla();     // Tabla de pagadas
         listarMultasSinPagar();    // Tabla de sin pagar
    // Llenar los valores iniciales según el filtro seleccionado
+        cboxEFiltroUsuario.addItem("Tipo Usuario");
+        cboxEFiltroUsuario.addItem("Cargo");
+        cboxEFiltroUsuario.addItem("Carrera");
+        cboxEFiltroUsuario.addItem("Estado Préstamo");
+        cboxEFiltroUsuario.addItem("Sin filtro");
+        cboxEFiltroUsuario.setSelectedIndex(0); // Selecciona la primera opción
+
+        // Llenar los valores iniciales según el filtro seleccionado
         actualizarComboValorUsuario();
         //privilegios
         inicializarComboGraficosMultas();
@@ -4143,36 +4150,36 @@ private void generarGraficoMultasPorPeriodo() {
         /*if (evt.getStateChange() == java.awt.event.ItemEvent.SELECTED) {
             actualizarComboValorUsuario(); // método que llena cboxFiltroValorUsuario
         }*/
-        if (evt.getStateChange() == java.awt.event.ItemEvent.SELECTED) {
-            String filtroSeleccionado = cboxEFiltroUsuario.getSelectedItem().toString();
+            if (evt.getStateChange() == java.awt.event.ItemEvent.SELECTED) {
+                String filtroSeleccionado = cboxEFiltroUsuario.getSelectedItem().toString();
 
-            // Limpiar ComboBox de valores
-            cboxFiltroValorUsuario.removeAllItems();
+                // Limpiar ComboBox de valores
+                cboxFiltroValorUsuario.removeAllItems();
 
-            if (filtroSeleccionado.equals("Sin filtro")) {
-                // Si es Sin filtro, no ponemos valores y deshabilitamos el ComboBox
-                cboxFiltroValorUsuario.setEnabled(false);
-            } else {
-                // Habilitamos el ComboBox de valores
-                cboxFiltroValorUsuario.setEnabled(true);
+                if(filtroSeleccionado.equals("Sin filtro")){
+                    // Si es Sin filtro, no ponemos valores y deshabilitamos el ComboBox
+                    cboxFiltroValorUsuario.setEnabled(false);
+                } else {
+                    // Habilitamos el ComboBox de valores
+                    cboxFiltroValorUsuario.setEnabled(true);
 
-                // Llenar los valores según el filtro
-                switch (filtroSeleccionado) {
-                    case "Tipo Usuario":
-                        usuario.ConsultarTipoUsuario(cboxFiltroValorUsuario);
-                        break;
-                    case "Cargo":
-                        usuario.ConsultarCargo(cboxFiltroValorUsuario);
-                        break;
-                    case "Carrera":
-                        usuario.ConsultarCarreras(cboxFiltroValorUsuario);
-                        break;
-                    case "Estado Préstamo":
-                        usuario.ConsultarEstadoUsuario(cboxFiltroValorUsuario);
-                        break;
+                    // Llenar los valores según el filtro
+                    switch(filtroSeleccionado){
+                        case "Tipo Usuario":
+                            usuario.ConsultarTipoUsuario(cboxFiltroValorUsuario);
+                            break;
+                        case "Cargo":
+                            usuario.ConsultarCargo(cboxFiltroValorUsuario);
+                            break;
+                        case "Carrera":
+                            usuario.ConsultarCarreras(cboxFiltroValorUsuario);
+                            break;
+                        case "Estado Préstamo":
+                            usuario.ConsultarEstadoUsuario(cboxFiltroValorUsuario);
+                            break;
+                    }
                 }
             }
-        }
     }//GEN-LAST:event_cboxEFiltroUsuarioItemStateChanged
 
     private void btnAplicarFiltroUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAplicarFiltroUsuarioActionPerformed
@@ -4207,14 +4214,14 @@ private void generarGraficoMultasPorPeriodo() {
         } else {
             JOptionPane.showMessageDialog(this, "Seleccione un filtro y un valor.");
         }*/
-        LimpiarTable(); // Limpiamos la tabla antes de mostrar
+         LimpiarTable(); // Limpiamos la tabla antes de mostrar
 
         String filtro = cboxEFiltroUsuario.getSelectedItem() != null ? cboxEFiltroUsuario.getSelectedItem().toString() : "";
         String valor = cboxFiltroValorUsuario.getSelectedItem() != null ? cboxFiltroValorUsuario.getSelectedItem().toString() : "";
 
         List<Usuario> lista;
 
-        if (filtro.equals("Sin filtro")) {
+        if(filtro.equals("Sin filtro")){
             lista = usuario.ListarUsuario(); // Todos los usuarios activos
         } else {
             lista = usuario.listarPorFiltro(filtro, valor); // Aplicar filtro específico
@@ -4224,8 +4231,8 @@ private void generarGraficoMultasPorPeriodo() {
 
         for (Usuario u : lista) {
             model.addRow(new Object[]{u.getId_usuario(), u.getCarnet(), u.getNombre(), u.getApellido(), u.getDomicilio(),
-                u.getTipoUsuarioNombre(), u.getTelefono(), u.getCargoNombre(), u.getCarreraNombre(),
-                u.getEstadoPrestamo()});
+                                      u.getTipoUsuarioNombre(), u.getTelefono(), u.getCargoNombre(), u.getCarreraNombre(),
+                                      u.getEstadoPrestamo()});
         }
     }//GEN-LAST:event_btnAplicarFiltroUsuarioActionPerformed
 
@@ -7021,17 +7028,13 @@ private void generarGraficoMultasPorPeriodo() {
         }
     }
 //auxiliar para filtrar
-
     private void actualizarComboValorUsuario() {
-        Object item = cboxEFiltroUsuario.getSelectedItem();
-        if (item == null) {
-            return; // evita el error
-        }
-        String filtro = item.toString();
+        String filtro = cboxEFiltroUsuario.getSelectedItem().toString();
+
         // Limpiar el combo antes de llenarlo
         cboxFiltroValorUsuario.removeAllItems();
 
-        switch (filtro) {
+        switch(filtro) {
             case "Tipo Usuario":
                 usuario.ConsultarTipoUsuario(cboxFiltroValorUsuario);
                 break;
