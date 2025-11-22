@@ -17,22 +17,34 @@ import javax.swing.JPanel;
  * @author Henry Quispe
  */
 public class Login extends javax.swing.JFrame {
+    
+   // FondoPanel fondo = new FondoPanel();
+    
     private int intentosFallidos = 0;
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Login.class.getName());
     
     login lg = new login();
     LoginDAO login = new LoginDAO();
-    /**
-     * Creates new form Login
-     */
     
-    
-    
-    public Login() {
+    /*public Login() {
+        jPanel1 = new FondoPanel();
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 910, 850));
+
+        //this.setContentPane(fondo);
         initComponents();
         this.setLocationRelativeTo(null);
         limpiarCampos();
+    }*/
+    
+    public Login() {
+        initComponents();  // Primero inicializa todos los componentes y layout
+        jPanel1 = new FondoPanel();  // Crea tu panel personalizado
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 910, 850));
+
+        this.setLocationRelativeTo(null);
+        limpiarCampos();
     }
+
     
     public void limpiarCampos() {
         txtUsuario.setText("");
@@ -68,24 +80,7 @@ public class Login extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Los campos son obligatorios");
         }
     }
-    
-   public class FondoPanel extends JPanel {
-        private Image imagen;
-
-        public FondoPanel(String rutaImagen) {
-            // Carga la imagen desde la ruta o recurso
-            imagen = new ImageIcon(getClass().getResource(rutaImagen)).getImage();
-        }
-
-        @Override
-        protected void paintComponent(Graphics g) {
-            super.paintComponent(g);
-            // Dibuja la imagen escalada al tamaño del panel
-            g.drawImage(imagen, 0, 0, getWidth(), getHeight(), this);
-        }
-    }
-
-
+   
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -108,7 +103,7 @@ public class Login extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setBackground(new java.awt.Color(255, 0, 51));
+        jPanel1.setBackground(new java.awt.Color(204, 0, 0));
         jPanel1.setForeground(new java.awt.Color(0, 0, 204));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/1077063.png"))); // NOI18N
@@ -223,6 +218,22 @@ public class Login extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(() -> new Login().setVisible(true));
     }
 
+    class FondoPanel extends JPanel {
+        private Image imagen;
+
+        public FondoPanel() {
+            imagen = new ImageIcon(getClass().getResource("/Img/imagenDeInicio.jpg")).getImage();
+        }
+
+        @Override
+        protected void paintComponent(Graphics g) {
+            super.paintComponent(g);
+            g.drawImage(imagen, 0, 0, getWidth(), getHeight(), this);
+        }
+    }
+
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
@@ -234,4 +245,6 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JPasswordField txtPassword;
     private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
+    
+    
 }
