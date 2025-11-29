@@ -43,11 +43,17 @@ public class MateriaDAO {
             return false;
         } finally {
             try {
-                con.close();
+                if (ps != null) {
+                    ps.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
             } catch (SQLException e) {
-                System.out.println(e.toString());
+                e.printStackTrace();
             }
         }
+
     }
 
     public List ListarMateria() {
@@ -66,7 +72,19 @@ public class MateriaDAO {
             }
         } catch (SQLException e) {
             System.out.println("Error" + e.toString());
+        } finally {
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
+
         return ListaMa;
     }
 
@@ -82,11 +100,17 @@ public class MateriaDAO {
             return false;
         } finally {
             try {
-                con.close();
-            } catch (Exception e) {
-                System.out.println(e.toString());
+                if (ps != null) {
+                    ps.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
         }
+
     }
 
     public boolean ModificarMateria(Materia ma) {
@@ -109,11 +133,17 @@ public class MateriaDAO {
             return false;
         } finally {
             try {
-                con.close();
+                if (ps != null) {
+                    ps.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
             } catch (SQLException e) {
-                System.out.println(e.toString());
+                e.printStackTrace();
             }
         }
+
     }
 
     public boolean validarNombre(String nombre) {
@@ -129,7 +159,7 @@ public class MateriaDAO {
         }
         return sigla.matches("^[A-Z]{3}-\\d{4}$");
     }
-    
+
     public String validarMateriaCompleto(Materia ma) {
         StringBuilder errores = new StringBuilder();
         if (!validarNombre(ma.getNombre())) {
@@ -140,7 +170,7 @@ public class MateriaDAO {
         }
         return errores.toString();
     }
-    
+
     public boolean existeMateria(String siglaMateria) {
         String sql = "SELECT sigla FROM materia WHERE estado = 1 AND sigla = ?";
         String nombre = "";
@@ -161,11 +191,17 @@ public class MateriaDAO {
             return false;
         } finally {
             try {
-                con.close();
+                if (ps != null) {
+                    ps.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
             } catch (SQLException e) {
-                System.out.println(e.toString());
+                e.printStackTrace();
             }
         }
+
         return false;
     }
 

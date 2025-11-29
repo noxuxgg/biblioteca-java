@@ -42,11 +42,17 @@ public class CategoriaDAO {
             return false;
         } finally {
             try {
-                con.close();
+                if (ps != null) {
+                    ps.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
             } catch (SQLException e) {
-                System.out.println(e.toString());
+                e.printStackTrace();
             }
         }
+
     }
 
     public List ListarCategoria() {
@@ -64,7 +70,19 @@ public class CategoriaDAO {
             }
         } catch (SQLException e) {
             System.out.println("Error" + e.toString());
+        } finally {
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
+
         return ListaCa;
     }
 
@@ -80,11 +98,17 @@ public class CategoriaDAO {
             return false;
         } finally {
             try {
-                con.close();
-            } catch (Exception e) {
-                System.out.println(e.toString());
+                if (ps != null) {
+                    ps.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
         }
+
     }
 
     public boolean ModificarCategoria(Categoria ca) {
@@ -106,11 +130,17 @@ public class CategoriaDAO {
             return false;
         } finally {
             try {
-                con.close();
+                if (ps != null) {
+                    ps.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
             } catch (SQLException e) {
-                System.out.println(e.toString());
+                e.printStackTrace();
             }
         }
+
     }
 
     public boolean validarNombre(String nombre) {

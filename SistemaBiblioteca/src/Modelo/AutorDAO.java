@@ -45,11 +45,17 @@ public class AutorDAO {
             return false;
         } finally {
             try {
-                con.close();
+                if (ps != null) {
+                    ps.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
             } catch (SQLException e) {
-                System.out.println(e.toString());
+                e.printStackTrace();
             }
         }
+
     }
 
     public int ObtenerIdPais(String nombrePais) {
@@ -69,11 +75,17 @@ public class AutorDAO {
             return -1;
         } finally {
             try {
-                con.close();
+                if (ps != null) {
+                    ps.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
             } catch (SQLException e) {
-                System.out.println(e.toString());
+                e.printStackTrace();
             }
         }
+
     }
 
     public void ConsultarPais(JComboBox pais) {
@@ -87,7 +99,19 @@ public class AutorDAO {
             }
         } catch (SQLException e) {
             System.out.println(e.toString());;
+        } finally {
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
+
     }
 
     public List ListarAutor() {
@@ -107,7 +131,19 @@ public class AutorDAO {
             }
         } catch (SQLException e) {
             System.out.println("Error" + e.toString());
+        } finally {
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
+
         return ListaAu;
     }
 
@@ -124,11 +160,17 @@ public class AutorDAO {
             return false;
         } finally {
             try {
-                con.close();
-            } catch (Exception e) {
-                System.out.println(e.toString());
+                if (ps != null) {
+                    ps.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
         }
+
     }
 
     public boolean ModificarAutor(Autor au) {
@@ -152,11 +194,17 @@ public class AutorDAO {
             return false;
         } finally {
             try {
-                con.close();
+                if (ps != null) {
+                    ps.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
             } catch (SQLException e) {
-                System.out.println(e.toString());
+                e.printStackTrace();
             }
         }
+
     }
 
     public boolean validarNombre(String nombre) {

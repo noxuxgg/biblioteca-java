@@ -111,11 +111,17 @@ public class LibroDAO {
             return -1;
         } finally {
             try {
-                con.close();
+                if (ps != null) {
+                    ps.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
             } catch (SQLException e) {
-                System.out.println(e.toString());
+                e.printStackTrace();
             }
         }
+
     }
 
     public int ObtenerIdMateria(String nombreMateria) {
@@ -135,11 +141,17 @@ public class LibroDAO {
             return -1;
         } finally {
             try {
-                con.close();
+                if (ps != null) {
+                    ps.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
             } catch (SQLException e) {
-                System.out.println(e.toString());
+                e.printStackTrace();
             }
         }
+
     }
 
     public int ObtenerIdEditorial(String nombreEditorial) {
@@ -159,11 +171,17 @@ public class LibroDAO {
             return -1;
         } finally {
             try {
-                con.close();
+                if (ps != null) {
+                    ps.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
             } catch (SQLException e) {
-                System.out.println(e.toString());
+                e.printStackTrace();
             }
         }
+
     }
 
     public int ObtenerIdCategoria(String nombreCategoria) {
@@ -183,11 +201,17 @@ public class LibroDAO {
             return -1;
         } finally {
             try {
-                con.close();
+                if (ps != null) {
+                    ps.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
             } catch (SQLException e) {
-                System.out.println(e.toString());
+                e.printStackTrace();
             }
         }
+
     }
 
     public int ObtenerIdEstado(String nombreEstado) {
@@ -207,11 +231,17 @@ public class LibroDAO {
             return -1;
         } finally {
             try {
-                con.close();
+                if (ps != null) {
+                    ps.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
             } catch (SQLException e) {
-                System.out.println(e.toString());
+                e.printStackTrace();
             }
         }
+
     }
 
     public void ConsultarNombre(JComboBox nombre) {
@@ -225,7 +255,19 @@ public class LibroDAO {
             }
         } catch (SQLException e) {
             System.out.println(e.toString());;
+        } finally {
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
+
     }
 
     public void ConsultarAutor(JComboBox autor) {
@@ -239,7 +281,19 @@ public class LibroDAO {
             }
         } catch (SQLException e) {
             System.out.println(e.toString());;
+        } finally {
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
+
     }
 
     public void ConsultarMateria(JComboBox materia) {
@@ -253,7 +307,19 @@ public class LibroDAO {
             }
         } catch (SQLException e) {
             System.out.println(e.toString());;
+        } finally {
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
+
     }
 
     public void ConsultarEditorial(JComboBox editorial) {
@@ -267,7 +333,19 @@ public class LibroDAO {
             }
         } catch (SQLException e) {
             System.out.println(e.toString());;
+        } finally {
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
+
     }
 
     public void ConsultarCategoria(JComboBox categoria) {
@@ -281,7 +359,19 @@ public class LibroDAO {
             }
         } catch (SQLException e) {
             System.out.println(e.toString());;
+        } finally {
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
+
     }
 
     public void ConsultarEstado(JComboBox estado) {
@@ -295,7 +385,19 @@ public class LibroDAO {
             }
         } catch (SQLException e) {
             System.out.println(e.toString());;
+        } finally {
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
+
     }
 
     public List ListarLibro() {
@@ -326,7 +428,19 @@ public class LibroDAO {
             }
         } catch (SQLException e) {
             System.out.println("Error" + e.toString());
+        } finally {
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
+
         return ListaLi;
     }
 
@@ -380,6 +494,17 @@ public class LibroDAO {
 
         } catch (SQLException e) {
             System.out.println("Error: " + e.toString());
+        } finally {
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
 
         return ListaLi;
@@ -397,11 +522,17 @@ public class LibroDAO {
             return false;
         } finally {
             try {
-                con.close();
-            } catch (Exception e) {
-                System.out.println(e.toString());
+                if (ps != null) {
+                    ps.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
         }
+
     }
 
     public Libro BuscarLibro(String cod) {
@@ -421,7 +552,19 @@ public class LibroDAO {
             }
         } catch (SQLException e) {
             System.out.println(e.toString());
+        } finally {
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
+
         return libro;
     }
 
@@ -441,7 +584,19 @@ public class LibroDAO {
             }
         } catch (SQLException e) {
             System.out.println(e.toString());
+        } finally {
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
+
         return libro;
     }
 
@@ -462,10 +617,17 @@ public class LibroDAO {
             System.out.println("Error al buscar libro: " + e.toString());
         } finally {
             try {
-                con.close();
+                if (ps != null) {
+                    ps.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
             } catch (SQLException e) {
+                e.printStackTrace();
             }
         }
+
         return l;
     }
 
@@ -520,11 +682,17 @@ public class LibroDAO {
             return false;
         } finally {
             try {
-                con.close();
+                if (ps != null) {
+                    ps.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
             } catch (SQLException e) {
-                System.out.println(e.toString());
+                e.printStackTrace();
             }
         }
+
     }
 
     public boolean validarCodigoLibro(String codigo) {
@@ -551,7 +719,19 @@ public class LibroDAO {
 
         } catch (NumberFormatException e) {
             return false;
+        } finally {
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
+
     }
 
     public boolean validarEdicion(String edicion) {
@@ -599,7 +779,19 @@ public class LibroDAO {
             }
         } catch (SQLException e) {
             System.out.println("Error" + e.toString());
+        } finally {
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
+
         return ListaLi;
     }
 
@@ -627,7 +819,19 @@ public class LibroDAO {
             }
         } catch (SQLException e) {
             System.out.println("Error" + e.toString());
+        } finally {
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
+
         return ListaLi;
     }
 
@@ -682,6 +886,17 @@ public class LibroDAO {
 
         } catch (SQLException e) {
             System.out.println("Error: " + e.toString());
+        } finally {
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
 
         return ListaLi;

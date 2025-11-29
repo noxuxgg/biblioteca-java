@@ -46,11 +46,17 @@ public class EditorialDAO {
             return false;
         } finally {
             try {
-                con.close();
+                if (ps != null) {
+                    ps.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
             } catch (SQLException e) {
-                System.out.println(e.toString());
+                e.printStackTrace();
             }
         }
+
     }
 
     public int ObtenerIdPais(String nombrePais) {
@@ -70,11 +76,17 @@ public class EditorialDAO {
             return -1;
         } finally {
             try {
-                con.close();
+                if (ps != null) {
+                    ps.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
             } catch (SQLException e) {
-                System.out.println(e.toString());
+                e.printStackTrace();
             }
         }
+
     }
 
     public void ConsultarPais(JComboBox pais) {
@@ -88,7 +100,19 @@ public class EditorialDAO {
             }
         } catch (SQLException e) {
             System.out.println(e.toString());;
+        } finally {
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
+
     }
 
     public List ListarEditorial() {
@@ -109,7 +133,19 @@ public class EditorialDAO {
             }
         } catch (SQLException e) {
             System.out.println("Error" + e.toString());
+        } finally {
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
+
         return ListaEd;
     }
 
@@ -125,11 +161,17 @@ public class EditorialDAO {
             return false;
         } finally {
             try {
-                con.close();
-            } catch (Exception e) {
-                System.out.println(e.toString());
+                if (ps != null) {
+                    ps.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
         }
+
     }
 
     public boolean ModificarEditorial(Editorial ed) {
@@ -154,11 +196,17 @@ public class EditorialDAO {
             return false;
         } finally {
             try {
-                con.close();
+                if (ps != null) {
+                    ps.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
             } catch (SQLException e) {
-                System.out.println(e.toString());
+                e.printStackTrace();
             }
         }
+
     }
 
     public boolean validarNombre(String nombre) {
@@ -219,11 +267,17 @@ public class EditorialDAO {
             return false;
         } finally {
             try {
-                con.close();
+                if (ps != null) {
+                    ps.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
             } catch (SQLException e) {
-                System.out.println(e.toString());
+                e.printStackTrace();
             }
         }
+
         return false;
     }
 }
