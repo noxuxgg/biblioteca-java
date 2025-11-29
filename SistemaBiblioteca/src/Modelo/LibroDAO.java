@@ -13,6 +13,7 @@ import java.util.List;
 import java.sql.ResultSet;
 import javax.swing.JComboBox;
 import java.time.Year;
+import java.util.Date;
 
 /**
  *
@@ -329,6 +330,61 @@ public class LibroDAO {
         return ListaLi;
     }
 
+    public List<Libro> ListarLibroPorFechas(Date fechaInicio, Date fechaFin) {
+        List<Libro> ListaLi = new ArrayList<>();
+
+        String sql = "SELECT l.id_libro, l.titulo, l.codigo, l.fechaRegistro, "
+                + "CONCAT(a.nombre, ' ', a.apellido) autor, m.nombre materia, "
+                + "l.stock, l.descripcion, e.nombre editorial, l.anio, l.edicion, "
+                + "c.categoria, el.estado, l.tipo "
+                + "FROM libro l "
+                + "LEFT JOIN autores a ON l.id_autor = a.id_autor "
+                + "LEFT JOIN materia m ON l.id_materia = m.id_materia "
+                + "LEFT JOIN editoriales e ON l.id_editorial = e.id_editorial "
+                + "LEFT JOIN categoria c ON l.id_categoria = c.id_categoria "
+                + "LEFT JOIN estadolibro el ON l.id_estado = el.id_estado "
+                + "WHERE l.estado = 1 AND l.fechaRegistro >= ? AND l.fechaRegistro <= ?";
+
+        try {
+            con = cn.getConnection();
+            ps = con.prepareStatement(sql);
+
+            // Convertimos java.util.Date a java.sql.Date
+            java.sql.Date fInicioSQL = new java.sql.Date(fechaInicio.getTime());
+            java.sql.Date fFinSQL = new java.sql.Date(fechaFin.getTime());
+
+            ps.setDate(1, fInicioSQL);
+            ps.setDate(2, fFinSQL);
+
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Libro li = new Libro();
+                li.setId_libro(rs.getInt("id_libro"));
+                li.setTitulo(rs.getString("titulo"));
+                li.setCodigo(rs.getString("codigo"));
+                li.setFecha(rs.getString("fechaRegistro"));
+                li.setNombreAutor(rs.getString("autor"));
+                li.setNombreMateria(rs.getString("materia"));
+                li.setStock(rs.getInt("stock"));
+                li.setDescripcion(rs.getString("descripcion"));
+                li.setNombreEditorial(rs.getString("editorial"));
+                li.setAnio(rs.getInt("anio"));
+                li.setEdicion(rs.getString("edicion"));
+                li.setNombreCategoria(rs.getString("categoria"));
+                li.setNombreEstado(rs.getString("estado"));
+                li.setTipo(rs.getString("tipo"));
+
+                ListaLi.add(li);
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error: " + e.toString());
+        }
+
+        return ListaLi;
+    }
+
     public boolean EliminarLibro(int id) {
         String sql = "UPDATE libro SET estado = 0 WHERE id_libro = ?";
         try {
@@ -368,7 +424,7 @@ public class LibroDAO {
         }
         return libro;
     }
-    
+
     public Libro BuscarLibroPorTitulo(String titulo) {
         Libro libro = new Libro();
         String sql = "SELECT * FROM libro WHERE titulo = ?";
@@ -572,6 +628,62 @@ public class LibroDAO {
         } catch (SQLException e) {
             System.out.println("Error" + e.toString());
         }
+        return ListaLi;
+    }
+
+    public List<Libro> ListarMasPrestados(String materia) {
+        List<Libro> ListaLi = new ArrayList<>();
+
+        StringBuilder sql = new StringBuilder();
+        sql.append("SELECT l.codigo, l.titulo, CONCAT(a.nombre, ' ', a.apellido) autor, ")
+                .append("m.nombre materia, c.categoria, el.estado, l.tipo, ")
+                .append("COUNT(p.id_libro) AS total_prestamos ")
+                .append("FROM libro l ")
+                .append("LEFT JOIN autores a ON l.id_autor = a.id_autor ")
+                .append("LEFT JOIN materia m ON l.id_materia = m.id_materia ")
+                .append("LEFT JOIN editoriales e ON l.id_editorial = e.id_editorial ")
+                .append("LEFT JOIN categoria c ON l.id_categoria = c.id_categoria ")
+                .append("LEFT JOIN estadolibro el ON l.id_estado = el.id_estado ")
+                .append("LEFT JOIN prestamos p ON l.id_libro = p.id_libro ")
+                .append("WHERE l.estado = 1 ");
+
+        // Si materia no es nula ni vacía, agregamos el filtro
+        if (materia != null && !materia.isEmpty()) {
+            sql.append("AND m.nombre = ? ");
+        }
+
+        sql.append("GROUP BY l.id_libro ")
+                .append("ORDER BY total_prestamos DESC");
+
+        try {
+            con = cn.getConnection();
+            ps = con.prepareStatement(sql.toString());
+
+            // Si materia se ingresó, seteamos el parámetro
+            if (materia != null && !materia.isEmpty()) {
+                ps.setString(1, materia);
+            }
+
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Libro li = new Libro();
+                li.setCodigo(rs.getString("codigo"));
+                li.setTitulo(rs.getString("titulo"));
+                li.setNombreAutor(rs.getString("autor"));
+                li.setNombreMateria(rs.getString("materia"));
+                li.setNombreCategoria(rs.getString("categoria"));
+                li.setNombreEstado(rs.getString("estado"));
+                li.setTipo(rs.getString("tipo"));
+                // opcional: li.setTotalPrestamos(rs.getInt("total_prestamos"));
+
+                ListaLi.add(li);
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error: " + e.toString());
+        }
+
         return ListaLi;
     }
 
