@@ -449,4 +449,5 @@ public class GraficoMultas {
             System.out.println("Error en gráfica de promedio días: " + e.toString());
         }
     }
+    
 }

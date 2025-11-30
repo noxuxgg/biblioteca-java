@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 29-11-2025 a las 13:53:51
+-- Tiempo de generación: 30-11-2025 a las 06:03:45
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -257,7 +257,9 @@ INSERT INTO `factura` (`Id_factura`, `Id_multa_pagada`, `Id_usuario`, `Numero_fa
 (1, 5, 18, 'FACT-20251116-000005', '2025-11-16 21:42:13', 2.00, 'Pago de multa por 2 día(s) de retraso - Préstamo ID: 24', 'Emitida'),
 (4, 8, 19, 'FACT-20251117-000008', '2025-11-17 00:32:32', 5.00, 'Pago de multa por 5 día(s) de retraso - Préstamo ID: 8', 'Emitida'),
 (5, 9, 6, 'FACT-20251117-000009', '2025-11-17 01:20:14', 1.00, 'Pago de multa por 1 día(s) de retraso - Préstamo ID: 21', 'Emitida'),
-(6, 10, 16, 'FACT-20251117-000010', '2025-11-17 01:53:03', 7.00, 'Pago de multa por 7 día(s) de retraso - Préstamo ID: 22', 'Emitida');
+(6, 10, 16, 'FACT-20251117-000010', '2025-11-17 01:53:03', 7.00, 'Pago de multa por 7 día(s) de retraso - Préstamo ID: 22', 'Emitida'),
+(7, 11, 20, 'FACT-20251129-000011', '2025-11-29 23:48:43', 9.00, 'Pago de multa por 9 día(s) de retraso - Préstamo ID: 23', 'Emitida'),
+(8, 12, 7, 'FACT-20251130-000012', '2025-11-30 00:49:28', 17.00, 'Pago de multa por 17 día(s) de retraso - Préstamo ID: 17', 'Emitida');
 
 -- --------------------------------------------------------
 
@@ -292,8 +294,8 @@ INSERT INTO `libro` (`Id_libro`, `Titulo`, `Id_categoria`, `Id_editorial`, `Id_a
 (6, 'El mundo de los Objetos', 1, 12, 3, 6, '10ma.', '1', 'P-1102', '2025-10-12', 4, 2003, '', 5, 'Original'),
 (11, 'Java', 5, NULL, NULL, NULL, '', '1', 'P-1010', '2025-10-12', 1, 2020, '', 5, 'Copia'),
 (12, 'Programacion en C', 2, 10, 1, 6, '10m', '1', 'P-1020', '2025-10-26', 1, 2020, 'Programacion', 5, 'Copia'),
-(13, 'Python', NULL, 10, 1, NULL, '1ra.', '1', 'P-1022', '2025-10-26', 2, 1999, 'PYTHON', 5, 'Original'),
-(14, 'Chanchito Feliz', 5, NULL, NULL, NULL, '', '1', 'CH-1012', '2025-11-01', 4, 1998, '', 5, 'Copia'),
+(13, 'Python', NULL, 10, 1, NULL, '1ra.', '1', 'P-1022', '2025-10-26', 3, 1999, 'PYTHON', 5, 'Original'),
+(14, 'Chanchito Feliz', 5, NULL, NULL, NULL, '', '1', 'CH-1012', '2025-11-01', 5, 1998, '', 5, 'Copia'),
 (15, 'Chanchito Feliciano', NULL, NULL, NULL, 6, '9na', '1', 'P-10103', '2025-11-01', 1, 2000, 'aas@asf~4', 1, 'Copia'),
 (16, 'Puerquito', NULL, NULL, NULL, NULL, '4ta.', '1', 'P-202', '2025-11-01', 1, 2005, '', 5, 'Copia'),
 (17, 'Pruebas de Escritorio', 11, 23, 2, 6, '2da.', '1', 'P-1666', '2025-11-06', 0, 2005, 'Para probar la base datos :v', 2, 'Copia'),
@@ -368,9 +370,11 @@ CREATE TABLE `multa` (
 INSERT INTO `multa` (`Id_multa`, `Id_prestamo`, `Id_usuario`, `Dias_retraso`, `Monto`, `Estado`) VALUES
 (1, 24, 18, 2, 2.00, 'Pagada'),
 (2, 22, 16, 7, 7.00, 'Pagada'),
-(3, 17, 7, 17, 17.00, 'Activa'),
+(3, 17, 7, 17, 17.00, 'Pagada'),
 (4, 8, 19, 5, 5.00, 'Pagada'),
-(5, 21, 6, 1, 1.00, 'Pagada');
+(5, 21, 6, 1, 1.00, 'Pagada'),
+(6, 23, 20, 9, 9.00, 'Pagada'),
+(7, 24, 18, 17, 17.00, 'Activa');
 
 -- --------------------------------------------------------
 
@@ -393,7 +397,9 @@ INSERT INTO `multa_pagada` (`Id_multa_pagada`, `Id_multa`, `Fecha`, `Estado`) VA
 (5, 1, '2025-11-17 01:42:13', 1),
 (8, 4, '2025-11-17 04:32:32', 1),
 (9, 5, '2025-11-17 05:20:14', 1),
-(10, 2, '2025-11-17 05:53:03', 1);
+(10, 2, '2025-11-17 05:53:03', 1),
+(11, 6, '2025-11-30 03:48:43', 1),
+(12, 3, '2025-11-30 04:49:28', 1);
 
 -- --------------------------------------------------------
 
@@ -478,7 +484,7 @@ INSERT INTO `prestamos` (`Id_prestamo`, `Id_usuario`, `Id_libro`, `Fecha_prestam
 (22, 16, 13, '2025-11-06 16:57:30', '2025-11-08 16:57:30', '1', 2),
 (23, 20, 13, '2025-11-17 01:25:19', '2025-11-20 01:25:19', '1', 2),
 (24, 18, 14, '2025-11-10 23:11:55', '2025-11-12 23:11:55', '1', 2),
-(25, 6, 12, '2025-11-28 21:26:50', '2025-11-29 09:24:00', '1', 2);
+(25, 6, 12, '2025-11-28 21:26:50', '2025-11-29 09:24:00', '1', 1);
 
 -- --------------------------------------------------------
 
@@ -735,7 +741,7 @@ ALTER TABLE `estado_usuario`
 -- AUTO_INCREMENT de la tabla `factura`
 --
 ALTER TABLE `factura`
-  MODIFY `Id_factura` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `Id_factura` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `libro`
@@ -759,13 +765,13 @@ ALTER TABLE `materia`
 -- AUTO_INCREMENT de la tabla `multa`
 --
 ALTER TABLE `multa`
-  MODIFY `Id_multa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `Id_multa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `multa_pagada`
 --
 ALTER TABLE `multa_pagada`
-  MODIFY `Id_multa_pagada` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `Id_multa_pagada` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT de la tabla `paises`
