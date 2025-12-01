@@ -3198,6 +3198,9 @@ private void generarReportePromedioDiasRetraso() {
         txtRangoSuperiorFechaGrafico = new com.toedter.calendar.JDateChooser();
         txtHoraPrestamo = new javax.swing.JTextField();
         btnHoraPrestamo = new javax.swing.JButton();
+        btnListarRangoPrestamo = new javax.swing.JButton();
+        txtRangoInferiorFechaListado = new com.toedter.calendar.JDateChooser();
+        txtRangoSuperiorFechaListado = new com.toedter.calendar.JDateChooser();
         jPanel10 = new javax.swing.JPanel();
         jPanel20 = new javax.swing.JPanel();
         jLabel34 = new javax.swing.JLabel();
@@ -4760,6 +4763,13 @@ private void generarReportePromedioDiasRetraso() {
             }
         });
 
+        btnListarRangoPrestamo.setText("Listar Rango");
+        btnListarRangoPrestamo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnListarRangoPrestamoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
@@ -4857,12 +4867,19 @@ private void generarReportePromedioDiasRetraso() {
                                     .addComponent(txtRangoInferiorFechaGrafico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txtRangoSuperiorFechaGrafico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(25, 25, 25)
-                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jScrollPane11, javax.swing.GroupLayout.PREFERRED_SIZE, 970, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel8Layout.createSequentialGroup()
-                                .addComponent(btnPrestamosPDF)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnDevolucionPrestamo)))))
+                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jScrollPane11, javax.swing.GroupLayout.PREFERRED_SIZE, 970, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(jPanel8Layout.createSequentialGroup()
+                                    .addComponent(btnPrestamosPDF)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnDevolucionPrestamo)))
+                            .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(txtRangoSuperiorFechaListado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(jPanel8Layout.createSequentialGroup()
+                                    .addComponent(txtRangoInferiorFechaListado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(39, 39, 39)
+                                    .addComponent(btnListarRangoPrestamo))))))
                 .addContainerGap(10189, Short.MAX_VALUE))
         );
         jPanel8Layout.setVerticalGroup(
@@ -4881,7 +4898,6 @@ private void generarReportePromedioDiasRetraso() {
                     .addComponent(btnPrestamosPDF))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane11, javax.swing.GroupLayout.PREFERRED_SIZE, 354, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel8Layout.createSequentialGroup()
                         .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel15)
@@ -4954,9 +4970,17 @@ private void generarReportePromedioDiasRetraso() {
                             .addGroup(jPanel8Layout.createSequentialGroup()
                                 .addComponent(txtRangoSuperiorFechaGrafico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnGraficarPrestamo)))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnGraficarPrestamo)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addComponent(jScrollPane11, javax.swing.GroupLayout.PREFERRED_SIZE, 354, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnListarRangoPrestamo)
+                            .addComponent(txtRangoInferiorFechaListado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(txtRangoSuperiorFechaListado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(60, Short.MAX_VALUE))
         );
 
@@ -9543,6 +9567,30 @@ private void generarReportePromedioDiasRetraso() {
     
     }//GEN-LAST:event_btnGenerarReporteMultaActionPerformed
 
+    private void btnListarRangoPrestamoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarRangoPrestamoActionPerformed
+        // TODO add your handling code here:
+        //LimpiarTable();
+        ListarPrestamoPorRango();
+        /*if (txtRangoInferiorFechaListado.getDate() == null || txtRangoSuperiorFechaListado.getDate() == null) {
+            JOptionPane.showMessageDialog(null, "Seleccione ambas fechas (inicio y fin)");
+        } else {
+            try {
+                // Convertir fechas de JDateChooser a formato YYYY-MM-DD
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+                String fechaInicio = sdf.format(txtRangoInferiorFechaListado.getDate());
+                String fechaFin = sdf.format(txtRangoSuperiorFechaListado.getDate());
+
+                // Llamar a la función de gráfica con las fechas convertidas
+                prestamo.ListarPrestamoPorRango(fechaInicio, fechaFin);
+                ListarPrestamo();
+
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Error al procesar las fechas: " + e.getMessage());
+            }
+        }*/
+    }//GEN-LAST:event_btnListarRangoPrestamoActionPerformed
+
     public void ListarUsuario() {
         LimpiarTable();
         List<Usuario> ListarUsuario = usuario.ListarUsuario();
@@ -9582,6 +9630,43 @@ private void generarReportePromedioDiasRetraso() {
             modelo.addRow(obj);
         }
         TablePrestamo.setModel(modelo);
+    }
+    public void ListarPrestamoPorRango() {
+        //LimpiarTable();
+        if (txtRangoInferiorFechaListado.getDate() == null || txtRangoSuperiorFechaListado.getDate() == null) {
+            JOptionPane.showMessageDialog(null, "Seleccione ambas fechas (inicio y fin)");
+            ListarPrestamo();
+        } else {
+            try {
+                // Convertir fechas de JDateChooser a formato YYYY-MM-DD
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+                String fechaInicio = sdf.format(txtRangoInferiorFechaListado.getDate());
+                String fechaFin = sdf.format(txtRangoSuperiorFechaListado.getDate());
+
+                // Llamar a la función de gráfica con las fechas convertidas
+                List<Prestamo> ListarPre = prestamo.ListarPrestamoPorRango(fechaInicio, fechaFin);
+                LimpiarTable();
+        modelo = (DefaultTableModel) TablePrestamo.getModel();
+        Object[] obj = new Object[8];
+        for (int i = 0; i < ListarPre.size(); i++) {
+            obj[0] = ListarPre.get(i).getId_prestamo();
+            obj[1] = ListarPre.get(i).getCarnetUsuario();
+            obj[2] = ListarPre.get(i).getNombreUsuario();
+            obj[3] = ListarPre.get(i).getTituloLibro();
+            obj[4] = ListarPre.get(i).getCodigoLibro();
+            obj[5] = ListarPre.get(i).getFecha_prestamo();
+            obj[6] = ListarPre.get(i).getFecha_devolucion();  // NOMBRE en lugar de ID
+            obj[7] = ListarPre.get(i).getEstadoPrestamo();
+            modelo.addRow(obj);
+        }
+        TablePrestamo.setModel(modelo);
+
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Error al procesar las fechas: " + e.getMessage());
+            }
+        }
+        
     }
 
     public List<String> obtenerListaTitulos() {
@@ -9677,6 +9762,7 @@ private void generarReportePromedioDiasRetraso() {
     private javax.swing.JButton btnGuardarUsuario;
     private javax.swing.JButton btnHoraPrestamo;
     private javax.swing.JButton btnInicio;
+    private javax.swing.JButton btnListarRangoPrestamo;
     private javax.swing.JButton btnMasPrestadoLibro2;
     private javax.swing.JButton btnMultas;
     private javax.swing.JButton btnNuevoAutor;
@@ -9922,7 +10008,9 @@ private void generarReportePromedioDiasRetraso() {
     private javax.swing.JTextField txtNombrePrestamo;
     private javax.swing.JTextField txtNombreUsuario;
     private com.toedter.calendar.JDateChooser txtRangoInferiorFechaGrafico;
+    private com.toedter.calendar.JDateChooser txtRangoInferiorFechaListado;
     private com.toedter.calendar.JDateChooser txtRangoSuperiorFechaGrafico;
+    private com.toedter.calendar.JDateChooser txtRangoSuperiorFechaListado;
     private javax.swing.JTextField txtSiglaMateria;
     private javax.swing.JTextField txtStockLibro;
     private javax.swing.JTextField txtStockPrestamo;

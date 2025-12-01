@@ -86,6 +86,47 @@ public class PrestamoDAO {
         }
         return Listapre;
     }
+           public List ListarPrestamoPorRango(String fecha1,String fecha2) {
+        List<Prestamo> Listapre = new ArrayList();
+        //String sql = "SELECT l.id_libro, l.titulo, l.codigo, l.fechaRegistro, CONCAT(a.nombre, a.apellido), m.nombre, l.stock, l.descripcion, e.nombre, l.anio, l.edicion, c.categoria, el.estado FROM libro l, autores a, materia m, editoriales e, categoria c, estadolibro el  WHERE  l.id_categoria = c.id_categoria AND l.id_editorial = e.id_editorial AND l.id_autor = a.id_autor AND l.id_materia = m.id_materia AND l.id_estado = el.id_estado AND l.estado = 1;";
+        String sql = "SELECT p.id_prestamo, p.fecha_prestamo, p.fecha_devolucion, CONCAT(u.nombre, ' ', u.apellido) usu, u.carnet carnet,l.codigo codi, l.titulo titulo, CASE WHEN NOW() BETWEEN p.fecha_prestamo AND p.fecha_devolucion AND p.id_estado_devolucion = 1 THEN 'Activo' WHEN NOW() BETWEEN p.fecha_prestamo AND p.fecha_devolucion AND p.id_estado_devolucion = 2 THEN 'Devuelto' WHEN NOW() > p.fecha_devolucion AND p.id_estado_devolucion = 1 THEN 'Activo sin devolver' WHEN NOW() > p.fecha_devolucion AND p.id_estado_devolucion = 2 THEN 'Devuelto con retraso' END AS estado_prestamo FROM prestamos p LEFT JOIN usuario u ON p.id_usuario = u.id_usuario LEFT JOIN libro l ON l.id_libro = p.id_libro WHERE p.estado = 1  and p.fecha_prestamo >= ? and p.fecha_prestamo <= ?;";
+        try {
+            con = cn.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setString(1, fecha1);
+            ps.setString(2, fecha2);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Prestamo pre = new Prestamo();
+                pre.setId_prestamo(rs.getInt("id_prestamo"));
+                pre.setCarnetUsuario(rs.getString("carnet"));
+                pre.setNombreUsuario(rs.getString("usu"));
+                pre.setTituloLibro(rs.getString("titulo"));
+                pre.setCodigoLibro(rs.getString("codi"));
+                pre.setFecha_prestamo(rs.getString("fecha_prestamo"));
+                pre.setFecha_devolucion(rs.getString("fecha_devolucion"));
+                pre.setEstadoPrestamo(rs.getString("estado_prestamo"));
+               /* li.setId_libro(rs.getInt("id_libro"));
+                li.setTitulo(rs.getString("titulo"));
+                li.setCodigo(rs.getString("codigo"));
+                li.setFecha(rs.getString("fechaRegistro"));
+                li.setNombreAutor(rs.getString("autor"));
+                li.setNombreMateria(rs.getString("materia"));
+                li.setStock(rs.getInt("stock"));
+                li.setDescripcion(rs.getString("descripcion"));
+                li.setNombreEditorial(rs.getString("editorial"));
+                li.setAnio(rs.getInt("anio"));
+                li.setEdicion(rs.getString("edicion"));
+                li.setNombreCategoria(rs.getString("categoria"));
+                li.setNombreEstado(rs.getString("estado"));
+                    */
+                Listapre.add(pre);
+            }
+        } catch (SQLException e) {
+            System.out.println("Error" + e.toString());
+        }
+        return Listapre;
+    }
        
     public boolean EliminarPrestamo(int id) {
         String sql = "UPDATE prestamos SET estado = 0 WHERE id_prestamo = ?";
