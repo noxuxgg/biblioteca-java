@@ -4,18 +4,24 @@
  */
 package Vista;
 
+import Modelo.LimitadorTexto;
 import Modelo.LoginDAO;
 import Modelo.login;
+import static Vista.Sistema.limitarCaracteres;
 import javax.swing.JOptionPane;
 import java.awt.Graphics;
 import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.text.AbstractDocument;
 
 /**
  *
  * @author Henry Quispe
  */
+
+
 public class Login extends javax.swing.JFrame {
     
    // FondoPanel fondo = new FondoPanel();
@@ -25,6 +31,12 @@ public class Login extends javax.swing.JFrame {
     
     login lg = new login();
     LoginDAO login = new LoginDAO();
+    public static void limitarCaracteres(JTextField txt, int limite) {
+        ((AbstractDocument) txt.getDocument()).setDocumentFilter(new LimitadorTexto(limite));
+    }
+    
+    
+
     
     /*public Login() {
         jPanel1 = new FondoPanel();
@@ -41,6 +53,9 @@ public class Login extends javax.swing.JFrame {
         this.setSize(920, 650);  // ← TAMAÑO CUADRADO
         this.setLocationRelativeTo(null);
         limpiarCampos();
+        limitarCaracteres(txtUsuario, 20);
+        limitarCaracteres(txtCorreo, 20);
+        limitarCaracteres(txtPassword, 100);
     }
 
     
