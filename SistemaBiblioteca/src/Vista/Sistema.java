@@ -7936,6 +7936,15 @@ private void generarReportePromedioDiasRetraso() {
                 prestamo.ActualizarStockLibro(nuevoStock, li.getId_libro());
                 prestamo.ActualizarEstadoLibroPrestamo(5, li.getId_libro()); // estado 5 = Disponible
             }
+            
+            String carnetUsuario = txtUsuarioPrestamo.getText().trim();
+            us = usuario.BuscarUsuario2(carnetUsuario);
+
+            if (us != null) {
+                int nuevoLibrosPrestados = us.getLibros_prestados()- 1;
+                prestamo.ActualizarLibroPrestadoUsuario(nuevoLibrosPrestados, us.getId_usuario());
+                //prestamo.ActualizarEstadoLibroPrestamo(5, li.getId_libro()); // estado 5 = Disponible
+            }
 
             // 4. Mostrar mensaje de éxito
             String mensajeExito;
@@ -7957,6 +7966,7 @@ private void generarReportePromedioDiasRetraso() {
                         + "═════════════════════════════════\n"
                         + "Préstamo devuelto a tiempo\n"
                         + "Stock del libro actualizado\n"
+                        + "Libros prestados por el usuario actualizado\n"
                         + "Sin multas generadas\n"
                         + "═════════════════════════════════";
             }
@@ -8085,6 +8095,40 @@ private void generarReportePromedioDiasRetraso() {
             String codlibro2 = txtCodigoPrestamo.getText();
             li = libro.BuscarLibro(codlibro2);
             if (li.getId_estado() == 5) {
+                String codUsuario2 = txtUsuarioPrestamo.getText();
+                us=usuario.BuscarUsuario2(codUsuario2);
+                    JOptionPane.showMessageDialog(null, us.getId_cargo()+" "+us.getLibros_prestados());
+            boolean puedePrestar = false;
+            String mensajeError = "";
+            // VERIFICACIÓN CORRECTA
+            if (us.getId_cargo() == 2) {
+                if (us.getLibros_prestados() < 3) {
+                    puedePrestar = true;
+                } else {
+                    mensajeError = "El DOCENTE ya alcanzó el límite de 3 libros";
+                }
+            } else if (us.getId_cargo() == 3) {
+                if (us.getLibros_prestados() < 1) {
+                    puedePrestar = true;
+                } else {
+                    mensajeError = "El ESTUDIANTE ya tiene un libro prestado";
+                }
+            } else {
+                // Para otros cargos (si los hay)
+                puedePrestar = true;
+            }
+            
+            // SI NO PUEDE PRESTAR, MOSTRAR ERROR Y SALIR
+            if (!puedePrestar && !mensajeError.isEmpty()) {
+                JOptionPane.showMessageDialog(null, mensajeError);
+                return; // <-- ESTA ES LA CLAVE: SALIR DE LA FUNCIÓN
+            }
+                    
+                    
+                //if(puedePrestar){
+                    //JOptionPane.showMessageDialog(null, us.getId_cargo()+" "+us.getLibros_prestados());
+                    //if(us.getId_cargo()==3 && us.getLibros_prestados()<1){
+                    //JOptionPane.showMessageDialog(null, us.getId_cargo()+" "+us.getLibros_prestados());
                 if (!"".equals(txtidUsuarioPrestamo.getText()) || !"".equals(txtidLibroPrestamo.getText()) || !"".equals(txtFechaDevolucion.getDateFormatString())) {
                     /*   // Crear formateador para MySQL (YYYY-MM-DD)
                     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -8161,14 +8205,18 @@ private void generarReportePromedioDiasRetraso() {
                         //prestamo.RegistrarPrestamo(pre);
                         generarBoletaUltimoPrestamo();
                         String co = txtCodigoPrestamo.getText();
+                        String co2= txtUsuarioPrestamo.getText();
                         li = libro.BuscarLibro(co);
+                        us = usuario.BuscarUsuario(co2);
                         int StockActual = li.getStock() - 1;
                         int EstadoActual = li.getId_estado();
+                        int Libro_Prestado_Us = us.getLibros_prestados()+1;
                         EstadoActual = 2;
                         int idlibro = li.getId_libro();
+                        int idusuario= us.getId_usuario();
                         prestamo.ActualizarStockLibro(StockActual, idlibro);
                         prestamo.ActualizarEstadoLibroPrestamo(EstadoActual, idlibro);
-
+                        prestamo.ActualizarLibroPrestadoUsuario(Libro_Prestado_Us, idusuario);
                         LimpiarTable();
                         LimpiarPrestamo();
                         ListarPrestamo();
@@ -8176,6 +8224,12 @@ private void generarReportePromedioDiasRetraso() {
                 } else {
                     JOptionPane.showMessageDialog(null, "Los campos estan vacios");
                 }
+                //}else{
+                  //  JOptionPane.showMessageDialog(null, "El Estudiante ya tiene un libro prestado");    
+                   // }
+                //}else {
+                //JOptionPane.showMessageDialog(null, mensajeError);
+                //}
             } else {
                 JOptionPane.showMessageDialog(null, "El libro ya se encuentra en prestamo");
             }

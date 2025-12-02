@@ -25,11 +25,12 @@ public class Usuario {
     private String TipoUsuarioNombre;
     private String CargoNombre;
     private String CarreraNombre;
+    private int libros_prestados;
 
     public Usuario() {
     }
 
-    public Usuario(int Id_usuario, String Carnet, String Nombre, String Apellido, String Domicilio, String Telefono, int Id_tipo_usuario, int id_cargo, int id_carrera, int Estado, int id_estado_prestamo, String EstadoPrestamo, String TipoUsuarioNombre, String CargoNombre, String CarreraNombre) {
+    public Usuario(int Id_usuario, String Carnet, String Nombre, String Apellido, String Domicilio, String Telefono, int Id_tipo_usuario, int id_cargo, int id_carrera, int Estado, int id_estado_prestamo, String EstadoPrestamo, String TipoUsuarioNombre, String CargoNombre, String CarreraNombre, int libros_prestados) {
         this.Id_usuario = Id_usuario;
         this.Carnet = Carnet;
         this.Nombre = Nombre;
@@ -45,7 +46,10 @@ public class Usuario {
         this.TipoUsuarioNombre = TipoUsuarioNombre;
         this.CargoNombre = CargoNombre;
         this.CarreraNombre = CarreraNombre;
+        this.libros_prestados = libros_prestados;
     }
+
+   
 
    
 
@@ -169,6 +173,15 @@ public class Usuario {
     public void setEstadoPrestamo(String EstadoPrestamo) {
         this.EstadoPrestamo = EstadoPrestamo;
     }
+
+    public int getLibros_prestados() {
+        return libros_prestados;
+    }
+
+    public void setLibros_prestados(int libros_prestados) {
+        this.libros_prestados = libros_prestados;
+    }
+    
     
     
 }

@@ -179,6 +179,21 @@ public class PrestamoDAO {
             return false;
         }
     }
+    public boolean ActualizarLibroPrestadoUsuario(int cant,int cod){
+       String sql = "UPDATE usuario SET libros_prestados = ? WHERE id_usuario = ?";
+        try {
+            con = cn.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, cant);
+            ps.setInt(2, cod);
+            ps.execute();
+            return true;
+        } catch (SQLException e) {
+            System.out.println(e.toString());
+            return false;
+        }
+    
+    }
     
     
         public boolean ModificarPrestamo(Prestamo pre){

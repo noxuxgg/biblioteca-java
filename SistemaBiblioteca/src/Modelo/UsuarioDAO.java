@@ -509,6 +509,42 @@ public class UsuarioDAO {
         return usuario;
     }
     
+        public Usuario BuscarUsuario2(String cod) {
+        Usuario usuario = new Usuario();
+        String sql = "SELECT * FROM usuario WHERE carnet = ?";
+        try {
+            con = cn.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setString(1, cod);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                usuario.setId_usuario(rs.getInt("id_usuario"));
+                usuario.setNombre(rs.getString("nombre"));
+                usuario.setApellido(rs.getString("apellido"));
+                usuario.setTelefono(rs.getString("telefono"));
+                usuario.setDomicilio(rs.getString("domicilo"));
+                usuario.setId_estado_prestamo(rs.getInt("id_estado_usuario"));
+                usuario.setId_cargo(rs.getInt("id_cargo"));
+                usuario.setLibros_prestados(rs.getInt("libros_prestados"));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.toString());
+        } finally {
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return usuario;
+    }
+    
     //Filtros para listar y pdf
     public List<Usuario> listarPorFiltro(String filtro, String valor) {
         List<Usuario> lista = new ArrayList<>();
