@@ -60,6 +60,12 @@ public class UsuarioDAO {
                 JOptionPane.ERROR_MESSAGE
             );
             return false;
+        } finally {
+            try {
+                con.close();
+            } catch (SQLException e) {
+                System.out.println(e.toString());
+            }
         }
     }
     

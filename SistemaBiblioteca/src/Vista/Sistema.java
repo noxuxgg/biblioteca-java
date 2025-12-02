@@ -152,6 +152,11 @@ public class Sistema extends javax.swing.JFrame {
         limitarCaracteres(txtCodigoLibro, 19);
         limitarCaracteres(txtDescripcionLibro, 199);
         limitarCaracteres(txtBuscarCarnetMul, 12);
+        limitarCaracteres(txtNombreUsuario, 50);
+        limitarCaracteres(txtApellidoUsuario, 59);
+        limitarCaracteres(txtDomicilioUsuario, 100);
+        limitarCaracteres(txtTelefonoUsuario, 12);
+        limitarCaracteres(txtCarnetUsuario, 12);
 
         libro.ConsultarAutor(cboxAutorLibro);
         AutoCompleteDecorator.decorate(cboxAutorLibro);
