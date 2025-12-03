@@ -294,7 +294,7 @@ public boolean validarCarnetPrestamo(String cod){
     if (cod == null || cod.trim().isEmpty()){
         return true;
     }
-    return cod.matches("^\\d{5,8}(-\\d{1}[A-Z])?$");
+    return cod.matches("^\\d{7,8}(\\s*-?\\s*[A-Za-z0-9]{1,3})?$");
 }
 
 public boolean validarCodigoPrestamo(String cod){
@@ -303,13 +303,14 @@ public boolean validarCodigoPrestamo(String cod){
     }
         return cod.matches("^[A-Z][\\-\\.]?\\d{2,5}$");
 }
+
 public String validarPrestamoCompleto(Prestamo pres){
     StringBuilder errores=new StringBuilder();
     if(!validarCarnetPrestamo(pres.getCarnetUsuario())){
-        errores.append("- Carnet solo puede contener numeros\n");
+        errores.append("- Carnet debe tener exactamente 7 números\n");
     }
     if(!validarCodigoPrestamo(pres.getCodigoLibro())){
-        errores.append("- Codigo del libro debe seguir el formato establecido");
+        errores.append("- El codigo debe estar en un formato separado por - o .\n");
     }
     return errores.toString();
 }

@@ -204,6 +204,9 @@ public class Sistema extends javax.swing.JFrame {
         limitarCaracteres(txtDomicilioUsuario, 100);
         limitarCaracteres(txtTelefonoUsuario, 12);
         limitarCaracteres(txtCarnetUsuario, 12);
+        limitarCaracteres(txtUsuarioPrestamo, 12);
+        limitarCaracteres(txtCodigoPrestamo, 19);
+        limitarCaracteres(txtTituloPrestamo, 149);
 
         libro.ConsultarAutor(cboxAutorLibro);
         AutoCompleteDecorator.decorate(cboxAutorLibro);
@@ -247,6 +250,8 @@ public class Sistema extends javax.swing.JFrame {
         txtFechaDevolucion.getDateEditor().setEnabled(false);
         txtRangoInferiorFechaGrafico.getDateEditor().setEnabled(false);
         txtRangoSuperiorFechaGrafico.getDateEditor().setEnabled(false);
+        txtRangoInferiorFechaListado.getDateEditor().setEnabled(false);
+        txtRangoSuperiorFechaListado.getDateEditor().setEnabled(false);
         txtHoraPrestamo.setEditable(false);
         objectoHora.set24hourMode(true);
         List<String> TitulosLibros = new ArrayList();
@@ -8322,7 +8327,7 @@ public class Sistema extends javax.swing.JFrame {
             if (li.getId_estado() == 5) {
                 String codUsuario2 = txtUsuarioPrestamo.getText();
                 us = usuario.BuscarUsuario2(codUsuario2);
-                JOptionPane.showMessageDialog(null, us.getId_cargo() + " " + us.getLibros_prestados());
+                //JOptionPane.showMessageDialog(null, us.getId_cargo() + " " + us.getLibros_prestados());
                 boolean puedePrestar = false;
                 String mensajeError = "";
                 // VERIFICACIÓN CORRECTA
@@ -8353,7 +8358,7 @@ public class Sistema extends javax.swing.JFrame {
                 //JOptionPane.showMessageDialog(null, us.getId_cargo()+" "+us.getLibros_prestados());
                 //if(us.getId_cargo()==3 && us.getLibros_prestados()<1){
                 //JOptionPane.showMessageDialog(null, us.getId_cargo()+" "+us.getLibros_prestados());
-                if (!"".equals(txtidUsuarioPrestamo.getText()) || !"".equals(txtidLibroPrestamo.getText()) || !"".equals(txtFechaDevolucion.getDateFormatString())) {
+                if (!"".equals(txtidUsuarioPrestamo.getText()) || !"".equals(txtidLibroPrestamo.getText()) || txtFechaDevolucion.getDate() != null) {
                     /*   // Crear formateador para MySQL (YYYY-MM-DD)
                     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -10847,8 +10852,23 @@ public class Sistema extends javax.swing.JFrame {
 
     private void pdfPrestamos() {
         try {
-            // Ruta del archivo
-            File file = new File("src/pdf/prestamos.pdf");
+            // Obtener fecha y hora actual del sistema
+        SimpleDateFormat sdfFechaHora = new SimpleDateFormat("yyyyMMdd_HHmmss");
+        String fechaHoraSistema = sdfFechaHora.format(new Date());
+        
+        // Formato legible para mostrar
+        SimpleDateFormat sdfLegible = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+        String fechaHoraLegible = sdfLegible.format(new Date());
+        
+        // Ruta del archivo con nuevo nombre
+        String nombreArchivo = "PrestamoReporte-" + fechaHoraSistema + ".pdf";
+        File file = new File("src/pdf/" + nombreArchivo);
+
+        // Verificar si existe la carpeta, si no crearla
+        File carpetaPdf = new File("src/pdf/");
+        if (!carpetaPdf.exists()) {
+            carpetaPdf.mkdirs();
+        }
             FileOutputStream archivo = new FileOutputStream(file);
 
             // Documento horizontal (A4 landscape)
@@ -11075,6 +11095,9 @@ public class Sistema extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null,
                         "Boleta generada correctamente para el préstamo #" + idPrestamo
                         + "\nArchivo: " + file.getAbsolutePath());
+                if (java.awt.Desktop.isDesktopSupported()) {
+                java.awt.Desktop.getDesktop().open(file);
+            }
 
             } else {
                 JOptionPane.showMessageDialog(null, "No se encontraron préstamos registrados");
