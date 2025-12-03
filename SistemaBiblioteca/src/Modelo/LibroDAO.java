@@ -463,7 +463,6 @@ public class LibroDAO {
             con = cn.getConnection();
             ps = con.prepareStatement(sql);
 
-            // Convertimos java.util.Date a java.sql.Date
             java.sql.Date fInicioSQL = new java.sql.Date(fechaInicio.getTime());
             java.sql.Date fFinSQL = new java.sql.Date(fechaFin.getTime());
 
