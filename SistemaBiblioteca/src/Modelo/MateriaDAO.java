@@ -91,6 +91,7 @@ public class MateriaDAO {
     public boolean EliminarMateria(int id) {
         String sql = "UPDATE materia SET estado = 0 WHERE id_materia = ?";
         try {
+            con = cn.getConnection();
             ps = con.prepareStatement(sql);
             ps.setInt(1, id);
             ps.execute();

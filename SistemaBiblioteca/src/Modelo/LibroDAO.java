@@ -513,6 +513,7 @@ public class LibroDAO {
     public boolean EliminarLibro(int id) {
         String sql = "UPDATE libro SET estado = 0 WHERE id_libro = ?";
         try {
+            con = cn.getConnection();
             ps = con.prepareStatement(sql);
             ps.setInt(1, id);
             ps.execute();

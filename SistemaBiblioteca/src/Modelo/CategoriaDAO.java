@@ -89,6 +89,7 @@ public class CategoriaDAO {
     public boolean EliminarCategoria(int id) {
         String sql = "UPDATE categoria SET estado = 0 WHERE id_categoria = ?";
         try {
+            con = cn.getConnection();
             ps = con.prepareStatement(sql);
             ps.setInt(1, id);
             ps.execute();

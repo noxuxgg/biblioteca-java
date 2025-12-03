@@ -7371,7 +7371,8 @@ private void generarReportePromedioDiasRetraso() {
             if (!"".equals(txtNombrePais.getText())) {
                 pa.setNombre(txtNombrePais.getText());
                 pa.setId_pais(Integer.parseInt(txtIdPais.getText()));
-                if (pais.existePais(txtNombrePais.getText()) == false) {
+                // if (pais.existePais(txtNombrePais.getText()) == false) {
+                if (1==1) {    
                     boolean resultado = pais.ModificarPais(pa);
                     if (resultado) {
                         JOptionPane.showMessageDialog(null, "Usuario actualizado con éxito");
@@ -7444,7 +7445,8 @@ private void generarReportePromedioDiasRetraso() {
             JOptionPane.showMessageDialog(null, "Seleccione una fila");
         } else {
             if (!"".equals(txtNombreMateria.getText()) && !"".equals(txtSiglaMateria.getText())) {
-                if (materia.existeMateria(txtSiglaMateria.getText()) == false) {
+                //if (materia.existeMateria(txtSiglaMateria.getText()) == false) {
+                if (1==1) {
                     boolean error;
                     ma.setNombre(txtNombreMateria.getText());
                     ma.setSigla(txtSiglaMateria.getText());
@@ -7519,7 +7521,8 @@ private void generarReportePromedioDiasRetraso() {
             JOptionPane.showMessageDialog(null, "Seleccione una fila");
         } else {
             if (!"".equals(txtNombreCategoria.getText())) {
-                if (categoria.existeCategoria(txtNombreCategoria.getText()) == false) {
+                //if (categoria.existeCategoria(txtNombreCategoria.getText()) == false) {
+                if (1==1) {
                     boolean error;
                     ca.setCategoria(txtNombreCategoria.getText());
                     ca.setId_categoria(Integer.parseInt(txtIdCategoria.getText()));
@@ -10482,7 +10485,7 @@ private void generarReportePromedioDiasRetraso() {
             archivo.close();
 
             JOptionPane.showMessageDialog(null, "PDF generado correctamente en: " + file.getAbsolutePath());
-
+            if (java.awt.Desktop.isDesktopSupported()) java.awt.Desktop.getDesktop().open(file);
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Error al generar PDF: " + e.getMessage());
@@ -10586,7 +10589,7 @@ private void generarReportePromedioDiasRetraso() {
             archivo.close();
 
             JOptionPane.showMessageDialog(null, "PDF generado correctamente en: " + file.getAbsolutePath());
-
+            if (java.awt.Desktop.isDesktopSupported()) java.awt.Desktop.getDesktop().open(file);
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Error al generar PDF: " + e.getMessage());

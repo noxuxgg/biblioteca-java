@@ -152,6 +152,7 @@ public class EditorialDAO {
     public boolean EliminarEditorial(int id) {
         String sql = "UPDATE editoriales SET estado = 0 WHERE id_editorial = ?";
         try {
+            con = cn.getConnection();
             ps = con.prepareStatement(sql);
             ps.setInt(1, id);
             ps.execute();

@@ -89,6 +89,7 @@ public class PaisDAO {
     public boolean EliminarPais(int id) {
         String sql = "UPDATE paises SET estado = 0 WHERE id_pais = ?";
         try {
+            con = cn.getConnection();
             ps = con.prepareStatement(sql);
             ps.setInt(1, id);
             ps.execute();
