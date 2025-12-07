@@ -35,19 +35,6 @@ public class Login extends javax.swing.JFrame {
         ((AbstractDocument) txt.getDocument()).setDocumentFilter(new LimitadorTexto(limite));
     }
     
-    
-
-    
-    /*public Login() {
-        jPanel1 = new FondoPanel();
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 910, 850));
-
-        //this.setContentPane(fondo);
-        initComponents();
-        this.setLocationRelativeTo(null);
-        limpiarCampos();
-    }*/
-    
     public Login() {
         initComponents();
         this.setSize(920, 650);  // ← TAMAÑO CUADRADO
@@ -58,7 +45,6 @@ public class Login extends javax.swing.JFrame {
         limitarCaracteres(txtPassword, 100);
     }
 
-    
     public void limpiarCampos() {
         txtUsuario.setText("");
         txtCorreo.setText("");
@@ -71,7 +57,7 @@ public class Login extends javax.swing.JFrame {
         String correo = txtCorreo.getText();
         String password = String.valueOf(txtPassword.getPassword());
 
-        if (!"".equals(correo) && !"".equals(password)) {
+        if (!"".equals(nombre) && !"".equals(correo) && !"".equals(password)) {
             lg = login.log(nombre, correo, password);
             if (lg.getNombre() != null && lg.getCorreo() != null && lg.getPassword() != null) {
                 Sistema sis = new Sistema(lg);

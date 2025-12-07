@@ -67,11 +67,13 @@ import java.sql.PreparedStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import Reportes.GraficoMultas;
+import java.awt.Component;
 import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
 import java.util.List;
 import javax.swing.plaf.metal.MetalTabbedPaneUI;
 import java.awt.Graphics;
+import javax.swing.JButton;
 //imagen de fondo
 /*
 import javax.swing.ImageIcon;
@@ -83,6 +85,8 @@ import java.awt.Graphics;*/
  * @author Henry Quispe
  */
 public class Sistema extends javax.swing.JFrame {
+
+    private Login lg;
 
     public void ocultarTabs() {
         jTabbedPane1.setUI(new javax.swing.plaf.metal.MetalTabbedPaneUI() {
@@ -136,6 +140,194 @@ public class Sistema extends javax.swing.JFrame {
     }
 
     public Sistema() {
+        this(null);
+    }
+
+    public Sistema(login priv) {
+        initComponents();
+
+        jTabbedPane1.setUI(new MetalTabbedPaneUI() {
+            protected int calculateTabAreaHeight(int tabPlacement, int vertTextGap) { return 0; }
+            protected void paintTabArea(Graphics g, int tabPlacement, int selectedIndex) {}
+            protected void paintContentBorder(Graphics g, int tabPlacement, int selectedIndex) {}
+            protected int calculateTabHeight(int tabPlacement, int tabIndex, int fontHeight) { return 0; }
+            protected void installDefaults() {
+                super.installDefaults();
+                tabInsets = new java.awt.Insets(0, 0, 0, 0);
+                selectedTabPadInsets = new java.awt.Insets(0, 0, 0, 0);
+            }
+        });
+
+        LimpiarTable();
+        this.setLocationRelativeTo(null);
+
+        ((AbstractDocument) txtAnioLibro.getDocument()).setDocumentFilter(new AnioDocumentFilter());
+
+        txtIdPais.setVisible(false);
+        txtIdCategoria.setVisible(false);
+        txtIdMateria.setVisible(false);
+        txtIdAutor.setVisible(false);
+        txtIdEditorial.setVisible(false);
+        txtIdUsuario.setVisible(false);
+        txtStockLibro.setText("1");
+        txtStockLibro.setEditable(false);
+        txtIdLibro.setVisible(false);
+        txtStockLibro.setVisible(false);
+
+        AutoCompleteDecorator.decorate(cboxPaisEditorial);
+        editorial.ConsultarPais(cboxPaisEditorial);
+        autor.ConsultarPais(cboxPaisAutor);
+        AutoCompleteDecorator.decorate(cboxPaisAutor);
+
+        limitarCaracteres(txtNombrePais, 49);
+        limitarCaracteres(txtSiglaMateria, 14);
+        limitarCaracteres(txtNombreMateria, 79);
+        limitarCaracteres(txtNombreCategoria, 49);
+        limitarCaracteres(txtNombreEditorial, 99);
+        limitarCaracteres(txtDireccionEditorial, 149);
+        limitarCaracteres(txtTelefonoEditorial, 19);
+        limitarCaracteres(txtNombreAutor, 49);
+        limitarCaracteres(txtApellidoAutor, 49);
+        limitarCaracteres(txtTituloLibro, 149);
+        limitarCaracteres(txtEdicionLibro, 29);
+        limitarCaracteres(txtCodigoLibro, 19);
+        limitarCaracteres(txtDescripcionLibro, 199);
+        limitarCaracteres(txtBuscarCarnetMul, 12);
+        limitarCaracteres(txtNombreUsuario, 50);
+        limitarCaracteres(txtApellidoUsuario, 59);
+        limitarCaracteres(txtDomicilioUsuario, 100);
+        limitarCaracteres(txtTelefonoUsuario, 12);
+        limitarCaracteres(txtCarnetUsuario, 12);
+        limitarCaracteres(txtUsuarioPrestamo, 12);
+        limitarCaracteres(txtCodigoPrestamo, 19);
+        limitarCaracteres(txtTituloPrestamo, 149);
+
+        libro.ConsultarAutor(cboxAutorLibro);
+        AutoCompleteDecorator.decorate(cboxAutorLibro);
+        libro.ConsultarMateria(cboxMateriaLibro);
+        AutoCompleteDecorator.decorate(cboxMateriaLibro);
+        libro.ConsultarEditorial(cboxEditorialLibro);
+        AutoCompleteDecorator.decorate(cboxEditorialLibro);
+        libro.ConsultarCategoria(cboxCategoriaLibro);
+        AutoCompleteDecorator.decorate(cboxCategoriaLibro);
+        libro.ConsultarEstado(cboxEstadoLibro);
+        AutoCompleteDecorator.decorate(cboxEstadoLibro);
+
+        libro.ConsultarAutor(cboxAutorLibro2);
+        AutoCompleteDecorator.decorate(cboxAutorLibro2);
+        libro.ConsultarCategoria(cboxCategoriaLibro2);
+        AutoCompleteDecorator.decorate(cboxCategoriaLibro2);
+        libro.ConsultarNombre(cboxNombreLibro2);
+        AutoCompleteDecorator.decorate(cboxNombreLibro2);
+        libro.ConsultarMateria(cboxMateriaLibro2);
+        AutoCompleteDecorator.decorate(cboxMateriaLibro2);
+
+        usuario.ConsultarCargo(cboxCargoUsuario);
+        AutoCompleteDecorator.decorate(cboxCargoUsuario);
+        usuario.ConsultarCarreras(cboxCarreraUsuario);
+        AutoCompleteDecorator.decorate(cboxCarreraUsuario);
+        usuario.ConsultarTipoUsuario(cboxTipoUsuario);
+        AutoCompleteDecorator.decorate(cboxTipoUsuario);
+        usuario.ConsultarEstadoUsuario(cboxEstadoPrestamoUsuario);
+        AutoCompleteDecorator.decorate(cboxEstadoPrestamoUsuario);
+
+        txtNombrePrestamo.setEditable(false);
+        txtApellidoPrestamo.setEditable(false);
+        txtTelefonoPrestamo.setEditable(false);
+        txtDomicilioPrestamo.setEditable(false);
+        txtidUsuarioPrestamo.setEditable(false);
+        txtidPrestamo.setEditable(false);
+        txtidLibroPrestamo.setEditable(false);
+        txtEdicionPrestamo.setEditable(false);
+        txtStockPrestamo.setEditable(false);
+
+        txtFechaDevolucion.getDateEditor().setEnabled(false);
+        txtRangoInferiorFechaGrafico.getDateEditor().setEnabled(false);
+        txtRangoSuperiorFechaGrafico.getDateEditor().setEnabled(false);
+        txtRangoInferiorFechaListado.getDateEditor().setEnabled(false);
+        txtRangoSuperiorFechaListado.getDateEditor().setEnabled(false);
+        txtHoraPrestamo.setEditable(false);
+        objectoHora.set24hourMode(true);
+
+        List<String> TitulosLibros = obtenerListaTitulos();
+        String[] arrayTitulos = TitulosLibros.toArray(new String[0]);
+        JList listaSugerenciasPrestamo = new JList(arrayTitulos);
+        AutoCompleteDecorator.decorate(listaSugerenciasPrestamo, txtTituloPrestamo, ObjectToStringConverter.DEFAULT_IMPLEMENTATION);
+
+        listarTodasLasMultas();
+        listarMultasPagadasEnTabla();
+        listarMultasSinPagar();
+
+        cboxEFiltroUsuario.addItem("Tipo Usuario");
+        cboxEFiltroUsuario.addItem("Cargo");
+        cboxEFiltroUsuario.addItem("Carrera");
+        cboxEFiltroUsuario.addItem("Estado Préstamo");
+        cboxEFiltroUsuario.addItem("Sin filtro");
+        cboxEFiltroUsuario.setSelectedIndex(0);
+
+        actualizarComboValorUsuario();
+
+        inicializarComboGraficosMultas();
+        txtFechaInicioGraficoMultas.getDateEditor().setEnabled(false);
+        txtFechaFinGraficoMultas.getDateEditor().setEnabled(false);
+        txtFechaInicioGraficoMultas.setVisible(false);
+        txtFechaFinGraficoMultas.setVisible(false);
+        lblfechainicio.setVisible(false);
+        lblfechafin.setVisible(false);
+
+        inicializarComboGraficosMultas2();
+        txtFechaInicioGraficoMultas2.getDateEditor().setEnabled(false);
+        txtFechaFinGraficoMultas2.getDateEditor().setEnabled(false);
+        txtFechaInicioGraficoMultas2.setVisible(false);
+        txtFechaFinGraficoMultas2.setVisible(false);
+        lblfechainicio2.setVisible(false);
+        lblfechafin2.setVisible(false);
+
+        inicializarComboGraficosMultas1();
+        txtFechaInicioGraficoMultas1.getDateEditor().setEnabled(false);
+        txtFechaFinGraficoMultas1.getDateEditor().setEnabled(false);
+        txtFechaInicioGraficoMultas1.setVisible(false);
+        txtFechaFinGraficoMultas1.setVisible(false);
+        lblfechainicio1.setVisible(false);
+        lblfechafin1.setVisible(false);
+
+        String tipo = (priv.getTipo() != null) ? priv.getTipo().toLowerCase() : "desconocido";
+
+        if ("administrador".equals(tipo)) {
+            JOptionPane.showMessageDialog(null, "Entro como administrador");
+        } else if ("normal".equals(tipo)) {
+            btnAnalisis.setEnabled(false);
+            cboxLibro.setEnabled(false);
+            btnPrestamo.setEnabled(false);
+            btnMultas.setEnabled(false);
+            btnReportes.setEnabled(false);
+            btnGuardarUsuario.setEnabled(false);
+            btnEliminarUsuario.setEnabled(false);
+            btnActualizarUsuario.setEnabled(false);
+            btnNuevoUsuario.setEnabled(false);
+            txtCarnetUsuario.setEnabled(false);
+            txtNombreUsuario.setEnabled(false);
+            txtApellidoUsuario.setEnabled(false);
+            txtTelefonoUsuario.setEnabled(false);
+            txtDomicilioUsuario.setEnabled(false);
+            cboxCargoUsuario.setEnabled(false);
+            cboxCarreraUsuario.setEnabled(false);
+            cboxTipoUsuario.setEnabled(false);
+            cboxEstadoPrestamoUsuario.setEnabled(false);
+
+            JOptionPane.showMessageDialog(null, "Entro como usuario normal");
+        } else if ("reportes".equals(tipo)) {
+            cboxLibro.setEnabled(false);
+            btnPrestamo.setEnabled(false);
+            btnMultas.setEnabled(false);
+            JOptionPane.showMessageDialog(this, "Bienvenido usuario de reportes");
+        } else {
+            JOptionPane.showMessageDialog(this, "Tipo de usuario desconocido: " + tipo, "Advertencia", JOptionPane.WARNING_MESSAGE);
+        }
+    }
+
+/*
+    public Sistema() {
         initComponents();
 
         jTabbedPane1.setUI(new MetalTabbedPaneUI() {
@@ -183,8 +375,8 @@ public class Sistema extends javax.swing.JFrame {
         autor.ConsultarPais(cboxPaisAutor);
         AutoCompleteDecorator.decorate(cboxPaisAutor);
 
-        /* AQUI LIMITAR LOS TXTFIELD
-         */
+        //AQUI LIMITAR LOS TXTFIELD
+         
         limitarCaracteres(txtNombrePais, 49);
         limitarCaracteres(txtSiglaMateria, 14);
         limitarCaracteres(txtNombreMateria, 79);
@@ -307,8 +499,8 @@ public class Sistema extends javax.swing.JFrame {
         lblfechainicio1.setVisible(false);
         lblfechafin1.setVisible(false);
 
-    }
-
+    }*/
+/*
     public Sistema(login priv) {
         initComponents();
         LimpiarTable();
@@ -377,7 +569,10 @@ public class Sistema extends javax.swing.JFrame {
         
 
         String tipo = (priv.getTipo() != null) ? priv.getTipo().toLowerCase() : "desconocido";
+        System.out.println("Tipo de usuario detectado: '" + tipo + "'");
 
+        
+        
         if ("administrador".equals(tipo)) {
             JOptionPane.showMessageDialog(null, "Entro como administrador");
             System.out.println("Entró como administrador");
@@ -409,29 +604,15 @@ public class Sistema extends javax.swing.JFrame {
                 }
             }
 
-            cboxLibro.setSelectedItem("Libros");*/
+            cboxLibro.setSelectedItem("Libros");
             //falta cerrar guardar eliminar y asi
             JOptionPane.showMessageDialog(null, "Entro como usuario normal");
             System.out.println("Entró como usuario normal");
         } else if ("reportes".equals(tipo)) {
             //USUARIO
-            btnGuardarUsuario.setEnabled(false);
-            btnEliminarUsuario.setEnabled(false);
-            btnActualizarUsuario.setEnabled(false);
-            btnNuevoUsuario.setEnabled(false);
-            txtCarnetUsuario.setEnabled(false);
-            txtNombreUsuario.setEnabled(false);
-            txtApellidoUsuario.setEnabled(false);
-            txtTelefonoUsuario.setEnabled(false);
-            txtDomicilioUsuario.setEnabled(false);
-            cboxCargoUsuario.setEnabled(false);
-            cboxCarreraUsuario.setEnabled(false);
-            cboxTipoUsuario.setEnabled(false);
-            cboxEstadoPrestamoUsuario.setEnabled(false);
-            btnPrestamo.setEnabled(false);
             cboxLibro.setEnabled(false);
+            btnPrestamo.setEnabled(false);
             btnMultas.setEnabled(false);
-            btnInicio.setEnabled(false);
             JOptionPane.showMessageDialog(this, "Bienvenido usuario de reportes");
         } else {
             JOptionPane.showMessageDialog(this,
@@ -439,7 +620,7 @@ public class Sistema extends javax.swing.JFrame {
                     "Advertencia",
                     JOptionPane.WARNING_MESSAGE);
         }
-    }
+    }*/
 
     public void ListarPais() {
         LimpiarTable();
@@ -10703,10 +10884,7 @@ private void generarReporteMultasPorPeriodo1() {
     }//GEN-LAST:event_CbfiltroUsuarioReporteItemStateChanged
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
-        
-        
         pdf();
-        
     }//GEN-LAST:event_jButton11ActionPerformed
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
@@ -11942,104 +12120,7 @@ private void generarReporteMultasPorPeriodo1() {
         txtStockPrestamo.setText("");
     }
 
-    private void pdf() {
-        try {
-            
-            File file = new File("src/pdf/usuarios.pdf");
-            FileOutputStream archivo = new FileOutputStream(file);
-
-            // Documento horizontal (A4 landscape)
-            Document doc = new Document(PageSize.A4.rotate());
-            PdfWriter.getInstance(doc, archivo);
-            doc.open();
-
-            // Imagen del encabezado
-            Image img = Image.getInstance("src/Img/SISINf.png");
-            img.scaleToFit(90, 90);
-
-            // Fecha
-            Paragraph fecha = new Paragraph();
-            Font negrita = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.BOLD, BaseColor.BLUE);
-            fecha.add(Chunk.NEWLINE);
-            Date date = new Date();
-            fecha.add("Fecha: " + new SimpleDateFormat("dd-MM-yyyy").format(date) + "\n\n");
-
-            // ENCABEZADO
-            PdfPTable encabezado = new PdfPTable(4);
-            encabezado.setWidthPercentage(100);
-            encabezado.getDefaultCell().setBorder(0);
-
-            float[] columnasEncabezado = new float[]{20f, 30f, 70f, 40f};
-            encabezado.setWidths(columnasEncabezado);
-            encabezado.setHorizontalAlignment(Element.ALIGN_LEFT);
-
-            encabezado.addCell(img);
-            encabezado.addCell("");
-            encabezado.addCell(new Paragraph("\n\nSISTEMA DE BIBLIOTECA\nREPORTE DE USUARIOS",
-                    new Font(Font.FontFamily.TIMES_ROMAN, 20, Font.BOLD)));
-
-            encabezado.addCell(fecha);
-
-            doc.add(encabezado);
-
-            // Título principal
-            Paragraph titulo = new Paragraph();
-            titulo.add(Chunk.NEWLINE);
-            titulo.add(new Paragraph("LISTADO DE USUARIOS FILTRADOS\n\n",
-                    new Font(Font.FontFamily.TIMES_ROMAN, 14, Font.BOLD)));
-            titulo.setAlignment(Element.ALIGN_CENTER);
-            doc.add(titulo);
-
-            // Tabla de datos
-            PdfPTable tabla = new PdfPTable(TableUsuario.getColumnCount()); // 9 columnas
-            tabla.setWidthPercentage(100);
-            tabla.setSpacingBefore(10f);
-            tabla.setSpacingAfter(10f);
-
-            // Ajustar anchos de columnas (opcional)
-            float[] medidaCeldas = {10f, 10f, 20f, 20f, 25f, 20f, 20f, 20f, 20f, 20f};
-            tabla.setWidths(medidaCeldas);
-
-            // Encabezados de tabla
-            Font fontHeader = new Font(Font.FontFamily.HELVETICA, 10, Font.BOLD, BaseColor.WHITE);
-            PdfPCell celdaHeader;
-
-            for (int i = 0; i < TableUsuario.getColumnCount(); i++) {
-                celdaHeader = new PdfPCell(new Phrase(TableUsuario.getColumnName(i), fontHeader));
-                celdaHeader.setBackgroundColor(BaseColor.DARK_GRAY);
-                celdaHeader.setHorizontalAlignment(Element.ALIGN_CENTER);
-                celdaHeader.setPadding(5f);
-                tabla.addCell(celdaHeader);
-            }
-
-            // Fuente para los datos
-            Font fontDatos = new Font(Font.FontFamily.HELVETICA, 9);
-
-            // Recorrer filas de JTable
-            for (int i = 0; i < TableUsuario.getRowCount(); i++) {
-                for (int j = 0; j < TableUsuario.getColumnCount(); j++) {
-                    String valorCelda = TableUsuario.getValueAt(i, j).toString();
-                    tabla.addCell(new Phrase(valorCelda, fontDatos));
-                }
-            }
-
-            // Agregar tabla al documento
-            doc.add(tabla);
-
-            // Cerrar
-            doc.close();
-            archivo.close();
-
-            JOptionPane.showMessageDialog(null, "PDF generado correctamente en: " + file.getAbsolutePath());
-
-            if (java.awt.Desktop.isDesktopSupported()) {
-                java.awt.Desktop.getDesktop().open(file);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Error al generar PDF: " + e.getMessage());
-        }
-    }
+        
 //auxiliar para filtrar
 
     private void actualizarComboValorUsuario() {
@@ -12075,6 +12156,106 @@ private void generarReporteMultasPorPeriodo1() {
         }
     }
 
+    private void pdf() {
+        try {
+            // Fecha y hora para el nombre del archivo
+            Date now = new Date();
+            String fechaHora = new SimpleDateFormat("dd-MM-yyyy_HH-mm-ss").format(now);
+            String nombreArchivo = "usuarios_" + fechaHora + ".pdf";
+
+            // Ruta del archivo
+            File file = new File("src/pdf/" + nombreArchivo);
+            FileOutputStream archivo = new FileOutputStream(file);
+
+            // Documento horizontal (A4 landscape)
+            Document doc = new Document(PageSize.A4.rotate());
+            PdfWriter.getInstance(doc, archivo);
+            doc.open();
+
+            // Imagen del encabezado
+            Image img = Image.getInstance("src/Img/SISINf.png");
+            img.scaleToFit(90, 90);
+
+            // Fecha en el encabezado
+            Paragraph fecha = new Paragraph();
+            Font negrita = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.BOLD, BaseColor.BLUE);
+            fecha.add(Chunk.NEWLINE);
+            fecha.add("Fecha: " + new SimpleDateFormat("dd-MM-yyyy").format(now) + "\n\n");
+
+            // ENCABEZADO
+            PdfPTable encabezado = new PdfPTable(4);
+            encabezado.setWidthPercentage(100);
+            encabezado.getDefaultCell().setBorder(0);
+
+            float[] columnasEncabezado = new float[]{20f, 30f, 70f, 40f};
+            encabezado.setWidths(columnasEncabezado);
+            encabezado.setHorizontalAlignment(Element.ALIGN_LEFT);
+
+            encabezado.addCell(img);
+            encabezado.addCell("");
+            encabezado.addCell(new Paragraph("\n\nSISTEMA DE BIBLIOTECA\nREPORTE DE USUARIOS",
+                    new Font(Font.FontFamily.TIMES_ROMAN, 20, Font.BOLD)));
+            encabezado.addCell(fecha);
+
+            doc.add(encabezado);
+
+            // Título principal
+            Paragraph titulo = new Paragraph();
+            titulo.add(Chunk.NEWLINE);
+            titulo.add(new Paragraph("LISTADO DE USUARIOS FILTRADOS\n\n",
+                    new Font(Font.FontFamily.TIMES_ROMAN, 14, Font.BOLD)));
+            titulo.setAlignment(Element.ALIGN_CENTER);
+            doc.add(titulo);
+
+            // Tabla de datos
+            PdfPTable tabla = new PdfPTable(TableUsuario.getColumnCount());
+            tabla.setWidthPercentage(100);
+            tabla.setSpacingBefore(10f);
+            tabla.setSpacingAfter(10f);
+
+            // Ajustar anchos de columnas
+            float[] medidaCeldas = {10f, 10f, 20f, 20f, 25f, 20f, 20f, 20f, 20f, 20f};
+            tabla.setWidths(medidaCeldas);
+
+            // Encabezados de tabla
+            Font fontHeader = new Font(Font.FontFamily.HELVETICA, 10, Font.BOLD, BaseColor.WHITE);
+            PdfPCell celdaHeader;
+            for (int i = 0; i < TableUsuario.getColumnCount(); i++) {
+                celdaHeader = new PdfPCell(new Phrase(TableUsuario.getColumnName(i), fontHeader));
+                celdaHeader.setBackgroundColor(BaseColor.DARK_GRAY);
+                celdaHeader.setHorizontalAlignment(Element.ALIGN_CENTER);
+                celdaHeader.setPadding(5f);
+                tabla.addCell(celdaHeader);
+            }
+
+            // Datos
+            Font fontDatos = new Font(Font.FontFamily.HELVETICA, 9);
+            for (int i = 0; i < TableUsuario.getRowCount(); i++) {
+                for (int j = 0; j < TableUsuario.getColumnCount(); j++) {
+                    Object celda = TableUsuario.getValueAt(i, j);
+                    tabla.addCell(new Phrase(celda != null ? celda.toString() : "", fontDatos));
+                }
+            }
+
+            // Agregar tabla al documento
+            doc.add(tabla);
+
+            // Cerrar documento
+            doc.close();
+            archivo.close();
+
+            JOptionPane.showMessageDialog(null, "PDF generado correctamente en: " + file.getAbsolutePath());
+
+            if (java.awt.Desktop.isDesktopSupported()) {
+                java.awt.Desktop.getDesktop().open(file);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error al generar PDF: " + e.getMessage());
+        }
+    }
+
+    
     private void pdfLibrosOtro() {
         try {
             String fechaHora = new SimpleDateFormat("dd-MM-yyyy_HH-mm-ss").format(new Date());

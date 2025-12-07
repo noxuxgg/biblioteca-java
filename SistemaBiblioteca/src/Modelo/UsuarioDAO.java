@@ -35,21 +35,20 @@ public class UsuarioDAO {
             return false;
         }
         
-        String sql = "INSERT INTO usuario (Id_usuario, Carnet, Nombre, Apellido, Domicilo, Id_tipo_usuario, Telefono, id_cargo, id_carrera, Estado, id_estado_usuario) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO usuario (Carnet, Nombre, Apellido, Domicilo, Id_tipo_usuario, Telefono, id_cargo, id_carrera, Estado, id_estado_usuario) VALUES(?,?,?,?,?,?,?,?,?,?)";
         try {
             con = cn.getConnection();
             ps = con.prepareStatement(sql);
-            ps.setInt(1, us.getId_usuario());
-            ps.setString(2, us.getCarnet());
-            ps.setString(3, us.getNombre());
-            ps.setString(4, us.getApellido());
-            ps.setString(5, us.getDomicilio());
-            ps.setInt(6, us.getId_tipo_usuario());
-            ps.setString(7, us.getTelefono());
-            ps.setInt(8, us.getId_cargo());
-            ps.setInt(9, us.getId_carrera());
-            ps.setInt(10, us.getEstado());
-            ps.setInt(11, us.getId_estado_prestamo());
+            ps.setString(1, us.getCarnet());
+            ps.setString(2, us.getNombre());
+            ps.setString(3, us.getApellido());
+            ps.setString(4, us.getDomicilio());
+            ps.setInt(5, us.getId_tipo_usuario());
+            ps.setString(6, us.getTelefono());
+            ps.setInt(7, us.getId_cargo());
+            ps.setInt(8, us.getId_carrera());
+            ps.setInt(9, us.getEstado());
+            ps.setInt(10, us.getId_estado_prestamo());
             ps.execute();
             return true;
         } catch (SQLException e) {
