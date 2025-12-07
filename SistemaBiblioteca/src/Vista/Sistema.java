@@ -285,6 +285,27 @@ public class Sistema extends javax.swing.JFrame {
         txtFechaFinGraficoMultas.setVisible(false);
         lblfechainicio.setVisible(false);
         lblfechafin.setVisible(false);
+        
+        inicializarComboGraficosMultas2();
+        txtFechaInicioGraficoMultas2.getDateEditor().setEnabled(false);
+        txtFechaFinGraficoMultas2.getDateEditor().setEnabled(false);
+
+        // 🔹 Ocultar campos de fecha inicialmente
+        txtFechaInicioGraficoMultas2.setVisible(false);
+        txtFechaFinGraficoMultas2.setVisible(false);
+        lblfechainicio2.setVisible(false);
+        lblfechafin2.setVisible(false);
+        
+        
+        inicializarComboGraficosMultas1();
+        txtFechaInicioGraficoMultas1.getDateEditor().setEnabled(false);
+        txtFechaFinGraficoMultas1.getDateEditor().setEnabled(false);
+
+        // 🔹 Ocultar campos de fecha inicialmente
+        txtFechaInicioGraficoMultas1.setVisible(false);
+        txtFechaFinGraficoMultas1.setVisible(false);
+        lblfechainicio1.setVisible(false);
+        lblfechafin1.setVisible(false);
 
     }
 
@@ -333,6 +354,27 @@ public class Sistema extends javax.swing.JFrame {
         // 🔹 Ocultar campos de fecha inicialmente
         txtFechaInicioGraficoMultas.setVisible(false);
         txtFechaFinGraficoMultas.setVisible(false);
+        
+        inicializarComboGraficosMultas1();
+        
+        txtFechaInicioGraficoMultas1.getDateEditor().setEnabled(false);
+        txtFechaFinGraficoMultas1.getDateEditor().setEnabled(false);
+
+        // 🔹 Ocultar campos de fecha inicialmente
+        txtFechaInicioGraficoMultas1.setVisible(false);
+        txtFechaFinGraficoMultas1.setVisible(false);
+        
+        
+        inicializarComboGraficosMultas2();
+        
+        txtFechaInicioGraficoMultas2.getDateEditor().setEnabled(false);
+        txtFechaFinGraficoMultas2.getDateEditor().setEnabled(false);
+
+        // 🔹 Ocultar campos de fecha inicialmente
+        txtFechaInicioGraficoMultas2.setVisible(false);
+        txtFechaFinGraficoMultas2.setVisible(false);
+        
+        
 
         String tipo = (priv.getTipo() != null) ? priv.getTipo().toLowerCase() : "desconocido";
 
@@ -1048,6 +1090,34 @@ public class Sistema extends javax.swing.JFrame {
 
         comboxGraficoMulta.setSelectedIndex(0);
     }
+    
+    private void inicializarComboGraficosMultas1() {
+        comboxGraficoMulta1.removeAllItems();
+        comboxGraficoMulta1.addItem("-- Seleccione un tipo de gráfico --");
+        comboxGraficoMulta1.addItem("Estado de Multas (Pagadas vs Activas)");
+        comboxGraficoMulta1.addItem("Usuarios con Más Multas (Top 10)");
+        comboxGraficoMulta1.addItem("Recaudación Mensual");
+        comboxGraficoMulta1.addItem("Multas por Periodo (requiere fechas)");
+        comboxGraficoMulta1.addItem("Libros que Generan Más Multas");
+        comboxGraficoMulta1.addItem("Distribución de Montos");
+        comboxGraficoMulta1.addItem("Promedio de Días de Retraso");
+
+        comboxGraficoMulta1.setSelectedIndex(0);
+    }
+    
+    private void inicializarComboGraficosMultas2() {
+        comboxGraficoMulta2.removeAllItems();
+        comboxGraficoMulta2.addItem("-- Seleccione un tipo de gráfico --");
+        comboxGraficoMulta2.addItem("Estado de Multas (Pagadas vs Activas)");
+        comboxGraficoMulta2.addItem("Usuarios con Más Multas (Top 10)");
+        comboxGraficoMulta2.addItem("Recaudación Mensual");
+        comboxGraficoMulta2.addItem("Multas por Periodo (requiere fechas)");
+        comboxGraficoMulta2.addItem("Libros que Generan Más Multas");
+        comboxGraficoMulta2.addItem("Distribución de Montos");
+        comboxGraficoMulta2.addItem("Promedio de Días de Retraso");
+
+        comboxGraficoMulta2.setSelectedIndex(0);
+    }
 
     /**
      * Valida las fechas y genera el gráfico de multas por periodo
@@ -1114,6 +1184,67 @@ public class Sistema extends javax.swing.JFrame {
         }
 
     }
+ 
+   
+ private void generarGraficoMultasPorPeriodo1() {
+    // Validar que las fechas estén seleccionadas
+    if (txtFechaInicioGraficoMultas2.getDate() == null
+            || txtFechaFinGraficoMultas2.getDate() == null) {
+        JOptionPane.showMessageDialog(null,
+                "⚠️ Debe seleccionar ambas fechas (inicio y fin)\n\n"
+                + "Este gráfico analiza las multas generadas en un periodo específico.",
+                "Fechas requeridas",
+                JOptionPane.WARNING_MESSAGE);
+        return;
+    }
+    
+    try {
+        // Convertir fechas a formato YYYY-MM-DD
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String fechaInicio = sdf.format(txtFechaInicioGraficoMultas2.getDate());
+        String fechaFin = sdf.format(txtFechaFinGraficoMultas2.getDate());
+        
+        // Validar que fecha inicio sea menor o igual a fecha fin
+        if (txtFechaInicioGraficoMultas2.getDate().after(txtFechaFinGraficoMultas2.getDate())) {
+            JOptionPane.showMessageDialog(null,
+                    "⚠️ La fecha inicial debe ser anterior o igual a la fecha final\n\n"
+                    + "Fecha inicio: " + fechaInicio + "\n"
+                    + "Fecha fin: " + fechaFin,
+                    "Fechas incorrectas",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        // Validar que el rango no sea muy grande (opcional)
+        long diffDias = (txtFechaFinGraficoMultas2.getDate().getTime()
+                - txtFechaInicioGraficoMultas2.getDate().getTime()) / (1000 * 60 * 60 * 24);
+        
+        if (diffDias > 365) {
+            int confirm = JOptionPane.showConfirmDialog(null,
+                    "⚠️ El rango seleccionado es mayor a 1 año (" + diffDias + " días)\n\n"
+                    + "Esto podría hacer el gráfico difícil de leer.\n"
+                    + "¿Desea continuar de todas formas?",
+                    "Rango amplio",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.WARNING_MESSAGE);
+            
+            if (confirm != JOptionPane.YES_OPTION) {
+                return;
+            }
+        }
+        
+        // Generar el gráfico
+        GraficoMultas.GraficarMultasPorFechas(fechaInicio, fechaFin);
+        System.out.println("✅ Gráfico generado para el periodo: " + fechaInicio + " a " + fechaFin);
+        
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null,
+                "❌ Error al procesar las fechas:\n\n" + e.getMessage(),
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
+        e.printStackTrace();
+    }
+}
 
     private void generarReporteEstadoMultas() {
         Connection con = null;
@@ -2083,7 +2214,273 @@ public class Sistema extends javax.swing.JFrame {
             }
         }
     }
+private void generarReporteMultasPorPeriodo1() {
+    // Validar que las fechas estén seleccionadas
+    if (txtFechaInicioGraficoMultas1.getDate() == null
+            || txtFechaFinGraficoMultas1.getDate() == null) {
 
+        JOptionPane.showMessageDialog(null,
+                "⚠️ Debe seleccionar ambas fechas (inicio y fin)\n\n"
+                + "Este reporte analiza las multas generadas en un periodo específico.",
+                "Fechas requeridas",
+                JOptionPane.WARNING_MESSAGE);
+        return;
+    }
+
+    Connection con = null;
+    PreparedStatement ps = null;
+    ResultSet rs = null;
+    Conexion cn = new Conexion();
+
+    try {
+        // Convertir fechas a formato YYYY-MM-DD
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String fechaInicio = sdf.format(txtFechaInicioGraficoMultas1.getDate());
+        String fechaFin = sdf.format(txtFechaFinGraficoMultas1.getDate());
+
+        // Validar que fecha inicio sea menor o igual a fecha fin
+        if (txtFechaInicioGraficoMultas1.getDate().after(txtFechaFinGraficoMultas1.getDate())) {
+            JOptionPane.showMessageDialog(null,
+                    "⚠️ La fecha inicial debe ser anterior o igual a la fecha final\n\n"
+                    + "Fecha inicio: " + fechaInicio + "\n"
+                    + "Fecha fin: " + fechaFin,
+                    "Fechas incorrectas",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        String sql = "SELECT m.Estado, COUNT(*) as cantidad, "
+                + "SUM(m.Monto) as total, "
+                + "SUM(m.Dias_retraso) as total_dias "
+                + "FROM multa m "
+                + "INNER JOIN prestamos p ON m.Id_prestamo = p.Id_prestamo "
+                + "WHERE p.Fecha_prestamo >= ? AND p.Fecha_prestamo <= ? "
+                + "GROUP BY m.Estado";
+
+        con = cn.getConnection();
+        ps = con.prepareStatement(sql);
+        ps.setString(1, fechaInicio);
+        ps.setString(2, fechaFin);
+        rs = ps.executeQuery();
+
+        // Recopilar datos
+        Map<String, Integer> cantidades = new HashMap<>();
+        Map<String, Float> montos = new HashMap<>();
+        Map<String, Integer> dias = new HashMap<>();
+
+        while (rs.next()) {
+            String estado = rs.getString("Estado");
+            cantidades.put(estado, rs.getInt("cantidad"));
+            montos.put(estado, rs.getFloat("total"));
+            dias.put(estado, rs.getInt("total_dias"));
+        }
+
+        if (cantidades.isEmpty()) {
+            JOptionPane.showMessageDialog(null,
+                    "ℹ️ No se encontraron multas en el periodo:\n\n"
+                    + "Desde: " + fechaInicio + "\n"
+                    + "Hasta: " + fechaFin,
+                    "Sin registros",
+                    JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+
+        // Crear PDF
+        Document documento = new Document(PageSize.A4);
+
+        String dirReportes = "src/Pdf";
+        File dir = new File(dirReportes);
+        if (!dir.exists()) {
+            dir.mkdirs();
+        }
+
+        String fechaArchivo = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String ruta = dirReportes + "/Reporte_Multas_Periodo_" + fechaInicio + "_a_" + fechaFin + "_" + fechaArchivo + ".pdf";
+
+        PdfWriter.getInstance(documento, new FileOutputStream(ruta));
+        documento.open();
+
+        // LOGO Y ENCABEZADO
+        try {
+            Image logo = Image.getInstance("src/Img/SISINf.png");
+            logo.scaleToFit(80, 80);
+            logo.setAlignment(Element.ALIGN_CENTER);
+            documento.add(logo);
+        } catch (Exception e) {
+            System.out.println("Logo no encontrado: " + e.getMessage());
+        }
+
+        Paragraph titulo = new Paragraph("REPORTE: MULTAS POR PERIODO\n",
+                FontFactory.getFont(FontFactory.HELVETICA_BOLD, 18, BaseColor.DARK_GRAY));
+        titulo.setAlignment(Element.ALIGN_CENTER);
+        documento.add(titulo);
+
+        Paragraph subtitulo = new Paragraph(
+                "Periodo: " + fechaInicio + " al " + fechaFin + "\n\n",
+                FontFactory.getFont(FontFactory.HELVETICA_BOLD, 12, new BaseColor(0, 100, 200)));
+        subtitulo.setAlignment(Element.ALIGN_CENTER);
+        documento.add(subtitulo);
+
+        Paragraph fechaGen = new Paragraph(
+                "Fecha de generación: " + new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(new Date()) + "\n\n",
+                FontFactory.getFont(FontFactory.HELVETICA, 10, BaseColor.BLACK));
+        fechaGen.setAlignment(Element.ALIGN_RIGHT);
+        documento.add(fechaGen);
+
+        documento.add(new Paragraph("\n"));
+
+        // TABLA POR ESTADO
+        PdfPTable tabla = new PdfPTable(5);
+        tabla.setWidthPercentage(90);
+        tabla.setHorizontalAlignment(Element.ALIGN_CENTER);
+
+        // Encabezados
+        agregarCeldaEncabezadoReporte(tabla, "Estado");
+        agregarCeldaEncabezadoReporte(tabla, "Cantidad");
+        agregarCeldaEncabezadoReporte(tabla, "Días Total");
+        agregarCeldaEncabezadoReporte(tabla, "Monto Total");
+        agregarCeldaEncabezadoReporte(tabla, "Porcentaje");
+
+        int totalMultas = cantidades.values().stream().mapToInt(Integer::intValue).sum();
+        float totalMonto = montos.values().stream().reduce(0f, Float::sum);
+        int totalDias = dias.values().stream().mapToInt(Integer::intValue).sum();
+
+        // Datos por estado
+        for (String estado : cantidades.keySet()) {
+            BaseColor colorFondo;
+            if (estado.equals("Pagada")) {
+                colorFondo = new BaseColor(200, 255, 200);
+            } else if (estado.equals("Activa")) {
+                colorFondo = new BaseColor(255, 200, 200);
+            } else {
+                colorFondo = new BaseColor(230, 230, 230);
+            }
+
+            PdfPCell celda = new PdfPCell(new Phrase(estado,
+                    FontFactory.getFont(FontFactory.HELVETICA_BOLD, 11)));
+            celda.setHorizontalAlignment(Element.ALIGN_CENTER);
+            celda.setPadding(8);
+            celda.setBackgroundColor(colorFondo);
+            tabla.addCell(celda);
+
+            celda = new PdfPCell(new Phrase(String.valueOf(cantidades.get(estado)),
+                    FontFactory.getFont(FontFactory.HELVETICA, 11)));
+            celda.setHorizontalAlignment(Element.ALIGN_CENTER);
+            celda.setPadding(8);
+            tabla.addCell(celda);
+
+            celda = new PdfPCell(new Phrase(String.valueOf(dias.get(estado)),
+                    FontFactory.getFont(FontFactory.HELVETICA, 11)));
+            celda.setHorizontalAlignment(Element.ALIGN_CENTER);
+            celda.setPadding(8);
+            tabla.addCell(celda);
+
+            celda = new PdfPCell(new Phrase(String.format("%.2f Bs", montos.get(estado)),
+                    FontFactory.getFont(FontFactory.HELVETICA_BOLD, 11)));
+            celda.setHorizontalAlignment(Element.ALIGN_RIGHT);
+            celda.setPadding(8);
+            tabla.addCell(celda);
+
+            float porcentaje = (cantidades.get(estado) * 100.0f) / totalMultas;
+            celda = new PdfPCell(new Phrase(String.format("%.1f%%", porcentaje),
+                    FontFactory.getFont(FontFactory.HELVETICA, 11)));
+            celda.setHorizontalAlignment(Element.ALIGN_CENTER);
+            celda.setPadding(8);
+            tabla.addCell(celda);
+        }
+
+        documento.add(tabla);
+
+        // RESUMEN
+        documento.add(new Paragraph("\n\n"));
+
+        Paragraph tituloResumen = new Paragraph("RESUMEN DEL PERIODO",
+                FontFactory.getFont(FontFactory.HELVETICA_BOLD, 14, BaseColor.DARK_GRAY));
+        tituloResumen.setAlignment(Element.ALIGN_CENTER);
+        documento.add(tituloResumen);
+        documento.add(new Paragraph("\n"));
+
+        PdfPTable tablaResumen = new PdfPTable(2);
+        tablaResumen.setWidthPercentage(70);
+        tablaResumen.setHorizontalAlignment(Element.ALIGN_CENTER);
+
+        // Calcular días del periodo
+        long diffDias = (txtFechaFinGraficoMultas1.getDate().getTime()
+                - txtFechaInicioGraficoMultas1.getDate().getTime()) / (1000 * 60 * 60 * 24);
+
+        agregarCeldaResumenReporte(tablaResumen, "Periodo analizado:",
+                fechaInicio + " al " + fechaFin, new BaseColor(240, 240, 255));
+        agregarCeldaResumenReporte(tablaResumen, "Días del periodo:",
+                String.valueOf(diffDias + 1), BaseColor.LIGHT_GRAY);
+        agregarCeldaResumenReporte(tablaResumen, "Total multas generadas:",
+                String.valueOf(totalMultas), BaseColor.LIGHT_GRAY);
+        agregarCeldaResumenReporte(tablaResumen, "Total días de retraso:",
+                String.valueOf(totalDias), BaseColor.LIGHT_GRAY);
+        agregarCeldaResumenReporte(tablaResumen, "Promedio por multa:",
+                String.format("%.2f Bs", totalMonto / totalMultas), BaseColor.LIGHT_GRAY);
+
+        PdfPCell celdaLabel = new PdfPCell(new Phrase("MONTO TOTAL:",
+                FontFactory.getFont(FontFactory.HELVETICA_BOLD, 12)));
+        celdaLabel.setBorder(Rectangle.BOX);
+        celdaLabel.setHorizontalAlignment(Element.ALIGN_RIGHT);
+        celdaLabel.setPadding(10);
+        celdaLabel.setBackgroundColor(new BaseColor(200, 200, 255));
+        tablaResumen.addCell(celdaLabel);
+
+        PdfPCell celdaValor = new PdfPCell(new Phrase(String.format("%.2f Bs", totalMonto),
+                FontFactory.getFont(FontFactory.HELVETICA_BOLD, 12)));
+        celdaValor.setBorder(Rectangle.BOX);
+        celdaValor.setHorizontalAlignment(Element.ALIGN_CENTER);
+        celdaValor.setPadding(10);
+        celdaValor.setBackgroundColor(BaseColor.YELLOW);
+        tablaResumen.addCell(celdaValor);
+
+        documento.add(tablaResumen);
+
+        // PIE DE PÁGINA
+        documento.add(new Paragraph("\n\n"));
+        Paragraph pie = new Paragraph(
+                "___________________________________________\n\n"
+                + "Sistema de Gestión Bibliotecaria - Reportes Automáticos\n"
+                + "Generado por: Los intrepidos",
+                FontFactory.getFont(FontFactory.HELVETICA, 8, BaseColor.GRAY));
+        pie.setAlignment(Element.ALIGN_CENTER);
+        documento.add(pie);
+
+        documento.close();
+
+        JOptionPane.showMessageDialog(null,
+                "✅ REPORTE GENERADO EXITOSAMENTE\n\n"
+                + "Periodo: " + fechaInicio + " al " + fechaFin + "\n"
+                + "Total multas: " + totalMultas + "\n"
+                + "Monto total: " + String.format("%.2f Bs", totalMonto) + "\n\n"
+                + "Archivo guardado en:\n" + ruta,
+                "Reporte Generado",
+                JOptionPane.INFORMATION_MESSAGE);
+
+        java.awt.Desktop.getDesktop().open(new File(ruta));
+
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null,
+                "❌ Error al generar el reporte:\n\n" + e.getMessage(),
+                "Error", JOptionPane.ERROR_MESSAGE);
+        e.printStackTrace();
+    } finally {
+        try {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
     private void generarReporteLibrosConMasMultas() {
         Connection con = null;
         PreparedStatement ps = null;
@@ -3381,6 +3778,14 @@ public class Sistema extends javax.swing.JFrame {
         jButton14 = new javax.swing.JButton();
         jLabel37 = new javax.swing.JLabel();
         jLabel38 = new javax.swing.JLabel();
+        jPanel48 = new javax.swing.JPanel();
+        jLabel44 = new javax.swing.JLabel();
+        comboxGraficoMulta2 = new javax.swing.JComboBox<>();
+        btnGenerarGraficoMulta1 = new javax.swing.JButton();
+        lblfechainicio2 = new javax.swing.JLabel();
+        txtFechaInicioGraficoMultas2 = new com.toedter.calendar.JDateChooser();
+        lblfechafin2 = new javax.swing.JLabel();
+        txtFechaFinGraficoMultas2 = new com.toedter.calendar.JDateChooser();
         jPanel12 = new javax.swing.JPanel();
         jPanel44 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
@@ -3406,6 +3811,16 @@ public class Sistema extends javax.swing.JFrame {
         CbfiltroUsuarioReporte = new javax.swing.JComboBox<>();
         jButton12 = new javax.swing.JButton();
         cboxFiltroValorUsuarioReporte = new javax.swing.JComboBox<>();
+        jPanel47 = new javax.swing.JPanel();
+        txtFechaInicioGraficoMultas1 = new com.toedter.calendar.JDateChooser();
+        txtFechaFinGraficoMultas1 = new com.toedter.calendar.JDateChooser();
+        comboxGraficoMulta1 = new javax.swing.JComboBox<>();
+        btnGenerarReporteMulta1 = new javax.swing.JButton();
+        jLabel43 = new javax.swing.JLabel();
+        btnReporMultasPagadas1 = new javax.swing.JButton();
+        btnReporMultasSinPagadas1 = new javax.swing.JButton();
+        lblfechainicio1 = new javax.swing.JLabel();
+        lblfechafin1 = new javax.swing.JLabel();
         jPanel24 = new javax.swing.JPanel();
         jPanel36 = new javax.swing.JPanel();
         jLabel48 = new javax.swing.JLabel();
@@ -3598,7 +4013,7 @@ public class Sistema extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(476, 476, 476)
                 .addComponent(jPanel42, javax.swing.GroupLayout.PREFERRED_SIZE, 528, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10530, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10801, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4)
                     .addComponent(jLabel12)
@@ -3840,7 +4255,7 @@ public class Sistema extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel23, javax.swing.GroupLayout.PREFERRED_SIZE, 1496, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(10642, Short.MAX_VALUE))
+                .addContainerGap(10913, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -4291,7 +4706,7 @@ public class Sistema extends javax.swing.JFrame {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel31, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(10587, Short.MAX_VALUE))
+                .addContainerGap(10858, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -4527,7 +4942,7 @@ public class Sistema extends javax.swing.JFrame {
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jButton37)
                     .addComponent(jPanel25, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(10716, Short.MAX_VALUE))
+                .addContainerGap(10987, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -4752,7 +5167,7 @@ public class Sistema extends javax.swing.JFrame {
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addGap(1226, 1226, 1226)
                         .addComponent(jButton46)))
-                .addContainerGap(10723, Short.MAX_VALUE))
+                .addContainerGap(10994, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -5698,7 +6113,7 @@ public class Sistema extends javax.swing.JFrame {
                         .addGap(98, 98, 98)
                         .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel34, javax.swing.GroupLayout.PREFERRED_SIZE, 1398, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(10740, Short.MAX_VALUE))
+                .addContainerGap(11011, Short.MAX_VALUE))
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -5775,6 +6190,78 @@ public class Sistema extends javax.swing.JFrame {
         jLabel38.setText("Desde:");
         jPanel22.add(jLabel38, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 42, -1, -1));
 
+        jPanel48.setBackground(new java.awt.Color(0, 0, 102));
+
+        jLabel44.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        jLabel44.setForeground(java.awt.Color.white);
+        jLabel44.setText("GRAFICOS DE MULTAS");
+
+        comboxGraficoMulta2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "seleccionar", "Estado de Multas", "Usuarios con Más Multa", "Recaudación Mensual", "Multa por Periodo", "Libros que Generan Más Multas", "Distribución de Montos" }));
+        comboxGraficoMulta2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboxGraficoMulta2ActionPerformed(evt);
+            }
+        });
+
+        btnGenerarGraficoMulta1.setBackground(new java.awt.Color(102, 0, 0));
+        btnGenerarGraficoMulta1.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        btnGenerarGraficoMulta1.setForeground(new java.awt.Color(255, 255, 255));
+        btnGenerarGraficoMulta1.setText("Generar Grafico");
+        btnGenerarGraficoMulta1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGenerarGraficoMulta1ActionPerformed(evt);
+            }
+        });
+
+        lblfechainicio2.setForeground(new java.awt.Color(255, 255, 255));
+        lblfechainicio2.setText("Fecha de inicio:");
+
+        lblfechafin2.setForeground(new java.awt.Color(255, 255, 255));
+        lblfechafin2.setText("Fecha Fin:");
+
+        javax.swing.GroupLayout jPanel48Layout = new javax.swing.GroupLayout(jPanel48);
+        jPanel48.setLayout(jPanel48Layout);
+        jPanel48Layout.setHorizontalGroup(
+            jPanel48Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel48Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel44)
+                .addGap(84, 84, 84))
+            .addGroup(jPanel48Layout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addGroup(jPanel48Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel48Layout.createSequentialGroup()
+                        .addComponent(lblfechainicio2, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtFechaInicioGraficoMultas2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(lblfechafin2, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtFechaFinGraficoMultas2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel48Layout.createSequentialGroup()
+                        .addComponent(comboxGraficoMulta2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnGenerarGraficoMulta1)))
+                .addContainerGap(12, Short.MAX_VALUE))
+        );
+        jPanel48Layout.setVerticalGroup(
+            jPanel48Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel48Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel44)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel48Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(comboxGraficoMulta2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnGenerarGraficoMulta1))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel48Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblfechainicio2)
+                    .addComponent(txtFechaInicioGraficoMultas2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblfechafin2)
+                    .addComponent(txtFechaFinGraficoMultas2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(32, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
         jPanel11.setLayout(jPanel11Layout);
         jPanel11Layout.setHorizontalGroup(
@@ -5784,9 +6271,11 @@ public class Sistema extends javax.swing.JFrame {
                 .addComponent(jPanel22, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel36)
-                .addGap(279, 279, 279)
+                .addGap(92, 92, 92)
+                .addComponent(jPanel48, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(1208, 11092, Short.MAX_VALUE))
+                .addGap(1208, 11165, Short.MAX_VALUE))
         );
         jPanel11Layout.setVerticalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -5801,7 +6290,9 @@ public class Sistema extends javax.swing.JFrame {
                         .addComponent(jLabel36))
                     .addGroup(jPanel11Layout.createSequentialGroup()
                         .addGap(42, 42, 42)
-                        .addComponent(jPanel22, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel22, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanel48, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -5882,7 +6373,7 @@ public class Sistema extends javax.swing.JFrame {
                 .addComponent(jButton7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton8)
-                .addContainerGap(34, Short.MAX_VALUE))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
 
         jPanel45.setBackground(new java.awt.Color(0, 0, 102));
@@ -5958,7 +6449,7 @@ public class Sistema extends javax.swing.JFrame {
                 .addComponent(jButton9)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton10)
-                .addContainerGap(34, Short.MAX_VALUE))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
 
         jPanel46.setBackground(new java.awt.Color(0, 0, 102));
@@ -6057,6 +6548,112 @@ public class Sistema extends javax.swing.JFrame {
                 .addGap(19, 19, 19))
         );
 
+        jPanel47.setBackground(new java.awt.Color(0, 0, 102));
+
+        comboxGraficoMulta1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "seleccionar", "Estado de Multas", "Usuarios con Más Multa", "Recaudación Mensual", "Multa por Periodo", "Libros que Generan Más Multas", "Distribución de Montos" }));
+        comboxGraficoMulta1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboxGraficoMulta1ActionPerformed(evt);
+            }
+        });
+
+        btnGenerarReporteMulta1.setBackground(new java.awt.Color(102, 0, 0));
+        btnGenerarReporteMulta1.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        btnGenerarReporteMulta1.setForeground(new java.awt.Color(255, 255, 255));
+        btnGenerarReporteMulta1.setText("Generar Reporte");
+        btnGenerarReporteMulta1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGenerarReporteMulta1ActionPerformed(evt);
+            }
+        });
+
+        jLabel43.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        jLabel43.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel43.setText("Generar reporte de:");
+
+        btnReporMultasPagadas1.setBackground(new java.awt.Color(102, 0, 0));
+        btnReporMultasPagadas1.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        btnReporMultasPagadas1.setForeground(new java.awt.Color(255, 255, 255));
+        btnReporMultasPagadas1.setText("Multas pagadas");
+        btnReporMultasPagadas1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReporMultasPagadas1ActionPerformed(evt);
+            }
+        });
+
+        btnReporMultasSinPagadas1.setBackground(new java.awt.Color(102, 0, 0));
+        btnReporMultasSinPagadas1.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        btnReporMultasSinPagadas1.setForeground(new java.awt.Color(255, 255, 255));
+        btnReporMultasSinPagadas1.setText("Multas sin pagar");
+        btnReporMultasSinPagadas1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReporMultasSinPagadas1ActionPerformed(evt);
+            }
+        });
+
+        lblfechainicio1.setForeground(new java.awt.Color(255, 255, 255));
+        lblfechainicio1.setText("Fecha de inicio:");
+
+        lblfechafin1.setForeground(new java.awt.Color(255, 255, 255));
+        lblfechafin1.setText("Fecha Fin:");
+
+        javax.swing.GroupLayout jPanel47Layout = new javax.swing.GroupLayout(jPanel47);
+        jPanel47.setLayout(jPanel47Layout);
+        jPanel47Layout.setHorizontalGroup(
+            jPanel47Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel47Layout.createSequentialGroup()
+                .addGroup(jPanel47Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel47Layout.createSequentialGroup()
+                        .addGap(5, 5, 5)
+                        .addComponent(lblfechainicio1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtFechaInicioGraficoMultas1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblfechafin1, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18))
+                    .addGroup(jPanel47Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel43, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addComponent(txtFechaFinGraficoMultas1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel47Layout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addComponent(comboxGraficoMulta1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
+                .addComponent(btnGenerarReporteMulta1)
+                .addGap(40, 40, 40))
+            .addGroup(jPanel47Layout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addComponent(btnReporMultasPagadas1, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(53, 53, 53)
+                .addComponent(btnReporMultasSinPagadas1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel47Layout.setVerticalGroup(
+            jPanel47Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel47Layout.createSequentialGroup()
+                .addGap(40, 40, 40)
+                .addGroup(jPanel47Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(comboxGraficoMulta1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnGenerarReporteMulta1))
+                .addGap(25, 25, 25)
+                .addGroup(jPanel47Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel47Layout.createSequentialGroup()
+                        .addGroup(jPanel47Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtFechaInicioGraficoMultas1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtFechaFinGraficoMultas1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblfechafin1, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addGap(26, 26, 26)
+                        .addComponent(jLabel43)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel47Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnReporMultasPagadas1)
+                            .addComponent(btnReporMultasSinPagadas1)))
+                    .addComponent(lblfechainicio1))
+                .addContainerGap(25, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
         jPanel12.setLayout(jPanel12Layout);
         jPanel12Layout.setHorizontalGroup(
@@ -6068,15 +6665,18 @@ public class Sistema extends javax.swing.JFrame {
                 .addComponent(jPanel45, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel46, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(11240, Short.MAX_VALUE))
+                .addGap(82, 82, 82)
+                .addComponent(jPanel47, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(10973, Short.MAX_VALUE))
         );
         jPanel12Layout.setVerticalGroup(
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel12Layout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel46, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel47, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jPanel46, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jPanel45, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jPanel44, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap(406, Short.MAX_VALUE))
@@ -6247,7 +6847,7 @@ public class Sistema extends javax.swing.JFrame {
                         .addComponent(jPanel36, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(108, 108, 108)
                         .addComponent(jPanel37, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(10875, Short.MAX_VALUE))
+                .addContainerGap(11146, Short.MAX_VALUE))
         );
         jPanel24Layout.setVerticalGroup(
             jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -6435,7 +7035,7 @@ public class Sistema extends javax.swing.JFrame {
                         .addComponent(jPanel33, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(88, 88, 88)
                         .addComponent(jPanel35, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(10673, Short.MAX_VALUE))
+                .addContainerGap(10944, Short.MAX_VALUE))
         );
         jPanel26Layout.setVerticalGroup(
             jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -6622,7 +7222,7 @@ public class Sistema extends javax.swing.JFrame {
                         .addComponent(jPanel16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(185, 185, 185)
                         .addComponent(jPanel18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(10785, Short.MAX_VALUE))
+                .addContainerGap(11056, Short.MAX_VALUE))
             .addGroup(jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel27Layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -7016,7 +7616,7 @@ public class Sistema extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(10787, Short.MAX_VALUE))
+                .addContainerGap(11058, Short.MAX_VALUE))
         );
         jPanel32Layout.setVerticalGroup(
             jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -10132,6 +10732,629 @@ public class Sistema extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton12ActionPerformed
 
+    private void comboxGraficoMulta1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboxGraficoMulta1ActionPerformed
+     // Reutilizar la lógica del combobox original
+    String seleccion = (String) comboxGraficoMulta1.getSelectedItem();
+
+    // Si selecciona "Multas por Periodo", mostrar campos de fecha
+    if (seleccion != null && seleccion.contains("Multas por Periodo")) {
+        // Asegúrate de tener estos campos en la pestaña 2 también
+        txtFechaInicioGraficoMultas1.setVisible(true);
+        txtFechaFinGraficoMultas1.setVisible(true);
+        lblfechainicio1.setVisible(true);
+        lblfechafin1.setVisible(true);
+    } else {
+        txtFechaInicioGraficoMultas1.setVisible(false);
+        txtFechaFinGraficoMultas1.setVisible(false);
+        lblfechainicio1.setVisible(false);
+        lblfechafin1.setVisible(false);
+    }
+    }//GEN-LAST:event_comboxGraficoMulta1ActionPerformed
+
+    private void btnGenerarReporteMulta1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarReporteMulta1ActionPerformed
+      String seleccion = (String) comboxGraficoMulta1.getSelectedItem();
+
+    if (seleccion == null || seleccion.startsWith("--")) {
+        JOptionPane.showMessageDialog(null,
+                "⚠️ Por favor, seleccione una opción",
+                "Selección requerida",
+                JOptionPane.WARNING_MESSAGE);
+        return;
+    }
+
+    try {
+        if (seleccion.contains("Estado de Multas")) {
+            generarReporteEstadoMultas();
+
+        } else if (seleccion.contains("Usuarios con Más Multas")) {
+            generarReporteUsuariosConMasMultas();
+
+        } else if (seleccion.contains("Recaudación Mensual")) {
+            generarReporteRecaudacionMensual();
+
+        } else if (seleccion.contains("Multas por Periodo")) {
+            generarReporteMultasPorPeriodo1();  // 👈 Llamar al método con "1"
+
+        } else if (seleccion.contains("Libros que Generan Más Multas")) {
+            generarReporteLibrosConMasMultas();
+
+        } else if (seleccion.contains("Distribución de Montos")) {
+            generarReporteDistribucionMontos();
+
+        } else if (seleccion.contains("Promedio de Días de Retraso")) {
+            generarReportePromedioDiasRetraso();
+        }
+
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null,
+                "❌ Error al generar el reporte:\n\n" + e.getMessage(),
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
+        e.printStackTrace();
+    }
+    }//GEN-LAST:event_btnGenerarReporteMulta1ActionPerformed
+
+    private void btnReporMultasPagadas1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReporMultasPagadas1ActionPerformed
+         // Obtener todas las multas pagadas
+        List<Multa_pagada> lista = multaPagadaDao.listarPagosPagados();
+
+        if (lista.isEmpty()) {
+            JOptionPane.showMessageDialog(null,
+                    "No hay multas pagadas registradas en el sistema",
+                    "Sin registros",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        Document documento = new Document(PageSize.A4.rotate()); // Horizontal
+
+        try {
+            // Crear directorio si no existe
+            String dirReportes = "src/Pdf";
+            File dir = new File(dirReportes);
+            if (!dir.exists()) {
+                dir.mkdirs();
+            }
+
+            // Nombre del archivo con fecha y hora
+            String fecha = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+            String ruta = dirReportes + "/Reporte_Multas_PAGADAS_" + fecha + ".pdf";
+
+            PdfWriter.getInstance(documento, new FileOutputStream(ruta));
+            documento.open();
+
+            // ========== LOGO Y ENCABEZADO ==========
+            try {
+                Image logo = Image.getInstance("src/Img/SISINf.png");
+                logo.scaleToFit(80, 80);
+                logo.setAlignment(Element.ALIGN_CENTER);
+                documento.add(logo);
+            } catch (Exception e) {
+                System.out.println("Logo no encontrado: " + e.getMessage());
+            }
+
+            // TÍTULO
+            Paragraph titulo = new Paragraph("REPORTE DE MULTAS PAGADAS\n",
+                    FontFactory.getFont(FontFactory.HELVETICA_BOLD, 18, BaseColor.DARK_GRAY));
+            titulo.setAlignment(Element.ALIGN_CENTER);
+            documento.add(titulo);
+
+            Paragraph subtitulo = new Paragraph("Sistema de Gestión Bibliotecaria\n\n",
+                    FontFactory.getFont(FontFactory.HELVETICA, 12, BaseColor.GRAY));
+            subtitulo.setAlignment(Element.ALIGN_CENTER);
+            documento.add(subtitulo);
+
+            // FECHA DE GENERACIÓN
+            Paragraph fechaGen = new Paragraph(
+                    "Fecha de generación: " + new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(new Date()) + "\n\n",
+                    FontFactory.getFont(FontFactory.HELVETICA, 10, BaseColor.BLACK));
+            fechaGen.setAlignment(Element.ALIGN_RIGHT);
+            documento.add(fechaGen);
+
+            documento.add(new Paragraph("\n"));
+
+            // ========== TABLA DE MULTAS PAGADAS ==========
+            PdfPTable tabla = new PdfPTable(9);
+            tabla.setWidthPercentage(100);
+            tabla.setWidths(new float[]{0.7f, 0.8f, 1f, 2f, 2.2f, 0.8f, 1f, 1.5f, 2f});
+
+            // ENCABEZADOS
+            agregarCeldaEncabezadoReporte(tabla, "ID");
+            agregarCeldaEncabezadoReporte(tabla, "Multa");
+            agregarCeldaEncabezadoReporte(tabla, "Préstamo");
+            agregarCeldaEncabezadoReporte(tabla, "Usuario");
+            agregarCeldaEncabezadoReporte(tabla, "Libro");
+            agregarCeldaEncabezadoReporte(tabla, "Días");
+            agregarCeldaEncabezadoReporte(tabla, "Monto");
+            agregarCeldaEncabezadoReporte(tabla, "Num. Factura");
+            agregarCeldaEncabezadoReporte(tabla, "Fecha Pago");
+
+            // DATOS Y CÁLCULO DE TOTALES
+            float totalRecaudado = 0;
+            int totalDias = 0;
+
+            // Agrupar por mes para estadísticas
+            Map<String, Float> recaudadoPorMes = new HashMap<>();
+            Map<String, Integer> pagosPorMes = new HashMap<>();
+
+            SimpleDateFormat mesAnio = new SimpleDateFormat("MM/yyyy");
+
+            for (Multa_pagada mp : lista) {
+                // ID Pago
+                PdfPCell celda = new PdfPCell(new Phrase(String.valueOf(mp.getId_multa_pagada()),
+                        FontFactory.getFont(FontFactory.HELVETICA, 8)));
+                celda.setHorizontalAlignment(Element.ALIGN_CENTER);
+                tabla.addCell(celda);
+
+                // ID Multa
+                celda = new PdfPCell(new Phrase(String.valueOf(mp.getId_multa()),
+                        FontFactory.getFont(FontFactory.HELVETICA, 8)));
+                celda.setHorizontalAlignment(Element.ALIGN_CENTER);
+                tabla.addCell(celda);
+
+                // ID Préstamo
+                celda = new PdfPCell(new Phrase(String.valueOf(mp.getIdPrestamo()),
+                        FontFactory.getFont(FontFactory.HELVETICA, 8)));
+                celda.setHorizontalAlignment(Element.ALIGN_CENTER);
+                tabla.addCell(celda);
+
+                // Usuario
+                tabla.addCell(new Phrase(mp.getNombreCompletoUsuario(),
+                        FontFactory.getFont(FontFactory.HELVETICA, 8)));
+
+                // Libro
+                tabla.addCell(new Phrase(mp.getTituloLibro() != null ? mp.getTituloLibro() : "N/A",
+                        FontFactory.getFont(FontFactory.HELVETICA, 8)));
+
+                // Días de retraso
+                celda = new PdfPCell(new Phrase(String.valueOf(mp.getDiasRetraso()),
+                        FontFactory.getFont(FontFactory.HELVETICA, 8)));
+                celda.setHorizontalAlignment(Element.ALIGN_CENTER);
+                tabla.addCell(celda);
+
+                // Monto
+                celda = new PdfPCell(new Phrase(mp.getMontoFormateado(),
+                        FontFactory.getFont(FontFactory.HELVETICA_BOLD, 8)));
+                celda.setHorizontalAlignment(Element.ALIGN_RIGHT);
+                celda.setBackgroundColor(new BaseColor(230, 255, 230)); // Verde claro
+                tabla.addCell(celda);
+
+                // Número de factura
+                tabla.addCell(new Phrase(mp.getNumeroFactura() != null ? mp.getNumeroFactura() : "N/A",
+                        FontFactory.getFont(FontFactory.HELVETICA, 7)));
+
+                // Fecha de pago
+                String fechaPago = mp.getFechaFormateada();
+                tabla.addCell(new Phrase(fechaPago,
+                        FontFactory.getFont(FontFactory.HELVETICA, 8)));
+
+                // Acumular totales
+                totalRecaudado += mp.getMontoPagado();
+                totalDias += mp.getDiasRetraso();
+
+                // Agrupar por mes
+                try {
+                    String mes = mesAnio.format(mp.getFecha());
+                    recaudadoPorMes.put(mes, recaudadoPorMes.getOrDefault(mes, 0f) + mp.getMontoPagado());
+                    pagosPorMes.put(mes, pagosPorMes.getOrDefault(mes, 0) + 1);
+                } catch (Exception e) {
+                    System.out.println("Error al agrupar por mes: " + e.getMessage());
+                }
+            }
+
+            documento.add(tabla);
+
+            // ========== RESUMEN POR MES ==========
+            if (!recaudadoPorMes.isEmpty()) {
+                documento.add(new Paragraph("\n"));
+
+                Paragraph tituloMeses = new Paragraph("RECAUDACIÓN POR MES",
+                        FontFactory.getFont(FontFactory.HELVETICA_BOLD, 12, BaseColor.DARK_GRAY));
+                tituloMeses.setAlignment(Element.ALIGN_CENTER);
+                documento.add(tituloMeses);
+                documento.add(new Paragraph("\n"));
+
+                PdfPTable tablaMeses = new PdfPTable(3);
+                tablaMeses.setWidthPercentage(60);
+                tablaMeses.setHorizontalAlignment(Element.ALIGN_CENTER);
+
+                // Encabezados
+                agregarCeldaEncabezadoReporte(tablaMeses, "Mes/Año");
+                agregarCeldaEncabezadoReporte(tablaMeses, "Cantidad");
+                agregarCeldaEncabezadoReporte(tablaMeses, "Monto Recaudado");
+
+                // Ordenar meses
+                List<String> mesesOrdenados = new ArrayList<>(recaudadoPorMes.keySet());
+                Collections.sort(mesesOrdenados);
+
+                for (String mes : mesesOrdenados) {
+                    PdfPCell celda = new PdfPCell(new Phrase(mes,
+                            FontFactory.getFont(FontFactory.HELVETICA, 10)));
+                    celda.setHorizontalAlignment(Element.ALIGN_CENTER);
+                    celda.setPadding(5);
+                    tablaMeses.addCell(celda);
+
+                    celda = new PdfPCell(new Phrase(String.valueOf(pagosPorMes.get(mes)),
+                            FontFactory.getFont(FontFactory.HELVETICA, 10)));
+                    celda.setHorizontalAlignment(Element.ALIGN_CENTER);
+                    celda.setPadding(5);
+                    tablaMeses.addCell(celda);
+
+                    celda = new PdfPCell(new Phrase(String.format("%.2f Bs", recaudadoPorMes.get(mes)),
+                            FontFactory.getFont(FontFactory.HELVETICA_BOLD, 10)));
+                    celda.setHorizontalAlignment(Element.ALIGN_RIGHT);
+                    celda.setPadding(5);
+                    celda.setBackgroundColor(new BaseColor(230, 255, 230));
+                    tablaMeses.addCell(celda);
+                }
+
+                documento.add(tablaMeses);
+            }
+
+            // ========== RESUMEN GENERAL ==========
+            documento.add(new Paragraph("\n"));
+
+            PdfPTable tablaResumen = new PdfPTable(2);
+            tablaResumen.setWidthPercentage(60);
+            tablaResumen.setHorizontalAlignment(Element.ALIGN_RIGHT);
+
+            // Total de pagos
+            agregarCeldaResumenReporte(tablaResumen, "Total de multas pagadas:",
+                    String.valueOf(lista.size()), BaseColor.LIGHT_GRAY);
+
+            // Total de días
+            agregarCeldaResumenReporte(tablaResumen, "Total días de retraso:",
+                    String.valueOf(totalDias), BaseColor.LIGHT_GRAY);
+
+            // Promedio
+            float promedioRecaudado = lista.size() > 0 ? totalRecaudado / lista.size() : 0;
+            agregarCeldaResumenReporte(tablaResumen, "Promedio por multa:",
+                    String.format("%.2f Bs", promedioRecaudado), BaseColor.LIGHT_GRAY);
+
+            // TOTAL RECAUDADO (destacado)
+            PdfPCell celdaLabel = new PdfPCell(new Phrase("TOTAL RECAUDADO:",
+                    FontFactory.getFont(FontFactory.HELVETICA_BOLD, 13)));
+            celdaLabel.setBorder(Rectangle.BOX);
+            celdaLabel.setHorizontalAlignment(Element.ALIGN_RIGHT);
+            celdaLabel.setPadding(8);
+            celdaLabel.setBackgroundColor(new BaseColor(200, 255, 200));
+            tablaResumen.addCell(celdaLabel);
+
+            PdfPCell celdaValor = new PdfPCell(new Phrase(String.format("%.2f Bs", totalRecaudado),
+                    FontFactory.getFont(FontFactory.HELVETICA_BOLD, 13)));
+            celdaValor.setBorder(Rectangle.BOX);
+            celdaValor.setHorizontalAlignment(Element.ALIGN_CENTER);
+            celdaValor.setPadding(8);
+            celdaValor.setBackgroundColor(BaseColor.YELLOW);
+            tablaResumen.addCell(celdaValor);
+
+            documento.add(tablaResumen);
+
+            // ========== PIE DE PÁGINA ==========
+            documento.add(new Paragraph("\n\n"));
+            Paragraph pie = new Paragraph(
+                    "___________________________________________\n\n"
+                    + "Este reporte incluye todas las multas pagadas registradas en el sistema.\n"
+                    + "Sistema de Gestión Bibliotecaria - Reportes Automáticos\n"
+                    + "Generado por: Los intrepidos",
+                    FontFactory.getFont(FontFactory.HELVETICA, 8, BaseColor.GRAY));
+            pie.setAlignment(Element.ALIGN_CENTER);
+            documento.add(pie);
+
+            documento.close();
+
+            // ========== MENSAJE DE ÉXITO ==========
+            String mensajeExito = String.format(
+                    "✅ REPORTE GENERADO EXITOSAMENTE\n\n"
+                    + "════════════════════════════════\n"
+                    + "Total de pagos:      %d\n"
+                    + "Total días retraso:  %d\n"
+                    + "Total recaudado:     %.2f Bs\n"
+                    + "Promedio por pago:   %.2f Bs\n"
+                    + "Meses registrados:   %d\n"
+                    + "════════════════════════════════\n\n"
+                    + "Archivo guardado en:\n%s",
+                    lista.size(),
+                    totalDias,
+                    totalRecaudado,
+                    promedioRecaudado,
+                    recaudadoPorMes.size(),
+                    ruta
+            );
+
+            JOptionPane.showMessageDialog(null, mensajeExito,
+                    "Reporte Generado", JOptionPane.INFORMATION_MESSAGE);
+
+            // Abrir el PDF automáticamente
+            java.awt.Desktop.getDesktop().open(new File(ruta));
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null,
+                    "Error al generar el reporte:\n\n" + e.getMessage(),
+                    "Error", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_btnReporMultasPagadas1ActionPerformed
+
+    private void btnReporMultasSinPagadas1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReporMultasSinPagadas1ActionPerformed
+         List<Multa> lista = multaDao.listarMultasPorEstado("Activa");
+
+        if (lista.isEmpty()) {
+            JOptionPane.showMessageDialog(null,
+                    "¡Excelente! No hay multas pendientes de pago",
+                    "Sin multas pendientes",
+                    JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+
+        Document documento = new Document(PageSize.A4.rotate()); // Horizontal
+
+        try {
+            // Crear directorio si no existe
+            String dirReportes = "src/Pdf";
+            File dir = new File(dirReportes);
+            if (!dir.exists()) {
+                dir.mkdirs();
+                System.out.println("Directorio creado: " + dirReportes);
+            }
+
+            // Nombre del archivo con fecha y hora
+            String fecha = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+            String ruta = dirReportes + "/Reporte_Multas_SIN_PAGAR_" + fecha + ".pdf";
+
+            PdfWriter.getInstance(documento, new FileOutputStream(ruta));
+            documento.open();
+
+            // ========== LOGO Y ENCABEZADO ==========
+            try {
+                Image logo = Image.getInstance("src/Img/SISINf.png");
+                logo.scaleToFit(80, 80);
+                logo.setAlignment(Element.ALIGN_CENTER);
+                documento.add(logo);
+            } catch (Exception e) {
+                System.out.println("Logo no encontrado: " + e.getMessage());
+            }
+
+            // TÍTULO
+            Paragraph titulo = new Paragraph("REPORTE DE MULTAS SIN PAGAR\n",
+                    FontFactory.getFont(FontFactory.HELVETICA_BOLD, 18, BaseColor.DARK_GRAY));
+            titulo.setAlignment(Element.ALIGN_CENTER);
+            documento.add(titulo);
+
+            Paragraph subtitulo = new Paragraph("Sistema de Gestión Bibliotecaria\n\n",
+                    FontFactory.getFont(FontFactory.HELVETICA, 12, BaseColor.GRAY));
+            subtitulo.setAlignment(Element.ALIGN_CENTER);
+            documento.add(subtitulo);
+
+            // FECHA DE GENERACIÓN
+            Paragraph fechaGen = new Paragraph(
+                    "Fecha de generación: " + new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(new Date()) + "\n\n",
+                    FontFactory.getFont(FontFactory.HELVETICA, 10, BaseColor.BLACK));
+            fechaGen.setAlignment(Element.ALIGN_RIGHT);
+            documento.add(fechaGen);
+
+            documento.add(new Paragraph("\n"));
+
+            // ========== TABLA DE MULTAS ==========
+            PdfPTable tabla = new PdfPTable(8);
+            tabla.setWidthPercentage(100);
+            tabla.setWidths(new float[]{0.7f, 1f, 2f, 2.5f, 1f, 1f, 1.2f, 1.3f});
+
+            // ENCABEZADOS
+            agregarCeldaEncabezadoReporte(tabla, "ID");
+            agregarCeldaEncabezadoReporte(tabla, "Préstamo");
+            agregarCeldaEncabezadoReporte(tabla, "Usuario");
+            agregarCeldaEncabezadoReporte(tabla, "Libro");
+            agregarCeldaEncabezadoReporte(tabla, "ID Usuario");
+            agregarCeldaEncabezadoReporte(tabla, "Días");
+            agregarCeldaEncabezadoReporte(tabla, "Monto");
+            agregarCeldaEncabezadoReporte(tabla, "Estado");
+
+            // DATOS Y CÁLCULO DE TOTALES
+            float totalMonto = 0;
+            int totalDias = 0;
+
+            for (Multa m : lista) {
+                // ID Multa
+                PdfPCell celda = new PdfPCell(new Phrase(String.valueOf(m.getId_multa()),
+                        FontFactory.getFont(FontFactory.HELVETICA, 9)));
+                celda.setHorizontalAlignment(Element.ALIGN_CENTER);
+                tabla.addCell(celda);
+
+                // ID Préstamo
+                celda = new PdfPCell(new Phrase(String.valueOf(m.getId_prestamo()),
+                        FontFactory.getFont(FontFactory.HELVETICA, 9)));
+                celda.setHorizontalAlignment(Element.ALIGN_CENTER);
+                tabla.addCell(celda);
+
+                // Usuario
+                tabla.addCell(new Phrase(m.getNombreUsuario() != null ? m.getNombreUsuario() : "N/A",
+                        FontFactory.getFont(FontFactory.HELVETICA, 9)));
+
+                // Libro
+                tabla.addCell(new Phrase(m.getNombreLibro() != null ? m.getNombreLibro() : "N/A",
+                        FontFactory.getFont(FontFactory.HELVETICA, 9)));
+
+                // ID Usuario
+                celda = new PdfPCell(new Phrase(String.valueOf(m.getId_usuario()),
+                        FontFactory.getFont(FontFactory.HELVETICA, 9)));
+                celda.setHorizontalAlignment(Element.ALIGN_CENTER);
+                tabla.addCell(celda);
+
+                // Días de retraso
+                celda = new PdfPCell(new Phrase(String.valueOf(m.getDias_retraso()),
+                        FontFactory.getFont(FontFactory.HELVETICA, 9)));
+                celda.setHorizontalAlignment(Element.ALIGN_CENTER);
+                celda.setBackgroundColor(new BaseColor(255, 230, 230)); // Rosa claro
+                tabla.addCell(celda);
+
+                // Monto
+                celda = new PdfPCell(new Phrase(String.format("%.2f Bs", m.getMonto()),
+                        FontFactory.getFont(FontFactory.HELVETICA_BOLD, 9)));
+                celda.setHorizontalAlignment(Element.ALIGN_RIGHT);
+                tabla.addCell(celda);
+
+                // Estado
+                celda = new PdfPCell(new Phrase(m.getEstado(),
+                        FontFactory.getFont(FontFactory.HELVETICA, 9, BaseColor.RED)));
+                celda.setHorizontalAlignment(Element.ALIGN_CENTER);
+                celda.setBackgroundColor(new BaseColor(255, 240, 240));
+                tabla.addCell(celda);
+
+                // Acumular totales
+                totalMonto += m.getMonto();
+                totalDias += m.getDias_retraso();
+            }
+
+            documento.add(tabla);
+
+            // ========== RESUMEN Y TOTALES ==========
+            documento.add(new Paragraph("\n"));
+
+            PdfPTable tablaResumen = new PdfPTable(2);
+            tablaResumen.setWidthPercentage(60);
+            tablaResumen.setHorizontalAlignment(Element.ALIGN_RIGHT);
+
+            // Total de multas
+            agregarCeldaResumenReporte(tablaResumen, "Total de multas sin pagar:",
+                    String.valueOf(lista.size()), BaseColor.LIGHT_GRAY);
+
+            // Total de días acumulados
+            agregarCeldaResumenReporte(tablaResumen, "Total días de retraso acumulados:",
+                    String.valueOf(totalDias), BaseColor.LIGHT_GRAY);
+
+            // Monto promedio
+            float montoPromedio = lista.size() > 0 ? totalMonto / lista.size() : 0;
+            agregarCeldaResumenReporte(tablaResumen, "Monto promedio por multa:",
+                    String.format("%.2f Bs", montoPromedio), BaseColor.LIGHT_GRAY);
+
+            // TOTAL A RECAUDAR (destacado)
+            PdfPCell celdaLabel = new PdfPCell(new Phrase("TOTAL A RECAUDAR:",
+                    FontFactory.getFont(FontFactory.HELVETICA_BOLD, 13)));
+            celdaLabel.setBorder(Rectangle.BOX);
+            celdaLabel.setHorizontalAlignment(Element.ALIGN_RIGHT);
+            celdaLabel.setPadding(8);
+            celdaLabel.setBackgroundColor(new BaseColor(255, 200, 200));
+            tablaResumen.addCell(celdaLabel);
+
+            PdfPCell celdaValor = new PdfPCell(new Phrase(String.format("%.2f Bs", totalMonto),
+                    FontFactory.getFont(FontFactory.HELVETICA_BOLD, 13)));
+            celdaValor.setBorder(Rectangle.BOX);
+            celdaValor.setHorizontalAlignment(Element.ALIGN_CENTER);
+            celdaValor.setPadding(8);
+            celdaValor.setBackgroundColor(BaseColor.YELLOW);
+            tablaResumen.addCell(celdaValor);
+
+            documento.add(tablaResumen);
+
+            // ========== PIE DE PÁGINA ==========
+            documento.add(new Paragraph("\n\n"));
+            Paragraph pie = new Paragraph(
+                    "___________________________________________\n\n"
+                    + "Este reporte muestra todas las multas pendientes de pago al momento de su generación.\n"
+                    + "Sistema de Gestión Bibliotecaria - Reportes Automáticos\n"
+                    + "Generado por: Los intrepidos",
+                    FontFactory.getFont(FontFactory.HELVETICA, 8, BaseColor.GRAY));
+            pie.setAlignment(Element.ALIGN_CENTER);
+            documento.add(pie);
+
+            documento.close();
+
+            // ========== MENSAJE DE ÉXITO ==========
+            String mensajeExito = String.format(
+                    "✅ REPORTE GENERADO EXITOSAMENTE\n\n"
+                    + "════════════════════════════════\n"
+                    + "Total de multas:     %d\n"
+                    + "Total días retraso:  %d\n"
+                    + "Total a recaudar:    %.2f Bs\n"
+                    + "Promedio por multa:  %.2f Bs\n"
+                    + "════════════════════════════════\n\n"
+                    + "Archivo guardado en:\n%s",
+                    lista.size(),
+                    totalDias,
+                    totalMonto,
+                    montoPromedio,
+                    ruta
+            );
+
+            JOptionPane.showMessageDialog(null, mensajeExito,
+                    "Reporte Generado", JOptionPane.INFORMATION_MESSAGE);
+
+            // Abrir el PDF automáticamente
+            java.awt.Desktop.getDesktop().open(new File(ruta));
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null,
+                    "Error al generar el reporte:\n\n" + e.getMessage(),
+                    "Error", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_btnReporMultasSinPagadas1ActionPerformed
+
+    private void comboxGraficoMulta2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboxGraficoMulta2ActionPerformed
+       // Reutilizar la lógica del combobox original
+    String seleccion = (String) comboxGraficoMulta2.getSelectedItem();
+
+    // Si selecciona "Multas por Periodo", mostrar campos de fecha
+    if (seleccion != null && seleccion.contains("Multas por Periodo")) {
+        // Asegúrate de tener estos campos en la pestaña 2 también
+        txtFechaInicioGraficoMultas2.setVisible(true);
+        txtFechaFinGraficoMultas2.setVisible(true);
+        lblfechainicio2.setVisible(true);
+        lblfechafin2.setVisible(true);
+    } else {
+        txtFechaInicioGraficoMultas2.setVisible(false);
+        txtFechaFinGraficoMultas2.setVisible(false);
+        lblfechainicio2.setVisible(false);
+        lblfechafin2.setVisible(false);
+    }
+    }//GEN-LAST:event_comboxGraficoMulta2ActionPerformed
+
+    private void btnGenerarGraficoMulta1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarGraficoMulta1ActionPerformed
+        String seleccion = (String) comboxGraficoMulta2.getSelectedItem();
+
+    // Validar que se haya seleccionado una opción
+    if (seleccion == null || seleccion.startsWith("--")) {
+        JOptionPane.showMessageDialog(null,
+                "⚠️ Por favor, seleccione un tipo de gráfico",
+                "Selección requerida",
+                JOptionPane.WARNING_MESSAGE);
+        return;
+    }
+
+    try {
+        // Generar el gráfico según la selección
+        if (seleccion.contains("Estado de Multas")) {
+            GraficoMultas.GraficarEstadoMultas();
+
+        } else if (seleccion.contains("Usuarios con Más Multas")) {
+            GraficoMultas.GraficarUsuariosConMasMultas();
+
+        } else if (seleccion.contains("Recaudación Mensual")) {
+            GraficoMultas.GraficarRecaudacionMensual();
+
+        } else if (seleccion.contains("Multas por Periodo")) {
+            generarGraficoMultasPorPeriodo1();  // 👈 Llamar al método con "1"
+
+        } else if (seleccion.contains("Libros que Generan Más Multas")) {
+            GraficoMultas.GraficarLibrosConMasMultas();
+
+        } else if (seleccion.contains("Distribución de Montos")) {
+            GraficoMultas.GraficarDistribucionMontos();
+
+        } else if (seleccion.contains("Promedio de Días de Retraso")) {
+            GraficoMultas.GraficarPromedioDiasRetraso();
+        }
+
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null,
+                "❌ Error al generar el gráfico:\n\n" + e.getMessage(),
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
+        e.printStackTrace();
+    } 
+    }//GEN-LAST:event_btnGenerarGraficoMulta1ActionPerformed
+
     public void ListarUsuario() {
         LimpiarTable();
         List<Usuario> ListarUsuario = usuario.ListarUsuario();
@@ -10329,7 +11552,9 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JButton btnEliminarUsuario;
     private javax.swing.JButton btnGenerarFactura;
     private javax.swing.JButton btnGenerarGraficoMulta;
+    private javax.swing.JButton btnGenerarGraficoMulta1;
     private javax.swing.JButton btnGenerarReporteMulta;
+    private javax.swing.JButton btnGenerarReporteMulta1;
     private javax.swing.JButton btnGraficarLibrosPrestamo;
     private javax.swing.JButton btnGraficarPrestamo;
     private javax.swing.JButton btnGuardarAutor;
@@ -10355,7 +11580,9 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JButton btnPrestamo;
     private javax.swing.JButton btnPrestamosPDF;
     private javax.swing.JButton btnReporMultasPagadas;
+    private javax.swing.JButton btnReporMultasPagadas1;
     private javax.swing.JButton btnReporMultasSinPagadas;
+    private javax.swing.JButton btnReporMultasSinPagadas1;
     private javax.swing.JButton btnReportes;
     private javax.swing.JButton btnTodosLibro;
     private javax.swing.JButton btngenerarpdfusuario;
@@ -10380,6 +11607,8 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cboxTipoLibro;
     private javax.swing.JComboBox<String> cboxTipoUsuario;
     private javax.swing.JComboBox<String> comboxGraficoMulta;
+    private javax.swing.JComboBox<String> comboxGraficoMulta1;
+    private javax.swing.JComboBox<String> comboxGraficoMulta2;
     private com.toedter.calendar.JDateChooser dateDesdeLibro;
     private com.toedter.calendar.JDateChooser dateDesdeLibro2;
     private com.toedter.calendar.JDateChooser dateHastaLibro;
@@ -10448,6 +11677,8 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel40;
     private javax.swing.JLabel jLabel41;
     private javax.swing.JLabel jLabel42;
+    private javax.swing.JLabel jLabel43;
+    private javax.swing.JLabel jLabel44;
     private javax.swing.JLabel jLabel48;
     private javax.swing.JLabel jLabel49;
     private javax.swing.JLabel jLabel5;
@@ -10543,6 +11774,8 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel44;
     private javax.swing.JPanel jPanel45;
     private javax.swing.JPanel jPanel46;
+    private javax.swing.JPanel jPanel47;
+    private javax.swing.JPanel jPanel48;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
@@ -10564,7 +11797,11 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JLabel lblfechafin;
+    private javax.swing.JLabel lblfechafin1;
+    private javax.swing.JLabel lblfechafin2;
     private javax.swing.JLabel lblfechainicio;
+    private javax.swing.JLabel lblfechainicio1;
+    private javax.swing.JLabel lblfechainicio2;
     private com.raven.swing.TimePicker objectoHora;
     private javax.swing.JTable tableMultaspagadas;
     private javax.swing.JTextField txtAnioLibro;
@@ -10585,7 +11822,11 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JTextField txtEdicionPrestamo;
     private com.toedter.calendar.JDateChooser txtFechaDevolucion;
     private com.toedter.calendar.JDateChooser txtFechaFinGraficoMultas;
+    private com.toedter.calendar.JDateChooser txtFechaFinGraficoMultas1;
+    private com.toedter.calendar.JDateChooser txtFechaFinGraficoMultas2;
     private com.toedter.calendar.JDateChooser txtFechaInicioGraficoMultas;
+    private com.toedter.calendar.JDateChooser txtFechaInicioGraficoMultas1;
+    private com.toedter.calendar.JDateChooser txtFechaInicioGraficoMultas2;
     private com.toedter.calendar.JDateChooser txtHastaGraficoPrestamo;
     private com.toedter.calendar.JDateChooser txtHastaPrestamoReporte;
     private javax.swing.JTextField txtHoraPrestamo;
