@@ -28,16 +28,15 @@ public class PrestamoDAO {
             return false;
         }
         //String sql = "INSERT INTO prestamos (id_prestamo,id_usuario,id_libro,fecha_prestamo,fecha_devolucion,estado) VALUES (?,?,?,?,?,?)";
-        String sql = "INSERT INTO prestamos (id_prestamo,id_usuario,id_libro,fecha_devolucion) VALUES (?,?,?,?)";
+        String sql = "INSERT INTO prestamos (id_usuario,id_libro,fecha_devolucion) VALUES (?,?,?)";
         
         try {
             con = cn.getConnection();
             ps = con.prepareStatement(sql);
-            ps.setInt(1, pre.getId_prestamo());
-            ps.setInt(2, pre.getId_usuario());
-            ps.setInt(3, pre.getId_libro());
+            ps.setInt(1, pre.getId_usuario());
+            ps.setInt(2, pre.getId_libro());
             //ps.setString(4, pre.getFecha_prestamo());
-            ps.setString(4, pre.getFecha_devolucion());
+            ps.setString(3, pre.getFecha_devolucion());
             //ps.setString(5, pre.getEstado());
             ps.execute();
             return true;

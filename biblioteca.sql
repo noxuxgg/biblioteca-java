@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 08-12-2025 a las 01:12:55
+-- Tiempo de generación: 08-12-2025 a las 06:03:56
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -47,7 +47,12 @@ INSERT INTO `autores` (`Id_autor`, `Nombre`, `Apellido`, `id_pais`, `estado`) VA
 (6, 'Luis', 'Joyanes Aguilar', 1, 0),
 (8, 'Jorge Alfonso', 'Rodriguez Tanzi', 6, 1),
 (10, 'Juan Enrique', 'Lopez', 5, 1),
-(11, 'asdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfa', 'asdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfa', 15, 0);
+(11, 'asdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfa', 'asdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfa', 15, 0),
+(12, 'Lucarto', 'Ruperto', 30, 1),
+(13, 'Martina', 'Sosa ', 28, 1),
+(14, 'Juan Pedro', 'Rodriguez', 31, 1),
+(15, 'Alberto ', 'Del campo', 28, 1),
+(16, 'Julieta', 'Rosas de Souza', 4, 1);
 
 -- --------------------------------------------------------
 
@@ -115,7 +120,13 @@ INSERT INTO `categoria` (`Id_categoria`, `Categoria`, `estado`) VALUES
 (8, 'Revista Cientifica', 0),
 (9, 'Proyecto de grado', 0),
 (10, 'Proyecto de GRADO', 0),
-(11, 'Libro  ', 1);
+(11, 'Libro  ', 1),
+(12, 'Ciencias de la Computacion', 1),
+(13, 'Ciberseguridad', 1),
+(14, 'Redes', 0),
+(15, 'Analisis de Datos', 1),
+(16, 'Redes', 1),
+(17, 'Articulos de Datos', 1);
 
 -- --------------------------------------------------------
 
@@ -173,7 +184,9 @@ INSERT INTO `editoriales` (`Id_editorial`, `Nombre`, `Direccion`, `Telefono`, `i
 (25, 'Los andes ', 'La paz y Bolivia', '52-49353', 1, 1),
 (26, 'Potosina Editorial', '6 de agosto y Tarija', '', 5, 0),
 (27, 'Pepito', '', '', 6, 1),
-(28, 'Fulanito', '', '', 12, 1);
+(28, 'Fulanito', '', '', 12, 1),
+(29, 'RulansCientific', '', '', 8, 1),
+(30, 'Lamps Science', 'Springfield', '4652316451', 2, 1);
 
 -- --------------------------------------------------------
 
@@ -300,7 +313,12 @@ INSERT INTO `libro` (`Id_libro`, `Titulo`, `Id_categoria`, `Id_editorial`, `Id_a
 (15, 'Chanchito Feliciano', NULL, NULL, NULL, 6, '9na', '1', 'P-10103', '2025-11-01', 1, 2000, 'aas@asf~4', 1, 'Copia'),
 (16, 'Puerquito', NULL, NULL, NULL, NULL, '4ta.', '1', 'P-202', '2025-11-01', 1, 2005, '', 5, 'Copia'),
 (17, 'Pruebas de Escritorio', 11, 23, 2, 6, '2da.', '1', 'P-1666', '2025-11-06', 1, 2005, 'Para probar la base datos :v', 5, 'Copia'),
-(18, 'Prueba', NULL, NULL, NULL, NULL, '9na.', '1', 'P-1023', '2025-11-28', 1, 2002, '', 5, 'Copia');
+(18, 'Prueba', NULL, NULL, NULL, NULL, '9na.', '1', 'P-1023', '2025-11-28', 1, 2002, '', 5, 'Copia'),
+(19, 'C# para principiantes', 11, 25, 3, 15, '4ta.', '1', 'P-2023', '2025-12-07', 1, 2010, '', 5, 'Copia'),
+(20, 'Pruebas de Escritorio', 4, 30, 16, 17, '1ra.', '1', 'P-1231', '2025-12-07', 1, 1500, 'Para IA', 5, 'Copia'),
+(21, 'La IA en 2020', 4, 30, 13, 17, '10ma.', '0', 'P-1010', '2025-12-08', 1, 2022, 'IA', 5, 'Original'),
+(22, 'La IA en 2020', 4, 25, 13, 17, '1ra.', '1', 'P-1011', '2025-12-08', 1, 2022, 'IA', 5, 'Copia'),
+(23, 'Canales de Informacion', 11, NULL, 12, 18, '5ta.', '1', 'T-1030', '2025-12-08', 1, 2000, 'aaaaa', 5, 'Original');
 
 -- --------------------------------------------------------
 
@@ -347,7 +365,15 @@ INSERT INTO `materia` (`Id_materia`, `sigla`, `Nombre`, `estado`) VALUES
 (7, 'SIS-2430', 'Programación Gráfica', 1),
 (8, 'SIS-1110', 'Metodología de la Programación I', 0),
 (9, 'MAT-1207', 'Ecuaciones Diferenciales', 0),
-(10, 'MAT-1207', 'Ecuaciones Diferenciales', 1);
+(10, 'MAT-1207', 'Ecuaciones Diferenciales', 1),
+(11, 'IND-2023', 'Protocolos de Produccion', 0),
+(12, 'SIS-1110', 'Metodología de la programación I', 1),
+(13, 'INF-2310', 'Sistemas Operativos I', 1),
+(14, 'SIS-2330', 'Metodología de la Programación III', 1),
+(15, 'SIS-2310', 'Estructura de Datos', 1),
+(16, 'SIS-2720', 'Ingenieria de Software I', 1),
+(17, 'INF-3731', 'Inteligencia Artificial', 1),
+(18, 'INF-2610', 'Teoria de la Informacion', 1);
 
 -- --------------------------------------------------------
 
@@ -446,7 +472,11 @@ INSERT INTO `paises` (`id_pais`, `nombre`, `estado`) VALUES
 (24, '      d', 0),
 (25, 'Rumania', 1),
 (26, 'Corea del Sur', 1),
-(27, 'dsafasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfa', 0);
+(27, 'dsafasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfa', 0),
+(28, 'Cabo Verde', 1),
+(29, 'Cosobo', 1),
+(30, 'Republica Checa', 1),
+(31, 'Republica del Congo', 1);
 
 -- --------------------------------------------------------
 
@@ -498,7 +528,12 @@ INSERT INTO `prestamos` (`Id_prestamo`, `Id_usuario`, `Id_libro`, `Fecha_prestam
 (33, 21, 18, '2025-12-01 20:13:06', '2025-12-20 08:12:00', '1', 2),
 (34, 21, 18, '2025-12-01 20:45:23', '2025-12-27 08:44:00', '1', 2),
 (35, 18, 4, '2025-12-07 19:17:03', '2025-12-22 07:16:00', '1', 2),
-(36, 18, 4, '2025-12-07 19:28:43', '2025-12-12 06:30:00', '1', 2);
+(36, 18, 4, '2025-12-07 19:28:43', '2025-12-12 06:30:00', '1', 2),
+(37, 22, 23, '2025-12-08 00:24:49', '2025-12-08 12:26:00', '1', 2),
+(38, 7, 13, '2025-12-08 00:25:39', '2025-12-08 00:26:00', '1', 2),
+(39, 24, 14, '2025-12-08 00:46:32', '2025-12-08 00:48:00', '1', 2),
+(40, 25, 13, '2025-12-08 00:47:50', '2025-12-08 00:50:00', '1', 2),
+(41, 18, 13, '2025-12-08 00:51:07', '2025-12-08 00:57:00', '1', 2);
 
 -- --------------------------------------------------------
 
@@ -546,16 +581,20 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`Id_usuario`, `Carnet`, `Nombre`, `Apellido`, `Domicilo`, `Id_tipo_usuario`, `Telefono`, `id_cargo`, `id_carrera`, `Estado`, `id_estado_usuario`, `libros_prestados`) VALUES
-(5, '7278371', 'Juan Marco', 'Mercedes Canaviri', 'Av. al valle entre junin y ayacucho Nro578', 2, '74821147', 3, 2, 1, 2, 0),
-(6, '5489632', 'Maria', 'Campero Rodriguez', 'La plata entre villaroel y 6 de agosto Nro 67', 2, '61278854', 3, 1, 1, 1, 0),
+(5, '7278371', 'Juan Marcoo', 'Mercedes Canaviri', 'Av. al valle entre junin y ayacucho Nro578', 2, '74821147', 3, 2, 1, 1, 0),
+(6, '5489632', 'Maria', 'Campero Rodriguez', 'La plata entre villaroel y 6 de agosto Nro 67', 2, '61278854', 3, 1, 1, 2, 0),
 (7, '48658454', 'Carla', 'Rocha Quispe', 'Pagado entre soria galvarro y ayacucho Nro 40', 2, '58421154', 3, 1, 1, 1, 0),
 (15, '7274931', 'Adriana', 'Choquecallata Troncoso', 'Av. Villaroel y Ayachucho #35', 2, '63814471', 3, 2, 1, 1, 0),
 (16, '5689451', 'Juana Azurduy', 'De padilla', 'Av terracota, calle Linares #54', 2, '78945211', 3, 1, 1, 1, 0),
 (17, '2412344', 'asdfssdfa', 'ADFAFDAFDADF', 'ADFADFADFAFD', 2, '65353230', 2, 2, 1, 1, 0),
-(18, '7389062', 'Israel ', 'Lima Condori', 'Zona Socamani ', 2, '68319277', 3, 1, 1, 1, 0),
+(18, '7389062', 'Israel ', 'Lima Condori', 'Zona Socamani ', 2, '68319277', 3, 1, 1, 2, 0),
 (19, '7654321', 'Jhonatan', 'Lima Condori', 'cerca', 2, '61826899', 3, 1, 1, 1, 0),
 (20, '7894561', 'Indiara Sulma', 'Jacinto Mamani', 'por allisds', 2, '78945612', 3, 1, 1, 1, 0),
-(21, '12345678', 'Alambrito', 'Delgado', 'Maria de las Mercedes', 2, '75424724', 3, 1, 1, 1, 0);
+(21, '12345678', 'Alambrito', 'Delgado', 'Maria de las Mercedes', 2, '75424724', 3, 1, 1, 2, 0),
+(22, '7453062', 'Freddy Fernando', 'Huanca Irahola', 'Benedetto Vincenty', 2, '60423998', 3, 1, 1, 1, 0),
+(23, '78787878', 'German', 'Rodriguezx', 'WallStreet', 2, '78653522', 3, 2, 1, 1, 0),
+(24, '789456123', 'Timi', 'Otul', 'Oruro', 2, '79856223', 3, 1, 1, 1, 0),
+(25, '4561230', 'Alberto', 'del rio', 'Junin', 2, '78456559', 3, 2, 1, 1, 0);
 
 --
 -- Índices para tablas volcadas
@@ -703,7 +742,7 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `autores`
 --
 ALTER TABLE `autores`
-  MODIFY `Id_autor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `Id_autor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT de la tabla `cargo`
@@ -721,7 +760,7 @@ ALTER TABLE `carrera`
 -- AUTO_INCREMENT de la tabla `categoria`
 --
 ALTER TABLE `categoria`
-  MODIFY `Id_categoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `Id_categoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT de la tabla `cliente`
@@ -733,7 +772,7 @@ ALTER TABLE `cliente`
 -- AUTO_INCREMENT de la tabla `editoriales`
 --
 ALTER TABLE `editoriales`
-  MODIFY `Id_editorial` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `Id_editorial` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT de la tabla `estadolibro`
@@ -763,7 +802,7 @@ ALTER TABLE `factura`
 -- AUTO_INCREMENT de la tabla `libro`
 --
 ALTER TABLE `libro`
-  MODIFY `Id_libro` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `Id_libro` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT de la tabla `login`
@@ -775,7 +814,7 @@ ALTER TABLE `login`
 -- AUTO_INCREMENT de la tabla `materia`
 --
 ALTER TABLE `materia`
-  MODIFY `Id_materia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `Id_materia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT de la tabla `multa`
@@ -793,13 +832,13 @@ ALTER TABLE `multa_pagada`
 -- AUTO_INCREMENT de la tabla `paises`
 --
 ALTER TABLE `paises`
-  MODIFY `id_pais` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id_pais` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT de la tabla `prestamos`
 --
 ALTER TABLE `prestamos`
-  MODIFY `Id_prestamo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `Id_prestamo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
 -- AUTO_INCREMENT de la tabla `tipo_usuario`
@@ -811,7 +850,7 @@ ALTER TABLE `tipo_usuario`
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `Id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `Id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- Restricciones para tablas volcadas
