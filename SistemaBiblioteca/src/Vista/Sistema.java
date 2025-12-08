@@ -3896,7 +3896,6 @@ private void generarReporteMultasPorPeriodo1() {
         txtEdicionPrestamo = new javax.swing.JTextField();
         jLabel95 = new javax.swing.JLabel();
         txtStockPrestamo = new javax.swing.JTextField();
-        btnActualizarPrestamo = new javax.swing.JButton();
         jLabel98 = new javax.swing.JLabel();
         txtFechaDevolucion = new com.toedter.calendar.JDateChooser();
         txtHoraPrestamo = new javax.swing.JTextField();
@@ -3914,6 +3913,7 @@ private void generarReporteMultasPorPeriodo1() {
         txtRangoInferiorFechaListado = new com.toedter.calendar.JDateChooser();
         jLabel25 = new javax.swing.JLabel();
         btnPrestamosPDF = new javax.swing.JButton();
+        btnAyudaPrestamos = new javax.swing.JButton();
         jPanel10 = new javax.swing.JPanel();
         jPanel20 = new javax.swing.JPanel();
         jLabel34 = new javax.swing.JLabel();
@@ -5552,13 +5552,6 @@ private void generarReporteMultasPorPeriodo1() {
             }
         });
 
-        btnActualizarPrestamo.setText("Actualizar");
-        btnActualizarPrestamo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnActualizarPrestamoActionPerformed(evt);
-            }
-        });
-
         jLabel98.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
         jLabel98.setForeground(new java.awt.Color(255, 255, 255));
         jLabel98.setText("Fecha de devolucion:");
@@ -5634,6 +5627,13 @@ private void generarReporteMultasPorPeriodo1() {
             }
         });
 
+        btnAyudaPrestamos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/1126709-30x30.png"))); // NOI18N
+        btnAyudaPrestamos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAyudaPrestamosActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel17Layout = new javax.swing.GroupLayout(jPanel17);
         jPanel17.setLayout(jPanel17Layout);
         jPanel17Layout.setHorizontalGroup(
@@ -5645,64 +5645,16 @@ private void generarReporteMultasPorPeriodo1() {
                         .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel17Layout.createSequentialGroup()
                                 .addComponent(jLabel14)
-                                .addGap(6, 6, 6)
-                                .addComponent(txtidPrestamo, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel17Layout.createSequentialGroup()
-                                .addComponent(jLabel16)
-                                .addGap(12, 12, 12)
-                                .addComponent(txtNombrePrestamo, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(6, 6, 6)
-                                .addComponent(jLabel85)
-                                .addGap(6, 6, 6)
-                                .addComponent(txtTelefonoPrestamo, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel17Layout.createSequentialGroup()
-                                .addComponent(jLabel60)
-                                .addGap(12, 12, 12)
-                                .addComponent(txtApellidoPrestamo, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(6, 6, 6)
-                                .addComponent(jLabel91)
-                                .addGap(6, 6, 6)
-                                .addComponent(txtDomicilioPrestamo, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtidPrestamo, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel17Layout.createSequentialGroup()
                                 .addComponent(jLabel92)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtCodigoPrestamo, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
+                                .addGap(30, 30, 30)
                                 .addComponent(jLabel97)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtidLibroPrestamo, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel17Layout.createSequentialGroup()
-                                .addComponent(jLabel93)
-                                .addGap(6, 6, 6)
-                                .addComponent(txtTituloPrestamo, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel17Layout.createSequentialGroup()
-                                .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel17Layout.createSequentialGroup()
-                                        .addComponent(jLabel94)
-                                        .addGap(6, 6, 6)
-                                        .addComponent(txtEdicionPrestamo, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel17Layout.createSequentialGroup()
-                                        .addComponent(jLabel95)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(txtStockPrestamo, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel17Layout.createSequentialGroup()
-                                        .addComponent(btnHoraPrestamo)
-                                        .addGap(6, 6, 6)
-                                        .addComponent(txtHoraPrestamo, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel17Layout.createSequentialGroup()
-                                        .addComponent(jLabel98)
-                                        .addGap(10, 10, 10)
-                                        .addComponent(txtFechaDevolucion, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel17Layout.createSequentialGroup()
-                                        .addComponent(btnGuardarPrestamo)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(btnGraficarLibrosPrestamo, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel17Layout.createSequentialGroup()
-                                        .addComponent(btnEliminarPrestamo)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(btnActualizarPrestamo))))
+                                .addComponent(txtidLibroPrestamo, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel17Layout.createSequentialGroup()
                                 .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(6, 6, 6)
@@ -5710,13 +5662,61 @@ private void generarReporteMultasPorPeriodo1() {
                                 .addGap(13, 13, 13)
                                 .addComponent(jLabel96)
                                 .addGap(6, 6, 6)
-                                .addComponent(txtidUsuarioPrestamo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel5))
+                                .addComponent(txtidUsuarioPrestamo, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel5)
+                            .addGroup(jPanel17Layout.createSequentialGroup()
+                                .addComponent(jLabel60)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtApellidoPrestamo, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(12, 12, 12)
+                                .addComponent(jLabel91)
+                                .addGap(3, 3, 3)
+                                .addComponent(txtDomicilioPrestamo, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(jPanel17Layout.createSequentialGroup()
+                                    .addComponent(jLabel93)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(txtTituloPrestamo))
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel17Layout.createSequentialGroup()
+                                    .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(jPanel17Layout.createSequentialGroup()
+                                            .addComponent(jLabel94)
+                                            .addGap(6, 6, 6)
+                                            .addComponent(txtEdicionPrestamo, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(jPanel17Layout.createSequentialGroup()
+                                            .addComponent(jLabel95)
+                                            .addGap(18, 18, 18)
+                                            .addComponent(txtStockPrestamo, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGap(18, 18, 18)
+                                    .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(jPanel17Layout.createSequentialGroup()
+                                            .addComponent(btnHoraPrestamo)
+                                            .addGap(6, 6, 6)
+                                            .addComponent(txtHoraPrestamo, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(jPanel17Layout.createSequentialGroup()
+                                            .addComponent(jLabel98)
+                                            .addGap(10, 10, 10)
+                                            .addComponent(txtFechaDevolucion, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(jPanel17Layout.createSequentialGroup()
+                                            .addComponent(btnGuardarPrestamo)
+                                            .addGap(18, 18, 18)
+                                            .addComponent(btnGraficarLibrosPrestamo, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(btnEliminarPrestamo))))
+                            .addGroup(jPanel17Layout.createSequentialGroup()
+                                .addComponent(jLabel16)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtNombrePrestamo, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(12, 12, 12)
+                                .addComponent(jLabel85)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtTelefonoPrestamo, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jScrollPane11, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 970, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel17Layout.createSequentialGroup()
                                 .addComponent(btnPrestamosPDF)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnAyudaPrestamos)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel25)
                                 .addGap(18, 18, 18)
@@ -5776,7 +5776,9 @@ private void generarReporteMultasPorPeriodo1() {
                             .addComponent(btnListarRangoPrestamo))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel17Layout.createSequentialGroup()
-                        .addComponent(btnPrestamosPDF)
+                        .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnAyudaPrestamos)
+                            .addComponent(btnPrestamosPDF))
                         .addGap(21, 21, 21)))
                 .addComponent(jScrollPane11, javax.swing.GroupLayout.PREFERRED_SIZE, 354, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -5793,31 +5795,30 @@ private void generarReporteMultasPorPeriodo1() {
                     .addComponent(txtidPrestamo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtUsuarioPrestamo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtidUsuarioPrestamo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel17Layout.createSequentialGroup()
                         .addGap(2, 2, 2)
                         .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel15)
+                            .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel15)
+                                .addComponent(txtUsuarioPrestamo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabel96))))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtNombrePrestamo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtTelefonoPrestamo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel17Layout.createSequentialGroup()
-                        .addGap(2, 2, 2)
-                        .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel16)
-                            .addComponent(jLabel85))))
+                    .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel16)
+                        .addComponent(txtNombrePrestamo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel85)
+                        .addComponent(txtTelefonoPrestamo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtApellidoPrestamo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtDomicilioPrestamo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel17Layout.createSequentialGroup()
-                        .addGap(2, 2, 2)
-                        .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel60)
-                            .addComponent(jLabel91))))
+                    .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel60)
+                        .addComponent(txtApellidoPrestamo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel91)
+                        .addComponent(txtDomicilioPrestamo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -5827,10 +5828,8 @@ private void generarReporteMultasPorPeriodo1() {
                         .addComponent(jLabel97)
                         .addComponent(txtidLibroPrestamo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel17Layout.createSequentialGroup()
-                        .addGap(2, 2, 2)
-                        .addComponent(jLabel93))
+                .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel93)
                     .addComponent(txtTituloPrestamo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -5853,19 +5852,15 @@ private void generarReporteMultasPorPeriodo1() {
                                 .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(btnGraficarPrestamo))
                             .addGroup(jPanel17Layout.createSequentialGroup()
-                                .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(btnHoraPrestamo)
-                                    .addGroup(jPanel17Layout.createSequentialGroup()
-                                        .addGap(1, 1, 1)
-                                        .addComponent(txtHoraPrestamo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(txtHoraPrestamo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(btnGuardarPrestamo)
                                     .addComponent(btnGraficarLibrosPrestamo))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(btnEliminarPrestamo)
-                                    .addComponent(btnActualizarPrestamo))
+                                .addComponent(btnEliminarPrestamo)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel19)
                                 .addGap(6, 6, 6)
@@ -6856,10 +6851,9 @@ private void generarReporteMultasPorPeriodo1() {
                 .addGap(30, 30, 30)
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel47, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jPanel46, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel45, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel44, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jPanel46, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel45, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel44, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(406, Short.MAX_VALUE))
         );
 
@@ -9124,67 +9118,6 @@ private void generarReporteMultasPorPeriodo1() {
         }
     }//GEN-LAST:event_btnDevolucionPrestamoActionPerformed
 
-    private void btnActualizarPrestamoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarPrestamoActionPerformed
-        // TODO add your handling code here:
-        if ("".equals(txtidPrestamo.getText())) {
-            JOptionPane.showMessageDialog(null, "Seleccione una fila");
-        } else {
-            String co2 = txtCodigoPrestamo.getText();
-            li = libro.BuscarLibro(co2);
-            int StockActual2 = li.getStock() + 1;
-            int EstadoActual2 = li.getId_estado();
-            EstadoActual2 = 5;
-            int idlibro2 = li.getId_libro();
-            if (!"".equals(txtUsuarioPrestamo.getText()) && !"".equals(txtCodigoPrestamo.getText()) && !"".equals(txtFechaDevolucion.getDateFormatString())) {
-
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                // Obtener fecha del JDateChooser y hora actual
-                Date fechaSeleccionada = txtFechaDevolucion.getDate();
-                Date horaActual = new Date(); // Hora actual
-                // Combinar fecha seleccionada con hora actual
-                Calendar calSeleccionada = Calendar.getInstance();
-                calSeleccionada.setTime(fechaSeleccionada);
-                Calendar calHoraActual = Calendar.getInstance();
-                calHoraActual.setTime(horaActual);
-                // Aplicar hora actual a la fecha seleccionada
-                calSeleccionada.set(Calendar.HOUR_OF_DAY, calHoraActual.get(Calendar.HOUR_OF_DAY));
-                calSeleccionada.set(Calendar.MINUTE, calHoraActual.get(Calendar.MINUTE));
-                calSeleccionada.set(Calendar.SECOND, calHoraActual.get(Calendar.SECOND));
-
-                String fechaDevolucionFormateada = sdf.format(calSeleccionada.getTime());
-                SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                String fechaHoraActual = sdf2.format(new Date());
-                boolean error;
-                pre.setId_usuario(Integer.parseInt(txtidUsuarioPrestamo.getText()));
-                pre.setId_libro(Integer.parseInt(txtidLibroPrestamo.getText()));
-                pre.setFecha_prestamo(fechaHoraActual);
-                pre.setFecha_devolucion(fechaDevolucionFormateada);
-                //pre.setFecha_devolucion(fechaDevolucionFormateada);
-                pre.setId_prestamo(Integer.parseInt(txtidPrestamo.getText()));
-                error = prestamo.ModificarPrestamo(pre);
-                if (error == true) {
-                    String co3 = txtCodigoPrestamo.getText();
-                    li = libro.BuscarLibro(co3);
-                    int StockActual3 = li.getStock() - 1;
-                    int EstadoActual3 = li.getId_estado();
-                    EstadoActual3 = 2;
-                    int idlibro3 = li.getId_libro();
-
-                    // prestamo.ActualizarStockLibro(StockActual2, idlibro2);
-                    //prestamo.ActualizarEstadoLibroPrestamo(EstadoActual2, idlibro2);
-                    //prestamo.ActualizarStockLibro(StockActual3, idlibro3);
-                    //prestamo.ActualizarEstadoLibroPrestamo(EstadoActual3, idlibro3);
-                    LimpiarTable();
-                    LimpiarPrestamo();
-                    ListarPrestamo();
-                    JOptionPane.showMessageDialog(null, "Campos actualizados con exito");
-                }
-            } else {
-                JOptionPane.showMessageDialog(null, "Los campos Carnet y Codigo Libro son obligatorios");
-            }
-        }
-    }//GEN-LAST:event_btnActualizarPrestamoActionPerformed
-
     private void txtidPrestamoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtidPrestamoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtidPrestamoActionPerformed
@@ -9208,152 +9141,150 @@ private void generarReporteMultasPorPeriodo1() {
 
     private void btnGuardarPrestamoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarPrestamoActionPerformed
         // TODO add your handling code here:
-        String cod = txtUsuarioPrestamo.getText();
-        us = usuario.BuscarUsuario(cod);
-        if (us.getId_estado_prestamo() == 1) {
-            String codlibro2 = txtCodigoPrestamo.getText();
-            li = libro.BuscarLibro(codlibro2);
-            if (li.getId_estado() == 5) {
-                String codUsuario2 = txtUsuarioPrestamo.getText();
-                us = usuario.BuscarUsuario2(codUsuario2);
-                //JOptionPane.showMessageDialog(null, us.getId_cargo() + " " + us.getLibros_prestados());
-                boolean puedePrestar = false;
-                String mensajeError = "";
-                // VERIFICACIÓN CORRECTA
-                if (us.getId_cargo() == 2) {
-                    if (us.getLibros_prestados() < 3) {
-                        puedePrestar = true;
-                    } else {
-                        mensajeError = "El DOCENTE ya alcanzó el límite de 3 libros";
-                    }
-                } else if (us.getId_cargo() == 3) {
-                    if (us.getLibros_prestados() < 1) {
-                        puedePrestar = true;
-                    } else {
-                        mensajeError = "El ESTUDIANTE ya tiene un libro prestado";
-                    }
-                } else {
-                    // Para otros cargos (si los hay)
-                    puedePrestar = true;
-                }
-
-                // SI NO PUEDE PRESTAR, MOSTRAR ERROR Y SALIR
-                if (!puedePrestar && !mensajeError.isEmpty()) {
-                    JOptionPane.showMessageDialog(null, mensajeError);
-                    return; // <-- ESTA ES LA CLAVE: SALIR DE LA FUNCIÓN
-                }
-
-                //if(puedePrestar){
-                //JOptionPane.showMessageDialog(null, us.getId_cargo()+" "+us.getLibros_prestados());
-                //if(us.getId_cargo()==3 && us.getLibros_prestados()<1){
-                //JOptionPane.showMessageDialog(null, us.getId_cargo()+" "+us.getLibros_prestados());
-                if (!"".equals(txtidUsuarioPrestamo.getText()) || !"".equals(txtidLibroPrestamo.getText()) || txtFechaDevolucion.getDate() != null) {
-                    /*   // Crear formateador para MySQL (YYYY-MM-DD)
-                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-
-                    // Fecha de préstamo (automática - hoy)
-                    Date fechaPrestamo = new Date();
-                    String fechaPrestamoFormateada = sdf.format(fechaPrestamo);
-
-                    // Fecha de devolución (del JDateChooser)
-                    Date fechaDev = txtFechaDevolucion.getDate();
-                    String fechaDevolucionFormateada = sdf.format(fechaDev);
-                     */
- /*AQUI COMIENZA EL COMENTARIO
-                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
-                    // Obtener fecha del JDateChooser y hora actual
-                    Date fechaSeleccionada = txtFechaDevolucion.getDate();
-                    Date horaActual = new Date(); // Hora actual
-
-                    // Combinar fecha seleccionada con hora actual
-                    Calendar calSeleccionada = Calendar.getInstance();
-                    calSeleccionada.setTime(fechaSeleccionada);
-
-                    Calendar calHoraActual = Calendar.getInstance();
-                    calHoraActual.setTime(horaActual);
-
-                    // Aplicar hora actual a la fecha seleccionada
-                    calSeleccionada.set(Calendar.HOUR_OF_DAY, calHoraActual.get(Calendar.HOUR_OF_DAY));
-                    calSeleccionada.set(Calendar.MINUTE, calHoraActual.get(Calendar.MINUTE));
-                    calSeleccionada.set(Calendar.SECOND, calHoraActual.get(Calendar.SECOND));
-
-                    String fechaDevolucionFormateada = sdf.format(calSeleccionada.getTime());
-                    COMENTARIO HECHO EL 19 DE NOVIEMBRE DEL 2025 PARA IMPLEMENTAR HORA
-                     */
-                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
-                    // Obtener fecha del JDateChooser
-                    Date fechaSeleccionada = txtFechaDevolucion.getDate();
-
-                    // Obtener hora del txtHoraPrestamo
-                    String horaSeleccionada = txtHoraPrestamo.getText().trim();
-
-                    // Combinar fecha seleccionada con hora del textfield
-                    Calendar calendario = Calendar.getInstance();
-                    calendario.setTime(fechaSeleccionada);
-
-                    // Parsear la hora del textfield (formato HH:mm o HH:mm:ss)
-                    if (!horaSeleccionada.isEmpty()) {
-                        String[] partesHora = horaSeleccionada.split(":");
-                        if (partesHora.length >= 2) {
-                            int hora = Integer.parseInt(partesHora[0]);
-                            int minuto = Integer.parseInt(partesHora[1]);
-                            int segundo = partesHora.length > 2 ? Integer.parseInt(partesHora[2]) : 0;
-
-                            calendario.set(Calendar.HOUR_OF_DAY, hora);
-                            calendario.set(Calendar.MINUTE, minuto);
-                            calendario.set(Calendar.SECOND, segundo);
-                        }
-                    }
-
-                    String fechaDevolucionFormateada = sdf.format(calendario.getTime());
-                    pre.setId_usuario(Integer.parseInt(txtidUsuarioPrestamo.getText()));
-                    pre.setId_libro(Integer.parseInt(txtidLibroPrestamo.getText()));
-                    pre.setFecha_devolucion(fechaDevolucionFormateada);
-
-                    //pre.setFecha_prestamo(fechaPrestamoFormateada);
-                    // pre.setEstado("Activo");
-                    JOptionPane.showMessageDialog(null, "Se registro el prestamo correctamente");
-                    //LimpiarTable();
-                    //ListarPrestamo();
-                    boolean errores;
-                    errores = prestamo.RegistrarPrestamo(pre);
-                    if (errores == true) {
-                        //prestamo.RegistrarPrestamo(pre);
-                        generarBoletaUltimoPrestamo();
-                        String co = txtCodigoPrestamo.getText();
-                        String co2 = txtUsuarioPrestamo.getText();
-                        li = libro.BuscarLibro(co);
-                        us = usuario.BuscarUsuario(co2);
-                        int StockActual = li.getStock() - 1;
-                        int EstadoActual = li.getId_estado();
-                        int Libro_Prestado_Us = us.getLibros_prestados() + 1;
-                        EstadoActual = 2;
-                        int idlibro = li.getId_libro();
-                        int idusuario = us.getId_usuario();
-                        prestamo.ActualizarStockLibro(StockActual, idlibro);
-                        prestamo.ActualizarEstadoLibroPrestamo(EstadoActual, idlibro);
-                        prestamo.ActualizarLibroPrestadoUsuario(Libro_Prestado_Us, idusuario);
-                        LimpiarTable();
-                        LimpiarPrestamo();
-                        ListarPrestamo();
-                    }
-                } else {
-                    JOptionPane.showMessageDialog(null, "Los campos estan vacios");
-                }
-                //}else{
-                //  JOptionPane.showMessageDialog(null, "El Estudiante ya tiene un libro prestado");    
-                // }
-                //}else {
-                //JOptionPane.showMessageDialog(null, mensajeError);
-                //}
-            } else {
-                JOptionPane.showMessageDialog(null, "El libro ya se encuentra en prestamo");
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "El usuario no esta habilitado para realizar un prestamo");
+    
+    // PRIMERO: Verificar campos vacíos
+    if ("".equals(txtidUsuarioPrestamo.getText()) || "".equals(txtidLibroPrestamo.getText()) || txtFechaDevolucion.getDate() == null) {
+        JOptionPane.showMessageDialog(null, "Los campos están vacíos");
+        return; // SALIR si hay campos vacíos
+    }
+     // SEGUNDO: Verificar que la fecha de devolución no sea anterior a la actual
+    Date fechaSeleccionada = txtFechaDevolucion.getDate();
+    Date fechaActual = new Date();
+    
+    // Comparar solo la parte de fecha (sin hora)
+    Calendar calSeleccionada = Calendar.getInstance();
+    calSeleccionada.setTime(fechaSeleccionada);
+    calSeleccionada.set(Calendar.HOUR_OF_DAY, 0);
+    calSeleccionada.set(Calendar.MINUTE, 0);
+    calSeleccionada.set(Calendar.SECOND, 0);
+    calSeleccionada.set(Calendar.MILLISECOND, 0);
+    
+    Calendar calActual = Calendar.getInstance();
+    calActual.setTime(fechaActual);
+    calActual.set(Calendar.HOUR_OF_DAY, 0);
+    calActual.set(Calendar.MINUTE, 0);
+    calActual.set(Calendar.SECOND, 0);
+    calActual.set(Calendar.MILLISECOND, 0);
+    
+    if (calSeleccionada.before(calActual)) {
+        JOptionPane.showMessageDialog(null, "Fecha inválida: es anterior a la fecha actual");
+        return;
+    }
+    
+     // TERCERO: Verificar hora (solo si la fecha seleccionada es hoy)
+    String horaSeleccionada = txtHoraPrestamo.getText().trim();
+    
+    if (!horaSeleccionada.isEmpty() && calSeleccionada.equals(calActual)) {
+        String[] partesHora = horaSeleccionada.split(":");
+        int hora = Integer.parseInt(partesHora[0]);
+        int minuto = Integer.parseInt(partesHora[1]);
+        
+        Calendar ahora = Calendar.getInstance();
+        int horaActual = ahora.get(Calendar.HOUR_OF_DAY);
+        int minutoActual = ahora.get(Calendar.MINUTE);
+        
+        // Verificar que la hora no sea antes de la actual
+        if (hora < horaActual || (hora == horaActual && minuto < minutoActual)) {
+            JOptionPane.showMessageDialog(null, "Hora inválida: es anterior a la hora actual");
+            return;
         }
+    }
+    
+    // SEGUNDO: Verificar usuario
+    String cod = txtUsuarioPrestamo.getText();
+    us = usuario.BuscarUsuario(cod);
+    if (us.getId_estado_prestamo() != 1) {
+        JOptionPane.showMessageDialog(null, "El usuario no está habilitado para realizar un préstamo");
+        return;
+    }
+    
+    // TERCERO: Verificar libro
+    String codlibro2 = txtCodigoPrestamo.getText();
+    li = libro.BuscarLibro(codlibro2);
+    if (li.getId_estado() != 5) {
+        JOptionPane.showMessageDialog(null, "El libro ya se encuentra en préstamo");
+        return;
+    }
+    
+    // CUARTO: Verificar límites por cargo
+    String codUsuario2 = txtUsuarioPrestamo.getText();
+    us = usuario.BuscarUsuario2(codUsuario2);
+    
+    // VERIFICACIÓN DE CARGOS
+    boolean puedePrestar = false;
+    String mensajeError = "";
+    
+    if (us.getId_cargo() == 2) {
+        if (us.getLibros_prestados() < 3) {
+            puedePrestar = true;
+        } else {
+            mensajeError = "El DOCENTE ya alcanzó el límite de 3 libros";
+        }
+    } else if (us.getId_cargo() == 3) {
+        if (us.getLibros_prestados() < 1) {
+            puedePrestar = true;
+        } else {
+            mensajeError = "El ESTUDIANTE ya tiene un libro prestado";
+        }
+    } else {
+        puedePrestar = true;
+    }
+
+    // SI NO PUEDE PRESTAR, MOSTRAR ERROR Y SALIR
+    if (!puedePrestar && !mensajeError.isEmpty()) {
+        JOptionPane.showMessageDialog(null, mensajeError);
+        return;
+    }
+    
+    // SI LLEGA AQUÍ, TODAS LAS VALIDACIONES PASARON - PROCESAR EL PRÉSTAMO
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    fechaSeleccionada = txtFechaDevolucion.getDate();
+    horaSeleccionada = txtHoraPrestamo.getText().trim();
+    
+    Calendar calendario = Calendar.getInstance();
+    calendario.setTime(fechaSeleccionada);
+    
+    if (!horaSeleccionada.isEmpty()) {
+        String[] partesHora = horaSeleccionada.split(":");
+        if (partesHora.length >= 2) {
+            int hora = Integer.parseInt(partesHora[0]);
+            int minuto = Integer.parseInt(partesHora[1]);
+            int segundo = partesHora.length > 2 ? Integer.parseInt(partesHora[2]) : 0;
+            
+            calendario.set(Calendar.HOUR_OF_DAY, hora);
+            calendario.set(Calendar.MINUTE, minuto);
+            calendario.set(Calendar.SECOND, segundo);
+        }
+    }
+    
+    String fechaDevolucionFormateada = sdf.format(calendario.getTime());
+    pre.setId_usuario(Integer.parseInt(txtidUsuarioPrestamo.getText()));
+    pre.setId_libro(Integer.parseInt(txtidLibroPrestamo.getText()));
+    pre.setFecha_devolucion(fechaDevolucionFormateada);
+    
+    JOptionPane.showMessageDialog(null, "Se registró el préstamo correctamente");
+    
+    boolean errores;
+    errores = prestamo.RegistrarPrestamo(pre);
+    if (errores == true) {
+        generarBoletaUltimoPrestamo();
+        String co = txtCodigoPrestamo.getText();
+        String co2 = txtUsuarioPrestamo.getText();
+        li = libro.BuscarLibro(co);
+        us = usuario.BuscarUsuario(co2);
+        int StockActual = li.getStock() - 1;
+        int EstadoActual = li.getId_estado();
+        int Libro_Prestado_Us = us.getLibros_prestados() + 1;
+        EstadoActual = 2;
+        int idlibro = li.getId_libro();
+        int idusuario = us.getId_usuario();
+        prestamo.ActualizarStockLibro(StockActual, idlibro);
+        prestamo.ActualizarEstadoLibroPrestamo(EstadoActual, idlibro);
+        prestamo.ActualizarLibroPrestadoUsuario(Libro_Prestado_Us, idusuario);
+        LimpiarTable();
+        LimpiarPrestamo();
+        ListarPrestamo();
+    }
     }//GEN-LAST:event_btnGuardarPrestamoActionPerformed
 
     private void TablePrestamoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablePrestamoMouseClicked
@@ -11533,6 +11464,38 @@ private void generarReporteMultasPorPeriodo1() {
     } 
     }//GEN-LAST:event_btnGenerarGraficoMulta1ActionPerformed
 
+    private void btnAyudaPrestamosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAyudaPrestamosActionPerformed
+        // TODO add your handling code here:
+         String mensajePrestamo = "✨ Instrucciones de uso del apartado de Préstamos ✨\n\n"
+                        + "🔍 Para buscar un usuario:\n"
+                        + "• Ingresa el número de **carnet** exactamente como aparece en su documento en el campo correspondiente.\n\n"
+                        + "📚 Para registrar un nuevo Préstamo:\n"
+                        + "1. Llena los campos de **Carnet** y **Código Libro** o **Título** del libro.\n"
+                        + "2. Selecciona la **Fecha de devolución** usando el calendario pequeño que se muestra.\n"
+                        + "3. Presiona **\"Seleccionar Hora\"** y usa el reloj emergente para escoger la hora.\n"
+                        + "4. Finalmente, haz clic en el botón **“Guardar”** para registrar el préstamo.\n\n"
+                        + "❌ Para eliminar un registro de Préstamo:\n"
+                        + "1. Selecciona una fila del listado de préstamos en la tabla.\n"
+                        + "2. Presiona el botón **“Eliminar”**.\n\n"
+                        + "3. Confirma la acción en el mensaje emergente.\n\n"
+                        + "↩️ Para registrar una Devolución:\n"
+                        + "1. Selecciona la fila del préstamo que deseas devolver en el listado.\n"
+                        + "2. Presiona el botón **“Registrar Devolucion”** (ubicado bajo la tabla).\n"
+                        + "3. Confirma la acción en el mensaje emergente.\n\n"
+                        + "🗓️ Para listar Préstamos en un rango de fechas:\n"
+                        + "• Ingresa la **fecha de inicio** y la **fecha de fin** en los campos 'Desde la fecha:' y 'hasta la fecha:'.\n"
+                        + "• Presiona el botón **“Listar Rango”**.\n\n"
+                        + "📊 Visualización de Gráficos:\n"
+                        + "• Puedes presionar directamente el botón **“Libros más prestados”**.\n"
+                        + "• O, para un rango específico, selecciona una **fecha de inicio** y **fecha de fin** en la sección 'Grafica de Prestamos' y presiona **“Graficar”**.\n\n"
+                        + "📄 Generación de PDF:\n"
+                        + "• Puedes generar un reporte en PDF de los datos visibles en la tabla usando el ícono correspondiente.\n"
+                        + "• El PDF se creará con la información que se muestra actualmente en la tabla.\n\n"
+                        + "✔️ ¡Listo! Con estas instrucciones podrás manejar el sistema de préstamos sin problemas.";
+
+                       JOptionPane.showMessageDialog(this, mensajePrestamo, "Ayuda del Sistema de Préstamos", JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_btnAyudaPrestamosActionPerformed
+
     public void ListarUsuario() {
         LimpiarTable();
         List<Usuario> ListarUsuario = usuario.ListarUsuario();
@@ -11708,13 +11671,13 @@ private void generarReporteMultasPorPeriodo1() {
     private javax.swing.JButton btnActualizarLibro;
     private javax.swing.JButton btnActualizarMateria;
     private javax.swing.JButton btnActualizarPais;
-    private javax.swing.JButton btnActualizarPrestamo;
     private javax.swing.JButton btnActualizarUsuario;
     private javax.swing.JButton btnActulizarMultas;
     private javax.swing.JButton btnAjuste;
     private javax.swing.JButton btnAnalisis;
     private javax.swing.JButton btnAplicarFiltroUsuario;
     private javax.swing.JButton btnAyudaPais;
+    private javax.swing.JButton btnAyudaPrestamos;
     private javax.swing.JButton btnBuscarCarnetMul;
     private javax.swing.JButton btnBuscarLibro2;
     private javax.swing.JButton btnBuscarLibroUsuarios;

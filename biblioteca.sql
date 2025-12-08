@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 02-12-2025 a las 01:51:43
+-- Tiempo de generación: 08-12-2025 a las 01:12:55
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -138,7 +138,8 @@ CREATE TABLE `cliente` (
 INSERT INTO `cliente` (`id_cliente`, `nombre`, `correo`, `pass`, `id_tipo_usuario`) VALUES
 (2, 'administrador', 'administrador', '1234', 1),
 (5, 'normal', 'normal', '1234', 2),
-(7, 'reportes', 'reportes', '1234', 3);
+(7, 'reportes', 'reportes', '1234', 3),
+(10, 'admin', 'admin', '1234', 1);
 
 -- --------------------------------------------------------
 
@@ -291,15 +292,15 @@ CREATE TABLE `libro` (
 
 INSERT INTO `libro` (`Id_libro`, `Titulo`, `Id_categoria`, `Id_editorial`, `Id_autor`, `Id_materia`, `Edicion`, `Estado`, `codigo`, `fechaRegistro`, `stock`, `anio`, `Descripcion`, `id_estado`, `tipo`) VALUES
 (4, 'Fundamentos de C++', 1, 25, 1, 8, '9na.', '1', 'P-1101', '2025-10-12', 1, 2000, 'KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK', 5, 'Copia'),
-(6, 'El mundo de los Objetos', 1, 12, 3, 6, '10ma.', '1', 'P-1102', '2025-10-12', 4, 2003, '', 5, 'Original'),
-(11, 'Java', 5, NULL, NULL, NULL, '', '1', 'P-1010', '2025-10-12', 2, 2020, '', 5, 'Copia'),
+(6, 'El mundo de los Objetos', 1, 12, 3, 6, '10ma.', '1', 'P-1102', '2025-10-12', 1, 2003, '', 5, 'Original'),
+(11, 'Java', 5, NULL, NULL, NULL, '', '1', 'P-1010', '2025-10-12', 1, 2020, '', 5, 'Copia'),
 (12, 'Programacion en C', 2, 10, 1, 6, '10m', '1', 'P-1020', '2025-10-26', 1, 2020, 'Programacion', 5, 'Copia'),
-(13, 'Python', NULL, 10, 1, NULL, '1ra.', '1', 'P-1022', '2025-10-26', -1, 1999, 'PYTHON', 5, 'Original'),
-(14, 'Chanchito Feliz', 5, NULL, NULL, NULL, '', '1', 'CH-1012', '2025-11-01', 5, 1998, '', 5, 'Copia'),
+(13, 'Python', NULL, 10, 1, NULL, '1ra.', '1', 'P-1022', '2025-10-26', 1, 1999, 'PYTHON', 5, 'Original'),
+(14, 'Chanchito Feliz', 5, NULL, NULL, NULL, '', '1', 'CH-1012', '2025-11-01', 1, 1998, '', 5, 'Copia'),
 (15, 'Chanchito Feliciano', NULL, NULL, NULL, 6, '9na', '1', 'P-10103', '2025-11-01', 1, 2000, 'aas@asf~4', 1, 'Copia'),
 (16, 'Puerquito', NULL, NULL, NULL, NULL, '4ta.', '1', 'P-202', '2025-11-01', 1, 2005, '', 5, 'Copia'),
-(17, 'Pruebas de Escritorio', 11, 23, 2, 6, '2da.', '1', 'P-1666', '2025-11-06', 0, 2005, 'Para probar la base datos :v', 2, 'Copia'),
-(18, 'Prueba', NULL, NULL, NULL, NULL, '9na.', '1', 'P-1023', '2025-11-28', -3, 2002, '', 2, 'Copia');
+(17, 'Pruebas de Escritorio', 11, 23, 2, 6, '2da.', '1', 'P-1666', '2025-11-06', 1, 2005, 'Para probar la base datos :v', 5, 'Copia'),
+(18, 'Prueba', NULL, NULL, NULL, NULL, '9na.', '1', 'P-1023', '2025-11-28', 1, 2002, '', 5, 'Copia');
 
 -- --------------------------------------------------------
 
@@ -374,7 +375,9 @@ INSERT INTO `multa` (`Id_multa`, `Id_prestamo`, `Id_usuario`, `Dias_retraso`, `M
 (4, 8, 19, 5, 5.00, 'Pagada'),
 (5, 21, 6, 1, 1.00, 'Pagada'),
 (6, 23, 20, 9, 9.00, 'Pagada'),
-(7, 24, 18, 17, 17.00, 'Activa');
+(7, 24, 18, 17, 17.00, 'Activa'),
+(8, 25, 6, 8, 8.00, 'Activa'),
+(9, 32, 21, 2, 2.00, 'Activa');
 
 -- --------------------------------------------------------
 
@@ -484,16 +487,18 @@ INSERT INTO `prestamos` (`Id_prestamo`, `Id_usuario`, `Id_libro`, `Fecha_prestam
 (22, 16, 13, '2025-11-06 16:57:30', '2025-11-08 16:57:30', '1', 2),
 (23, 20, 13, '2025-11-17 01:25:19', '2025-11-20 01:25:19', '1', 2),
 (24, 18, 14, '2025-11-10 23:11:55', '2025-11-12 23:11:55', '1', 2),
-(25, 6, 12, '2025-11-28 21:26:50', '2025-11-29 09:24:00', '1', 1),
+(25, 6, 12, '2025-11-28 21:26:50', '2025-11-29 09:24:00', '1', 2),
 (26, 21, 13, '2025-12-01 19:26:48', '2025-12-28 07:26:00', '0', 1),
 (27, 21, 18, '2025-12-01 19:27:37', '2025-12-29 07:26:00', '0', 1),
 (28, 21, 13, '2025-12-01 19:50:59', '2025-12-19 07:50:00', '0', 1),
 (29, 21, 18, '2025-12-01 19:51:16', '2025-12-25 07:50:00', '0', 1),
-(30, 21, 13, '2025-12-01 20:02:33', '2025-12-25 08:02:00', '1', 1),
-(31, 21, 18, '2025-12-01 20:04:29', '2025-12-26 08:04:00', '1', 1),
-(32, 21, 13, '2025-12-01 20:08:35', '2025-12-05 08:08:00', '1', 1),
+(30, 21, 13, '2025-12-01 20:02:33', '2025-12-25 08:02:00', '1', 2),
+(31, 21, 18, '2025-12-01 20:04:29', '2025-12-26 08:04:00', '1', 2),
+(32, 21, 13, '2025-12-01 20:08:35', '2025-12-05 08:08:00', '1', 2),
 (33, 21, 18, '2025-12-01 20:13:06', '2025-12-20 08:12:00', '1', 2),
-(34, 21, 18, '2025-12-01 20:45:23', '2025-12-27 08:44:00', '1', 2);
+(34, 21, 18, '2025-12-01 20:45:23', '2025-12-27 08:44:00', '1', 2),
+(35, 18, 4, '2025-12-07 19:17:03', '2025-12-22 07:16:00', '1', 2),
+(36, 18, 4, '2025-12-07 19:28:43', '2025-12-12 06:30:00', '1', 2);
 
 -- --------------------------------------------------------
 
@@ -541,15 +546,15 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`Id_usuario`, `Carnet`, `Nombre`, `Apellido`, `Domicilo`, `Id_tipo_usuario`, `Telefono`, `id_cargo`, `id_carrera`, `Estado`, `id_estado_usuario`, `libros_prestados`) VALUES
-(5, '7278371', 'Juan Marco', 'Mercedes Canaviri', 'Av. al valle entre junin y ayacucho Nro578', 2, '74821147', 3, 2, 1, 2, 1),
-(6, '5489632', 'Maria', 'Campero Rodriguez', 'La plata entre villaroel y 6 de agosto Nro 67', 2, '61278854', 3, 1, 1, 1, 1),
-(7, '48658454', 'Carla', 'Rocha Quispe', 'Pagado entre soria galvarro y ayacucho Nro 40', 2, '58421154', 3, 1, 1, 1, 1),
-(15, '7274931', 'Adriana', 'Choquecallata Troncoso', 'Av. Villaroel y Ayachucho #35', 2, '63814471', 3, 2, 1, 1, 1),
-(16, '5689451', 'Juana Azurduy', 'De padilla', 'Av terracota, calle Linares #54', 2, '78945211', 3, 1, 1, 1, 1),
-(17, '2412344', 'asdfssdfa', 'ADFAFDAFDADF', 'ADFADFADFAFD', 2, '65353230', 2, 2, 1, 1, 3),
-(18, '7389062', 'Israel ', 'Lima Condori', 'Zona Socamani ', 2, '68319277', 3, 1, 1, 1, 1),
-(19, '7654321', 'Jhonatan', 'Lima Condori', 'cerca', 2, '61826899', 3, 1, 1, 1, 1),
-(20, '7894561', 'Indiara Sulma', 'Jacinto Mamani', 'por allisds', 2, '78945612', 3, 1, 1, 1, 1),
+(5, '7278371', 'Juan Marco', 'Mercedes Canaviri', 'Av. al valle entre junin y ayacucho Nro578', 2, '74821147', 3, 2, 1, 2, 0),
+(6, '5489632', 'Maria', 'Campero Rodriguez', 'La plata entre villaroel y 6 de agosto Nro 67', 2, '61278854', 3, 1, 1, 1, 0),
+(7, '48658454', 'Carla', 'Rocha Quispe', 'Pagado entre soria galvarro y ayacucho Nro 40', 2, '58421154', 3, 1, 1, 1, 0),
+(15, '7274931', 'Adriana', 'Choquecallata Troncoso', 'Av. Villaroel y Ayachucho #35', 2, '63814471', 3, 2, 1, 1, 0),
+(16, '5689451', 'Juana Azurduy', 'De padilla', 'Av terracota, calle Linares #54', 2, '78945211', 3, 1, 1, 1, 0),
+(17, '2412344', 'asdfssdfa', 'ADFAFDAFDADF', 'ADFADFADFAFD', 2, '65353230', 2, 2, 1, 1, 0),
+(18, '7389062', 'Israel ', 'Lima Condori', 'Zona Socamani ', 2, '68319277', 3, 1, 1, 1, 0),
+(19, '7654321', 'Jhonatan', 'Lima Condori', 'cerca', 2, '61826899', 3, 1, 1, 1, 0),
+(20, '7894561', 'Indiara Sulma', 'Jacinto Mamani', 'por allisds', 2, '78945612', 3, 1, 1, 1, 0),
 (21, '12345678', 'Alambrito', 'Delgado', 'Maria de las Mercedes', 2, '75424724', 3, 1, 1, 1, 0);
 
 --
@@ -722,7 +727,7 @@ ALTER TABLE `categoria`
 -- AUTO_INCREMENT de la tabla `cliente`
 --
 ALTER TABLE `cliente`
-  MODIFY `id_cliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_cliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `editoriales`
@@ -776,7 +781,7 @@ ALTER TABLE `materia`
 -- AUTO_INCREMENT de la tabla `multa`
 --
 ALTER TABLE `multa`
-  MODIFY `Id_multa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `Id_multa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `multa_pagada`
@@ -794,7 +799,7 @@ ALTER TABLE `paises`
 -- AUTO_INCREMENT de la tabla `prestamos`
 --
 ALTER TABLE `prestamos`
-  MODIFY `Id_prestamo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `Id_prestamo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT de la tabla `tipo_usuario`
