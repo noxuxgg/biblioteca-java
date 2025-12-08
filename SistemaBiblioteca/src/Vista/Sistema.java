@@ -3914,6 +3914,7 @@ private void generarReporteMultasPorPeriodo1() {
         jLabel25 = new javax.swing.JLabel();
         btnPrestamosPDF = new javax.swing.JButton();
         btnAyudaPrestamos = new javax.swing.JButton();
+        btnReiniciarListadoPrestamo = new javax.swing.JButton();
         jPanel10 = new javax.swing.JPanel();
         jPanel20 = new javax.swing.JPanel();
         jLabel34 = new javax.swing.JLabel();
@@ -5627,10 +5628,18 @@ private void generarReporteMultasPorPeriodo1() {
             }
         });
 
-        btnAyudaPrestamos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/1126709-30x30.png"))); // NOI18N
+        btnAyudaPrestamos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/images (1)-30x30.png"))); // NOI18N
         btnAyudaPrestamos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAyudaPrestamosActionPerformed(evt);
+            }
+        });
+
+        btnReiniciarListadoPrestamo.setForeground(new java.awt.Color(255, 255, 255));
+        btnReiniciarListadoPrestamo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/imagen_2025-12-07_213420066.png"))); // NOI18N
+        btnReiniciarListadoPrestamo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReiniciarListadoPrestamoActionPerformed(evt);
             }
         });
 
@@ -5730,8 +5739,9 @@ private void generarReporteMultasPorPeriodo1() {
                                         .addGap(10, 10, 10)
                                         .addComponent(txtRangoSuperiorFechaListado, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(18, 18, 18)
-                                        .addComponent(btnListarRangoPrestamo)))
-                                .addGap(44, 44, 44))))
+                                        .addComponent(btnListarRangoPrestamo)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(btnReiniciarListadoPrestamo))))))
                     .addGroup(jPanel17Layout.createSequentialGroup()
                         .addGap(282, 282, 282)
                         .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -5763,23 +5773,27 @@ private void generarReporteMultasPorPeriodo1() {
                 .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel17Layout.createSequentialGroup()
                         .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel17Layout.createSequentialGroup()
-                                .addGap(4, 4, 4)
-                                .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel20)
-                                    .addComponent(jLabel25)))
-                            .addComponent(txtRangoInferiorFechaListado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel21)
-                            .addComponent(txtRangoSuperiorFechaListado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnListarRangoPrestamo))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel17Layout.createSequentialGroup()
-                        .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnAyudaPrestamos)
                             .addComponent(btnPrestamosPDF))
-                        .addGap(21, 21, 21)))
+                        .addGap(21, 21, 21))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel17Layout.createSequentialGroup()
+                        .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnReiniciarListadoPrestamo)
+                            .addGroup(jPanel17Layout.createSequentialGroup()
+                                .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel17Layout.createSequentialGroup()
+                                        .addGap(4, 4, 4)
+                                        .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                            .addComponent(jLabel20)
+                                            .addComponent(jLabel25)))
+                                    .addComponent(txtRangoInferiorFechaListado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel21)
+                                    .addComponent(txtRangoSuperiorFechaListado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(3, 3, 3))
+                            .addComponent(btnListarRangoPrestamo))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addComponent(jScrollPane11, javax.swing.GroupLayout.PREFERRED_SIZE, 354, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnDevolucionPrestamo)
@@ -8091,6 +8105,17 @@ private void generarReporteMultasPorPeriodo1() {
         // TODO add your handling code here:
         LimpiarTable();
         ListarPrestamo();
+        txtidUsuarioPrestamo.setText("");
+        txtUsuarioPrestamo.setText("");
+                    txtNombrePrestamo.setText("");
+                    txtApellidoPrestamo.setText("");
+                    txtTelefonoPrestamo.setText("");
+                    txtDomicilioPrestamo.setText("");
+                    txtCodigoPrestamo.setText("");
+                    txtidLibroPrestamo.setText("");
+                    txtTituloPrestamo.setText("");
+                    txtEdicionPrestamo.setText("");
+                    txtStockPrestamo.setText("");
         jTabbedPane1.setSelectedIndex(5);
 
     }//GEN-LAST:event_btnPrestamoActionPerformed
@@ -11496,6 +11521,23 @@ private void generarReporteMultasPorPeriodo1() {
                        JOptionPane.showMessageDialog(this, mensajePrestamo, "Ayuda del Sistema de Préstamos", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_btnAyudaPrestamosActionPerformed
 
+    private void btnReiniciarListadoPrestamoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReiniciarListadoPrestamoActionPerformed
+        // TODO add your handling code here:
+        LimpiarTable();
+        ListarPrestamo();
+         txtidUsuarioPrestamo.setText("");
+        txtUsuarioPrestamo.setText("");
+                    txtNombrePrestamo.setText("");
+                    txtApellidoPrestamo.setText("");
+                    txtTelefonoPrestamo.setText("");
+                    txtDomicilioPrestamo.setText("");
+                    txtCodigoPrestamo.setText("");
+                    txtidLibroPrestamo.setText("");
+                    txtTituloPrestamo.setText("");
+                    txtEdicionPrestamo.setText("");
+                    txtStockPrestamo.setText("");
+    }//GEN-LAST:event_btnReiniciarListadoPrestamoActionPerformed
+
     public void ListarUsuario() {
         LimpiarTable();
         List<Usuario> ListarUsuario = usuario.ListarUsuario();
@@ -11720,6 +11762,7 @@ private void generarReporteMultasPorPeriodo1() {
     private javax.swing.JButton btnPagarMulta;
     private javax.swing.JButton btnPrestamo;
     private javax.swing.JButton btnPrestamosPDF;
+    private javax.swing.JButton btnReiniciarListadoPrestamo;
     private javax.swing.JButton btnReporMultasPagadas;
     private javax.swing.JButton btnReporMultasPagadas1;
     private javax.swing.JButton btnReporMultasSinPagadas;
