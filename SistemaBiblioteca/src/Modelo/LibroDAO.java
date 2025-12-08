@@ -916,4 +916,39 @@ public class LibroDAO {
 
         return false;
     }
+    
+    public boolean existeLibro(String codigoLibro) {
+        String sql = "SELECT codigo FROM libro WHERE estado = 1 AND codigo = ?";
+        String nombre = "";
+        try {
+            con = cn.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setString(1, codigoLibro);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                nombre = rs.getString("codigo");
+            }
+            if (nombre.equalsIgnoreCase(codigoLibro)) {
+                return true;
+            }
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error: " + e.toString());
+            return false;
+        } finally {
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return false;
+    }
+    
 }

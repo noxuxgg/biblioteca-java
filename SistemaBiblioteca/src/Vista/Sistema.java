@@ -147,10 +147,20 @@ public class Sistema extends javax.swing.JFrame {
         initComponents();
 
         jTabbedPane1.setUI(new MetalTabbedPaneUI() {
-            protected int calculateTabAreaHeight(int tabPlacement, int vertTextGap) { return 0; }
-            protected void paintTabArea(Graphics g, int tabPlacement, int selectedIndex) {}
-            protected void paintContentBorder(Graphics g, int tabPlacement, int selectedIndex) {}
-            protected int calculateTabHeight(int tabPlacement, int tabIndex, int fontHeight) { return 0; }
+            protected int calculateTabAreaHeight(int tabPlacement, int vertTextGap) {
+                return 0;
+            }
+
+            protected void paintTabArea(Graphics g, int tabPlacement, int selectedIndex) {
+            }
+
+            protected void paintContentBorder(Graphics g, int tabPlacement, int selectedIndex) {
+            }
+
+            protected int calculateTabHeight(int tabPlacement, int tabIndex, int fontHeight) {
+                return 0;
+            }
+
             protected void installDefaults() {
                 super.installDefaults();
                 tabInsets = new java.awt.Insets(0, 0, 0, 0);
@@ -326,7 +336,7 @@ public class Sistema extends javax.swing.JFrame {
         }
     }
 
-/*
+    /*
     public Sistema() {
         initComponents();
 
@@ -500,7 +510,7 @@ public class Sistema extends javax.swing.JFrame {
         lblfechafin1.setVisible(false);
 
     }*/
-/*
+ /*
     public Sistema(login priv) {
         initComponents();
         LimpiarTable();
@@ -621,7 +631,6 @@ public class Sistema extends javax.swing.JFrame {
                     JOptionPane.WARNING_MESSAGE);
         }
     }*/
-
     public void ListarPais() {
         LimpiarTable();
         List<Pais> ListarPais = pais.ListarPais();
@@ -771,7 +780,7 @@ public class Sistema extends javax.swing.JFrame {
         }
         TableLibro.setModel(modelo);
     }
-    
+
     public void ListarLibro2() {
         LimpiarTable();
         List<Libro> ListarLibro2 = libro.ListarLibro2();
@@ -1271,7 +1280,7 @@ public class Sistema extends javax.swing.JFrame {
 
         comboxGraficoMulta.setSelectedIndex(0);
     }
-    
+
     private void inicializarComboGraficosMultas1() {
         comboxGraficoMulta1.removeAllItems();
         comboxGraficoMulta1.addItem("-- Seleccione un tipo de gráfico --");
@@ -1285,7 +1294,7 @@ public class Sistema extends javax.swing.JFrame {
 
         comboxGraficoMulta1.setSelectedIndex(0);
     }
-    
+
     private void inicializarComboGraficosMultas2() {
         comboxGraficoMulta2.removeAllItems();
         comboxGraficoMulta2.addItem("-- Seleccione un tipo de gráfico --");
@@ -1365,67 +1374,66 @@ public class Sistema extends javax.swing.JFrame {
         }
 
     }
- 
-   
- private void generarGraficoMultasPorPeriodo1() {
-    // Validar que las fechas estén seleccionadas
-    if (txtFechaInicioGraficoMultas2.getDate() == null
-            || txtFechaFinGraficoMultas2.getDate() == null) {
-        JOptionPane.showMessageDialog(null,
-                "⚠️ Debe seleccionar ambas fechas (inicio y fin)\n\n"
-                + "Este gráfico analiza las multas generadas en un periodo específico.",
-                "Fechas requeridas",
-                JOptionPane.WARNING_MESSAGE);
-        return;
-    }
-    
-    try {
-        // Convertir fechas a formato YYYY-MM-DD
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        String fechaInicio = sdf.format(txtFechaInicioGraficoMultas2.getDate());
-        String fechaFin = sdf.format(txtFechaFinGraficoMultas2.getDate());
-        
-        // Validar que fecha inicio sea menor o igual a fecha fin
-        if (txtFechaInicioGraficoMultas2.getDate().after(txtFechaFinGraficoMultas2.getDate())) {
+
+    private void generarGraficoMultasPorPeriodo1() {
+        // Validar que las fechas estén seleccionadas
+        if (txtFechaInicioGraficoMultas2.getDate() == null
+                || txtFechaFinGraficoMultas2.getDate() == null) {
             JOptionPane.showMessageDialog(null,
-                    "⚠️ La fecha inicial debe ser anterior o igual a la fecha final\n\n"
-                    + "Fecha inicio: " + fechaInicio + "\n"
-                    + "Fecha fin: " + fechaFin,
-                    "Fechas incorrectas",
+                    "⚠️ Debe seleccionar ambas fechas (inicio y fin)\n\n"
+                    + "Este gráfico analiza las multas generadas en un periodo específico.",
+                    "Fechas requeridas",
                     JOptionPane.WARNING_MESSAGE);
             return;
         }
-        
-        // Validar que el rango no sea muy grande (opcional)
-        long diffDias = (txtFechaFinGraficoMultas2.getDate().getTime()
-                - txtFechaInicioGraficoMultas2.getDate().getTime()) / (1000 * 60 * 60 * 24);
-        
-        if (diffDias > 365) {
-            int confirm = JOptionPane.showConfirmDialog(null,
-                    "⚠️ El rango seleccionado es mayor a 1 año (" + diffDias + " días)\n\n"
-                    + "Esto podría hacer el gráfico difícil de leer.\n"
-                    + "¿Desea continuar de todas formas?",
-                    "Rango amplio",
-                    JOptionPane.YES_NO_OPTION,
-                    JOptionPane.WARNING_MESSAGE);
-            
-            if (confirm != JOptionPane.YES_OPTION) {
+
+        try {
+            // Convertir fechas a formato YYYY-MM-DD
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            String fechaInicio = sdf.format(txtFechaInicioGraficoMultas2.getDate());
+            String fechaFin = sdf.format(txtFechaFinGraficoMultas2.getDate());
+
+            // Validar que fecha inicio sea menor o igual a fecha fin
+            if (txtFechaInicioGraficoMultas2.getDate().after(txtFechaFinGraficoMultas2.getDate())) {
+                JOptionPane.showMessageDialog(null,
+                        "⚠️ La fecha inicial debe ser anterior o igual a la fecha final\n\n"
+                        + "Fecha inicio: " + fechaInicio + "\n"
+                        + "Fecha fin: " + fechaFin,
+                        "Fechas incorrectas",
+                        JOptionPane.WARNING_MESSAGE);
                 return;
             }
+
+            // Validar que el rango no sea muy grande (opcional)
+            long diffDias = (txtFechaFinGraficoMultas2.getDate().getTime()
+                    - txtFechaInicioGraficoMultas2.getDate().getTime()) / (1000 * 60 * 60 * 24);
+
+            if (diffDias > 365) {
+                int confirm = JOptionPane.showConfirmDialog(null,
+                        "⚠️ El rango seleccionado es mayor a 1 año (" + diffDias + " días)\n\n"
+                        + "Esto podría hacer el gráfico difícil de leer.\n"
+                        + "¿Desea continuar de todas formas?",
+                        "Rango amplio",
+                        JOptionPane.YES_NO_OPTION,
+                        JOptionPane.WARNING_MESSAGE);
+
+                if (confirm != JOptionPane.YES_OPTION) {
+                    return;
+                }
+            }
+
+            // Generar el gráfico
+            GraficoMultas.GraficarMultasPorFechas(fechaInicio, fechaFin);
+            System.out.println("✅ Gráfico generado para el periodo: " + fechaInicio + " a " + fechaFin);
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null,
+                    "❌ Error al procesar las fechas:\n\n" + e.getMessage(),
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
         }
-        
-        // Generar el gráfico
-        GraficoMultas.GraficarMultasPorFechas(fechaInicio, fechaFin);
-        System.out.println("✅ Gráfico generado para el periodo: " + fechaInicio + " a " + fechaFin);
-        
-    } catch (Exception e) {
-        JOptionPane.showMessageDialog(null,
-                "❌ Error al procesar las fechas:\n\n" + e.getMessage(),
-                "Error",
-                JOptionPane.ERROR_MESSAGE);
-        e.printStackTrace();
     }
-}
 
     private void generarReporteEstadoMultas() {
         Connection con = null;
@@ -2395,273 +2403,275 @@ public class Sistema extends javax.swing.JFrame {
             }
         }
     }
-private void generarReporteMultasPorPeriodo1() {
-    // Validar que las fechas estén seleccionadas
-    if (txtFechaInicioGraficoMultas1.getDate() == null
-            || txtFechaFinGraficoMultas1.getDate() == null) {
 
-        JOptionPane.showMessageDialog(null,
-                "⚠️ Debe seleccionar ambas fechas (inicio y fin)\n\n"
-                + "Este reporte analiza las multas generadas en un periodo específico.",
-                "Fechas requeridas",
-                JOptionPane.WARNING_MESSAGE);
-        return;
-    }
+    private void generarReporteMultasPorPeriodo1() {
+        // Validar que las fechas estén seleccionadas
+        if (txtFechaInicioGraficoMultas1.getDate() == null
+                || txtFechaFinGraficoMultas1.getDate() == null) {
 
-    Connection con = null;
-    PreparedStatement ps = null;
-    ResultSet rs = null;
-    Conexion cn = new Conexion();
-
-    try {
-        // Convertir fechas a formato YYYY-MM-DD
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        String fechaInicio = sdf.format(txtFechaInicioGraficoMultas1.getDate());
-        String fechaFin = sdf.format(txtFechaFinGraficoMultas1.getDate());
-
-        // Validar que fecha inicio sea menor o igual a fecha fin
-        if (txtFechaInicioGraficoMultas1.getDate().after(txtFechaFinGraficoMultas1.getDate())) {
             JOptionPane.showMessageDialog(null,
-                    "⚠️ La fecha inicial debe ser anterior o igual a la fecha final\n\n"
-                    + "Fecha inicio: " + fechaInicio + "\n"
-                    + "Fecha fin: " + fechaFin,
-                    "Fechas incorrectas",
+                    "⚠️ Debe seleccionar ambas fechas (inicio y fin)\n\n"
+                    + "Este reporte analiza las multas generadas en un periodo específico.",
+                    "Fechas requeridas",
                     JOptionPane.WARNING_MESSAGE);
             return;
         }
 
-        String sql = "SELECT m.Estado, COUNT(*) as cantidad, "
-                + "SUM(m.Monto) as total, "
-                + "SUM(m.Dias_retraso) as total_dias "
-                + "FROM multa m "
-                + "INNER JOIN prestamos p ON m.Id_prestamo = p.Id_prestamo "
-                + "WHERE p.Fecha_prestamo >= ? AND p.Fecha_prestamo <= ? "
-                + "GROUP BY m.Estado";
+        Connection con = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        Conexion cn = new Conexion();
 
-        con = cn.getConnection();
-        ps = con.prepareStatement(sql);
-        ps.setString(1, fechaInicio);
-        ps.setString(2, fechaFin);
-        rs = ps.executeQuery();
+        try {
+            // Convertir fechas a formato YYYY-MM-DD
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            String fechaInicio = sdf.format(txtFechaInicioGraficoMultas1.getDate());
+            String fechaFin = sdf.format(txtFechaFinGraficoMultas1.getDate());
 
-        // Recopilar datos
-        Map<String, Integer> cantidades = new HashMap<>();
-        Map<String, Float> montos = new HashMap<>();
-        Map<String, Integer> dias = new HashMap<>();
+            // Validar que fecha inicio sea menor o igual a fecha fin
+            if (txtFechaInicioGraficoMultas1.getDate().after(txtFechaFinGraficoMultas1.getDate())) {
+                JOptionPane.showMessageDialog(null,
+                        "⚠️ La fecha inicial debe ser anterior o igual a la fecha final\n\n"
+                        + "Fecha inicio: " + fechaInicio + "\n"
+                        + "Fecha fin: " + fechaFin,
+                        "Fechas incorrectas",
+                        JOptionPane.WARNING_MESSAGE);
+                return;
+            }
 
-        while (rs.next()) {
-            String estado = rs.getString("Estado");
-            cantidades.put(estado, rs.getInt("cantidad"));
-            montos.put(estado, rs.getFloat("total"));
-            dias.put(estado, rs.getInt("total_dias"));
-        }
+            String sql = "SELECT m.Estado, COUNT(*) as cantidad, "
+                    + "SUM(m.Monto) as total, "
+                    + "SUM(m.Dias_retraso) as total_dias "
+                    + "FROM multa m "
+                    + "INNER JOIN prestamos p ON m.Id_prestamo = p.Id_prestamo "
+                    + "WHERE p.Fecha_prestamo >= ? AND p.Fecha_prestamo <= ? "
+                    + "GROUP BY m.Estado";
 
-        if (cantidades.isEmpty()) {
+            con = cn.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setString(1, fechaInicio);
+            ps.setString(2, fechaFin);
+            rs = ps.executeQuery();
+
+            // Recopilar datos
+            Map<String, Integer> cantidades = new HashMap<>();
+            Map<String, Float> montos = new HashMap<>();
+            Map<String, Integer> dias = new HashMap<>();
+
+            while (rs.next()) {
+                String estado = rs.getString("Estado");
+                cantidades.put(estado, rs.getInt("cantidad"));
+                montos.put(estado, rs.getFloat("total"));
+                dias.put(estado, rs.getInt("total_dias"));
+            }
+
+            if (cantidades.isEmpty()) {
+                JOptionPane.showMessageDialog(null,
+                        "ℹ️ No se encontraron multas en el periodo:\n\n"
+                        + "Desde: " + fechaInicio + "\n"
+                        + "Hasta: " + fechaFin,
+                        "Sin registros",
+                        JOptionPane.INFORMATION_MESSAGE);
+                return;
+            }
+
+            // Crear PDF
+            Document documento = new Document(PageSize.A4);
+
+            String dirReportes = "src/Pdf";
+            File dir = new File(dirReportes);
+            if (!dir.exists()) {
+                dir.mkdirs();
+            }
+
+            String fechaArchivo = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+            String ruta = dirReportes + "/Reporte_Multas_Periodo_" + fechaInicio + "_a_" + fechaFin + "_" + fechaArchivo + ".pdf";
+
+            PdfWriter.getInstance(documento, new FileOutputStream(ruta));
+            documento.open();
+
+            // LOGO Y ENCABEZADO
+            try {
+                Image logo = Image.getInstance("src/Img/SISINf.png");
+                logo.scaleToFit(80, 80);
+                logo.setAlignment(Element.ALIGN_CENTER);
+                documento.add(logo);
+            } catch (Exception e) {
+                System.out.println("Logo no encontrado: " + e.getMessage());
+            }
+
+            Paragraph titulo = new Paragraph("REPORTE: MULTAS POR PERIODO\n",
+                    FontFactory.getFont(FontFactory.HELVETICA_BOLD, 18, BaseColor.DARK_GRAY));
+            titulo.setAlignment(Element.ALIGN_CENTER);
+            documento.add(titulo);
+
+            Paragraph subtitulo = new Paragraph(
+                    "Periodo: " + fechaInicio + " al " + fechaFin + "\n\n",
+                    FontFactory.getFont(FontFactory.HELVETICA_BOLD, 12, new BaseColor(0, 100, 200)));
+            subtitulo.setAlignment(Element.ALIGN_CENTER);
+            documento.add(subtitulo);
+
+            Paragraph fechaGen = new Paragraph(
+                    "Fecha de generación: " + new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(new Date()) + "\n\n",
+                    FontFactory.getFont(FontFactory.HELVETICA, 10, BaseColor.BLACK));
+            fechaGen.setAlignment(Element.ALIGN_RIGHT);
+            documento.add(fechaGen);
+
+            documento.add(new Paragraph("\n"));
+
+            // TABLA POR ESTADO
+            PdfPTable tabla = new PdfPTable(5);
+            tabla.setWidthPercentage(90);
+            tabla.setHorizontalAlignment(Element.ALIGN_CENTER);
+
+            // Encabezados
+            agregarCeldaEncabezadoReporte(tabla, "Estado");
+            agregarCeldaEncabezadoReporte(tabla, "Cantidad");
+            agregarCeldaEncabezadoReporte(tabla, "Días Total");
+            agregarCeldaEncabezadoReporte(tabla, "Monto Total");
+            agregarCeldaEncabezadoReporte(tabla, "Porcentaje");
+
+            int totalMultas = cantidades.values().stream().mapToInt(Integer::intValue).sum();
+            float totalMonto = montos.values().stream().reduce(0f, Float::sum);
+            int totalDias = dias.values().stream().mapToInt(Integer::intValue).sum();
+
+            // Datos por estado
+            for (String estado : cantidades.keySet()) {
+                BaseColor colorFondo;
+                if (estado.equals("Pagada")) {
+                    colorFondo = new BaseColor(200, 255, 200);
+                } else if (estado.equals("Activa")) {
+                    colorFondo = new BaseColor(255, 200, 200);
+                } else {
+                    colorFondo = new BaseColor(230, 230, 230);
+                }
+
+                PdfPCell celda = new PdfPCell(new Phrase(estado,
+                        FontFactory.getFont(FontFactory.HELVETICA_BOLD, 11)));
+                celda.setHorizontalAlignment(Element.ALIGN_CENTER);
+                celda.setPadding(8);
+                celda.setBackgroundColor(colorFondo);
+                tabla.addCell(celda);
+
+                celda = new PdfPCell(new Phrase(String.valueOf(cantidades.get(estado)),
+                        FontFactory.getFont(FontFactory.HELVETICA, 11)));
+                celda.setHorizontalAlignment(Element.ALIGN_CENTER);
+                celda.setPadding(8);
+                tabla.addCell(celda);
+
+                celda = new PdfPCell(new Phrase(String.valueOf(dias.get(estado)),
+                        FontFactory.getFont(FontFactory.HELVETICA, 11)));
+                celda.setHorizontalAlignment(Element.ALIGN_CENTER);
+                celda.setPadding(8);
+                tabla.addCell(celda);
+
+                celda = new PdfPCell(new Phrase(String.format("%.2f Bs", montos.get(estado)),
+                        FontFactory.getFont(FontFactory.HELVETICA_BOLD, 11)));
+                celda.setHorizontalAlignment(Element.ALIGN_RIGHT);
+                celda.setPadding(8);
+                tabla.addCell(celda);
+
+                float porcentaje = (cantidades.get(estado) * 100.0f) / totalMultas;
+                celda = new PdfPCell(new Phrase(String.format("%.1f%%", porcentaje),
+                        FontFactory.getFont(FontFactory.HELVETICA, 11)));
+                celda.setHorizontalAlignment(Element.ALIGN_CENTER);
+                celda.setPadding(8);
+                tabla.addCell(celda);
+            }
+
+            documento.add(tabla);
+
+            // RESUMEN
+            documento.add(new Paragraph("\n\n"));
+
+            Paragraph tituloResumen = new Paragraph("RESUMEN DEL PERIODO",
+                    FontFactory.getFont(FontFactory.HELVETICA_BOLD, 14, BaseColor.DARK_GRAY));
+            tituloResumen.setAlignment(Element.ALIGN_CENTER);
+            documento.add(tituloResumen);
+            documento.add(new Paragraph("\n"));
+
+            PdfPTable tablaResumen = new PdfPTable(2);
+            tablaResumen.setWidthPercentage(70);
+            tablaResumen.setHorizontalAlignment(Element.ALIGN_CENTER);
+
+            // Calcular días del periodo
+            long diffDias = (txtFechaFinGraficoMultas1.getDate().getTime()
+                    - txtFechaInicioGraficoMultas1.getDate().getTime()) / (1000 * 60 * 60 * 24);
+
+            agregarCeldaResumenReporte(tablaResumen, "Periodo analizado:",
+                    fechaInicio + " al " + fechaFin, new BaseColor(240, 240, 255));
+            agregarCeldaResumenReporte(tablaResumen, "Días del periodo:",
+                    String.valueOf(diffDias + 1), BaseColor.LIGHT_GRAY);
+            agregarCeldaResumenReporte(tablaResumen, "Total multas generadas:",
+                    String.valueOf(totalMultas), BaseColor.LIGHT_GRAY);
+            agregarCeldaResumenReporte(tablaResumen, "Total días de retraso:",
+                    String.valueOf(totalDias), BaseColor.LIGHT_GRAY);
+            agregarCeldaResumenReporte(tablaResumen, "Promedio por multa:",
+                    String.format("%.2f Bs", totalMonto / totalMultas), BaseColor.LIGHT_GRAY);
+
+            PdfPCell celdaLabel = new PdfPCell(new Phrase("MONTO TOTAL:",
+                    FontFactory.getFont(FontFactory.HELVETICA_BOLD, 12)));
+            celdaLabel.setBorder(Rectangle.BOX);
+            celdaLabel.setHorizontalAlignment(Element.ALIGN_RIGHT);
+            celdaLabel.setPadding(10);
+            celdaLabel.setBackgroundColor(new BaseColor(200, 200, 255));
+            tablaResumen.addCell(celdaLabel);
+
+            PdfPCell celdaValor = new PdfPCell(new Phrase(String.format("%.2f Bs", totalMonto),
+                    FontFactory.getFont(FontFactory.HELVETICA_BOLD, 12)));
+            celdaValor.setBorder(Rectangle.BOX);
+            celdaValor.setHorizontalAlignment(Element.ALIGN_CENTER);
+            celdaValor.setPadding(10);
+            celdaValor.setBackgroundColor(BaseColor.YELLOW);
+            tablaResumen.addCell(celdaValor);
+
+            documento.add(tablaResumen);
+
+            // PIE DE PÁGINA
+            documento.add(new Paragraph("\n\n"));
+            Paragraph pie = new Paragraph(
+                    "___________________________________________\n\n"
+                    + "Sistema de Gestión Bibliotecaria - Reportes Automáticos\n"
+                    + "Generado por: Los intrepidos",
+                    FontFactory.getFont(FontFactory.HELVETICA, 8, BaseColor.GRAY));
+            pie.setAlignment(Element.ALIGN_CENTER);
+            documento.add(pie);
+
+            documento.close();
+
             JOptionPane.showMessageDialog(null,
-                    "ℹ️ No se encontraron multas en el periodo:\n\n"
-                    + "Desde: " + fechaInicio + "\n"
-                    + "Hasta: " + fechaFin,
-                    "Sin registros",
+                    "✅ REPORTE GENERADO EXITOSAMENTE\n\n"
+                    + "Periodo: " + fechaInicio + " al " + fechaFin + "\n"
+                    + "Total multas: " + totalMultas + "\n"
+                    + "Monto total: " + String.format("%.2f Bs", totalMonto) + "\n\n"
+                    + "Archivo guardado en:\n" + ruta,
+                    "Reporte Generado",
                     JOptionPane.INFORMATION_MESSAGE);
-            return;
-        }
 
-        // Crear PDF
-        Document documento = new Document(PageSize.A4);
+            java.awt.Desktop.getDesktop().open(new File(ruta));
 
-        String dirReportes = "src/Pdf";
-        File dir = new File(dirReportes);
-        if (!dir.exists()) {
-            dir.mkdirs();
-        }
-
-        String fechaArchivo = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String ruta = dirReportes + "/Reporte_Multas_Periodo_" + fechaInicio + "_a_" + fechaFin + "_" + fechaArchivo + ".pdf";
-
-        PdfWriter.getInstance(documento, new FileOutputStream(ruta));
-        documento.open();
-
-        // LOGO Y ENCABEZADO
-        try {
-            Image logo = Image.getInstance("src/Img/SISINf.png");
-            logo.scaleToFit(80, 80);
-            logo.setAlignment(Element.ALIGN_CENTER);
-            documento.add(logo);
         } catch (Exception e) {
-            System.out.println("Logo no encontrado: " + e.getMessage());
-        }
-
-        Paragraph titulo = new Paragraph("REPORTE: MULTAS POR PERIODO\n",
-                FontFactory.getFont(FontFactory.HELVETICA_BOLD, 18, BaseColor.DARK_GRAY));
-        titulo.setAlignment(Element.ALIGN_CENTER);
-        documento.add(titulo);
-
-        Paragraph subtitulo = new Paragraph(
-                "Periodo: " + fechaInicio + " al " + fechaFin + "\n\n",
-                FontFactory.getFont(FontFactory.HELVETICA_BOLD, 12, new BaseColor(0, 100, 200)));
-        subtitulo.setAlignment(Element.ALIGN_CENTER);
-        documento.add(subtitulo);
-
-        Paragraph fechaGen = new Paragraph(
-                "Fecha de generación: " + new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(new Date()) + "\n\n",
-                FontFactory.getFont(FontFactory.HELVETICA, 10, BaseColor.BLACK));
-        fechaGen.setAlignment(Element.ALIGN_RIGHT);
-        documento.add(fechaGen);
-
-        documento.add(new Paragraph("\n"));
-
-        // TABLA POR ESTADO
-        PdfPTable tabla = new PdfPTable(5);
-        tabla.setWidthPercentage(90);
-        tabla.setHorizontalAlignment(Element.ALIGN_CENTER);
-
-        // Encabezados
-        agregarCeldaEncabezadoReporte(tabla, "Estado");
-        agregarCeldaEncabezadoReporte(tabla, "Cantidad");
-        agregarCeldaEncabezadoReporte(tabla, "Días Total");
-        agregarCeldaEncabezadoReporte(tabla, "Monto Total");
-        agregarCeldaEncabezadoReporte(tabla, "Porcentaje");
-
-        int totalMultas = cantidades.values().stream().mapToInt(Integer::intValue).sum();
-        float totalMonto = montos.values().stream().reduce(0f, Float::sum);
-        int totalDias = dias.values().stream().mapToInt(Integer::intValue).sum();
-
-        // Datos por estado
-        for (String estado : cantidades.keySet()) {
-            BaseColor colorFondo;
-            if (estado.equals("Pagada")) {
-                colorFondo = new BaseColor(200, 255, 200);
-            } else if (estado.equals("Activa")) {
-                colorFondo = new BaseColor(255, 200, 200);
-            } else {
-                colorFondo = new BaseColor(230, 230, 230);
-            }
-
-            PdfPCell celda = new PdfPCell(new Phrase(estado,
-                    FontFactory.getFont(FontFactory.HELVETICA_BOLD, 11)));
-            celda.setHorizontalAlignment(Element.ALIGN_CENTER);
-            celda.setPadding(8);
-            celda.setBackgroundColor(colorFondo);
-            tabla.addCell(celda);
-
-            celda = new PdfPCell(new Phrase(String.valueOf(cantidades.get(estado)),
-                    FontFactory.getFont(FontFactory.HELVETICA, 11)));
-            celda.setHorizontalAlignment(Element.ALIGN_CENTER);
-            celda.setPadding(8);
-            tabla.addCell(celda);
-
-            celda = new PdfPCell(new Phrase(String.valueOf(dias.get(estado)),
-                    FontFactory.getFont(FontFactory.HELVETICA, 11)));
-            celda.setHorizontalAlignment(Element.ALIGN_CENTER);
-            celda.setPadding(8);
-            tabla.addCell(celda);
-
-            celda = new PdfPCell(new Phrase(String.format("%.2f Bs", montos.get(estado)),
-                    FontFactory.getFont(FontFactory.HELVETICA_BOLD, 11)));
-            celda.setHorizontalAlignment(Element.ALIGN_RIGHT);
-            celda.setPadding(8);
-            tabla.addCell(celda);
-
-            float porcentaje = (cantidades.get(estado) * 100.0f) / totalMultas;
-            celda = new PdfPCell(new Phrase(String.format("%.1f%%", porcentaje),
-                    FontFactory.getFont(FontFactory.HELVETICA, 11)));
-            celda.setHorizontalAlignment(Element.ALIGN_CENTER);
-            celda.setPadding(8);
-            tabla.addCell(celda);
-        }
-
-        documento.add(tabla);
-
-        // RESUMEN
-        documento.add(new Paragraph("\n\n"));
-
-        Paragraph tituloResumen = new Paragraph("RESUMEN DEL PERIODO",
-                FontFactory.getFont(FontFactory.HELVETICA_BOLD, 14, BaseColor.DARK_GRAY));
-        tituloResumen.setAlignment(Element.ALIGN_CENTER);
-        documento.add(tituloResumen);
-        documento.add(new Paragraph("\n"));
-
-        PdfPTable tablaResumen = new PdfPTable(2);
-        tablaResumen.setWidthPercentage(70);
-        tablaResumen.setHorizontalAlignment(Element.ALIGN_CENTER);
-
-        // Calcular días del periodo
-        long diffDias = (txtFechaFinGraficoMultas1.getDate().getTime()
-                - txtFechaInicioGraficoMultas1.getDate().getTime()) / (1000 * 60 * 60 * 24);
-
-        agregarCeldaResumenReporte(tablaResumen, "Periodo analizado:",
-                fechaInicio + " al " + fechaFin, new BaseColor(240, 240, 255));
-        agregarCeldaResumenReporte(tablaResumen, "Días del periodo:",
-                String.valueOf(diffDias + 1), BaseColor.LIGHT_GRAY);
-        agregarCeldaResumenReporte(tablaResumen, "Total multas generadas:",
-                String.valueOf(totalMultas), BaseColor.LIGHT_GRAY);
-        agregarCeldaResumenReporte(tablaResumen, "Total días de retraso:",
-                String.valueOf(totalDias), BaseColor.LIGHT_GRAY);
-        agregarCeldaResumenReporte(tablaResumen, "Promedio por multa:",
-                String.format("%.2f Bs", totalMonto / totalMultas), BaseColor.LIGHT_GRAY);
-
-        PdfPCell celdaLabel = new PdfPCell(new Phrase("MONTO TOTAL:",
-                FontFactory.getFont(FontFactory.HELVETICA_BOLD, 12)));
-        celdaLabel.setBorder(Rectangle.BOX);
-        celdaLabel.setHorizontalAlignment(Element.ALIGN_RIGHT);
-        celdaLabel.setPadding(10);
-        celdaLabel.setBackgroundColor(new BaseColor(200, 200, 255));
-        tablaResumen.addCell(celdaLabel);
-
-        PdfPCell celdaValor = new PdfPCell(new Phrase(String.format("%.2f Bs", totalMonto),
-                FontFactory.getFont(FontFactory.HELVETICA_BOLD, 12)));
-        celdaValor.setBorder(Rectangle.BOX);
-        celdaValor.setHorizontalAlignment(Element.ALIGN_CENTER);
-        celdaValor.setPadding(10);
-        celdaValor.setBackgroundColor(BaseColor.YELLOW);
-        tablaResumen.addCell(celdaValor);
-
-        documento.add(tablaResumen);
-
-        // PIE DE PÁGINA
-        documento.add(new Paragraph("\n\n"));
-        Paragraph pie = new Paragraph(
-                "___________________________________________\n\n"
-                + "Sistema de Gestión Bibliotecaria - Reportes Automáticos\n"
-                + "Generado por: Los intrepidos",
-                FontFactory.getFont(FontFactory.HELVETICA, 8, BaseColor.GRAY));
-        pie.setAlignment(Element.ALIGN_CENTER);
-        documento.add(pie);
-
-        documento.close();
-
-        JOptionPane.showMessageDialog(null,
-                "✅ REPORTE GENERADO EXITOSAMENTE\n\n"
-                + "Periodo: " + fechaInicio + " al " + fechaFin + "\n"
-                + "Total multas: " + totalMultas + "\n"
-                + "Monto total: " + String.format("%.2f Bs", totalMonto) + "\n\n"
-                + "Archivo guardado en:\n" + ruta,
-                "Reporte Generado",
-                JOptionPane.INFORMATION_MESSAGE);
-
-        java.awt.Desktop.getDesktop().open(new File(ruta));
-
-    } catch (Exception e) {
-        JOptionPane.showMessageDialog(null,
-                "❌ Error al generar el reporte:\n\n" + e.getMessage(),
-                "Error", JOptionPane.ERROR_MESSAGE);
-        e.printStackTrace();
-    } finally {
-        try {
-            if (rs != null) {
-                rs.close();
-            }
-            if (ps != null) {
-                ps.close();
-            }
-            if (con != null) {
-                con.close();
-            }
-        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null,
+                    "❌ Error al generar el reporte:\n\n" + e.getMessage(),
+                    "Error", JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
-}
+
     private void generarReporteLibrosConMasMultas() {
         Connection con = null;
         PreparedStatement ps = null;
@@ -8032,7 +8042,7 @@ private void generarReporteMultasPorPeriodo1() {
 
     private void btnAnalisisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnalisisActionPerformed
         // TODO add your handling code here:
-         jTabbedPane1.setSelectedIndex(7);
+        jTabbedPane1.setSelectedIndex(7);
     }//GEN-LAST:event_btnAnalisisActionPerformed
 
     private void cboxLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxLibroActionPerformed
@@ -8107,15 +8117,15 @@ private void generarReporteMultasPorPeriodo1() {
         ListarPrestamo();
         txtidUsuarioPrestamo.setText("");
         txtUsuarioPrestamo.setText("");
-                    txtNombrePrestamo.setText("");
-                    txtApellidoPrestamo.setText("");
-                    txtTelefonoPrestamo.setText("");
-                    txtDomicilioPrestamo.setText("");
-                    txtCodigoPrestamo.setText("");
-                    txtidLibroPrestamo.setText("");
-                    txtTituloPrestamo.setText("");
-                    txtEdicionPrestamo.setText("");
-                    txtStockPrestamo.setText("");
+        txtNombrePrestamo.setText("");
+        txtApellidoPrestamo.setText("");
+        txtTelefonoPrestamo.setText("");
+        txtDomicilioPrestamo.setText("");
+        txtCodigoPrestamo.setText("");
+        txtidLibroPrestamo.setText("");
+        txtTituloPrestamo.setText("");
+        txtEdicionPrestamo.setText("");
+        txtStockPrestamo.setText("");
         jTabbedPane1.setSelectedIndex(5);
 
     }//GEN-LAST:event_btnPrestamoActionPerformed
@@ -8124,7 +8134,7 @@ private void generarReporteMultasPorPeriodo1() {
         // TODO add your handling code here:
         jTabbedPane1.setSelectedIndex(8);
 
-        
+
     }//GEN-LAST:event_btnReportesActionPerformed
 
     private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarActionPerformed
@@ -9166,150 +9176,150 @@ private void generarReporteMultasPorPeriodo1() {
 
     private void btnGuardarPrestamoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarPrestamoActionPerformed
         // TODO add your handling code here:
-    
-    // PRIMERO: Verificar campos vacíos
-    if ("".equals(txtidUsuarioPrestamo.getText()) || "".equals(txtidLibroPrestamo.getText()) || txtFechaDevolucion.getDate() == null) {
-        JOptionPane.showMessageDialog(null, "Los campos están vacíos");
-        return; // SALIR si hay campos vacíos
-    }
-     // SEGUNDO: Verificar que la fecha de devolución no sea anterior a la actual
-    Date fechaSeleccionada = txtFechaDevolucion.getDate();
-    Date fechaActual = new Date();
-    
-    // Comparar solo la parte de fecha (sin hora)
-    Calendar calSeleccionada = Calendar.getInstance();
-    calSeleccionada.setTime(fechaSeleccionada);
-    calSeleccionada.set(Calendar.HOUR_OF_DAY, 0);
-    calSeleccionada.set(Calendar.MINUTE, 0);
-    calSeleccionada.set(Calendar.SECOND, 0);
-    calSeleccionada.set(Calendar.MILLISECOND, 0);
-    
-    Calendar calActual = Calendar.getInstance();
-    calActual.setTime(fechaActual);
-    calActual.set(Calendar.HOUR_OF_DAY, 0);
-    calActual.set(Calendar.MINUTE, 0);
-    calActual.set(Calendar.SECOND, 0);
-    calActual.set(Calendar.MILLISECOND, 0);
-    
-    if (calSeleccionada.before(calActual)) {
-        JOptionPane.showMessageDialog(null, "Fecha inválida: es anterior a la fecha actual");
-        return;
-    }
-    
-     // TERCERO: Verificar hora (solo si la fecha seleccionada es hoy)
-    String horaSeleccionada = txtHoraPrestamo.getText().trim();
-    
-    if (!horaSeleccionada.isEmpty() && calSeleccionada.equals(calActual)) {
-        String[] partesHora = horaSeleccionada.split(":");
-        int hora = Integer.parseInt(partesHora[0]);
-        int minuto = Integer.parseInt(partesHora[1]);
-        
-        Calendar ahora = Calendar.getInstance();
-        int horaActual = ahora.get(Calendar.HOUR_OF_DAY);
-        int minutoActual = ahora.get(Calendar.MINUTE);
-        
-        // Verificar que la hora no sea antes de la actual
-        if (hora < horaActual || (hora == horaActual && minuto < minutoActual)) {
-            JOptionPane.showMessageDialog(null, "Hora inválida: es anterior a la hora actual");
+
+        // PRIMERO: Verificar campos vacíos
+        if ("".equals(txtidUsuarioPrestamo.getText()) || "".equals(txtidLibroPrestamo.getText()) || txtFechaDevolucion.getDate() == null) {
+            JOptionPane.showMessageDialog(null, "Los campos están vacíos");
+            return; // SALIR si hay campos vacíos
+        }
+        // SEGUNDO: Verificar que la fecha de devolución no sea anterior a la actual
+        Date fechaSeleccionada = txtFechaDevolucion.getDate();
+        Date fechaActual = new Date();
+
+        // Comparar solo la parte de fecha (sin hora)
+        Calendar calSeleccionada = Calendar.getInstance();
+        calSeleccionada.setTime(fechaSeleccionada);
+        calSeleccionada.set(Calendar.HOUR_OF_DAY, 0);
+        calSeleccionada.set(Calendar.MINUTE, 0);
+        calSeleccionada.set(Calendar.SECOND, 0);
+        calSeleccionada.set(Calendar.MILLISECOND, 0);
+
+        Calendar calActual = Calendar.getInstance();
+        calActual.setTime(fechaActual);
+        calActual.set(Calendar.HOUR_OF_DAY, 0);
+        calActual.set(Calendar.MINUTE, 0);
+        calActual.set(Calendar.SECOND, 0);
+        calActual.set(Calendar.MILLISECOND, 0);
+
+        if (calSeleccionada.before(calActual)) {
+            JOptionPane.showMessageDialog(null, "Fecha inválida: es anterior a la fecha actual");
             return;
         }
-    }
-    
-    // SEGUNDO: Verificar usuario
-    String cod = txtUsuarioPrestamo.getText();
-    us = usuario.BuscarUsuario(cod);
-    if (us.getId_estado_prestamo() != 1) {
-        JOptionPane.showMessageDialog(null, "El usuario no está habilitado para realizar un préstamo");
-        return;
-    }
-    
-    // TERCERO: Verificar libro
-    String codlibro2 = txtCodigoPrestamo.getText();
-    li = libro.BuscarLibro(codlibro2);
-    if (li.getId_estado() != 5) {
-        JOptionPane.showMessageDialog(null, "El libro ya se encuentra en préstamo");
-        return;
-    }
-    
-    // CUARTO: Verificar límites por cargo
-    String codUsuario2 = txtUsuarioPrestamo.getText();
-    us = usuario.BuscarUsuario2(codUsuario2);
-    
-    // VERIFICACIÓN DE CARGOS
-    boolean puedePrestar = false;
-    String mensajeError = "";
-    
-    if (us.getId_cargo() == 2) {
-        if (us.getLibros_prestados() < 3) {
-            puedePrestar = true;
-        } else {
-            mensajeError = "El DOCENTE ya alcanzó el límite de 3 libros";
-        }
-    } else if (us.getId_cargo() == 3) {
-        if (us.getLibros_prestados() < 1) {
-            puedePrestar = true;
-        } else {
-            mensajeError = "El ESTUDIANTE ya tiene un libro prestado";
-        }
-    } else {
-        puedePrestar = true;
-    }
 
-    // SI NO PUEDE PRESTAR, MOSTRAR ERROR Y SALIR
-    if (!puedePrestar && !mensajeError.isEmpty()) {
-        JOptionPane.showMessageDialog(null, mensajeError);
-        return;
-    }
-    
-    // SI LLEGA AQUÍ, TODAS LAS VALIDACIONES PASARON - PROCESAR EL PRÉSTAMO
-    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-    fechaSeleccionada = txtFechaDevolucion.getDate();
-    horaSeleccionada = txtHoraPrestamo.getText().trim();
-    
-    Calendar calendario = Calendar.getInstance();
-    calendario.setTime(fechaSeleccionada);
-    
-    if (!horaSeleccionada.isEmpty()) {
-        String[] partesHora = horaSeleccionada.split(":");
-        if (partesHora.length >= 2) {
+        // TERCERO: Verificar hora (solo si la fecha seleccionada es hoy)
+        String horaSeleccionada = txtHoraPrestamo.getText().trim();
+
+        if (!horaSeleccionada.isEmpty() && calSeleccionada.equals(calActual)) {
+            String[] partesHora = horaSeleccionada.split(":");
             int hora = Integer.parseInt(partesHora[0]);
             int minuto = Integer.parseInt(partesHora[1]);
-            int segundo = partesHora.length > 2 ? Integer.parseInt(partesHora[2]) : 0;
-            
-            calendario.set(Calendar.HOUR_OF_DAY, hora);
-            calendario.set(Calendar.MINUTE, minuto);
-            calendario.set(Calendar.SECOND, segundo);
+
+            Calendar ahora = Calendar.getInstance();
+            int horaActual = ahora.get(Calendar.HOUR_OF_DAY);
+            int minutoActual = ahora.get(Calendar.MINUTE);
+
+            // Verificar que la hora no sea antes de la actual
+            if (hora < horaActual || (hora == horaActual && minuto < minutoActual)) {
+                JOptionPane.showMessageDialog(null, "Hora inválida: es anterior a la hora actual");
+                return;
+            }
         }
-    }
-    
-    String fechaDevolucionFormateada = sdf.format(calendario.getTime());
-    pre.setId_usuario(Integer.parseInt(txtidUsuarioPrestamo.getText()));
-    pre.setId_libro(Integer.parseInt(txtidLibroPrestamo.getText()));
-    pre.setFecha_devolucion(fechaDevolucionFormateada);
-    
-    JOptionPane.showMessageDialog(null, "Se registró el préstamo correctamente");
-    
-    boolean errores;
-    errores = prestamo.RegistrarPrestamo(pre);
-    if (errores == true) {
-        generarBoletaUltimoPrestamo();
-        String co = txtCodigoPrestamo.getText();
-        String co2 = txtUsuarioPrestamo.getText();
-        li = libro.BuscarLibro(co);
-        us = usuario.BuscarUsuario(co2);
-        int StockActual = li.getStock() - 1;
-        int EstadoActual = li.getId_estado();
-        int Libro_Prestado_Us = us.getLibros_prestados() + 1;
-        EstadoActual = 2;
-        int idlibro = li.getId_libro();
-        int idusuario = us.getId_usuario();
-        prestamo.ActualizarStockLibro(StockActual, idlibro);
-        prestamo.ActualizarEstadoLibroPrestamo(EstadoActual, idlibro);
-        prestamo.ActualizarLibroPrestadoUsuario(Libro_Prestado_Us, idusuario);
-        LimpiarTable();
-        LimpiarPrestamo();
-        ListarPrestamo();
-    }
+
+        // SEGUNDO: Verificar usuario
+        String cod = txtUsuarioPrestamo.getText();
+        us = usuario.BuscarUsuario(cod);
+        if (us.getId_estado_prestamo() != 1) {
+            JOptionPane.showMessageDialog(null, "El usuario no está habilitado para realizar un préstamo");
+            return;
+        }
+
+        // TERCERO: Verificar libro
+        String codlibro2 = txtCodigoPrestamo.getText();
+        li = libro.BuscarLibro(codlibro2);
+        if (li.getId_estado() != 5) {
+            JOptionPane.showMessageDialog(null, "El libro ya se encuentra en préstamo");
+            return;
+        }
+
+        // CUARTO: Verificar límites por cargo
+        String codUsuario2 = txtUsuarioPrestamo.getText();
+        us = usuario.BuscarUsuario2(codUsuario2);
+
+        // VERIFICACIÓN DE CARGOS
+        boolean puedePrestar = false;
+        String mensajeError = "";
+
+        if (us.getId_cargo() == 2) {
+            if (us.getLibros_prestados() < 3) {
+                puedePrestar = true;
+            } else {
+                mensajeError = "El DOCENTE ya alcanzó el límite de 3 libros";
+            }
+        } else if (us.getId_cargo() == 3) {
+            if (us.getLibros_prestados() < 1) {
+                puedePrestar = true;
+            } else {
+                mensajeError = "El ESTUDIANTE ya tiene un libro prestado";
+            }
+        } else {
+            puedePrestar = true;
+        }
+
+        // SI NO PUEDE PRESTAR, MOSTRAR ERROR Y SALIR
+        if (!puedePrestar && !mensajeError.isEmpty()) {
+            JOptionPane.showMessageDialog(null, mensajeError);
+            return;
+        }
+
+        // SI LLEGA AQUÍ, TODAS LAS VALIDACIONES PASARON - PROCESAR EL PRÉSTAMO
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        fechaSeleccionada = txtFechaDevolucion.getDate();
+        horaSeleccionada = txtHoraPrestamo.getText().trim();
+
+        Calendar calendario = Calendar.getInstance();
+        calendario.setTime(fechaSeleccionada);
+
+        if (!horaSeleccionada.isEmpty()) {
+            String[] partesHora = horaSeleccionada.split(":");
+            if (partesHora.length >= 2) {
+                int hora = Integer.parseInt(partesHora[0]);
+                int minuto = Integer.parseInt(partesHora[1]);
+                int segundo = partesHora.length > 2 ? Integer.parseInt(partesHora[2]) : 0;
+
+                calendario.set(Calendar.HOUR_OF_DAY, hora);
+                calendario.set(Calendar.MINUTE, minuto);
+                calendario.set(Calendar.SECOND, segundo);
+            }
+        }
+
+        String fechaDevolucionFormateada = sdf.format(calendario.getTime());
+        pre.setId_usuario(Integer.parseInt(txtidUsuarioPrestamo.getText()));
+        pre.setId_libro(Integer.parseInt(txtidLibroPrestamo.getText()));
+        pre.setFecha_devolucion(fechaDevolucionFormateada);
+
+        JOptionPane.showMessageDialog(null, "Se registró el préstamo correctamente");
+
+        boolean errores;
+        errores = prestamo.RegistrarPrestamo(pre);
+        if (errores == true) {
+            generarBoletaUltimoPrestamo();
+            String co = txtCodigoPrestamo.getText();
+            String co2 = txtUsuarioPrestamo.getText();
+            li = libro.BuscarLibro(co);
+            us = usuario.BuscarUsuario(co2);
+            int StockActual = li.getStock() - 1;
+            int EstadoActual = li.getId_estado();
+            int Libro_Prestado_Us = us.getLibros_prestados() + 1;
+            EstadoActual = 2;
+            int idlibro = li.getId_libro();
+            int idusuario = us.getId_usuario();
+            prestamo.ActualizarStockLibro(StockActual, idlibro);
+            prestamo.ActualizarEstadoLibroPrestamo(EstadoActual, idlibro);
+            prestamo.ActualizarLibroPrestadoUsuario(Libro_Prestado_Us, idusuario);
+            LimpiarTable();
+            LimpiarPrestamo();
+            ListarPrestamo();
+        }
     }//GEN-LAST:event_btnGuardarPrestamoActionPerformed
 
     private void TablePrestamoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablePrestamoMouseClicked
@@ -9773,43 +9783,48 @@ private void generarReporteMultasPorPeriodo1() {
 
     private void btnGuardarLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarLibroActionPerformed
         // TODO add your handling code here:
-        if (!"".equals(txtTituloLibro.getText()) && !"".equals(txtCodigoLibro.getText()) && !"".equals(cboxEstadoLibro.getSelectedItem()) && !"".equals(txtStockLibro.getText()) && !"".equals(txtAnioLibro.getText())) {
-            boolean error;
-            li.setTitulo(txtTituloLibro.getText());
-            li.setCodigo(txtCodigoLibro.getText());
-            if (!"".equals(cboxAutorLibro.getSelectedItem().toString())) {
-                li.setId_autor(libro.ObtenerIdAutor(cboxAutorLibro.getSelectedItem().toString()));
+        if (libro.existeLibro(txtCodigoLibro.getText()) == false){
+            if (!"".equals(txtTituloLibro.getText()) && !"".equals(txtCodigoLibro.getText()) && !"".equals(cboxEstadoLibro.getSelectedItem()) && !"".equals(txtStockLibro.getText()) && !"".equals(txtAnioLibro.getText())) {
+                boolean error;
+                li.setTitulo(txtTituloLibro.getText());
+                li.setCodigo(txtCodigoLibro.getText());
+                if (!"".equals(cboxAutorLibro.getSelectedItem().toString())) {
+                    li.setId_autor(libro.ObtenerIdAutor(cboxAutorLibro.getSelectedItem().toString()));
+                }
+                if (!"".equals(cboxMateriaLibro.getSelectedItem().toString())) {
+                    li.setId_materia(libro.ObtenerIdMateria(cboxMateriaLibro.getSelectedItem().toString()));
+                }
+                li.setStock(1);
+                if (!"".equals(cboxEditorialLibro.getSelectedItem().toString())) {
+                    li.setId_editorial(libro.ObtenerIdEditorial(cboxEditorialLibro.getSelectedItem().toString()));
+                }
+                if (!"".equals(txtAnioLibro.getText())) {
+                    li.setAnio(Integer.parseInt(txtAnioLibro.getText()));
+                }
+                li.setEdicion(txtEdicionLibro.getText());
+                if (!"".equals(cboxCategoriaLibro.getSelectedItem().toString())) {
+                    li.setId_categoria(libro.ObtenerIdCategoria(cboxCategoriaLibro.getSelectedItem().toString()));
+                }
+                if (!"".equals(cboxEstadoLibro.getSelectedItem().toString())) {
+                    li.setId_estado(libro.ObtenerIdEstado(cboxEstadoLibro.getSelectedItem().toString()));
+                }
+                li.setDescripcion(txtDescripcionLibro.getText());
+                li.setEstado(1);
+                li.setTipo(cboxTipoLibro.getSelectedItem().toString());
+                //System.out.println(li.getTitulo() + " " + li.getCodigo() + " " + li.getId_autor() + " " + li.getId_materia() + " " + li.getStock() + " " + li.getId_editorial() + " " + li.getAnio() + " " + li.getEdicion() + " " + li.getId_categoria() + " " + li.getId_estado() + " " + li.getDescripcion() + " " + li.getEstado());
+                error = libro.RegistrarLibro(li);
+                if (error == true) {
+                    JOptionPane.showMessageDialog(null, "Libro Registrado con Exito!!!");
+                    LimpiarTable();
+                    LimpiarLibro();
+                    ListarLibro();
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Los campos Titulo, Código, Estado, Edicion y Año son obligatorios");
             }
-            if (!"".equals(cboxMateriaLibro.getSelectedItem().toString())) {
-                li.setId_materia(libro.ObtenerIdMateria(cboxMateriaLibro.getSelectedItem().toString()));
-            }
-            li.setStock(1);
-            if (!"".equals(cboxEditorialLibro.getSelectedItem().toString())) {
-                li.setId_editorial(libro.ObtenerIdEditorial(cboxEditorialLibro.getSelectedItem().toString()));
-            }
-            if (!"".equals(txtAnioLibro.getText())) {
-                li.setAnio(Integer.parseInt(txtAnioLibro.getText()));
-            }
-            li.setEdicion(txtEdicionLibro.getText());
-            if (!"".equals(cboxCategoriaLibro.getSelectedItem().toString())) {
-                li.setId_categoria(libro.ObtenerIdCategoria(cboxCategoriaLibro.getSelectedItem().toString()));
-            }
-            if (!"".equals(cboxEstadoLibro.getSelectedItem().toString())) {
-                li.setId_estado(libro.ObtenerIdEstado(cboxEstadoLibro.getSelectedItem().toString()));
-            }
-            li.setDescripcion(txtDescripcionLibro.getText());
-            li.setEstado(1);
-            li.setTipo(cboxTipoLibro.getSelectedItem().toString());
-            //System.out.println(li.getTitulo() + " " + li.getCodigo() + " " + li.getId_autor() + " " + li.getId_materia() + " " + li.getStock() + " " + li.getId_editorial() + " " + li.getAnio() + " " + li.getEdicion() + " " + li.getId_categoria() + " " + li.getId_estado() + " " + li.getDescripcion() + " " + li.getEstado());
-            error = libro.RegistrarLibro(li);
-            if (error == true) {
-                JOptionPane.showMessageDialog(null, "Libro Registrado con Exito!!!");
-                LimpiarTable();
-                LimpiarLibro();
-                ListarLibro();
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "Los campos Titulo, Código, Estado, Edicion y Año son obligatorios");
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "El libro con el codigo "+txtCodigoLibro.getText()+" ya ha sido registrado");
         }
     }//GEN-LAST:event_btnGuardarLibroActionPerformed
 
@@ -10525,6 +10540,15 @@ private void generarReporteMultasPorPeriodo1() {
 
     private void btnBuscarLibroUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarLibroUsuariosActionPerformed
         jTabbedPane1.setSelectedIndex(1);// TODO add your handling code here:
+        fun.VaciarCombo(cboxNombreLibro2);
+        fun.VaciarCombo(cboxAutorLibro2);
+        fun.VaciarCombo(cboxMateriaLibro2);
+        fun.VaciarCombo(cboxCategoriaLibro2);
+
+        libro.ConsultarNombre(cboxNombreLibro2);
+        libro.ConsultarAutor(cboxAutorLibro2);
+        libro.ConsultarMateria(cboxMateriaLibro2);
+        libro.ConsultarCategoria(cboxCategoriaLibro2);
         ListarLibro2();
         LimpiarLibro2();
     }//GEN-LAST:event_btnBuscarLibroUsuariosActionPerformed
@@ -10746,7 +10770,7 @@ private void generarReporteMultasPorPeriodo1() {
         // TODO add your handling code here:
         ListarLibro();
         pdfLibrosOtro();
-        
+
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
@@ -10762,18 +10786,18 @@ private void generarReporteMultasPorPeriodo1() {
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
         // TODO add your handling code here:
         ListarPrestamoPorRangoReporte();
-          if (txtDesdePrestamoReporte.getDate() != null || txtHastaPrestamoReporte.getDate() != null) {
-             
-          pdfPrestamos();
-          }
+        if (txtDesdePrestamoReporte.getDate() != null || txtHastaPrestamoReporte.getDate() != null) {
+
+            pdfPrestamos();
+        }
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
         // TODO add your handling code here:
         //ListarPrestamo();
-           ListarPrestamo();
-           pdfPrestamos();
-        
+        ListarPrestamo();
+        pdfPrestamos();
+
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
@@ -10867,69 +10891,69 @@ private void generarReporteMultasPorPeriodo1() {
     }//GEN-LAST:event_jButton12ActionPerformed
 
     private void comboxGraficoMulta1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboxGraficoMulta1ActionPerformed
-     // Reutilizar la lógica del combobox original
-    String seleccion = (String) comboxGraficoMulta1.getSelectedItem();
+        // Reutilizar la lógica del combobox original
+        String seleccion = (String) comboxGraficoMulta1.getSelectedItem();
 
-    // Si selecciona "Multas por Periodo", mostrar campos de fecha
-    if (seleccion != null && seleccion.contains("Multas por Periodo")) {
-        // Asegúrate de tener estos campos en la pestaña 2 también
-        txtFechaInicioGraficoMultas1.setVisible(true);
-        txtFechaFinGraficoMultas1.setVisible(true);
-        lblfechainicio1.setVisible(true);
-        lblfechafin1.setVisible(true);
-    } else {
-        txtFechaInicioGraficoMultas1.setVisible(false);
-        txtFechaFinGraficoMultas1.setVisible(false);
-        lblfechainicio1.setVisible(false);
-        lblfechafin1.setVisible(false);
-    }
+        // Si selecciona "Multas por Periodo", mostrar campos de fecha
+        if (seleccion != null && seleccion.contains("Multas por Periodo")) {
+            // Asegúrate de tener estos campos en la pestaña 2 también
+            txtFechaInicioGraficoMultas1.setVisible(true);
+            txtFechaFinGraficoMultas1.setVisible(true);
+            lblfechainicio1.setVisible(true);
+            lblfechafin1.setVisible(true);
+        } else {
+            txtFechaInicioGraficoMultas1.setVisible(false);
+            txtFechaFinGraficoMultas1.setVisible(false);
+            lblfechainicio1.setVisible(false);
+            lblfechafin1.setVisible(false);
+        }
     }//GEN-LAST:event_comboxGraficoMulta1ActionPerformed
 
     private void btnGenerarReporteMulta1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarReporteMulta1ActionPerformed
-      String seleccion = (String) comboxGraficoMulta1.getSelectedItem();
+        String seleccion = (String) comboxGraficoMulta1.getSelectedItem();
 
-    if (seleccion == null || seleccion.startsWith("--")) {
-        JOptionPane.showMessageDialog(null,
-                "⚠️ Por favor, seleccione una opción",
-                "Selección requerida",
-                JOptionPane.WARNING_MESSAGE);
-        return;
-    }
-
-    try {
-        if (seleccion.contains("Estado de Multas")) {
-            generarReporteEstadoMultas();
-
-        } else if (seleccion.contains("Usuarios con Más Multas")) {
-            generarReporteUsuariosConMasMultas();
-
-        } else if (seleccion.contains("Recaudación Mensual")) {
-            generarReporteRecaudacionMensual();
-
-        } else if (seleccion.contains("Multas por Periodo")) {
-            generarReporteMultasPorPeriodo1();  // 👈 Llamar al método con "1"
-
-        } else if (seleccion.contains("Libros que Generan Más Multas")) {
-            generarReporteLibrosConMasMultas();
-
-        } else if (seleccion.contains("Distribución de Montos")) {
-            generarReporteDistribucionMontos();
-
-        } else if (seleccion.contains("Promedio de Días de Retraso")) {
-            generarReportePromedioDiasRetraso();
+        if (seleccion == null || seleccion.startsWith("--")) {
+            JOptionPane.showMessageDialog(null,
+                    "⚠️ Por favor, seleccione una opción",
+                    "Selección requerida",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
         }
 
-    } catch (Exception e) {
-        JOptionPane.showMessageDialog(null,
-                "❌ Error al generar el reporte:\n\n" + e.getMessage(),
-                "Error",
-                JOptionPane.ERROR_MESSAGE);
-        e.printStackTrace();
-    }
+        try {
+            if (seleccion.contains("Estado de Multas")) {
+                generarReporteEstadoMultas();
+
+            } else if (seleccion.contains("Usuarios con Más Multas")) {
+                generarReporteUsuariosConMasMultas();
+
+            } else if (seleccion.contains("Recaudación Mensual")) {
+                generarReporteRecaudacionMensual();
+
+            } else if (seleccion.contains("Multas por Periodo")) {
+                generarReporteMultasPorPeriodo1();  // 👈 Llamar al método con "1"
+
+            } else if (seleccion.contains("Libros que Generan Más Multas")) {
+                generarReporteLibrosConMasMultas();
+
+            } else if (seleccion.contains("Distribución de Montos")) {
+                generarReporteDistribucionMontos();
+
+            } else if (seleccion.contains("Promedio de Días de Retraso")) {
+                generarReportePromedioDiasRetraso();
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null,
+                    "❌ Error al generar el reporte:\n\n" + e.getMessage(),
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_btnGenerarReporteMulta1ActionPerformed
 
     private void btnReporMultasPagadas1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReporMultasPagadas1ActionPerformed
-         // Obtener todas las multas pagadas
+        // Obtener todas las multas pagadas
         List<Multa_pagada> lista = multaPagadaDao.listarPagosPagados();
 
         if (lista.isEmpty()) {
@@ -11211,7 +11235,7 @@ private void generarReporteMultasPorPeriodo1() {
     }//GEN-LAST:event_btnReporMultasPagadas1ActionPerformed
 
     private void btnReporMultasSinPagadas1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReporMultasSinPagadas1ActionPerformed
-         List<Multa> lista = multaDao.listarMultasPorEstado("Activa");
+        List<Multa> lista = multaDao.listarMultasPorEstado("Activa");
 
         if (lista.isEmpty()) {
             JOptionPane.showMessageDialog(null,
@@ -11426,116 +11450,116 @@ private void generarReporteMultasPorPeriodo1() {
     }//GEN-LAST:event_btnReporMultasSinPagadas1ActionPerformed
 
     private void comboxGraficoMulta2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboxGraficoMulta2ActionPerformed
-       // Reutilizar la lógica del combobox original
-    String seleccion = (String) comboxGraficoMulta2.getSelectedItem();
+        // Reutilizar la lógica del combobox original
+        String seleccion = (String) comboxGraficoMulta2.getSelectedItem();
 
-    // Si selecciona "Multas por Periodo", mostrar campos de fecha
-    if (seleccion != null && seleccion.contains("Multas por Periodo")) {
-        // Asegúrate de tener estos campos en la pestaña 2 también
-        txtFechaInicioGraficoMultas2.setVisible(true);
-        txtFechaFinGraficoMultas2.setVisible(true);
-        lblfechainicio2.setVisible(true);
-        lblfechafin2.setVisible(true);
-    } else {
-        txtFechaInicioGraficoMultas2.setVisible(false);
-        txtFechaFinGraficoMultas2.setVisible(false);
-        lblfechainicio2.setVisible(false);
-        lblfechafin2.setVisible(false);
-    }
+        // Si selecciona "Multas por Periodo", mostrar campos de fecha
+        if (seleccion != null && seleccion.contains("Multas por Periodo")) {
+            // Asegúrate de tener estos campos en la pestaña 2 también
+            txtFechaInicioGraficoMultas2.setVisible(true);
+            txtFechaFinGraficoMultas2.setVisible(true);
+            lblfechainicio2.setVisible(true);
+            lblfechafin2.setVisible(true);
+        } else {
+            txtFechaInicioGraficoMultas2.setVisible(false);
+            txtFechaFinGraficoMultas2.setVisible(false);
+            lblfechainicio2.setVisible(false);
+            lblfechafin2.setVisible(false);
+        }
     }//GEN-LAST:event_comboxGraficoMulta2ActionPerformed
 
     private void btnGenerarGraficoMulta1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarGraficoMulta1ActionPerformed
         String seleccion = (String) comboxGraficoMulta2.getSelectedItem();
 
-    // Validar que se haya seleccionado una opción
-    if (seleccion == null || seleccion.startsWith("--")) {
-        JOptionPane.showMessageDialog(null,
-                "⚠️ Por favor, seleccione un tipo de gráfico",
-                "Selección requerida",
-                JOptionPane.WARNING_MESSAGE);
-        return;
-    }
-
-    try {
-        // Generar el gráfico según la selección
-        if (seleccion.contains("Estado de Multas")) {
-            GraficoMultas.GraficarEstadoMultas();
-
-        } else if (seleccion.contains("Usuarios con Más Multas")) {
-            GraficoMultas.GraficarUsuariosConMasMultas();
-
-        } else if (seleccion.contains("Recaudación Mensual")) {
-            GraficoMultas.GraficarRecaudacionMensual();
-
-        } else if (seleccion.contains("Multas por Periodo")) {
-            generarGraficoMultasPorPeriodo1();  // 👈 Llamar al método con "1"
-
-        } else if (seleccion.contains("Libros que Generan Más Multas")) {
-            GraficoMultas.GraficarLibrosConMasMultas();
-
-        } else if (seleccion.contains("Distribución de Montos")) {
-            GraficoMultas.GraficarDistribucionMontos();
-
-        } else if (seleccion.contains("Promedio de Días de Retraso")) {
-            GraficoMultas.GraficarPromedioDiasRetraso();
+        // Validar que se haya seleccionado una opción
+        if (seleccion == null || seleccion.startsWith("--")) {
+            JOptionPane.showMessageDialog(null,
+                    "⚠️ Por favor, seleccione un tipo de gráfico",
+                    "Selección requerida",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
         }
 
-    } catch (Exception e) {
-        JOptionPane.showMessageDialog(null,
-                "❌ Error al generar el gráfico:\n\n" + e.getMessage(),
-                "Error",
-                JOptionPane.ERROR_MESSAGE);
-        e.printStackTrace();
-    } 
+        try {
+            // Generar el gráfico según la selección
+            if (seleccion.contains("Estado de Multas")) {
+                GraficoMultas.GraficarEstadoMultas();
+
+            } else if (seleccion.contains("Usuarios con Más Multas")) {
+                GraficoMultas.GraficarUsuariosConMasMultas();
+
+            } else if (seleccion.contains("Recaudación Mensual")) {
+                GraficoMultas.GraficarRecaudacionMensual();
+
+            } else if (seleccion.contains("Multas por Periodo")) {
+                generarGraficoMultasPorPeriodo1();  // 👈 Llamar al método con "1"
+
+            } else if (seleccion.contains("Libros que Generan Más Multas")) {
+                GraficoMultas.GraficarLibrosConMasMultas();
+
+            } else if (seleccion.contains("Distribución de Montos")) {
+                GraficoMultas.GraficarDistribucionMontos();
+
+            } else if (seleccion.contains("Promedio de Días de Retraso")) {
+                GraficoMultas.GraficarPromedioDiasRetraso();
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null,
+                    "❌ Error al generar el gráfico:\n\n" + e.getMessage(),
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_btnGenerarGraficoMulta1ActionPerformed
 
     private void btnAyudaPrestamosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAyudaPrestamosActionPerformed
         // TODO add your handling code here:
-         String mensajePrestamo = "✨ Instrucciones de uso del apartado de Préstamos ✨\n\n"
-                        + "🔍 Para buscar un usuario:\n"
-                        + "• Ingresa el número de **carnet** exactamente como aparece en su documento en el campo correspondiente.\n\n"
-                        + "📚 Para registrar un nuevo Préstamo:\n"
-                        + "1. Llena los campos de **Carnet** y **Código Libro** o **Título** del libro.\n"
-                        + "2. Selecciona la **Fecha de devolución** usando el calendario pequeño que se muestra.\n"
-                        + "3. Presiona **\"Seleccionar Hora\"** y usa el reloj emergente para escoger la hora.\n"
-                        + "4. Finalmente, haz clic en el botón **“Guardar”** para registrar el préstamo.\n\n"
-                        + "❌ Para eliminar un registro de Préstamo:\n"
-                        + "1. Selecciona una fila del listado de préstamos en la tabla.\n"
-                        + "2. Presiona el botón **“Eliminar”**.\n\n"
-                        + "3. Confirma la acción en el mensaje emergente.\n\n"
-                        + "↩️ Para registrar una Devolución:\n"
-                        + "1. Selecciona la fila del préstamo que deseas devolver en el listado.\n"
-                        + "2. Presiona el botón **“Registrar Devolucion”** (ubicado bajo la tabla).\n"
-                        + "3. Confirma la acción en el mensaje emergente.\n\n"
-                        + "🗓️ Para listar Préstamos en un rango de fechas:\n"
-                        + "• Ingresa la **fecha de inicio** y la **fecha de fin** en los campos 'Desde la fecha:' y 'hasta la fecha:'.\n"
-                        + "• Presiona el botón **“Listar Rango”**.\n\n"
-                        + "📊 Visualización de Gráficos:\n"
-                        + "• Puedes presionar directamente el botón **“Libros más prestados”**.\n"
-                        + "• O, para un rango específico, selecciona una **fecha de inicio** y **fecha de fin** en la sección 'Grafica de Prestamos' y presiona **“Graficar”**.\n\n"
-                        + "📄 Generación de PDF:\n"
-                        + "• Puedes generar un reporte en PDF de los datos visibles en la tabla usando el ícono correspondiente.\n"
-                        + "• El PDF se creará con la información que se muestra actualmente en la tabla.\n\n"
-                        + "✔️ ¡Listo! Con estas instrucciones podrás manejar el sistema de préstamos sin problemas.";
+        String mensajePrestamo = "✨ Instrucciones de uso del apartado de Préstamos ✨\n\n"
+                + "🔍 Para buscar un usuario:\n"
+                + "• Ingresa el número de **carnet** exactamente como aparece en su documento en el campo correspondiente.\n\n"
+                + "📚 Para registrar un nuevo Préstamo:\n"
+                + "1. Llena los campos de **Carnet** y **Código Libro** o **Título** del libro.\n"
+                + "2. Selecciona la **Fecha de devolución** usando el calendario pequeño que se muestra.\n"
+                + "3. Presiona **\"Seleccionar Hora\"** y usa el reloj emergente para escoger la hora.\n"
+                + "4. Finalmente, haz clic en el botón **“Guardar”** para registrar el préstamo.\n\n"
+                + "❌ Para eliminar un registro de Préstamo:\n"
+                + "1. Selecciona una fila del listado de préstamos en la tabla.\n"
+                + "2. Presiona el botón **“Eliminar”**.\n\n"
+                + "3. Confirma la acción en el mensaje emergente.\n\n"
+                + "↩️ Para registrar una Devolución:\n"
+                + "1. Selecciona la fila del préstamo que deseas devolver en el listado.\n"
+                + "2. Presiona el botón **“Registrar Devolucion”** (ubicado bajo la tabla).\n"
+                + "3. Confirma la acción en el mensaje emergente.\n\n"
+                + "🗓️ Para listar Préstamos en un rango de fechas:\n"
+                + "• Ingresa la **fecha de inicio** y la **fecha de fin** en los campos 'Desde la fecha:' y 'hasta la fecha:'.\n"
+                + "• Presiona el botón **“Listar Rango”**.\n\n"
+                + "📊 Visualización de Gráficos:\n"
+                + "• Puedes presionar directamente el botón **“Libros más prestados”**.\n"
+                + "• O, para un rango específico, selecciona una **fecha de inicio** y **fecha de fin** en la sección 'Grafica de Prestamos' y presiona **“Graficar”**.\n\n"
+                + "📄 Generación de PDF:\n"
+                + "• Puedes generar un reporte en PDF de los datos visibles en la tabla usando el ícono correspondiente.\n"
+                + "• El PDF se creará con la información que se muestra actualmente en la tabla.\n\n"
+                + "✔️ ¡Listo! Con estas instrucciones podrás manejar el sistema de préstamos sin problemas.";
 
-                       JOptionPane.showMessageDialog(this, mensajePrestamo, "Ayuda del Sistema de Préstamos", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(this, mensajePrestamo, "Ayuda del Sistema de Préstamos", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_btnAyudaPrestamosActionPerformed
 
     private void btnReiniciarListadoPrestamoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReiniciarListadoPrestamoActionPerformed
         // TODO add your handling code here:
         LimpiarTable();
         ListarPrestamo();
-         txtidUsuarioPrestamo.setText("");
+        txtidUsuarioPrestamo.setText("");
         txtUsuarioPrestamo.setText("");
-                    txtNombrePrestamo.setText("");
-                    txtApellidoPrestamo.setText("");
-                    txtTelefonoPrestamo.setText("");
-                    txtDomicilioPrestamo.setText("");
-                    txtCodigoPrestamo.setText("");
-                    txtidLibroPrestamo.setText("");
-                    txtTituloPrestamo.setText("");
-                    txtEdicionPrestamo.setText("");
-                    txtStockPrestamo.setText("");
+        txtNombrePrestamo.setText("");
+        txtApellidoPrestamo.setText("");
+        txtTelefonoPrestamo.setText("");
+        txtDomicilioPrestamo.setText("");
+        txtCodigoPrestamo.setText("");
+        txtidLibroPrestamo.setText("");
+        txtTituloPrestamo.setText("");
+        txtEdicionPrestamo.setText("");
+        txtStockPrestamo.setText("");
     }//GEN-LAST:event_btnReiniciarListadoPrestamoActionPerformed
 
     public void ListarUsuario() {
@@ -11616,6 +11640,7 @@ private void generarReporteMultasPorPeriodo1() {
         }
 
     }
+
     public void ListarPrestamoPorRangoReporte() {
         //LimpiarTable();
         if (txtDesdePrestamoReporte.getDate() == null || txtHastaPrestamoReporte.getDate() == null) {
@@ -12126,9 +12151,7 @@ private void generarReporteMultasPorPeriodo1() {
         txtStockPrestamo.setText("");
     }
 
-        
 //auxiliar para filtrar
-
     private void actualizarComboValorUsuario() {
         Object seleccionado = cboxEFiltroUsuario.getSelectedItem();
 
@@ -12261,7 +12284,6 @@ private void generarReporteMultasPorPeriodo1() {
         }
     }
 
-    
     private void pdfLibrosOtro() {
         try {
             String fechaHora = new SimpleDateFormat("dd-MM-yyyy_HH-mm-ss").format(new Date());
@@ -12459,22 +12481,22 @@ private void generarReporteMultasPorPeriodo1() {
     private void pdfPrestamos() {
         try {
             // Obtener fecha y hora actual del sistema
-        SimpleDateFormat sdfFechaHora = new SimpleDateFormat("yyyyMMdd_HHmmss");
-        String fechaHoraSistema = sdfFechaHora.format(new Date());
-        
-        // Formato legible para mostrar
-        SimpleDateFormat sdfLegible = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-        String fechaHoraLegible = sdfLegible.format(new Date());
-        
-        // Ruta del archivo con nuevo nombre
-        String nombreArchivo = "PrestamoReporte-" + fechaHoraSistema + ".pdf";
-        File file = new File("src/pdf/" + nombreArchivo);
+            SimpleDateFormat sdfFechaHora = new SimpleDateFormat("yyyyMMdd_HHmmss");
+            String fechaHoraSistema = sdfFechaHora.format(new Date());
 
-        // Verificar si existe la carpeta, si no crearla
-        File carpetaPdf = new File("src/pdf/");
-        if (!carpetaPdf.exists()) {
-            carpetaPdf.mkdirs();
-        }
+            // Formato legible para mostrar
+            SimpleDateFormat sdfLegible = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+            String fechaHoraLegible = sdfLegible.format(new Date());
+
+            // Ruta del archivo con nuevo nombre
+            String nombreArchivo = "PrestamoReporte-" + fechaHoraSistema + ".pdf";
+            File file = new File("src/pdf/" + nombreArchivo);
+
+            // Verificar si existe la carpeta, si no crearla
+            File carpetaPdf = new File("src/pdf/");
+            if (!carpetaPdf.exists()) {
+                carpetaPdf.mkdirs();
+            }
             FileOutputStream archivo = new FileOutputStream(file);
 
             // Documento horizontal (A4 landscape)
@@ -12588,7 +12610,7 @@ private void generarReporteMultasPorPeriodo1() {
             archivo.close();
 
             JOptionPane.showMessageDialog(null, "PDF de préstamos generado correctamente en: " + file.getAbsolutePath());
-             if (java.awt.Desktop.isDesktopSupported()) {
+            if (java.awt.Desktop.isDesktopSupported()) {
                 java.awt.Desktop.getDesktop().open(file);
             }
 
@@ -12702,8 +12724,8 @@ private void generarReporteMultasPorPeriodo1() {
                         "Boleta generada correctamente para el préstamo #" + idPrestamo
                         + "\nArchivo: " + file.getAbsolutePath());
                 if (java.awt.Desktop.isDesktopSupported()) {
-                java.awt.Desktop.getDesktop().open(file);
-            }
+                    java.awt.Desktop.getDesktop().open(file);
+                }
 
             } else {
                 JOptionPane.showMessageDialog(null, "No se encontraron préstamos registrados");

@@ -54,7 +54,7 @@ public class Grafico {
         }
         
         JFreeChart chart = ChartFactory.createPieChart(
-            "Préstamos Activos por Libro (" + fechaInicio + " a " + fechaFin + ")", 
+            "Préstamos por Libro (" + fechaInicio + " a " + fechaFin + ")", 
             dataset, 
             true, 
             true, 
@@ -66,7 +66,7 @@ public class Grafico {
         plot.setLabelGenerator(new StandardPieSectionLabelGenerator("{0}: {1}"));
         plot.setSimpleLabels(true);
         
-        ChartFrame frame = new ChartFrame("Reporte de Préstamos Activos por Libro", chart);
+        ChartFrame frame = new ChartFrame("Reporte de Préstamos por Libro", chart);
         frame.setSize(1000, 500);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
